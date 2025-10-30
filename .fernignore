@@ -1,0 +1,46 @@
+# Specify files that shouldn't be modified by Fern
+
+# Modified main index file to export our custom wrapper
+
+src/index.ts
+
+# Example usage file
+
+example.ts
+
+# Mock configuration files
+
+.mock/
+
+# Custom wrapper client and utilities
+
+src/wrappers/
+src/utils/
+
+# Custom authentication components (server-only)
+
+src/auth/
+src/server.ts
+
+# Custom tests for wrapper, utilities, and auth
+
+tests/unit/wrappers/
+tests/unit/utils/clientInfo.test.ts
+tests/unit/utils/auth0ClientTelemetry.test.ts
+tests/unit/auth/ClientCredentialsTokenProvider.test.ts
+tests/unit/server.test.ts
+tests/unit/fetcher/auth0Fetcher.test.ts
+
+# TypeDoc configuration and generated docs
+
+typedoc.config.js
+docs/
+
+# ESLint and code quality configuration
+
+eslint.config.mjs
+
+# Husky git hooks
+
+.husky/
+
