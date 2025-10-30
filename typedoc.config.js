@@ -88,7 +88,7 @@ module.exports = {
     cleanOutputDir: true,
     hideGenerator: true,
     navigationLinks: {
-        GitHub: "https://github.com/atko-cic/auth0-myorg-ts-sdk",
+        GitHub: "https://github.com/auth0/myorganization-js",
         npm: "https://www.npmjs.com/package/auth0-my-org",
     },
     visibilityFilters: {

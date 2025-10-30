@@ -1,6 +1,6 @@
 # Auth0 TypeScript Library
 
-[![fern shield](https://img.shields.io/badge/%F0%9F%8C%BF-Built%20with%20Fern-brightgreen)](https://buildwithfern.com?utm_source=github&utm_medium=github&utm_campaign=readme&utm_source=https%3A%2F%2Fgithub.com%atko-cic%2Fauth0-myorg-ts-sdk)
+[![fern shield](https://img.shields.io/badge/%F0%9F%8C%BF-Built%20with%20Fern-brightgreen)](https://buildwithfern.com?utm_source=github&utm_medium=github&utm_campaign=readme&utm_source=https%3A%2F%2Fgithub.com%auth0%2Fmyorganization-js)
 [![npm shield](https://img.shields.io/npm/v/auth0-my-org)](https://www.npmjs.com/package/auth0-my-org)
 
 The Auth0 TypeScript library provides convenient access to the Auth0 APIs from TypeScript.
@@ -13,7 +13,7 @@ npm i -s auth0-my-org
 
 ## Reference
 
-A full reference for this library is available [here](https://github.com/atko-cic/auth0-myorg-ts-sdk/blob/HEAD/./reference.md).
+A full reference for this library is available [here](https://github.com/auth0/myorganization-js/blob/HEAD/./reference.md).
 
 ## Usage
 

@@ -44,3 +44,8 @@ eslint.config.mjs
 
 .husky/
 
+# GitHub workflows and configuration
+
+.version
+.github/
+README.md
