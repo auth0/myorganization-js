@@ -87,6 +87,23 @@
         "node": ">=18.0.0"
     },
     "sideEffects": false,
+    "description": "Auth0 SDK for JavaScript/TypeScript to manage organizations, members, roles, and identity providers",
+    "author": "Auth0",
+    "keywords": [
+        "auth0",
+        "authentication",
+        "authorization",
+        "organizations",
+        "identity",
+        "auth",
+        "sdk",
+        "typescript",
+        "javascript"
+    ],
+    "homepage": "https://github.com/auth0/myorganization-js#readme",
+    "bugs": {
+        "url": "https://github.com/auth0/myorganization-js/issues"
+    },
     "dependencies": {
         "@auth0/auth0-auth-js": "^1.1.0"
     },
