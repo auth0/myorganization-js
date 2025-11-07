@@ -60,15 +60,15 @@ async function getAccessTokenFromAuth0SPA(): Promise<string> {
 async function spaExampleWithScopeAwareToken() {
     const client = new MyOrganizationClient({
         domain: "your-tenant.auth0.com",
-        token: async ({ authorizationParams }) => {
+        token: async ({ scope }) => {
             // This function receives the exact scopes required by each API endpoint
             // Perfect for Auth0 SPA SDK getTokenSilently pattern
-            console.log("API endpoint requires scopes:", authorizationParams.scope);
+            console.log("API endpoint requires scopes:", scope);
 
             // Example integration with @auth0/auth0-spa-js
             const token = await auth0.getTokenSilently({
                 authorizationParams: {
-                    scope: `openid profile email ${authorizationParams.scope}`,
+                    scope: `openid profile email ${scope}`,
                 },
             });
 
@@ -122,14 +122,14 @@ async function spaExampleWithDirectFunction() {
     }
 }
 
-// Your getAccessToken function - SDK automatically passes { authorizationParams } to it
-async function getAccessToken({ authorizationParams }: { authorizationParams: { scope: string } }) {
-    console.log("getAccessToken called with scopes:", authorizationParams.scope);
+// Your getAccessToken function - SDK automatically passes { scope } to it
+async function getAccessToken({ scope }: { scope: string }) {
+    console.log("getAccessToken called with scopes:", scope);
 
     // Your implementation can be anything - Auth0 SPA, custom auth, etc.
     return await auth0.getTokenSilently({
         authorizationParams: {
-            scope: `openid profile email ${authorizationParams.scope}`,
+            scope: `openid profile email ${scope}`,
         },
     });
 }

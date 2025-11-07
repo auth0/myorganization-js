@@ -50,3 +50,4 @@ eslint.config.mjs
 .github/
 README.md
 CONTRIBUTING.md
+.gitignore
