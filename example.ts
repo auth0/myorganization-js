@@ -60,9 +60,10 @@ async function getAccessTokenFromAuth0SPA(): Promise<string> {
 async function spaExampleWithScopeAwareToken() {
     const client = new MyOrganizationClient({
         domain: "your-tenant.auth0.com",
-        token: async ({ scope }) => {
+        token: async (options) => {
             // This function receives the exact scopes required by each API endpoint
             // Perfect for Auth0 SPA SDK getTokenSilently pattern
+            const scope = options?.scope || "";
             console.log("API endpoint requires scopes:", scope);
 
             // Example integration with @auth0/auth0-spa-js
@@ -123,7 +124,8 @@ async function spaExampleWithDirectFunction() {
 }
 
 // Your getAccessToken function - SDK automatically passes { scope } to it
-async function getAccessToken({ scope }: { scope: string }) {
+async function getAccessToken(options?: { scope: string }) {
+    const scope = options?.scope || "";
     console.log("getAccessToken called with scopes:", scope);
 
     // Your implementation can be anything - Auth0 SPA, custom auth, etc.
