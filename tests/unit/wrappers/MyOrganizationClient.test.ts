@@ -110,7 +110,7 @@ describe("MyOrganizationClient Unit Tests", () => {
 
             const result = await wrappedToken({ endpointMetadata: mockEndpointMetadata });
 
-            expect(tokenFunction).toHaveBeenCalledWith(); // Simple function called with no args
+            expect(tokenFunction).toHaveBeenCalledWith({ scope: "" }); // Always called with scope object
             expect(result).toBe("dynamic-token");
         });
 

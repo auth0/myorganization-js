@@ -33,7 +33,7 @@ async function spaExampleWithStaticToken() {
     }
 }
 
-// Example 2: SPA with dynamic token (recommended)
+// Example 2: SPA with dynamic token (recommended for simple use cases)
 async function spaExampleWithDynamicToken() {
     const client = new MyOrganizationClient({
         domain: "your-tenant.auth0.com",
@@ -42,6 +42,25 @@ async function spaExampleWithDynamicToken() {
 
     try {
         // Access organization APIs with user permissions
+        const orgDetails = await client.organizationDetails.get();
+        console.log("Organization Details:", orgDetails);
+    } catch (error) {
+        console.error("Error:", error);
+    }
+}
+
+// Example 2b: SPA with async function (ignores scope parameter)
+async function spaExampleWithAsyncToken() {
+    const client = new MyOrganizationClient({
+        domain: "your-tenant.auth0.com",
+        // SDK always calls with { scope }, but your function can ignore it
+        token: async () => {
+            return await auth0.getTokenSilently();
+        },
+    });
+
+    try {
+        // Works perfectly - SDK passes scope, function ignores it
         const orgDetails = await client.organizationDetails.get();
         console.log("Organization Details:", orgDetails);
     } catch (error) {
@@ -60,10 +79,9 @@ async function getAccessTokenFromAuth0SPA(): Promise<string> {
 async function spaExampleWithScopeAwareToken() {
     const client = new MyOrganizationClient({
         domain: "your-tenant.auth0.com",
-        token: async (options) => {
+        token: async ({ scope }) => {
             // This function receives the exact scopes required by each API endpoint
             // Perfect for Auth0 SPA SDK getTokenSilently pattern
-            const scope = options?.scope || "";
             console.log("API endpoint requires scopes:", scope);
 
             // Example integration with @auth0/auth0-spa-js
@@ -124,8 +142,7 @@ async function spaExampleWithDirectFunction() {
 }
 
 // Your getAccessToken function - SDK automatically passes { scope } to it
-async function getAccessToken(options?: { scope: string }) {
-    const scope = options?.scope || "";
+async function getAccessToken({ scope }: { scope: string }) {
     console.log("getAccessToken called with scopes:", scope);
 
     // Your implementation can be anything - Auth0 SPA, custom auth, etc.
@@ -138,8 +155,9 @@ async function getAccessToken(options?: { scope: string }) {
 
 // Mock auth0 client for example (in real code, import from @auth0/auth0-spa-js)
 const auth0 = {
-    async getTokenSilently(options: { authorizationParams: { scope: string } }): Promise<string> {
-        console.log(`🔐 Getting Auth0 SPA token with scope: "${options.authorizationParams.scope}"`);
+    async getTokenSilently(options?: { authorizationParams: { scope: string } }): Promise<string> {
+        const scope = options?.authorizationParams?.scope || "openid profile email";
+        console.log(`🔐 Getting Auth0 SPA token with scope: "${scope}"`);
         // In real implementation, this would return the actual access token
         return `auth0-spa-token-with-scopes-${Date.now()}`;
     },
@@ -277,6 +295,8 @@ async function main() {
     await spaExampleWithStaticToken();
     console.log("\n2. SPA with Dynamic Token:");
     await spaExampleWithDynamicToken();
+    console.log("\n2b. SPA with Async Token (ignores scope):");
+    await spaExampleWithAsyncToken();
     console.log("\n3. SPA with Scope-Aware Token:");
     await spaExampleWithScopeAwareToken();
     console.log("\n4. SPA with Direct Function:");
@@ -316,6 +336,7 @@ export {
     // SPA Examples
     spaExampleWithStaticToken,
     spaExampleWithDynamicToken,
+    spaExampleWithAsyncToken,
     spaExampleWithScopeAwareToken,
     spaExampleWithDirectFunction,
     getAccessTokenFromAuth0SPA,
