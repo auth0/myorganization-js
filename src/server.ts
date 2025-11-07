@@ -1,5 +1,5 @@
 /**
- * Server-only authentication components for Auth0 MyOrg SDK.
+ * Server-only authentication components for Auth0 MyOrganization SDK.
  *
  * This module contains authentication providers that should ONLY be used
  * in secure server environments where client secrets and private keys can
@@ -20,9 +20,9 @@ export {
     type ClientCredentialsOptions,
 } from "./auth/index.js";
 
-export { MyOrgClient } from "./wrappers/MyOrgClient.js";
+export { MyOrganizationClient } from "./wrappers/MyOrganizationClient.js";
 
-import { MyOrgClient } from "./wrappers/MyOrgClient.js";
+import { MyOrganizationClient } from "./wrappers/MyOrganizationClient.js";
 import {
     ClientCredentialsTokenProvider,
     type ClientCredentialsOptions,
@@ -41,12 +41,12 @@ export type ClientCredentialsProviderOptions =
     | Omit<ClientCredentialsWithAssertionOptions, "domain">;
 
 /**
- * Creates a MyOrgClient with client credentials authentication.
+ * Creates a MyOrganizationClient with client credentials authentication.
  * Provides clear separation between client options and authentication provider options.
  *
- * @param clientOptions - MyOrgClient configuration options (domain, baseUrl, telemetry, etc.)
+ * @param clientOptions - MyOrganizationClient configuration options (domain, baseUrl, telemetry, etc.)
  * @param providerOptions - Client credentials authentication options (clientId, clientSecret, organization, etc.)
- * @returns A configured MyOrgClient ready to use
+ * @returns A configured MyOrganizationClient ready to use
  *
  * @group Server Authentication
  * @public
@@ -99,18 +99,18 @@ export type ClientCredentialsProviderOptions =
  * );
  * ```
  */
-export function createMyOrgClientWithClientCredentials(
-    clientOptions: MyOrgClient.MyOrgClientOptions,
+export function createMyOrganizationClientWithClientCredentials(
+    clientOptions: MyOrganizationClient.MyOrganizationClientOptions,
     providerOptions: ClientCredentialsProviderOptions,
-): MyOrgClient {
+): MyOrganizationClient {
     // Create the token provider with authentication options and domain from client options
     const tokenProvider = new ClientCredentialsTokenProvider({
         ...providerOptions,
         domain: clientOptions.domain,
     } as ClientCredentialsOptions);
 
-    // Create and return the MyOrgClient with the token provider
-    return new MyOrgClient({
+    // Create and return the MyOrganizationClient with the token provider
+    return new MyOrganizationClient({
         ...clientOptions,
         tokenProvider,
     });

@@ -1,4 +1,4 @@
-import { Auth0MyOrgClient } from "../Client.js";
+import { MyOrganizationClient as FernClient } from "../Client.js";
 import { Auth0ClientTelemetry, type Auth0ClientTelemetryOptions } from "../utils/index.js";
 import * as core from "../core/index.js";
 import {
@@ -11,26 +11,26 @@ import {
 import { type TokenProvider } from "../auth/index.js";
 
 /**
- * All supported configuration options for the MyOrgClient.
+ * All supported configuration options for the MyOrganizationClient.
  *
- * @group MyOrg API
+ * @group MyOrganization API
  */
-type MyOrgClientConfig =
-    | MyOrgClient.MyOrgClientOptionsWithToken
-    | MyOrgClient.MyOrgClientOptionsWithTokenProvider
-    | MyOrgClient.MyOrgClientOptionsWithFetcher;
+type MyOrganizationClientConfig =
+    | MyOrganizationClient.MyOrganizationClientOptionsWithToken
+    | MyOrganizationClient.MyOrganizationClientOptionsWithTokenProvider
+    | MyOrganizationClient.MyOrganizationClientOptionsWithFetcher;
 
-export declare namespace MyOrgClient {
+export declare namespace MyOrganizationClient {
     /**
-     * Base configuration options for the MyOrg Client.
+     * Base configuration options for the MyOrganization Client.
      * Extends the Fern client options but excludes token and environment
      * as these are handled by our wrapper.
      *
-     * @group MyOrg API
+     * @group MyOrganization API
      * @public
      */
-    export interface MyOrgClientOptions
-        extends Omit<Auth0MyOrgClient.Options, "token" | "environment" | "baseUrl" | "fetcher"> {
+    export interface MyOrganizationClientOptions
+        extends Omit<FernClient.Options, "token" | "environment" | "baseUrl" | "fetcher"> {
         /** Auth0 domain (e.g., 'your-tenant.auth0.com') */
         domain: string;
         /**
@@ -53,12 +53,12 @@ export declare namespace MyOrgClient {
      * Use this when you already have a valid access token or can get one.
      * This is the recommended approach for SPA applications.
      *
-     * @group MyOrg API
+     * @group MyOrganization API
      * @public
      *
      * @example Static token
      * ```typescript
-     * const client = new MyOrgClient({
+     * const client = new MyOrganizationClient({
      *   domain: 'your-tenant.auth0.com',
      *   token: 'your-access-token'
      * });
@@ -66,7 +66,7 @@ export declare namespace MyOrgClient {
      *
      * @example Simple dynamic token
      * ```typescript
-     * const client = new MyOrgClient({
+     * const client = new MyOrganizationClient({
      *   domain: 'your-tenant.auth0.com',
      *   token: () => getAccessToken() // Function that returns a token
      * });
@@ -74,7 +74,7 @@ export declare namespace MyOrgClient {
      *
      * @example Recommended: Auto scope-aware token (Auth0 SPA)
      * ```typescript
-     * const client = new MyOrgClient({
+     * const client = new MyOrganizationClient({
      *   domain: 'your-tenant.auth0.com',
      *   token: async ({ authorizationParams }) => {
      *     // SDK automatically passes required scopes for each API call
@@ -90,7 +90,7 @@ export declare namespace MyOrgClient {
      * @example Pass your function directly
      * ```typescript
      * // Your getAccessToken function receives { authorizationParams: { scope: '...' } } automatically
-     * const client = new MyOrgClient({
+     * const client = new MyOrganizationClient({
      *   domain: 'your-tenant.auth0.com',
      *   token: getAccessToken  // SDK calls with required scopes
      * });
@@ -106,7 +106,7 @@ export declare namespace MyOrgClient {
      *
 
      */
-    export interface MyOrgClientOptionsWithToken extends MyOrgClientOptions {
+    export interface MyOrganizationClientOptionsWithToken extends MyOrganizationClientOptions {
         /**
          * Token configuration for authentication.
          *
@@ -132,7 +132,7 @@ export declare namespace MyOrgClient {
      * Use this approach for server applications where you can use client credentials.
      * The TokenProvider must be imported from 'auth0-my-org/server'.
      *
-     * @group MyOrg API
+     * @group MyOrganization API
      * @public
      *
      * @example Using TokenProvider (server-side only)
@@ -146,13 +146,13 @@ export declare namespace MyOrgClient {
      *   organization: 'org_123456789'
      * });
      *
-     * const client = new MyOrgClient({
+     * const client = new MyOrganizationClient({
      *   domain: 'your-tenant.auth0.com',  // Domain passed to both (required)
      *   tokenProvider: tokenProvider
      * });
      * ```
      */
-    export interface MyOrgClientOptionsWithTokenProvider extends MyOrgClientOptions {
+    export interface MyOrganizationClientOptionsWithTokenProvider extends MyOrganizationClientOptions {
         /** A token provider instance (only available from server imports) */
         tokenProvider: TokenProvider;
         /**
@@ -167,12 +167,12 @@ export declare namespace MyOrgClient {
      * Configuration when using only a custom fetcher without token or tokenProvider.
      * The fetcher is responsible for handling all authentication.
      *
-     * @group MyOrg API
+     * @group MyOrganization API
      * @public
      *
      * @example Using only a custom fetcher (fetcher handles auth)
      * ```typescript
-     * const client = new MyOrgClient({
+     * const client = new MyOrganizationClient({
      *   domain: 'your-tenant.auth0.com',
      *   fetcher: async (url, init, authParams) => {
      *     const token = await getToken();
@@ -187,7 +187,7 @@ export declare namespace MyOrgClient {
      * });
      * ```
      */
-    export interface MyOrgClientOptionsWithFetcher extends MyOrgClientOptions {
+    export interface MyOrganizationClientOptionsWithFetcher extends MyOrganizationClientOptions {
         /**
          * Custom fetch function that handles all authentication and authorization.
          * When using fetcher without token/tokenProvider, you must add authorization headers yourself.
@@ -197,15 +197,15 @@ export declare namespace MyOrgClient {
 }
 
 /**
- * Auth0 MyOrg API client wrapper.
+ * Auth0 MyOrganization API client wrapper.
  *
- * Provides a high-level interface to Auth0's MyOrg API with automatic
+ * Provides a high-level interface to Auth0's MyOrganization API with automatic
  * token management, telemetry, and Auth0-specific configuration.
  *
- * @group MyOrg API
+ * @group MyOrganization API
  * @example Using token (SPA/Client-side)
  * ```typescript
- * const client = new MyOrgClient({
+ * const client = new MyOrganizationClient({
  *   domain: 'your-tenant.auth0.com',
  *   token: () => getAccessToken() // Function that returns a token
  * });
@@ -222,20 +222,20 @@ export declare namespace MyOrgClient {
  *   organization: 'org_123456789'
  * });
  *
- * const client = new MyOrgClient({
+ * const client = new MyOrganizationClient({
  *   domain: 'your-tenant.auth0.com',
  *   tokenProvider: tokenProvider
  * });
  * ```
  */
-export class MyOrgClient extends Auth0MyOrgClient {
+export class MyOrganizationClient extends FernClient {
     /**
-     * Creates a new MyOrg API client instance.
+     * Creates a new MyOrganization API client instance.
      *
-     * @param _options - Configuration options for the MyOrg Client
-     * @group MyOrg API
+     * @param _options - Configuration options for the MyOrganizationClient Client
+     * @group MyOrganization API
      */
-    constructor(_options: MyOrgClientConfig) {
+    constructor(_options: MyOrganizationClientConfig) {
         // Sanitize domain - remove https:// prefix and trailing slash
         const sanitizedDomain = _options.domain.replace(/^https?:\/\//, "").replace(/\/$/, "");
 
@@ -255,7 +255,7 @@ export class MyOrgClient extends Auth0MyOrgClient {
             headers,
             ...(fetcher && { fetcher }),
             ...(token !== undefined && { token }),
-        } as Auth0MyOrgClient.Options;
+        } as FernClient.Options;
 
         super(clientOptions);
     }
@@ -264,58 +264,60 @@ export class MyOrgClient extends Auth0MyOrgClient {
 /**
  * Type guard to determine if options use token-based authentication.
  *
- * @param _options - The MyOrg client configuration options
+ * @param _options - The MyOrganizationClient client configuration options
  * @returns True if the options contain a token property
- * @group MyOrg API
- * @namespace MyOrgClient.Utils
+ * @group MyOrganization API
+ * @namespace MyOrganizationClient.Utils
  * @private
  */
-function isClientOptionsWithToken(_options: MyOrgClientConfig): _options is MyOrgClient.MyOrgClientOptionsWithToken {
+function isClientOptionsWithToken(
+    _options: MyOrganizationClientConfig,
+): _options is MyOrganizationClient.MyOrganizationClientOptionsWithToken {
     return "token" in _options;
 }
 
 /**
  * Type guard to determine if options use tokenProvider-based authentication.
  *
- * @param _options - The MyOrg client configuration options
+ * @param _options - The MyOrganizationClient client configuration options
  * @returns True if the options contain a tokenProvider property
- * @group MyOrg API
- * @namespace MyOrgClient.Utils
+ * @group MyOrganization API
+ * @namespace MyOrganizationClient.Utils
  * @private
  */
 function isClientOptionsWithTokenProvider(
-    _options: MyOrgClientConfig,
-): _options is MyOrgClient.MyOrgClientOptionsWithTokenProvider {
+    _options: MyOrganizationClientConfig,
+): _options is MyOrganizationClient.MyOrganizationClientOptionsWithTokenProvider {
     return "tokenProvider" in _options;
 }
 
 /**
  * Type guard to determine if options use fetcher-based authentication.
  *
- * @param _options - The MyOrg client configuration options
+ * @param _options - The MyOrganizationClient client configuration options
  * @returns True if the options contain ONLY a fetcher property (no token or tokenProvider)
- * @group MyOrg API
- * @namespace MyOrgClient.Utils
+ * @group MyOrganization API
+ * @namespace MyOrganizationClient.Utils
  * @private
  */
 function isClientOptionsWithFetcher(
-    _options: MyOrgClientConfig,
-): _options is MyOrgClient.MyOrgClientOptionsWithFetcher {
+    _options: MyOrganizationClientConfig,
+): _options is MyOrganizationClient.MyOrganizationClientOptionsWithFetcher {
     return "fetcher" in _options;
 }
 
 /**
- * Creates telemetry headers for the MyOrg Client.
+ * Creates telemetry headers for the MyOrganizationClient Client.
  * Adds the Auth0-Client header when telemetry is enabled.
  *
- * @param _options - The MyOrg client configuration options
+ * @param _options - The MyOrganizationClient client configuration options
  * @returns Headers object including telemetry information
- * @group MyOrg API
- * @namespace MyOrgClient.Utils
+ * @group MyOrganization API
+ * @namespace MyOrganizationClient.Utils
  * @private
  */
 function createTelemetryHeaders(
-    _options: MyOrgClientConfig,
+    _options: MyOrganizationClientConfig,
 ): Record<string, string | core.EndpointSupplier<string | null | undefined> | null | undefined> {
     const headers: Record<string, string | core.EndpointSupplier<string | null | undefined> | null | undefined> = {
         ...(_options.headers ?? {}),
@@ -341,14 +343,14 @@ function createTelemetryHeaders(
  * For tokenProvider-based auth: initializes the provider with domain and wraps it.
  * For fetcher-based auth: returns undefined as the fetcher handles authentication.
  *
- * @param _options - The MyOrg client configuration options
+ * @param _options - The MyOrganizationClient client configuration options
  * @param domain - The sanitized domain to initialize tokenProvider with
  * @returns A token supplier function compatible with the core client, or undefined if fetcher is provided
- * @group MyOrg API
- * @namespace MyOrgClient.Utils
+ * @group MyOrganization API
+ * @namespace MyOrganizationClient.Utils
  * @private
  */
-function createTokenSupplier(_options: MyOrgClientConfig): core.EndpointSupplier<core.BearerToken> {
+function createTokenSupplier(_options: MyOrganizationClientConfig): core.EndpointSupplier<core.BearerToken> {
     if (isClientOptionsWithToken(_options)) {
         // SPA/Client-side pattern: convert our Auth0TokenSupplier to core EndpointSupplier
         return createCoreTokenSupplier(_options.token);
@@ -366,7 +368,7 @@ function createTokenSupplier(_options: MyOrgClientConfig): core.EndpointSupplier
 
     // This should never happen with proper TypeScript typing
     throw new Error(
-        "MyOrgClient must be configured with either 'token', 'tokenProvider', or 'fetcher' (that handles authorization headers)",
+        "MyOrganizationClient must be configured with either 'token', 'tokenProvider', or 'fetcher' (that handles authorization headers)",
     );
 }
 
@@ -376,8 +378,8 @@ function createTokenSupplier(_options: MyOrgClientConfig): core.EndpointSupplier
  *
  * @param fetcherSupplier - The user-provided fetch function
  * @returns A core-compatible FetchFunction
- * @group MyOrg API
- * @namespace MyOrgClient.Utils
+ * @group MyOrganization API
+ * @namespace MyOrganizationClient.Utils
  * @private
  */
 function createCoreFetcherSupplier(fetcherSupplier: Auth0FetcherSupplier, audience: string): core.FetchFunction {

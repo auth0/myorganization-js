@@ -1,5 +1,5 @@
-import { MyOrgClient } from "../../../src/wrappers/MyOrgClient.js";
-import { Auth0MyOrgClient } from "../../../src/Client.js";
+import { MyOrganizationClient } from "../../../src/wrappers/MyOrganizationClient.js";
+import { MyOrganizationClient as FernClient } from "../../../src/Client.js";
 import { Auth0ClientTelemetry } from "../../../src/utils/auth0ClientTelemetry.js";
 import { ClientCredentialsTokenProvider } from "../../../src/auth/ClientCredentialsTokenProvider.js";
 import type { MockedClass } from "vitest";
@@ -19,11 +19,11 @@ vi.mock("@auth0/auth0-auth-js", () => ({
 // Import the mocked AuthClient after mocking
 import { AuthClient } from "@auth0/auth0-auth-js";
 
-const MockAuth0MyOrgClient = Auth0MyOrgClient as MockedClass<typeof Auth0MyOrgClient>;
+const MockAuth0MyOrganizationClient = FernClient as MockedClass<typeof FernClient>;
 const MockAuth0ClientTelemetry = Auth0ClientTelemetry as MockedClass<typeof Auth0ClientTelemetry>;
 const MockAuthClient = AuthClient as MockedClass<typeof AuthClient>;
 
-describe("MyOrgClient Unit Tests", () => {
+describe("MyOrganizationClient Unit Tests", () => {
     const mockTelemetryInstance = {
         getHeaders: vi.fn().mockReturnValue({ "Auth0-Client": "base64-encoded-telemetry" }),
         getAuth0ClientHeader: vi.fn().mockReturnValue("base64-encoded-telemetry"),
@@ -31,12 +31,12 @@ describe("MyOrgClient Unit Tests", () => {
 
     // Helper function to extract the wrapped token function from the mock calls
     const getWrappedTokenFunction = (): any => {
-        const callArgs = MockAuth0MyOrgClient.mock.calls[0][0];
+        const callArgs = MockAuth0MyOrganizationClient.mock.calls[0][0];
         return callArgs.token;
     };
 
     const getWrappedFetcherFunction = (): any => {
-        const callArgs = MockAuth0MyOrgClient.mock.calls[0][0];
+        const callArgs = MockAuth0MyOrganizationClient.mock.calls[0][0];
         return callArgs.fetcher;
     };
 
@@ -58,10 +58,10 @@ describe("MyOrgClient Unit Tests", () => {
                 clientInfo: { name: "my-app", version: "1.0.0" },
             };
 
-            const client = new MyOrgClient(options);
+            const client = new MyOrganizationClient(options);
 
-            expect(client).toBeInstanceOf(MyOrgClient);
-            expect(MockAuth0MyOrgClient).toHaveBeenCalledWith(
+            expect(client).toBeInstanceOf(MyOrganizationClient);
+            expect(MockAuth0MyOrganizationClient).toHaveBeenCalledWith(
                 expect.objectContaining({
                     baseUrl: "https://test-domain.auth0.com/my-org",
                     headers: { "Auth0-Client": "base64-encoded-telemetry" },
@@ -78,9 +78,9 @@ describe("MyOrgClient Unit Tests", () => {
                 clientInfo: { name: "my-app", version: "1.0.0" },
             };
 
-            new MyOrgClient(options);
+            new MyOrganizationClient(options);
 
-            expect(MockAuth0MyOrgClient).toHaveBeenCalledWith(
+            expect(MockAuth0MyOrganizationClient).toHaveBeenCalledWith(
                 expect.objectContaining({
                     baseUrl: "https://custom.domain.com/custom-path",
                 }),
@@ -94,10 +94,10 @@ describe("MyOrgClient Unit Tests", () => {
                 domain: "test-domain.auth0.com",
             };
 
-            new MyOrgClient(options);
+            new MyOrganizationClient(options);
 
             // Primary assertion: verify Auth0MyOrgClient was called with proper config
-            expect(MockAuth0MyOrgClient).toHaveBeenCalledWith(
+            expect(MockAuth0MyOrganizationClient).toHaveBeenCalledWith(
                 expect.objectContaining({
                     baseUrl: "https://test-domain.auth0.com/my-org",
                     token: expect.any(Function),
@@ -124,10 +124,10 @@ describe("MyOrgClient Unit Tests", () => {
                 domain: "test-domain.auth0.com",
             };
 
-            new MyOrgClient(options);
+            new MyOrganizationClient(options);
 
             // Primary assertion: verify Auth0MyOrgClient was called with proper config
-            expect(MockAuth0MyOrgClient).toHaveBeenCalledWith(
+            expect(MockAuth0MyOrganizationClient).toHaveBeenCalledWith(
                 expect.objectContaining({
                     baseUrl: "https://test-domain.auth0.com/my-org",
                     token: expect.any(Function),
@@ -160,9 +160,9 @@ describe("MyOrgClient Unit Tests", () => {
                 fetcher: customFetcher,
             };
 
-            new MyOrgClient(options);
+            new MyOrganizationClient(options);
 
-            expect(MockAuth0MyOrgClient).toHaveBeenCalledWith(
+            expect(MockAuth0MyOrganizationClient).toHaveBeenCalledWith(
                 expect.objectContaining({
                     baseUrl: "https://test-domain.auth0.com/my-org",
                     fetcher: expect.any(Function),
@@ -184,7 +184,7 @@ describe("MyOrgClient Unit Tests", () => {
                 fetcher: customFetcher,
             };
 
-            new MyOrgClient(options);
+            new MyOrganizationClient(options);
 
             // Get the wrapped fetcher function
             const wrappedFetcher = getWrappedFetcherFunction();
@@ -229,7 +229,7 @@ describe("MyOrgClient Unit Tests", () => {
                 fetcher: customFetcher,
             };
 
-            new MyOrgClient(options);
+            new MyOrganizationClient(options);
 
             const wrappedFetcher = getWrappedFetcherFunction();
             expect(wrappedFetcher).toBeDefined();
@@ -270,7 +270,7 @@ describe("MyOrgClient Unit Tests", () => {
                 fetcher: customFetcher,
             };
 
-            new MyOrgClient(options);
+            new MyOrganizationClient(options);
 
             const wrappedFetcher = getWrappedFetcherFunction();
             expect(wrappedFetcher).toBeDefined();
@@ -311,7 +311,7 @@ describe("MyOrgClient Unit Tests", () => {
                 fetcher: customFetcher,
             };
 
-            new MyOrgClient(options);
+            new MyOrganizationClient(options);
 
             const wrappedFetcher = getWrappedFetcherFunction();
             expect(wrappedFetcher).toBeDefined();
@@ -354,7 +354,7 @@ describe("MyOrgClient Unit Tests", () => {
                 fetcher: customFetcher,
             };
 
-            new MyOrgClient(options);
+            new MyOrganizationClient(options);
 
             const wrappedFetcher = getWrappedFetcherFunction();
             expect(wrappedFetcher).toBeDefined();
@@ -396,7 +396,7 @@ describe("MyOrgClient Unit Tests", () => {
                 fetcher: auth0Fetcher,
             };
 
-            new MyOrgClient(options);
+            new MyOrganizationClient(options);
 
             const wrappedFetcher = getWrappedFetcherFunction();
             expect(wrappedFetcher).toBeDefined();
@@ -440,10 +440,10 @@ describe("MyOrgClient Unit Tests", () => {
                 fetcher: customFetcher,
             };
 
-            const client = new MyOrgClient(options);
+            const client = new MyOrganizationClient(options);
 
-            expect(client).toBeInstanceOf(MyOrgClient);
-            expect(MockAuth0MyOrgClient).toHaveBeenCalledWith(
+            expect(client).toBeInstanceOf(MyOrganizationClient);
+            expect(MockAuth0MyOrganizationClient).toHaveBeenCalledWith(
                 expect.objectContaining({
                     baseUrl: "https://test-domain.auth0.com/my-org",
                     fetcher: expect.any(Function),
@@ -451,7 +451,7 @@ describe("MyOrgClient Unit Tests", () => {
             );
 
             // Verify that token was not passed to the base client
-            const callArgs = MockAuth0MyOrgClient.mock.calls[0][0];
+            const callArgs = MockAuth0MyOrganizationClient.mock.calls[0][0];
             expect(callArgs.token).toBe("");
         });
 
@@ -469,10 +469,10 @@ describe("MyOrgClient Unit Tests", () => {
                 fetcher: customFetcher,
             };
 
-            const client = new MyOrgClient(options);
+            const client = new MyOrganizationClient(options);
 
-            expect(client).toBeInstanceOf(MyOrgClient);
-            expect(MockAuth0MyOrgClient).toHaveBeenCalledWith(
+            expect(client).toBeInstanceOf(MyOrganizationClient);
+            expect(MockAuth0MyOrganizationClient).toHaveBeenCalledWith(
                 expect.objectContaining({
                     baseUrl: "https://test-domain.auth0.com/my-org",
                     token: "test-token",
@@ -502,10 +502,10 @@ describe("MyOrgClient Unit Tests", () => {
                 fetcher: customFetcher,
             };
 
-            const client = new MyOrgClient(options);
+            const client = new MyOrganizationClient(options);
 
-            expect(client).toBeInstanceOf(MyOrgClient);
-            expect(MockAuth0MyOrgClient).toHaveBeenCalledWith(
+            expect(client).toBeInstanceOf(MyOrganizationClient);
+            expect(MockAuth0MyOrganizationClient).toHaveBeenCalledWith(
                 expect.objectContaining({
                     baseUrl: "https://test-domain.auth0.com/my-org",
                     token: expect.any(Function),
@@ -529,10 +529,10 @@ describe("MyOrgClient Unit Tests", () => {
                 tokenProvider: tokenProvider,
             };
 
-            new MyOrgClient(options);
+            new MyOrganizationClient(options);
 
             // Verify that Auth0MyOrgClient was called with a token function
-            expect(MockAuth0MyOrgClient).toHaveBeenCalledWith(
+            expect(MockAuth0MyOrganizationClient).toHaveBeenCalledWith(
                 expect.objectContaining({
                     baseUrl: "https://test-domain.auth0.com/my-org",
                     token: expect.any(Function),
@@ -565,7 +565,7 @@ describe("MyOrgClient Unit Tests", () => {
                 tokenProvider: tokenProvider,
             };
 
-            new MyOrgClient(options);
+            new MyOrganizationClient(options);
 
             // Verify AuthClient was configured
             expect(MockAuthClient).toHaveBeenCalledWith({
@@ -594,10 +594,10 @@ describe("MyOrgClient Unit Tests", () => {
                 tokenProvider: tokenProvider,
             };
 
-            new MyOrgClient(options);
+            new MyOrganizationClient(options);
 
             // Primary assertion: verify Auth0MyOrgClient was called with proper config
-            expect(MockAuth0MyOrgClient).toHaveBeenCalledWith(
+            expect(MockAuth0MyOrganizationClient).toHaveBeenCalledWith(
                 expect.objectContaining({
                     baseUrl: "https://test-domain.auth0.com/my-org",
                     token: expect.any(Function),
@@ -622,9 +622,9 @@ describe("MyOrgClient Unit Tests", () => {
                 domain: "https://test-domain.auth0.com",
             };
 
-            new MyOrgClient(options);
+            new MyOrganizationClient(options);
 
-            expect(MockAuth0MyOrgClient).toHaveBeenCalledWith(
+            expect(MockAuth0MyOrganizationClient).toHaveBeenCalledWith(
                 expect.objectContaining({
                     baseUrl: "https://test-domain.auth0.com/my-org",
                 }),
@@ -637,9 +637,9 @@ describe("MyOrgClient Unit Tests", () => {
                 domain: "test-domain.auth0.com/",
             };
 
-            new MyOrgClient(options);
+            new MyOrganizationClient(options);
 
-            expect(MockAuth0MyOrgClient).toHaveBeenCalledWith(
+            expect(MockAuth0MyOrganizationClient).toHaveBeenCalledWith(
                 expect.objectContaining({
                     baseUrl: "https://test-domain.auth0.com/my-org",
                 }),
@@ -659,10 +659,10 @@ describe("MyOrgClient Unit Tests", () => {
                 tokenProvider: tokenProvider,
             };
 
-            new MyOrgClient(options);
+            new MyOrganizationClient(options);
 
             // Primary assertion: verify Auth0MyOrgClient was called with proper config
-            expect(MockAuth0MyOrgClient).toHaveBeenCalledWith(
+            expect(MockAuth0MyOrganizationClient).toHaveBeenCalledWith(
                 expect.objectContaining({
                     baseUrl: "https://custom-domain.auth0.com/my-org",
                     token: expect.any(Function),
@@ -689,12 +689,12 @@ describe("MyOrgClient Unit Tests", () => {
                 clientInfo: { name: "my-app", version: "1.0.0" },
             };
 
-            new MyOrgClient(options);
+            new MyOrganizationClient(options);
 
             expect(MockAuth0ClientTelemetry).toHaveBeenCalledWith({
                 clientInfo: { name: "my-app", version: "1.0.0" },
             });
-            expect(MockAuth0MyOrgClient).toHaveBeenCalledWith(
+            expect(MockAuth0MyOrganizationClient).toHaveBeenCalledWith(
                 expect.objectContaining({
                     headers: expect.objectContaining({
                         "Auth0-Client": "base64-encoded-telemetry",
@@ -710,9 +710,9 @@ describe("MyOrgClient Unit Tests", () => {
                 telemetry: false,
             };
 
-            new MyOrgClient(options);
+            new MyOrganizationClient(options);
 
-            expect(MockAuth0MyOrgClient).toHaveBeenCalledWith(
+            expect(MockAuth0MyOrganizationClient).toHaveBeenCalledWith(
                 expect.objectContaining({
                     headers: expect.not.objectContaining({
                         "Auth0-Client": expect.anything(),
@@ -731,9 +731,9 @@ describe("MyOrgClient Unit Tests", () => {
                 },
             };
 
-            new MyOrgClient(options);
+            new MyOrganizationClient(options);
 
-            expect(MockAuth0MyOrgClient).toHaveBeenCalledWith(
+            expect(MockAuth0MyOrganizationClient).toHaveBeenCalledWith(
                 expect.objectContaining({
                     headers: expect.objectContaining({
                         "Custom-Header": "custom-value",
@@ -762,10 +762,10 @@ describe("MyOrgClient Unit Tests", () => {
                 tokenProvider: tokenProvider,
             };
 
-            new MyOrgClient(options);
+            new MyOrganizationClient(options);
 
             // Primary assertion: verify Auth0MyOrgClient was called with proper config
-            expect(MockAuth0MyOrgClient).toHaveBeenCalledWith(
+            expect(MockAuth0MyOrganizationClient).toHaveBeenCalledWith(
                 expect.objectContaining({
                     baseUrl: "https://test-domain.auth0.com/my-org",
                     token: expect.any(Function),

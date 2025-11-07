@@ -25,7 +25,7 @@ export interface ClientCredentialsWithSecretOptions {
     clientId: string;
     /** Auth0 application client secret */
     clientSecret: string;
-    /** Organization ID or name - required for MyOrg API access */
+    /** Organization ID or name - required for MyOrganization API access */
     organization: string;
     /**
      * API audience. Defaults to https://{domain}/my-org/
@@ -53,7 +53,7 @@ export interface ClientCredentialsWithAssertionOptions {
     privateKey: string | CryptoKey;
     /** Algorithm for signing the client assertion. Defaults to RS256 */
     clientAssertionSigningAlg?: string;
-    /** Organization ID or name - required for MyOrg API access */
+    /** Organization ID or name - required for MyOrganization API access */
     organization: string;
     /**
      * API audience. Defaults to https://{domain}/my-org/

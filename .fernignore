@@ -49,3 +49,4 @@ eslint.config.mjs
 .version
 .github/
 README.md
+CONTRIBUTING.md

@@ -1,10 +1,10 @@
-import { createMyOrgClientWithClientCredentials } from "../../src/server.js";
-import { MyOrgClient } from "../../src/wrappers/MyOrgClient.js";
+import { createMyOrganizationClientWithClientCredentials } from "../../src/server.js";
+import { MyOrganizationClient } from "../../src/wrappers/MyOrganizationClient.js";
 import { ClientCredentialsTokenProvider } from "../../src/auth/ClientCredentialsTokenProvider.js";
 import type { MockedClass } from "vitest";
 
 // Mock dependencies
-vi.mock("../../src/wrappers/MyOrgClient.js");
+vi.mock("../../src/wrappers/MyOrganizationClient.js");
 vi.mock("../../src/auth/ClientCredentialsTokenProvider.js");
 
 // Mock @auth0/auth0-auth-js
@@ -15,7 +15,7 @@ vi.mock("@auth0/auth0-auth-js", () => ({
     })),
 }));
 
-const MockMyOrgClient = MyOrgClient as MockedClass<typeof MyOrgClient>;
+const MockMyOrgClient = MyOrganizationClient as MockedClass<typeof MyOrganizationClient>;
 const MockClientCredentialsTokenProvider = ClientCredentialsTokenProvider as MockedClass<
     typeof ClientCredentialsTokenProvider
 >;
@@ -30,9 +30,9 @@ describe("Server Factory Functions", () => {
         });
     });
 
-    describe("createMyOrgClientWithClientCredentials", () => {
-        it("should create MyOrgClient with client secret credentials", () => {
-            const result = createMyOrgClientWithClientCredentials(
+    describe("createMyOrganizationClientWithClientCredentials", () => {
+        it("should create MyOrganizationClient with client secret credentials", () => {
+            const result = createMyOrganizationClientWithClientCredentials(
                 { domain: "test-domain.auth0.com" },
                 {
                     clientId: "test-client-id",
@@ -49,7 +49,7 @@ describe("Server Factory Functions", () => {
                 organization: "org_123456789",
             });
 
-            // Verify MyOrgClient was created with tokenProvider and domain
+            // Verify MyOrganizationClient was created with tokenProvider and domain
             expect(MockMyOrgClient).toHaveBeenCalledWith({
                 domain: "test-domain.auth0.com",
                 tokenProvider: expect.any(MockClientCredentialsTokenProvider),
@@ -58,11 +58,11 @@ describe("Server Factory Functions", () => {
                 clientInfo: undefined,
             });
 
-            expect(result).toBeInstanceOf(MyOrgClient);
+            expect(result).toBeInstanceOf(MyOrganizationClient);
         });
 
-        it("should create MyOrgClient with private key credentials", () => {
-            const result = createMyOrgClientWithClientCredentials(
+        it("should create MyOrganizationClient with private key credentials", () => {
+            const result = createMyOrganizationClientWithClientCredentials(
                 { domain: "test-domain.auth0.com" },
                 {
                     clientId: "test-client-id",
@@ -79,7 +79,7 @@ describe("Server Factory Functions", () => {
                 organization: "org_123456789",
             });
 
-            // Verify MyOrgClient was created
+            // Verify MyOrganizationClient was created
             expect(MockMyOrgClient).toHaveBeenCalledWith({
                 domain: "test-domain.auth0.com",
                 tokenProvider: expect.any(MockClientCredentialsTokenProvider),
@@ -88,11 +88,11 @@ describe("Server Factory Functions", () => {
                 clientInfo: undefined,
             });
 
-            expect(result).toBeInstanceOf(MyOrgClient);
+            expect(result).toBeInstanceOf(MyOrganizationClient);
         });
 
         it("should pass through additional options", () => {
-            const result = createMyOrgClientWithClientCredentials(
+            const result = createMyOrganizationClientWithClientCredentials(
                 {
                     domain: "test-domain.auth0.com",
                     baseUrl: "https://custom-api.example.com",
@@ -106,7 +106,7 @@ describe("Server Factory Functions", () => {
                 },
             );
 
-            // Verify additional options are passed to MyOrgClient
+            // Verify additional options are passed to MyOrganizationClient
             expect(MockMyOrgClient).toHaveBeenCalledWith({
                 domain: "test-domain.auth0.com",
                 tokenProvider: expect.any(MockClientCredentialsTokenProvider),
@@ -115,11 +115,11 @@ describe("Server Factory Functions", () => {
                 clientInfo: { name: "my-app", version: "2.0.0" },
             });
 
-            expect(result).toBeInstanceOf(MyOrgClient);
+            expect(result).toBeInstanceOf(MyOrganizationClient);
         });
 
         it("should pass through custom audience", () => {
-            const result = createMyOrgClientWithClientCredentials(
+            const result = createMyOrganizationClientWithClientCredentials(
                 { domain: "test-domain.auth0.com" },
                 {
                     clientId: "test-client-id",
@@ -138,12 +138,12 @@ describe("Server Factory Functions", () => {
                 audience: "https://custom-api.example.com/",
             });
 
-            expect(result).toBeInstanceOf(MyOrgClient);
+            expect(result).toBeInstanceOf(MyOrganizationClient);
         });
 
         it("should pass through mTLS options", () => {
             const mockCustomFetch = vi.fn();
-            const result = createMyOrgClientWithClientCredentials(
+            const result = createMyOrganizationClientWithClientCredentials(
                 { domain: "test-domain.auth0.com" },
                 {
                     clientId: "test-client-id",
@@ -164,7 +164,7 @@ describe("Server Factory Functions", () => {
                 customFetch: mockCustomFetch,
             });
 
-            expect(result).toBeInstanceOf(MyOrgClient);
+            expect(result).toBeInstanceOf(MyOrganizationClient);
         });
     });
 });
