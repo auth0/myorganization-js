@@ -96,7 +96,7 @@ describe("MyOrganizationClient Unit Tests", () => {
 
             new MyOrganizationClient(options);
 
-            // Primary assertion: verify Auth0MyOrgClient was called with proper config
+            // Primary assertion: verify MyOrganizationClient was called with proper config
             expect(MockAuth0MyOrganizationClient).toHaveBeenCalledWith(
                 expect.objectContaining({
                     baseUrl: "https://test-domain.auth0.com/my-org",
@@ -126,7 +126,7 @@ describe("MyOrganizationClient Unit Tests", () => {
 
             new MyOrganizationClient(options);
 
-            // Primary assertion: verify Auth0MyOrgClient was called with proper config
+            // Primary assertion: verify MyOrganizationClient was called with proper config
             expect(MockAuth0MyOrganizationClient).toHaveBeenCalledWith(
                 expect.objectContaining({
                     baseUrl: "https://test-domain.auth0.com/my-org",
@@ -531,7 +531,7 @@ describe("MyOrganizationClient Unit Tests", () => {
 
             new MyOrganizationClient(options);
 
-            // Verify that Auth0MyOrgClient was called with a token function
+            // Verify that MyOrganizationClient was called with a token function
             expect(MockAuth0MyOrganizationClient).toHaveBeenCalledWith(
                 expect.objectContaining({
                     baseUrl: "https://test-domain.auth0.com/my-org",
@@ -596,7 +596,7 @@ describe("MyOrganizationClient Unit Tests", () => {
 
             new MyOrganizationClient(options);
 
-            // Primary assertion: verify Auth0MyOrgClient was called with proper config
+            // Primary assertion: verify MyOrganizationClient was called with proper config
             expect(MockAuth0MyOrganizationClient).toHaveBeenCalledWith(
                 expect.objectContaining({
                     baseUrl: "https://test-domain.auth0.com/my-org",
@@ -661,7 +661,7 @@ describe("MyOrganizationClient Unit Tests", () => {
 
             new MyOrganizationClient(options);
 
-            // Primary assertion: verify Auth0MyOrgClient was called with proper config
+            // Primary assertion: verify MyOrganizationClient was called with proper config
             expect(MockAuth0MyOrganizationClient).toHaveBeenCalledWith(
                 expect.objectContaining({
                     baseUrl: "https://custom-domain.auth0.com/my-org",
@@ -764,7 +764,7 @@ describe("MyOrganizationClient Unit Tests", () => {
 
             new MyOrganizationClient(options);
 
-            // Primary assertion: verify Auth0MyOrgClient was called with proper config
+            // Primary assertion: verify MyOrganizationClient was called with proper config
             expect(MockAuth0MyOrganizationClient).toHaveBeenCalledWith(
                 expect.objectContaining({
                     baseUrl: "https://test-domain.auth0.com/my-org",

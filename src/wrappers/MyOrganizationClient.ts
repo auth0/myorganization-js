@@ -130,14 +130,14 @@ export declare namespace MyOrganizationClient {
     /**
      * Configuration for server-side authentication using a TokenProvider.
      * Use this approach for server applications where you can use client credentials.
-     * The TokenProvider must be imported from 'auth0-my-org/server'.
+     * The TokenProvider must be imported from '@auth0/myorganization-js/server'.
      *
      * @group MyOrganization API
      * @public
      *
      * @example Using TokenProvider (server-side only)
      * ```typescript
-     * import { ClientCredentialsTokenProvider } from 'auth0-my-org/server';
+     * import { ClientCredentialsTokenProvider } from '@auth0/myorganization-js/server';
      *
      * const tokenProvider = new ClientCredentialsTokenProvider({
      *   domain: 'your-tenant.auth0.com',
@@ -213,7 +213,7 @@ export declare namespace MyOrganizationClient {
  *
  * @example Using TokenProvider (Server-side)
  * ```typescript
- * import { ClientCredentialsTokenProvider } from 'auth0-my-org/server';
+ * import { ClientCredentialsTokenProvider } from '@auth0/myorganization-js/server';
  *
  * const tokenProvider = new ClientCredentialsTokenProvider({
  *   domain: 'your-tenant.auth0.com',

@@ -296,15 +296,15 @@ async function main() {
 /**
  * 🔒 SECURITY GUARANTEE:
  *
- * ✅ SPA users importing 'auth0-my-org' will NEVER see:
+ * ✅ SPA users importing '@auth0/myorganization-js' will NEVER see:
  *    - clientId, clientSecret, privateKey options in MyOrganizationClient
  *    - ClientCredentialsTokenProvider class
  *    - Any client credentials related interfaces
  *
- * ✅ These are ONLY available from 'auth0-my-org/server' import!
+ * ✅ These are ONLY available from '@auth0/myorganization-js/server' import!
  *
  * 🎯 PERFECT API:
- *    - Simple factory function: createMyOrgClientWithCredentials()
+ *    - Simple factory function: createMyOrganizationClientWithClientCredentials()
  *    - Or manual setup with TokenProvider constructor
  *    - Domain specified once, audience auto-generated or customizable
  *    - Clean separation between SPA and server usage!

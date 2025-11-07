@@ -53,9 +53,9 @@ export type ClientCredentialsProviderOptions =
  *
  * @example Basic usage with client secret
  * ```typescript
- * import { createMyOrgClientWithCredentials } from 'auth0-my-org/server';
+ * import { createMyOrganizationClientWithClientCredentials } from '@auth0/myorganization-js/server';
  *
- * const client = createMyOrgClientWithCredentials(
+ * const client = createMyOrganizationClientWithClientCredentials(
  *   {
  *     domain: 'your-tenant.auth0.com'
  *   },
@@ -69,7 +69,7 @@ export type ClientCredentialsProviderOptions =
  *
  * @example With private key assertion
  * ```typescript
- * const client = createMyOrgClientWithCredentials(
+ * const client = createMyOrganizationClientWithClientCredentials(
  *   {
  *     domain: 'your-tenant.auth0.com',
  *     telemetry: false
@@ -84,7 +84,7 @@ export type ClientCredentialsProviderOptions =
  *
  * @example With custom base URL and fetcher
  * ```typescript
- * const client = createMyOrgClientWithCredentials(
+ * const client = createMyOrganizationClientWithClientCredentials(
  *   {
  *     domain: 'your-tenant.auth0.com',
  *     baseUrl: 'https://custom-domain.auth0.com/my-org',

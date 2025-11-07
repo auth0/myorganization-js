@@ -89,7 +89,7 @@ module.exports = {
     hideGenerator: true,
     navigationLinks: {
         GitHub: "https://github.com/auth0/myorganization-js",
-        npm: "https://www.npmjs.com/package/auth0-my-org",
+        npm: "https://www.npmjs.com/package/@auth0/myorganization-js",
     },
     visibilityFilters: {
         protected: false,
