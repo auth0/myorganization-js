@@ -3,7 +3,7 @@
 import type { BaseClientOptions, BaseRequestOptions } from "../../../../../../BaseClient.js";
 import * as environments from "../../../../../../environments.js";
 import * as core from "../../../../../../core/index.js";
-import * as Auth0MyOrg from "../../../../../index.js";
+import * as MyOrganization from "../../../../../index.js";
 import { mergeHeaders, mergeOnlyDefinedHeaders } from "../../../../../../core/headers.js";
 import * as errors from "../../../../../../errors/index.js";
 
@@ -25,23 +25,23 @@ export class Invitations {
      *
      * @param {Invitations.RequestOptions} requestOptions - Request-specific configuration.
      *
-     * @throws {@link Auth0MyOrg.UnauthorizedError}
-     * @throws {@link Auth0MyOrg.ForbiddenError}
-     * @throws {@link Auth0MyOrg.NotFoundError}
-     * @throws {@link Auth0MyOrg.TooManyRequestsError}
+     * @throws {@link MyOrganization.UnauthorizedError}
+     * @throws {@link MyOrganization.ForbiddenError}
+     * @throws {@link MyOrganization.NotFoundError}
+     * @throws {@link MyOrganization.TooManyRequestsError}
      *
      * @example
      *     await client.organization.invitations.list()
      */
     public list(
         requestOptions?: Invitations.RequestOptions,
-    ): core.HttpResponsePromise<Auth0MyOrg.ListMembersInvitationsResponseContent> {
+    ): core.HttpResponsePromise<MyOrganization.ListMembersInvitationsResponseContent> {
         return core.HttpResponsePromise.fromPromise(this.__list(requestOptions));
     }
 
     private async __list(
         requestOptions?: Invitations.RequestOptions,
-    ): Promise<core.WithRawResponse<Auth0MyOrg.ListMembersInvitationsResponseContent>> {
+    ): Promise<core.WithRawResponse<MyOrganization.ListMembersInvitationsResponseContent>> {
         const _metadata: core.EndpointMetadata = {
             security: [
                 { OAuth2ClientCredentials: ["read:my_org:member_invitations"] },
@@ -57,7 +57,7 @@ export class Invitations {
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
-                    environments.Auth0MyOrgEnvironment.Default,
+                    environments.MyOrganizationEnvironment.Default,
                 "invitations",
             ),
             method: "GET",
@@ -67,10 +67,11 @@ export class Invitations {
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
             endpointMetadata: _metadata,
+            fetchFn: this._options?.fetch,
         });
         if (_response.ok) {
             return {
-                data: _response.body as Auth0MyOrg.ListMembersInvitationsResponseContent,
+                data: _response.body as MyOrganization.ListMembersInvitationsResponseContent,
                 rawResponse: _response.rawResponse,
             };
         }
@@ -78,27 +79,27 @@ export class Invitations {
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 401:
-                    throw new Auth0MyOrg.UnauthorizedError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
+                    throw new MyOrganization.UnauthorizedError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
                         _response.rawResponse,
                     );
                 case 403:
-                    throw new Auth0MyOrg.ForbiddenError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
+                    throw new MyOrganization.ForbiddenError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
                         _response.rawResponse,
                     );
                 case 404:
-                    throw new Auth0MyOrg.NotFoundError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
+                    throw new MyOrganization.NotFoundError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
                         _response.rawResponse,
                     );
                 case 429:
-                    throw new Auth0MyOrg.TooManyRequestsError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
+                    throw new MyOrganization.TooManyRequestsError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
                         _response.rawResponse,
                     );
                 default:
-                    throw new errors.Auth0MyOrgError({
+                    throw new errors.MyOrganizationError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
                         rawResponse: _response.rawResponse,
@@ -108,15 +109,15 @@ export class Invitations {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.Auth0MyOrgError({
+                throw new errors.MyOrganizationError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                     rawResponse: _response.rawResponse,
                 });
             case "timeout":
-                throw new errors.Auth0MyOrgTimeoutError("Timeout exceeded when calling GET /invitations.");
+                throw new errors.MyOrganizationTimeoutError("Timeout exceeded when calling GET /invitations.");
             case "unknown":
-                throw new errors.Auth0MyOrgError({
+                throw new errors.MyOrganizationError({
                     message: _response.error.errorMessage,
                     rawResponse: _response.rawResponse,
                 });
@@ -126,14 +127,14 @@ export class Invitations {
     /**
      * Create a new invitation for a member.
      *
-     * @param {Auth0MyOrg.CreateMemberInvitationRequestContent} request
+     * @param {MyOrganization.CreateMemberInvitationRequestContent} request
      * @param {Invitations.RequestOptions} requestOptions - Request-specific configuration.
      *
-     * @throws {@link Auth0MyOrg.BadRequestError}
-     * @throws {@link Auth0MyOrg.UnauthorizedError}
-     * @throws {@link Auth0MyOrg.ForbiddenError}
-     * @throws {@link Auth0MyOrg.NotFoundError}
-     * @throws {@link Auth0MyOrg.TooManyRequestsError}
+     * @throws {@link MyOrganization.BadRequestError}
+     * @throws {@link MyOrganization.UnauthorizedError}
+     * @throws {@link MyOrganization.ForbiddenError}
+     * @throws {@link MyOrganization.NotFoundError}
+     * @throws {@link MyOrganization.TooManyRequestsError}
      *
      * @example
      *     await client.organization.invitations.create({
@@ -148,16 +149,16 @@ export class Invitations {
      *     })
      */
     public create(
-        request: Auth0MyOrg.CreateMemberInvitationRequestContent,
+        request: MyOrganization.CreateMemberInvitationRequestContent,
         requestOptions?: Invitations.RequestOptions,
-    ): core.HttpResponsePromise<Auth0MyOrg.CreateMemberInvitationResponseContent> {
+    ): core.HttpResponsePromise<MyOrganization.CreateMemberInvitationResponseContent> {
         return core.HttpResponsePromise.fromPromise(this.__create(request, requestOptions));
     }
 
     private async __create(
-        request: Auth0MyOrg.CreateMemberInvitationRequestContent,
+        request: MyOrganization.CreateMemberInvitationRequestContent,
         requestOptions?: Invitations.RequestOptions,
-    ): Promise<core.WithRawResponse<Auth0MyOrg.CreateMemberInvitationResponseContent>> {
+    ): Promise<core.WithRawResponse<MyOrganization.CreateMemberInvitationResponseContent>> {
         const _metadata: core.EndpointMetadata = {
             security: [
                 { OAuth2ClientCredentials: ["create:my_org:member_invitations"] },
@@ -173,7 +174,7 @@ export class Invitations {
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
-                    environments.Auth0MyOrgEnvironment.Default,
+                    environments.MyOrganizationEnvironment.Default,
                 "invitations",
             ),
             method: "POST",
@@ -186,10 +187,11 @@ export class Invitations {
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
             endpointMetadata: _metadata,
+            fetchFn: this._options?.fetch,
         });
         if (_response.ok) {
             return {
-                data: _response.body as Auth0MyOrg.CreateMemberInvitationResponseContent,
+                data: _response.body as MyOrganization.CreateMemberInvitationResponseContent,
                 rawResponse: _response.rawResponse,
             };
         }
@@ -197,32 +199,29 @@ export class Invitations {
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 400:
-                    throw new Auth0MyOrg.BadRequestError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
-                        _response.rawResponse,
-                    );
+                    throw new MyOrganization.BadRequestError(_response.error.body as unknown, _response.rawResponse);
                 case 401:
-                    throw new Auth0MyOrg.UnauthorizedError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
+                    throw new MyOrganization.UnauthorizedError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
                         _response.rawResponse,
                     );
                 case 403:
-                    throw new Auth0MyOrg.ForbiddenError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
+                    throw new MyOrganization.ForbiddenError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
                         _response.rawResponse,
                     );
                 case 404:
-                    throw new Auth0MyOrg.NotFoundError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
+                    throw new MyOrganization.NotFoundError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
                         _response.rawResponse,
                     );
                 case 429:
-                    throw new Auth0MyOrg.TooManyRequestsError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
+                    throw new MyOrganization.TooManyRequestsError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
                         _response.rawResponse,
                     );
                 default:
-                    throw new errors.Auth0MyOrgError({
+                    throw new errors.MyOrganizationError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
                         rawResponse: _response.rawResponse,
@@ -232,15 +231,15 @@ export class Invitations {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.Auth0MyOrgError({
+                throw new errors.MyOrganizationError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                     rawResponse: _response.rawResponse,
                 });
             case "timeout":
-                throw new errors.Auth0MyOrgTimeoutError("Timeout exceeded when calling POST /invitations.");
+                throw new errors.MyOrganizationTimeoutError("Timeout exceeded when calling POST /invitations.");
             case "unknown":
-                throw new errors.Auth0MyOrgError({
+                throw new errors.MyOrganizationError({
                     message: _response.error.errorMessage,
                     rawResponse: _response.rawResponse,
                 });
@@ -250,28 +249,29 @@ export class Invitations {
     /**
      * Get a pending invitation by ID.
      *
-     * @param {Auth0MyOrg.InvitationId} invitationId
+     * @param {MyOrganization.InvitationId} invitationId
      * @param {Invitations.RequestOptions} requestOptions - Request-specific configuration.
      *
-     * @throws {@link Auth0MyOrg.UnauthorizedError}
-     * @throws {@link Auth0MyOrg.ForbiddenError}
-     * @throws {@link Auth0MyOrg.NotFoundError}
-     * @throws {@link Auth0MyOrg.TooManyRequestsError}
+     * @throws {@link MyOrganization.BadRequestError}
+     * @throws {@link MyOrganization.UnauthorizedError}
+     * @throws {@link MyOrganization.ForbiddenError}
+     * @throws {@link MyOrganization.NotFoundError}
+     * @throws {@link MyOrganization.TooManyRequestsError}
      *
      * @example
      *     await client.organization.invitations.get("invitation_id")
      */
     public get(
-        invitationId: Auth0MyOrg.InvitationId,
+        invitationId: MyOrganization.InvitationId,
         requestOptions?: Invitations.RequestOptions,
-    ): core.HttpResponsePromise<Auth0MyOrg.GetMemberInvitationResponseContent> {
+    ): core.HttpResponsePromise<MyOrganization.GetMemberInvitationResponseContent> {
         return core.HttpResponsePromise.fromPromise(this.__get(invitationId, requestOptions));
     }
 
     private async __get(
-        invitationId: Auth0MyOrg.InvitationId,
+        invitationId: MyOrganization.InvitationId,
         requestOptions?: Invitations.RequestOptions,
-    ): Promise<core.WithRawResponse<Auth0MyOrg.GetMemberInvitationResponseContent>> {
+    ): Promise<core.WithRawResponse<MyOrganization.GetMemberInvitationResponseContent>> {
         const _metadata: core.EndpointMetadata = {
             security: [
                 { OAuth2ClientCredentials: ["read:my_org:member_invitations"] },
@@ -287,8 +287,8 @@ export class Invitations {
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
-                    environments.Auth0MyOrgEnvironment.Default,
-                `invitations/${encodeURIComponent(invitationId)}`,
+                    environments.MyOrganizationEnvironment.Default,
+                `invitations/${core.url.encodePathParam(invitationId)}`,
             ),
             method: "GET",
             headers: _headers,
@@ -297,38 +297,41 @@ export class Invitations {
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
             endpointMetadata: _metadata,
+            fetchFn: this._options?.fetch,
         });
         if (_response.ok) {
             return {
-                data: _response.body as Auth0MyOrg.GetMemberInvitationResponseContent,
+                data: _response.body as MyOrganization.GetMemberInvitationResponseContent,
                 rawResponse: _response.rawResponse,
             };
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
+                case 400:
+                    throw new MyOrganization.BadRequestError(_response.error.body as unknown, _response.rawResponse);
                 case 401:
-                    throw new Auth0MyOrg.UnauthorizedError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
+                    throw new MyOrganization.UnauthorizedError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
                         _response.rawResponse,
                     );
                 case 403:
-                    throw new Auth0MyOrg.ForbiddenError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
+                    throw new MyOrganization.ForbiddenError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
                         _response.rawResponse,
                     );
                 case 404:
-                    throw new Auth0MyOrg.NotFoundError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
+                    throw new MyOrganization.NotFoundError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
                         _response.rawResponse,
                     );
                 case 429:
-                    throw new Auth0MyOrg.TooManyRequestsError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
+                    throw new MyOrganization.TooManyRequestsError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
                         _response.rawResponse,
                     );
                 default:
-                    throw new errors.Auth0MyOrgError({
+                    throw new errors.MyOrganizationError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
                         rawResponse: _response.rawResponse,
@@ -338,17 +341,17 @@ export class Invitations {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.Auth0MyOrgError({
+                throw new errors.MyOrganizationError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                     rawResponse: _response.rawResponse,
                 });
             case "timeout":
-                throw new errors.Auth0MyOrgTimeoutError(
+                throw new errors.MyOrganizationTimeoutError(
                     "Timeout exceeded when calling GET /invitations/{invitation_id}.",
                 );
             case "unknown":
-                throw new errors.Auth0MyOrgError({
+                throw new errors.MyOrganizationError({
                     message: _response.error.errorMessage,
                     rawResponse: _response.rawResponse,
                 });
@@ -358,26 +361,27 @@ export class Invitations {
     /**
      * Delete a member invitation by id for an Organization.
      *
-     * @param {Auth0MyOrg.InvitationId} invitationId
+     * @param {MyOrganization.InvitationId} invitationId
      * @param {Invitations.RequestOptions} requestOptions - Request-specific configuration.
      *
-     * @throws {@link Auth0MyOrg.UnauthorizedError}
-     * @throws {@link Auth0MyOrg.ForbiddenError}
-     * @throws {@link Auth0MyOrg.NotFoundError}
-     * @throws {@link Auth0MyOrg.TooManyRequestsError}
+     * @throws {@link MyOrganization.BadRequestError}
+     * @throws {@link MyOrganization.UnauthorizedError}
+     * @throws {@link MyOrganization.ForbiddenError}
+     * @throws {@link MyOrganization.NotFoundError}
+     * @throws {@link MyOrganization.TooManyRequestsError}
      *
      * @example
      *     await client.organization.invitations.delete("invitation_id")
      */
     public delete(
-        invitationId: Auth0MyOrg.InvitationId,
+        invitationId: MyOrganization.InvitationId,
         requestOptions?: Invitations.RequestOptions,
     ): core.HttpResponsePromise<void> {
         return core.HttpResponsePromise.fromPromise(this.__delete(invitationId, requestOptions));
     }
 
     private async __delete(
-        invitationId: Auth0MyOrg.InvitationId,
+        invitationId: MyOrganization.InvitationId,
         requestOptions?: Invitations.RequestOptions,
     ): Promise<core.WithRawResponse<void>> {
         const _metadata: core.EndpointMetadata = {
@@ -395,8 +399,8 @@ export class Invitations {
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
-                    environments.Auth0MyOrgEnvironment.Default,
-                `invitations/${encodeURIComponent(invitationId)}`,
+                    environments.MyOrganizationEnvironment.Default,
+                `invitations/${core.url.encodePathParam(invitationId)}`,
             ),
             method: "DELETE",
             headers: _headers,
@@ -405,6 +409,7 @@ export class Invitations {
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
             endpointMetadata: _metadata,
+            fetchFn: this._options?.fetch,
         });
         if (_response.ok) {
             return { data: undefined, rawResponse: _response.rawResponse };
@@ -412,28 +417,30 @@ export class Invitations {
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
+                case 400:
+                    throw new MyOrganization.BadRequestError(_response.error.body as unknown, _response.rawResponse);
                 case 401:
-                    throw new Auth0MyOrg.UnauthorizedError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
+                    throw new MyOrganization.UnauthorizedError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
                         _response.rawResponse,
                     );
                 case 403:
-                    throw new Auth0MyOrg.ForbiddenError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
+                    throw new MyOrganization.ForbiddenError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
                         _response.rawResponse,
                     );
                 case 404:
-                    throw new Auth0MyOrg.NotFoundError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
+                    throw new MyOrganization.NotFoundError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
                         _response.rawResponse,
                     );
                 case 429:
-                    throw new Auth0MyOrg.TooManyRequestsError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
+                    throw new MyOrganization.TooManyRequestsError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
                         _response.rawResponse,
                     );
                 default:
-                    throw new errors.Auth0MyOrgError({
+                    throw new errors.MyOrganizationError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
                         rawResponse: _response.rawResponse,
@@ -443,17 +450,17 @@ export class Invitations {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.Auth0MyOrgError({
+                throw new errors.MyOrganizationError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                     rawResponse: _response.rawResponse,
                 });
             case "timeout":
-                throw new errors.Auth0MyOrgTimeoutError(
+                throw new errors.MyOrganizationTimeoutError(
                     "Timeout exceeded when calling DELETE /invitations/{invitation_id}.",
                 );
             case "unknown":
-                throw new errors.Auth0MyOrgError({
+                throw new errors.MyOrganizationError({
                     message: _response.error.errorMessage,
                     rawResponse: _response.rawResponse,
                 });

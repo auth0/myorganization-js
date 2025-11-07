@@ -4,7 +4,7 @@ import * as environments from "./environments.js";
 import * as core from "./core/index.js";
 
 export interface BaseClientOptions {
-    environment?: core.Supplier<environments.Auth0MyOrgEnvironment | string>;
+    environment?: core.Supplier<environments.MyOrganizationEnvironment | string>;
     /** Specify a custom URL to connect the client to. */
     baseUrl?: core.Supplier<string>;
     token: core.EndpointSupplier<core.BearerToken>;
@@ -14,6 +14,8 @@ export interface BaseClientOptions {
     timeoutInSeconds?: number;
     /** The default number of times to retry the request. Defaults to 2. */
     maxRetries?: number;
+    /** Provide a custom fetch implementation. Useful for platforms that don't have a built-in fetch or need a custom implementation. */
+    fetch?: typeof fetch;
     fetcher?: core.FetchFunction;
 }
 

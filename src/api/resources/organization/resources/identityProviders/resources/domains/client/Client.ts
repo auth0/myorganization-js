@@ -3,7 +3,7 @@
 import type { BaseClientOptions, BaseRequestOptions } from "../../../../../../../../BaseClient.js";
 import * as environments from "../../../../../../../../environments.js";
 import * as core from "../../../../../../../../core/index.js";
-import * as Auth0MyOrg from "../../../../../../../index.js";
+import * as MyOrganization from "../../../../../../../index.js";
 import { mergeHeaders, mergeOnlyDefinedHeaders } from "../../../../../../../../core/headers.js";
 import * as errors from "../../../../../../../../errors/index.js";
 
@@ -23,15 +23,15 @@ export class Domains {
     /**
      * Add a domain to the identity provider's list of domains for [Home Realm Discovery (HRD)](https://auth0.com/docs/get-started/architecture-scenarios/business-to-business/authentication#home-realm-discovery). The domain passed must be claimed and verified by this organization.
      *
-     * @param {Auth0MyOrg.IdpId} idpId
-     * @param {Auth0MyOrg.CreateIdpDomainRequestContent} request
+     * @param {MyOrganization.IdpId} idpId
+     * @param {MyOrganization.CreateIdpDomainRequestContent} request
      * @param {Domains.RequestOptions} requestOptions - Request-specific configuration.
      *
-     * @throws {@link Auth0MyOrg.BadRequestError}
-     * @throws {@link Auth0MyOrg.UnauthorizedError}
-     * @throws {@link Auth0MyOrg.ForbiddenError}
-     * @throws {@link Auth0MyOrg.NotFoundError}
-     * @throws {@link Auth0MyOrg.TooManyRequestsError}
+     * @throws {@link MyOrganization.BadRequestError}
+     * @throws {@link MyOrganization.UnauthorizedError}
+     * @throws {@link MyOrganization.ForbiddenError}
+     * @throws {@link MyOrganization.NotFoundError}
+     * @throws {@link MyOrganization.TooManyRequestsError}
      *
      * @example
      *     await client.organization.identityProviders.domains.create("idp_id", {
@@ -39,22 +39,22 @@ export class Domains {
      *     })
      */
     public create(
-        idpId: Auth0MyOrg.IdpId,
-        request: Auth0MyOrg.CreateIdpDomainRequestContent,
+        idpId: MyOrganization.IdpId,
+        request: MyOrganization.CreateIdpDomainRequestContent,
         requestOptions?: Domains.RequestOptions,
-    ): core.HttpResponsePromise<Auth0MyOrg.CreateIdpDomainResponseContent> {
+    ): core.HttpResponsePromise<MyOrganization.CreateIdpDomainResponseContent> {
         return core.HttpResponsePromise.fromPromise(this.__create(idpId, request, requestOptions));
     }
 
     private async __create(
-        idpId: Auth0MyOrg.IdpId,
-        request: Auth0MyOrg.CreateIdpDomainRequestContent,
+        idpId: MyOrganization.IdpId,
+        request: MyOrganization.CreateIdpDomainRequestContent,
         requestOptions?: Domains.RequestOptions,
-    ): Promise<core.WithRawResponse<Auth0MyOrg.CreateIdpDomainResponseContent>> {
+    ): Promise<core.WithRawResponse<MyOrganization.CreateIdpDomainResponseContent>> {
         const _metadata: core.EndpointMetadata = {
             security: [
-                { OAuth2ClientCredentials: ["create:my_org:identity_provider_domains"] },
-                { OAuth2AuthCode: ["create:my_org:identity_provider_domains"] },
+                { OAuth2ClientCredentials: ["create:my_org:identity_providers_domains"] },
+                { OAuth2AuthCode: ["create:my_org:identity_providers_domains"] },
             ],
         };
         let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
@@ -66,8 +66,8 @@ export class Domains {
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
-                    environments.Auth0MyOrgEnvironment.Default,
-                `identity-providers/${encodeURIComponent(idpId)}/domains`,
+                    environments.MyOrganizationEnvironment.Default,
+                `identity-providers/${core.url.encodePathParam(idpId)}/domains`,
             ),
             method: "POST",
             headers: _headers,
@@ -79,10 +79,11 @@ export class Domains {
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
             endpointMetadata: _metadata,
+            fetchFn: this._options?.fetch,
         });
         if (_response.ok) {
             return {
-                data: _response.body as Auth0MyOrg.CreateIdpDomainResponseContent,
+                data: _response.body as MyOrganization.CreateIdpDomainResponseContent,
                 rawResponse: _response.rawResponse,
             };
         }
@@ -90,32 +91,29 @@ export class Domains {
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 400:
-                    throw new Auth0MyOrg.BadRequestError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
-                        _response.rawResponse,
-                    );
+                    throw new MyOrganization.BadRequestError(_response.error.body as unknown, _response.rawResponse);
                 case 401:
-                    throw new Auth0MyOrg.UnauthorizedError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
+                    throw new MyOrganization.UnauthorizedError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
                         _response.rawResponse,
                     );
                 case 403:
-                    throw new Auth0MyOrg.ForbiddenError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
+                    throw new MyOrganization.ForbiddenError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
                         _response.rawResponse,
                     );
                 case 404:
-                    throw new Auth0MyOrg.NotFoundError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
+                    throw new MyOrganization.NotFoundError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
                         _response.rawResponse,
                     );
                 case 429:
-                    throw new Auth0MyOrg.TooManyRequestsError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
+                    throw new MyOrganization.TooManyRequestsError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
                         _response.rawResponse,
                     );
                 default:
-                    throw new errors.Auth0MyOrgError({
+                    throw new errors.MyOrganizationError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
                         rawResponse: _response.rawResponse,
@@ -125,17 +123,17 @@ export class Domains {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.Auth0MyOrgError({
+                throw new errors.MyOrganizationError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                     rawResponse: _response.rawResponse,
                 });
             case "timeout":
-                throw new errors.Auth0MyOrgTimeoutError(
+                throw new errors.MyOrganizationTimeoutError(
                     "Timeout exceeded when calling POST /identity-providers/{idp_id}/domains.",
                 );
             case "unknown":
-                throw new errors.Auth0MyOrgError({
+                throw new errors.MyOrganizationError({
                     message: _response.error.errorMessage,
                     rawResponse: _response.rawResponse,
                 });
@@ -145,36 +143,36 @@ export class Domains {
     /**
      * Remove a domain from an identity provider.
      *
-     * @param {Auth0MyOrg.IdpId} idpId
-     * @param {Auth0MyOrg.OrgDomainName} domain
+     * @param {MyOrganization.IdpId} idpId
+     * @param {MyOrganization.OrgDomainName} domain
      * @param {Domains.RequestOptions} requestOptions - Request-specific configuration.
      *
-     * @throws {@link Auth0MyOrg.BadRequestError}
-     * @throws {@link Auth0MyOrg.UnauthorizedError}
-     * @throws {@link Auth0MyOrg.ForbiddenError}
-     * @throws {@link Auth0MyOrg.NotFoundError}
-     * @throws {@link Auth0MyOrg.TooManyRequestsError}
+     * @throws {@link MyOrganization.BadRequestError}
+     * @throws {@link MyOrganization.UnauthorizedError}
+     * @throws {@link MyOrganization.ForbiddenError}
+     * @throws {@link MyOrganization.NotFoundError}
+     * @throws {@link MyOrganization.TooManyRequestsError}
      *
      * @example
      *     await client.organization.identityProviders.domains.delete("idp_id", "domain")
      */
     public delete(
-        idpId: Auth0MyOrg.IdpId,
-        domain: Auth0MyOrg.OrgDomainName,
+        idpId: MyOrganization.IdpId,
+        domain: MyOrganization.OrgDomainName,
         requestOptions?: Domains.RequestOptions,
     ): core.HttpResponsePromise<void> {
         return core.HttpResponsePromise.fromPromise(this.__delete(idpId, domain, requestOptions));
     }
 
     private async __delete(
-        idpId: Auth0MyOrg.IdpId,
-        domain: Auth0MyOrg.OrgDomainName,
+        idpId: MyOrganization.IdpId,
+        domain: MyOrganization.OrgDomainName,
         requestOptions?: Domains.RequestOptions,
     ): Promise<core.WithRawResponse<void>> {
         const _metadata: core.EndpointMetadata = {
             security: [
-                { OAuth2ClientCredentials: ["delete:my_org:identity_provider_domains"] },
-                { OAuth2AuthCode: ["delete:my_org:identity_provider_domains"] },
+                { OAuth2ClientCredentials: ["delete:my_org:identity_providers_domains"] },
+                { OAuth2AuthCode: ["delete:my_org:identity_providers_domains"] },
             ],
         };
         let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
@@ -186,8 +184,8 @@ export class Domains {
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
-                    environments.Auth0MyOrgEnvironment.Default,
-                `identity-providers/${encodeURIComponent(idpId)}/domains/${encodeURIComponent(domain)}`,
+                    environments.MyOrganizationEnvironment.Default,
+                `identity-providers/${core.url.encodePathParam(idpId)}/domains/${core.url.encodePathParam(domain)}`,
             ),
             method: "DELETE",
             headers: _headers,
@@ -196,6 +194,7 @@ export class Domains {
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
             endpointMetadata: _metadata,
+            fetchFn: this._options?.fetch,
         });
         if (_response.ok) {
             return { data: undefined, rawResponse: _response.rawResponse };
@@ -204,32 +203,29 @@ export class Domains {
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 400:
-                    throw new Auth0MyOrg.BadRequestError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
-                        _response.rawResponse,
-                    );
+                    throw new MyOrganization.BadRequestError(_response.error.body as unknown, _response.rawResponse);
                 case 401:
-                    throw new Auth0MyOrg.UnauthorizedError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
+                    throw new MyOrganization.UnauthorizedError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
                         _response.rawResponse,
                     );
                 case 403:
-                    throw new Auth0MyOrg.ForbiddenError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
+                    throw new MyOrganization.ForbiddenError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
                         _response.rawResponse,
                     );
                 case 404:
-                    throw new Auth0MyOrg.NotFoundError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
+                    throw new MyOrganization.NotFoundError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
                         _response.rawResponse,
                     );
                 case 429:
-                    throw new Auth0MyOrg.TooManyRequestsError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
+                    throw new MyOrganization.TooManyRequestsError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
                         _response.rawResponse,
                     );
                 default:
-                    throw new errors.Auth0MyOrgError({
+                    throw new errors.MyOrganizationError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
                         rawResponse: _response.rawResponse,
@@ -239,17 +235,17 @@ export class Domains {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.Auth0MyOrgError({
+                throw new errors.MyOrganizationError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                     rawResponse: _response.rawResponse,
                 });
             case "timeout":
-                throw new errors.Auth0MyOrgTimeoutError(
+                throw new errors.MyOrganizationTimeoutError(
                     "Timeout exceeded when calling DELETE /identity-providers/{idp_id}/domains/{domain}.",
                 );
             case "unknown":
-                throw new errors.Auth0MyOrgError({
+                throw new errors.MyOrganizationError({
                     message: _response.error.errorMessage,
                     rawResponse: _response.rawResponse,
                 });

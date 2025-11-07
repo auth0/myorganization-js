@@ -3,7 +3,7 @@
 import type { BaseClientOptions, BaseRequestOptions } from "../../../../../../BaseClient.js";
 import * as environments from "../../../../../../environments.js";
 import * as core from "../../../../../../core/index.js";
-import * as Auth0MyOrg from "../../../../../index.js";
+import * as MyOrganization from "../../../../../index.js";
 import { mergeHeaders, mergeOnlyDefinedHeaders } from "../../../../../../core/headers.js";
 import * as errors from "../../../../../../errors/index.js";
 import { Domains } from "../resources/domains/client/Client.js";
@@ -37,23 +37,23 @@ export class IdentityProviders {
      *
      * @param {IdentityProviders.RequestOptions} requestOptions - Request-specific configuration.
      *
-     * @throws {@link Auth0MyOrg.UnauthorizedError}
-     * @throws {@link Auth0MyOrg.ForbiddenError}
-     * @throws {@link Auth0MyOrg.NotFoundError}
-     * @throws {@link Auth0MyOrg.TooManyRequestsError}
+     * @throws {@link MyOrganization.UnauthorizedError}
+     * @throws {@link MyOrganization.ForbiddenError}
+     * @throws {@link MyOrganization.NotFoundError}
+     * @throws {@link MyOrganization.TooManyRequestsError}
      *
      * @example
      *     await client.organization.identityProviders.list()
      */
     public list(
         requestOptions?: IdentityProviders.RequestOptions,
-    ): core.HttpResponsePromise<Auth0MyOrg.ListIdentityProvidersResponseContent> {
+    ): core.HttpResponsePromise<MyOrganization.ListIdentityProvidersResponseContent> {
         return core.HttpResponsePromise.fromPromise(this.__list(requestOptions));
     }
 
     private async __list(
         requestOptions?: IdentityProviders.RequestOptions,
-    ): Promise<core.WithRawResponse<Auth0MyOrg.ListIdentityProvidersResponseContent>> {
+    ): Promise<core.WithRawResponse<MyOrganization.ListIdentityProvidersResponseContent>> {
         const _metadata: core.EndpointMetadata = {
             security: [
                 { OAuth2ClientCredentials: ["read:my_org:identity_providers"] },
@@ -69,7 +69,7 @@ export class IdentityProviders {
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
-                    environments.Auth0MyOrgEnvironment.Default,
+                    environments.MyOrganizationEnvironment.Default,
                 "identity-providers",
             ),
             method: "GET",
@@ -79,10 +79,11 @@ export class IdentityProviders {
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
             endpointMetadata: _metadata,
+            fetchFn: this._options?.fetch,
         });
         if (_response.ok) {
             return {
-                data: _response.body as Auth0MyOrg.ListIdentityProvidersResponseContent,
+                data: _response.body as MyOrganization.ListIdentityProvidersResponseContent,
                 rawResponse: _response.rawResponse,
             };
         }
@@ -90,27 +91,27 @@ export class IdentityProviders {
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 401:
-                    throw new Auth0MyOrg.UnauthorizedError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
+                    throw new MyOrganization.UnauthorizedError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
                         _response.rawResponse,
                     );
                 case 403:
-                    throw new Auth0MyOrg.ForbiddenError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
+                    throw new MyOrganization.ForbiddenError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
                         _response.rawResponse,
                     );
                 case 404:
-                    throw new Auth0MyOrg.NotFoundError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
+                    throw new MyOrganization.NotFoundError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
                         _response.rawResponse,
                     );
                 case 429:
-                    throw new Auth0MyOrg.TooManyRequestsError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
+                    throw new MyOrganization.TooManyRequestsError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
                         _response.rawResponse,
                     );
                 default:
-                    throw new errors.Auth0MyOrgError({
+                    throw new errors.MyOrganizationError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
                         rawResponse: _response.rawResponse,
@@ -120,15 +121,15 @@ export class IdentityProviders {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.Auth0MyOrgError({
+                throw new errors.MyOrganizationError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                     rawResponse: _response.rawResponse,
                 });
             case "timeout":
-                throw new errors.Auth0MyOrgTimeoutError("Timeout exceeded when calling GET /identity-providers.");
+                throw new errors.MyOrganizationTimeoutError("Timeout exceeded when calling GET /identity-providers.");
             case "unknown":
-                throw new errors.Auth0MyOrgError({
+                throw new errors.MyOrganizationError({
                     message: _response.error.errorMessage,
                     rawResponse: _response.rawResponse,
                 });
@@ -138,14 +139,14 @@ export class IdentityProviders {
     /**
      * Create an identity provider associated with this organization.
      *
-     * @param {Auth0MyOrg.CreateIdentityProviderRequestContent} request
+     * @param {MyOrganization.CreateIdentityProviderRequestContent} request
      * @param {IdentityProviders.RequestOptions} requestOptions - Request-specific configuration.
      *
-     * @throws {@link Auth0MyOrg.BadRequestError}
-     * @throws {@link Auth0MyOrg.UnauthorizedError}
-     * @throws {@link Auth0MyOrg.ForbiddenError}
-     * @throws {@link Auth0MyOrg.NotFoundError}
-     * @throws {@link Auth0MyOrg.TooManyRequestsError}
+     * @throws {@link MyOrganization.BadRequestError}
+     * @throws {@link MyOrganization.UnauthorizedError}
+     * @throws {@link MyOrganization.ForbiddenError}
+     * @throws {@link MyOrganization.NotFoundError}
+     * @throws {@link MyOrganization.TooManyRequestsError}
      *
      * @example
      *     await client.organization.identityProviders.create({
@@ -165,16 +166,16 @@ export class IdentityProviders {
      *     })
      */
     public create(
-        request: Auth0MyOrg.CreateIdentityProviderRequestContent,
+        request: MyOrganization.CreateIdentityProviderRequestContent,
         requestOptions?: IdentityProviders.RequestOptions,
-    ): core.HttpResponsePromise<Auth0MyOrg.CreateIdentityProviderResponseContent> {
+    ): core.HttpResponsePromise<MyOrganization.CreateIdentityProviderResponseContent> {
         return core.HttpResponsePromise.fromPromise(this.__create(request, requestOptions));
     }
 
     private async __create(
-        request: Auth0MyOrg.CreateIdentityProviderRequestContent,
+        request: MyOrganization.CreateIdentityProviderRequestContent,
         requestOptions?: IdentityProviders.RequestOptions,
-    ): Promise<core.WithRawResponse<Auth0MyOrg.CreateIdentityProviderResponseContent>> {
+    ): Promise<core.WithRawResponse<MyOrganization.CreateIdentityProviderResponseContent>> {
         const _metadata: core.EndpointMetadata = {
             security: [
                 { OAuth2ClientCredentials: ["create:my_org:identity_providers"] },
@@ -190,7 +191,7 @@ export class IdentityProviders {
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
-                    environments.Auth0MyOrgEnvironment.Default,
+                    environments.MyOrganizationEnvironment.Default,
                 "identity-providers",
             ),
             method: "POST",
@@ -203,10 +204,11 @@ export class IdentityProviders {
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
             endpointMetadata: _metadata,
+            fetchFn: this._options?.fetch,
         });
         if (_response.ok) {
             return {
-                data: _response.body as Auth0MyOrg.CreateIdentityProviderResponseContent,
+                data: _response.body as MyOrganization.CreateIdentityProviderResponseContent,
                 rawResponse: _response.rawResponse,
             };
         }
@@ -214,32 +216,29 @@ export class IdentityProviders {
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 400:
-                    throw new Auth0MyOrg.BadRequestError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
-                        _response.rawResponse,
-                    );
+                    throw new MyOrganization.BadRequestError(_response.error.body as unknown, _response.rawResponse);
                 case 401:
-                    throw new Auth0MyOrg.UnauthorizedError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
+                    throw new MyOrganization.UnauthorizedError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
                         _response.rawResponse,
                     );
                 case 403:
-                    throw new Auth0MyOrg.ForbiddenError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
+                    throw new MyOrganization.ForbiddenError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
                         _response.rawResponse,
                     );
                 case 404:
-                    throw new Auth0MyOrg.NotFoundError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
+                    throw new MyOrganization.NotFoundError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
                         _response.rawResponse,
                     );
                 case 429:
-                    throw new Auth0MyOrg.TooManyRequestsError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
+                    throw new MyOrganization.TooManyRequestsError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
                         _response.rawResponse,
                     );
                 default:
-                    throw new errors.Auth0MyOrgError({
+                    throw new errors.MyOrganizationError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
                         rawResponse: _response.rawResponse,
@@ -249,15 +248,15 @@ export class IdentityProviders {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.Auth0MyOrgError({
+                throw new errors.MyOrganizationError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                     rawResponse: _response.rawResponse,
                 });
             case "timeout":
-                throw new errors.Auth0MyOrgTimeoutError("Timeout exceeded when calling POST /identity-providers.");
+                throw new errors.MyOrganizationTimeoutError("Timeout exceeded when calling POST /identity-providers.");
             case "unknown":
-                throw new errors.Auth0MyOrgError({
+                throw new errors.MyOrganizationError({
                     message: _response.error.errorMessage,
                     rawResponse: _response.rawResponse,
                 });
@@ -267,28 +266,29 @@ export class IdentityProviders {
     /**
      * Retrieve the details for one particular identity-provider.
      *
-     * @param {Auth0MyOrg.IdpId} idpId
+     * @param {MyOrganization.IdpId} idpId
      * @param {IdentityProviders.RequestOptions} requestOptions - Request-specific configuration.
      *
-     * @throws {@link Auth0MyOrg.UnauthorizedError}
-     * @throws {@link Auth0MyOrg.ForbiddenError}
-     * @throws {@link Auth0MyOrg.NotFoundError}
-     * @throws {@link Auth0MyOrg.TooManyRequestsError}
+     * @throws {@link MyOrganization.BadRequestError}
+     * @throws {@link MyOrganization.UnauthorizedError}
+     * @throws {@link MyOrganization.ForbiddenError}
+     * @throws {@link MyOrganization.NotFoundError}
+     * @throws {@link MyOrganization.TooManyRequestsError}
      *
      * @example
      *     await client.organization.identityProviders.get("idp_id")
      */
     public get(
-        idpId: Auth0MyOrg.IdpId,
+        idpId: MyOrganization.IdpId,
         requestOptions?: IdentityProviders.RequestOptions,
-    ): core.HttpResponsePromise<Auth0MyOrg.GetIdentityProviderResponseContent> {
+    ): core.HttpResponsePromise<MyOrganization.GetIdentityProviderResponseContent> {
         return core.HttpResponsePromise.fromPromise(this.__get(idpId, requestOptions));
     }
 
     private async __get(
-        idpId: Auth0MyOrg.IdpId,
+        idpId: MyOrganization.IdpId,
         requestOptions?: IdentityProviders.RequestOptions,
-    ): Promise<core.WithRawResponse<Auth0MyOrg.GetIdentityProviderResponseContent>> {
+    ): Promise<core.WithRawResponse<MyOrganization.GetIdentityProviderResponseContent>> {
         const _metadata: core.EndpointMetadata = {
             security: [
                 { OAuth2ClientCredentials: ["read:my_org:identity_providers"] },
@@ -304,8 +304,8 @@ export class IdentityProviders {
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
-                    environments.Auth0MyOrgEnvironment.Default,
-                `identity-providers/${encodeURIComponent(idpId)}`,
+                    environments.MyOrganizationEnvironment.Default,
+                `identity-providers/${core.url.encodePathParam(idpId)}`,
             ),
             method: "GET",
             headers: _headers,
@@ -314,38 +314,41 @@ export class IdentityProviders {
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
             endpointMetadata: _metadata,
+            fetchFn: this._options?.fetch,
         });
         if (_response.ok) {
             return {
-                data: _response.body as Auth0MyOrg.GetIdentityProviderResponseContent,
+                data: _response.body as MyOrganization.GetIdentityProviderResponseContent,
                 rawResponse: _response.rawResponse,
             };
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
+                case 400:
+                    throw new MyOrganization.BadRequestError(_response.error.body as unknown, _response.rawResponse);
                 case 401:
-                    throw new Auth0MyOrg.UnauthorizedError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
+                    throw new MyOrganization.UnauthorizedError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
                         _response.rawResponse,
                     );
                 case 403:
-                    throw new Auth0MyOrg.ForbiddenError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
+                    throw new MyOrganization.ForbiddenError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
                         _response.rawResponse,
                     );
                 case 404:
-                    throw new Auth0MyOrg.NotFoundError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
+                    throw new MyOrganization.NotFoundError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
                         _response.rawResponse,
                     );
                 case 429:
-                    throw new Auth0MyOrg.TooManyRequestsError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
+                    throw new MyOrganization.TooManyRequestsError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
                         _response.rawResponse,
                     );
                 default:
-                    throw new errors.Auth0MyOrgError({
+                    throw new errors.MyOrganizationError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
                         rawResponse: _response.rawResponse,
@@ -355,17 +358,17 @@ export class IdentityProviders {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.Auth0MyOrgError({
+                throw new errors.MyOrganizationError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                     rawResponse: _response.rawResponse,
                 });
             case "timeout":
-                throw new errors.Auth0MyOrgTimeoutError(
+                throw new errors.MyOrganizationTimeoutError(
                     "Timeout exceeded when calling GET /identity-providers/{idp_id}.",
                 );
             case "unknown":
-                throw new errors.Auth0MyOrgError({
+                throw new errors.MyOrganizationError({
                     message: _response.error.errorMessage,
                     rawResponse: _response.rawResponse,
                 });
@@ -375,26 +378,27 @@ export class IdentityProviders {
     /**
      * Delete an identity provider from this organization.
      *
-     * @param {Auth0MyOrg.IdpId} idpId
+     * @param {MyOrganization.IdpId} idpId
      * @param {IdentityProviders.RequestOptions} requestOptions - Request-specific configuration.
      *
-     * @throws {@link Auth0MyOrg.UnauthorizedError}
-     * @throws {@link Auth0MyOrg.ForbiddenError}
-     * @throws {@link Auth0MyOrg.NotFoundError}
-     * @throws {@link Auth0MyOrg.TooManyRequestsError}
+     * @throws {@link MyOrganization.BadRequestError}
+     * @throws {@link MyOrganization.UnauthorizedError}
+     * @throws {@link MyOrganization.ForbiddenError}
+     * @throws {@link MyOrganization.NotFoundError}
+     * @throws {@link MyOrganization.TooManyRequestsError}
      *
      * @example
      *     await client.organization.identityProviders.delete("idp_id")
      */
     public delete(
-        idpId: Auth0MyOrg.IdpId,
+        idpId: MyOrganization.IdpId,
         requestOptions?: IdentityProviders.RequestOptions,
     ): core.HttpResponsePromise<void> {
         return core.HttpResponsePromise.fromPromise(this.__delete(idpId, requestOptions));
     }
 
     private async __delete(
-        idpId: Auth0MyOrg.IdpId,
+        idpId: MyOrganization.IdpId,
         requestOptions?: IdentityProviders.RequestOptions,
     ): Promise<core.WithRawResponse<void>> {
         const _metadata: core.EndpointMetadata = {
@@ -412,8 +416,8 @@ export class IdentityProviders {
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
-                    environments.Auth0MyOrgEnvironment.Default,
-                `identity-providers/${encodeURIComponent(idpId)}`,
+                    environments.MyOrganizationEnvironment.Default,
+                `identity-providers/${core.url.encodePathParam(idpId)}`,
             ),
             method: "DELETE",
             headers: _headers,
@@ -422,6 +426,7 @@ export class IdentityProviders {
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
             endpointMetadata: _metadata,
+            fetchFn: this._options?.fetch,
         });
         if (_response.ok) {
             return { data: undefined, rawResponse: _response.rawResponse };
@@ -429,28 +434,30 @@ export class IdentityProviders {
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
+                case 400:
+                    throw new MyOrganization.BadRequestError(_response.error.body as unknown, _response.rawResponse);
                 case 401:
-                    throw new Auth0MyOrg.UnauthorizedError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
+                    throw new MyOrganization.UnauthorizedError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
                         _response.rawResponse,
                     );
                 case 403:
-                    throw new Auth0MyOrg.ForbiddenError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
+                    throw new MyOrganization.ForbiddenError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
                         _response.rawResponse,
                     );
                 case 404:
-                    throw new Auth0MyOrg.NotFoundError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
+                    throw new MyOrganization.NotFoundError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
                         _response.rawResponse,
                     );
                 case 429:
-                    throw new Auth0MyOrg.TooManyRequestsError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
+                    throw new MyOrganization.TooManyRequestsError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
                         _response.rawResponse,
                     );
                 default:
-                    throw new errors.Auth0MyOrgError({
+                    throw new errors.MyOrganizationError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
                         rawResponse: _response.rawResponse,
@@ -460,17 +467,17 @@ export class IdentityProviders {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.Auth0MyOrgError({
+                throw new errors.MyOrganizationError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                     rawResponse: _response.rawResponse,
                 });
             case "timeout":
-                throw new errors.Auth0MyOrgTimeoutError(
+                throw new errors.MyOrganizationTimeoutError(
                     "Timeout exceeded when calling DELETE /identity-providers/{idp_id}.",
                 );
             case "unknown":
-                throw new errors.Auth0MyOrgError({
+                throw new errors.MyOrganizationError({
                     message: _response.error.errorMessage,
                     rawResponse: _response.rawResponse,
                 });
@@ -480,15 +487,15 @@ export class IdentityProviders {
     /**
      * Update an identity provider associated with this organization.
      *
-     * @param {Auth0MyOrg.IdpId} idpId
-     * @param {Auth0MyOrg.UpdateIdentityProviderRequestContent} request
+     * @param {MyOrganization.IdpId} idpId
+     * @param {MyOrganization.UpdateIdentityProviderRequestContent} request
      * @param {IdentityProviders.RequestOptions} requestOptions - Request-specific configuration.
      *
-     * @throws {@link Auth0MyOrg.BadRequestError}
-     * @throws {@link Auth0MyOrg.UnauthorizedError}
-     * @throws {@link Auth0MyOrg.ForbiddenError}
-     * @throws {@link Auth0MyOrg.NotFoundError}
-     * @throws {@link Auth0MyOrg.TooManyRequestsError}
+     * @throws {@link MyOrganization.BadRequestError}
+     * @throws {@link MyOrganization.UnauthorizedError}
+     * @throws {@link MyOrganization.ForbiddenError}
+     * @throws {@link MyOrganization.NotFoundError}
+     * @throws {@link MyOrganization.TooManyRequestsError}
      *
      * @example
      *     await client.organization.identityProviders.update("idp_id", {
@@ -505,18 +512,18 @@ export class IdentityProviders {
      *     })
      */
     public update(
-        idpId: Auth0MyOrg.IdpId,
-        request: Auth0MyOrg.UpdateIdentityProviderRequestContent,
+        idpId: MyOrganization.IdpId,
+        request: MyOrganization.UpdateIdentityProviderRequestContent,
         requestOptions?: IdentityProviders.RequestOptions,
-    ): core.HttpResponsePromise<Auth0MyOrg.UpdateIdentityProviderResponseContent> {
+    ): core.HttpResponsePromise<MyOrganization.UpdateIdentityProviderResponseContent> {
         return core.HttpResponsePromise.fromPromise(this.__update(idpId, request, requestOptions));
     }
 
     private async __update(
-        idpId: Auth0MyOrg.IdpId,
-        request: Auth0MyOrg.UpdateIdentityProviderRequestContent,
+        idpId: MyOrganization.IdpId,
+        request: MyOrganization.UpdateIdentityProviderRequestContent,
         requestOptions?: IdentityProviders.RequestOptions,
-    ): Promise<core.WithRawResponse<Auth0MyOrg.UpdateIdentityProviderResponseContent>> {
+    ): Promise<core.WithRawResponse<MyOrganization.UpdateIdentityProviderResponseContent>> {
         const _metadata: core.EndpointMetadata = {
             security: [
                 { OAuth2ClientCredentials: ["update:my_org:identity_providers"] },
@@ -532,8 +539,8 @@ export class IdentityProviders {
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
-                    environments.Auth0MyOrgEnvironment.Default,
-                `identity-providers/${encodeURIComponent(idpId)}`,
+                    environments.MyOrganizationEnvironment.Default,
+                `identity-providers/${core.url.encodePathParam(idpId)}`,
             ),
             method: "PATCH",
             headers: _headers,
@@ -545,10 +552,11 @@ export class IdentityProviders {
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
             endpointMetadata: _metadata,
+            fetchFn: this._options?.fetch,
         });
         if (_response.ok) {
             return {
-                data: _response.body as Auth0MyOrg.UpdateIdentityProviderResponseContent,
+                data: _response.body as MyOrganization.UpdateIdentityProviderResponseContent,
                 rawResponse: _response.rawResponse,
             };
         }
@@ -556,32 +564,29 @@ export class IdentityProviders {
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 400:
-                    throw new Auth0MyOrg.BadRequestError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
-                        _response.rawResponse,
-                    );
+                    throw new MyOrganization.BadRequestError(_response.error.body as unknown, _response.rawResponse);
                 case 401:
-                    throw new Auth0MyOrg.UnauthorizedError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
+                    throw new MyOrganization.UnauthorizedError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
                         _response.rawResponse,
                     );
                 case 403:
-                    throw new Auth0MyOrg.ForbiddenError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
+                    throw new MyOrganization.ForbiddenError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
                         _response.rawResponse,
                     );
                 case 404:
-                    throw new Auth0MyOrg.NotFoundError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
+                    throw new MyOrganization.NotFoundError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
                         _response.rawResponse,
                     );
                 case 429:
-                    throw new Auth0MyOrg.TooManyRequestsError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
+                    throw new MyOrganization.TooManyRequestsError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
                         _response.rawResponse,
                     );
                 default:
-                    throw new errors.Auth0MyOrgError({
+                    throw new errors.MyOrganizationError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
                         rawResponse: _response.rawResponse,
@@ -591,17 +596,17 @@ export class IdentityProviders {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.Auth0MyOrgError({
+                throw new errors.MyOrganizationError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                     rawResponse: _response.rawResponse,
                 });
             case "timeout":
-                throw new errors.Auth0MyOrgTimeoutError(
+                throw new errors.MyOrganizationTimeoutError(
                     "Timeout exceeded when calling PATCH /identity-providers/{idp_id}.",
                 );
             case "unknown":
-                throw new errors.Auth0MyOrgError({
+                throw new errors.MyOrganizationError({
                     message: _response.error.errorMessage,
                     rawResponse: _response.rawResponse,
                 });
@@ -611,29 +616,29 @@ export class IdentityProviders {
     /**
      * Delete underlying identity provider from this organization.
      *
-     * @param {Auth0MyOrg.IdpId} idpId
+     * @param {MyOrganization.IdpId} idpId
      * @param {IdentityProviders.RequestOptions} requestOptions - Request-specific configuration.
      *
-     * @throws {@link Auth0MyOrg.BadRequestError}
-     * @throws {@link Auth0MyOrg.UnauthorizedError}
-     * @throws {@link Auth0MyOrg.ForbiddenError}
-     * @throws {@link Auth0MyOrg.NotFoundError}
-     * @throws {@link Auth0MyOrg.TooManyRequestsError}
+     * @throws {@link MyOrganization.BadRequestError}
+     * @throws {@link MyOrganization.UnauthorizedError}
+     * @throws {@link MyOrganization.ForbiddenError}
+     * @throws {@link MyOrganization.NotFoundError}
+     * @throws {@link MyOrganization.TooManyRequestsError}
      *
      * @example
      *     await client.organization.identityProviders.detach("idp_id")
      */
     public detach(
-        idpId: Auth0MyOrg.IdpId,
+        idpId: MyOrganization.IdpId,
         requestOptions?: IdentityProviders.RequestOptions,
-    ): core.HttpResponsePromise<Auth0MyOrg.DetachIdpProviderResponseContent> {
+    ): core.HttpResponsePromise<MyOrganization.DetachIdpProviderResponseContent> {
         return core.HttpResponsePromise.fromPromise(this.__detach(idpId, requestOptions));
     }
 
     private async __detach(
-        idpId: Auth0MyOrg.IdpId,
+        idpId: MyOrganization.IdpId,
         requestOptions?: IdentityProviders.RequestOptions,
-    ): Promise<core.WithRawResponse<Auth0MyOrg.DetachIdpProviderResponseContent>> {
+    ): Promise<core.WithRawResponse<MyOrganization.DetachIdpProviderResponseContent>> {
         const _metadata: core.EndpointMetadata = {
             security: [
                 { OAuth2ClientCredentials: ["update:my_org:identity_providers_detach"] },
@@ -649,8 +654,8 @@ export class IdentityProviders {
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
-                    environments.Auth0MyOrgEnvironment.Default,
-                `identity-providers/${encodeURIComponent(idpId)}/detach`,
+                    environments.MyOrganizationEnvironment.Default,
+                `identity-providers/${core.url.encodePathParam(idpId)}/detach`,
             ),
             method: "POST",
             headers: _headers,
@@ -659,10 +664,11 @@ export class IdentityProviders {
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
             endpointMetadata: _metadata,
+            fetchFn: this._options?.fetch,
         });
         if (_response.ok) {
             return {
-                data: _response.body as Auth0MyOrg.DetachIdpProviderResponseContent,
+                data: _response.body as MyOrganization.DetachIdpProviderResponseContent,
                 rawResponse: _response.rawResponse,
             };
         }
@@ -670,32 +676,29 @@ export class IdentityProviders {
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 400:
-                    throw new Auth0MyOrg.BadRequestError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
-                        _response.rawResponse,
-                    );
+                    throw new MyOrganization.BadRequestError(_response.error.body as unknown, _response.rawResponse);
                 case 401:
-                    throw new Auth0MyOrg.UnauthorizedError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
+                    throw new MyOrganization.UnauthorizedError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
                         _response.rawResponse,
                     );
                 case 403:
-                    throw new Auth0MyOrg.ForbiddenError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
+                    throw new MyOrganization.ForbiddenError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
                         _response.rawResponse,
                     );
                 case 404:
-                    throw new Auth0MyOrg.NotFoundError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
+                    throw new MyOrganization.NotFoundError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
                         _response.rawResponse,
                     );
                 case 429:
-                    throw new Auth0MyOrg.TooManyRequestsError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
+                    throw new MyOrganization.TooManyRequestsError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
                         _response.rawResponse,
                     );
                 default:
-                    throw new errors.Auth0MyOrgError({
+                    throw new errors.MyOrganizationError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
                         rawResponse: _response.rawResponse,
@@ -705,17 +708,17 @@ export class IdentityProviders {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.Auth0MyOrgError({
+                throw new errors.MyOrganizationError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                     rawResponse: _response.rawResponse,
                 });
             case "timeout":
-                throw new errors.Auth0MyOrgTimeoutError(
+                throw new errors.MyOrganizationTimeoutError(
                     "Timeout exceeded when calling POST /identity-providers/{idp_id}/detach.",
                 );
             case "unknown":
-                throw new errors.Auth0MyOrgError({
+                throw new errors.MyOrganizationError({
                     message: _response.error.errorMessage,
                     rawResponse: _response.rawResponse,
                 });

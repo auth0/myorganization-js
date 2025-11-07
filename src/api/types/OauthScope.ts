@@ -2,97 +2,91 @@
 
 export const OauthScope = {
     /**
-     * Read Organization Config */
+     * Read organization configuration */
     ReadMyOrgConfiguration: "read:my_org:configuration",
     /**
-     * Read Organization Details */
+     * Read organization details */
     ReadMyOrgDetails: "read:my_org:details",
     /**
-     * Update Organization Details */
+     * Update organization details */
     UpdateMyOrgDetails: "update:my_org:details",
     /**
-     * Read Identity Providers for Organization */
+     * Read identity providers for organization */
     ReadMyOrgIdentityProviders: "read:my_org:identity_providers",
     /**
-     * Create Identity Provider for Organization */
+     * Create identity provider for organization */
     CreateMyOrgIdentityProviders: "create:my_org:identity_providers",
     /**
-     * Update Identity Provider for Organization */
+     * Update identity provider for organization */
     UpdateMyOrgIdentityProviders: "update:my_org:identity_providers",
     /**
-     * Delete Identity Provider for Organization */
+     * Delete identity provider for organization */
     DeleteMyOrgIdentityProviders: "delete:my_org:identity_providers",
     /**
-     * Detach Identity Provider from Organization */
+     * Detach identity provider from organization */
     UpdateMyOrgIdentityProvidersDetach: "update:my_org:identity_providers_detach",
     /**
-     * Read Identity Provider Domain for Organization */
-    ReadMyOrgIdentityProviderDomains: "read:my_org:identity_provider_domains",
+     * Associate organization domain with identity provider */
+    CreateMyOrgIdentityProvidersDomains: "create:my_org:identity_providers_domains",
     /**
-     * Add Identity Provider Domain for Organization */
-    CreateMyOrgIdentityProviderDomains: "create:my_org:identity_provider_domains",
+     * Remove organization domain from identity provider */
+    DeleteMyOrgIdentityProvidersDomains: "delete:my_org:identity_providers_domains",
     /**
-     * Delete Identity Provider Domain for Organization */
-    DeleteMyOrgIdentityProviderDomains: "delete:my_org:identity_provider_domains",
-    /**
-     * Create Domain for Organization */
+     * Create domain for organization */
     CreateMyOrgDomains: "create:my_org:domains",
     /**
-     * Read Domains for Organization */
+     * Read domains for organization */
     ReadMyOrgDomains: "read:my_org:domains",
     /**
-     * Update Domain for Organization */
+     * Update domain for organization */
     UpdateMyOrgDomains: "update:my_org:domains",
     /**
-     * Delete Domain for Organization */
+     * Delete domain for organization */
     DeleteMyOrgDomains: "delete:my_org:domains",
     /**
-     * Read Identity Providers for Organization Domain */
-    ReadMyOrgIdentityProvidersDomains: "read:my_org:identity_providers_domains",
+     * Create provisioning configuration for identity provider */
+    CreateMyOrgIdentityProvidersProvisioning: "create:my_org:identity_providers_provisioning",
     /**
-     * Create Provisioning Config for Identity Provider */
-    CreateMyOrgIdentityProviderProvisioning: "create:my_org:identity_provider_provisioning",
+     * Read provisioning configuration for identity provider */
+    ReadMyOrgIdentityProvidersProvisioning: "read:my_org:identity_providers_provisioning",
     /**
-     * Read SCIM Provisioning for Identity Provider */
-    ReadMyOrgIdentityProviderProvisioning: "read:my_org:identity_provider_provisioning",
+     * Delete provisioning configuration for identity provider */
+    DeleteMyOrgIdentityProvidersProvisioning: "delete:my_org:identity_providers_provisioning",
     /**
-     * Delete Provisioning Config for Identity Provider */
-    DeleteMyOrgIdentityProviderProvisioning: "delete:my_org:identity_provider_provisioning",
+     * Create a provisioning SCIM token for this identity provider */
+    CreateMyOrgIdentityProvidersScimTokens: "create:my_org:identity_providers_scim_tokens",
     /**
-     * Create SCIM Token for Identity Provider */
-    CreateMyOrgScimTokens: "create:my_org:scim_tokens",
+     * List the provisioning SCIM tokens for this identity provider */
+    ReadMyOrgIdentityProvidersScimTokens: "read:my_org:identity_providers_scim_tokens",
     /**
-     * Read SCIM Token for Identity Provider */
-    ReadMyOrgScimTokens: "read:my_org:scim_tokens",
+     * Delete a provisioning SCIM configuration for an identity provider */
+    DeleteMyOrgIdentityProvidersScimTokens: "delete:my_org:identity_providers_scim_tokens",
     /**
-     * Delete SCIM Token for Identity Provider */
-    DeleteMyOrgScimTokens: "delete:my_org:scim_tokens",
-    /**
-     * Read Member Invitations for an Organization */
+     * List member invitations for organization */
     ReadMyOrgMemberInvitations: "read:my_org:member_invitations",
     /**
-     * Create a Member Invitation for an Organization */
+     * Create member invitations for organization */
     CreateMyOrgMemberInvitations: "create:my_org:member_invitations",
     /**
-     * Delete Member Invitations for an Organization */
+     * Delete member invitations for organization */
     DeleteMyOrgMemberInvitations: "delete:my_org:member_invitations",
     /**
-     * Read Members for Organization */
+     * List members for organization */
     ReadMyOrgMembers: "read:my_org:members",
     /**
-     * Delete Members for Organization */
+     * Delete members from organization */
     DeleteMyOrgMembers: "delete:my_org:members",
     /**
-     * Read Roles for Members in Organization */
+     * List Roles for members in organization */
     ReadMyOrgMemberRoles: "read:my_org:member_roles",
     /**
-     * Create Roles for Members in Organization */
+     * Create Roles for members in organization */
     CreateMyOrgMemberRoles: "create:my_org:member_roles",
     /**
-     * Update Roles for Members in Organization */
+     * Update Roles for members in organization */
     UpdateMyOrgMemberRoles: "update:my_org:member_roles",
     /**
-     * Delete Roles from Members for Organization */
+     * Delete Roles from members for organization */
     DeleteMyOrgMemberRoles: "delete:my_org:member_roles",
 } as const;
 export type OauthScope = (typeof OauthScope)[keyof typeof OauthScope];
