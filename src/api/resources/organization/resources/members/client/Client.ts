@@ -3,7 +3,7 @@
 import type { BaseClientOptions, BaseRequestOptions } from "../../../../../../BaseClient.js";
 import * as environments from "../../../../../../environments.js";
 import * as core from "../../../../../../core/index.js";
-import * as Auth0MyOrg from "../../../../../index.js";
+import * as MyOrganization from "../../../../../index.js";
 import { mergeHeaders, mergeOnlyDefinedHeaders } from "../../../../../../core/headers.js";
 import * as errors from "../../../../../../errors/index.js";
 import { Roles } from "../resources/roles/client/Client.js";
@@ -29,13 +29,14 @@ export class Members {
     /**
      * Lists all members that belong to the organization.
      *
-     * @param {Auth0MyOrg.ListOrganizationMembersRequestParameters} request
+     * @param {MyOrganization.ListOrganizationMembersRequestParameters} request
      * @param {Members.RequestOptions} requestOptions - Request-specific configuration.
      *
-     * @throws {@link Auth0MyOrg.UnauthorizedError}
-     * @throws {@link Auth0MyOrg.ForbiddenError}
-     * @throws {@link Auth0MyOrg.NotFoundError}
-     * @throws {@link Auth0MyOrg.TooManyRequestsError}
+     * @throws {@link MyOrganization.BadRequestError}
+     * @throws {@link MyOrganization.UnauthorizedError}
+     * @throws {@link MyOrganization.ForbiddenError}
+     * @throws {@link MyOrganization.NotFoundError}
+     * @throws {@link MyOrganization.TooManyRequestsError}
      *
      * @example
      *     await client.organization.members.list({
@@ -47,16 +48,16 @@ export class Members {
      *     })
      */
     public list(
-        request: Auth0MyOrg.ListOrganizationMembersRequestParameters = {},
+        request: MyOrganization.ListOrganizationMembersRequestParameters = {},
         requestOptions?: Members.RequestOptions,
-    ): core.HttpResponsePromise<Auth0MyOrg.ListOrganizationMembersResponseContent> {
+    ): core.HttpResponsePromise<MyOrganization.ListOrganizationMembersResponseContent> {
         return core.HttpResponsePromise.fromPromise(this.__list(request, requestOptions));
     }
 
     private async __list(
-        request: Auth0MyOrg.ListOrganizationMembersRequestParameters = {},
+        request: MyOrganization.ListOrganizationMembersRequestParameters = {},
         requestOptions?: Members.RequestOptions,
-    ): Promise<core.WithRawResponse<Auth0MyOrg.ListOrganizationMembersResponseContent>> {
+    ): Promise<core.WithRawResponse<MyOrganization.ListOrganizationMembersResponseContent>> {
         const _metadata: core.EndpointMetadata = {
             security: [
                 { OAuth2ClientCredentials: ["read:my_org:members"] },
@@ -94,7 +95,7 @@ export class Members {
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
-                    environments.Auth0MyOrgEnvironment.Default,
+                    environments.MyOrganizationEnvironment.Default,
                 "members",
             ),
             method: "GET",
@@ -104,38 +105,41 @@ export class Members {
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
             endpointMetadata: _metadata,
+            fetchFn: this._options?.fetch,
         });
         if (_response.ok) {
             return {
-                data: _response.body as Auth0MyOrg.ListOrganizationMembersResponseContent,
+                data: _response.body as MyOrganization.ListOrganizationMembersResponseContent,
                 rawResponse: _response.rawResponse,
             };
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
+                case 400:
+                    throw new MyOrganization.BadRequestError(_response.error.body as unknown, _response.rawResponse);
                 case 401:
-                    throw new Auth0MyOrg.UnauthorizedError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
+                    throw new MyOrganization.UnauthorizedError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
                         _response.rawResponse,
                     );
                 case 403:
-                    throw new Auth0MyOrg.ForbiddenError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
+                    throw new MyOrganization.ForbiddenError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
                         _response.rawResponse,
                     );
                 case 404:
-                    throw new Auth0MyOrg.NotFoundError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
+                    throw new MyOrganization.NotFoundError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
                         _response.rawResponse,
                     );
                 case 429:
-                    throw new Auth0MyOrg.TooManyRequestsError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
+                    throw new MyOrganization.TooManyRequestsError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
                         _response.rawResponse,
                     );
                 default:
-                    throw new errors.Auth0MyOrgError({
+                    throw new errors.MyOrganizationError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
                         rawResponse: _response.rawResponse,
@@ -145,15 +149,15 @@ export class Members {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.Auth0MyOrgError({
+                throw new errors.MyOrganizationError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                     rawResponse: _response.rawResponse,
                 });
             case "timeout":
-                throw new errors.Auth0MyOrgTimeoutError("Timeout exceeded when calling GET /members.");
+                throw new errors.MyOrganizationTimeoutError("Timeout exceeded when calling GET /members.");
             case "unknown":
-                throw new errors.Auth0MyOrgError({
+                throw new errors.MyOrganizationError({
                     message: _response.error.errorMessage,
                     rawResponse: _response.rawResponse,
                 });
@@ -163,28 +167,29 @@ export class Members {
     /**
      * Retrieve a single member of the organization.
      *
-     * @param {Auth0MyOrg.OrgMemberId} userId
+     * @param {MyOrganization.OrgMemberId} userId
      * @param {Members.RequestOptions} requestOptions - Request-specific configuration.
      *
-     * @throws {@link Auth0MyOrg.UnauthorizedError}
-     * @throws {@link Auth0MyOrg.ForbiddenError}
-     * @throws {@link Auth0MyOrg.NotFoundError}
-     * @throws {@link Auth0MyOrg.TooManyRequestsError}
+     * @throws {@link MyOrganization.BadRequestError}
+     * @throws {@link MyOrganization.UnauthorizedError}
+     * @throws {@link MyOrganization.ForbiddenError}
+     * @throws {@link MyOrganization.NotFoundError}
+     * @throws {@link MyOrganization.TooManyRequestsError}
      *
      * @example
      *     await client.organization.members.get("user_id")
      */
     public get(
-        userId: Auth0MyOrg.OrgMemberId,
+        userId: MyOrganization.OrgMemberId,
         requestOptions?: Members.RequestOptions,
-    ): core.HttpResponsePromise<Auth0MyOrg.GetOrganizationMemberResponseContent> {
+    ): core.HttpResponsePromise<MyOrganization.GetOrganizationMemberResponseContent> {
         return core.HttpResponsePromise.fromPromise(this.__get(userId, requestOptions));
     }
 
     private async __get(
-        userId: Auth0MyOrg.OrgMemberId,
+        userId: MyOrganization.OrgMemberId,
         requestOptions?: Members.RequestOptions,
-    ): Promise<core.WithRawResponse<Auth0MyOrg.GetOrganizationMemberResponseContent>> {
+    ): Promise<core.WithRawResponse<MyOrganization.GetOrganizationMemberResponseContent>> {
         const _metadata: core.EndpointMetadata = {
             security: [
                 { OAuth2ClientCredentials: ["read:my_org:members"] },
@@ -200,8 +205,8 @@ export class Members {
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
-                    environments.Auth0MyOrgEnvironment.Default,
-                `members/${encodeURIComponent(userId)}`,
+                    environments.MyOrganizationEnvironment.Default,
+                `members/${core.url.encodePathParam(userId)}`,
             ),
             method: "GET",
             headers: _headers,
@@ -210,38 +215,41 @@ export class Members {
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
             endpointMetadata: _metadata,
+            fetchFn: this._options?.fetch,
         });
         if (_response.ok) {
             return {
-                data: _response.body as Auth0MyOrg.GetOrganizationMemberResponseContent,
+                data: _response.body as MyOrganization.GetOrganizationMemberResponseContent,
                 rawResponse: _response.rawResponse,
             };
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
+                case 400:
+                    throw new MyOrganization.BadRequestError(_response.error.body as unknown, _response.rawResponse);
                 case 401:
-                    throw new Auth0MyOrg.UnauthorizedError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
+                    throw new MyOrganization.UnauthorizedError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
                         _response.rawResponse,
                     );
                 case 403:
-                    throw new Auth0MyOrg.ForbiddenError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
+                    throw new MyOrganization.ForbiddenError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
                         _response.rawResponse,
                     );
                 case 404:
-                    throw new Auth0MyOrg.NotFoundError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
+                    throw new MyOrganization.NotFoundError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
                         _response.rawResponse,
                     );
                 case 429:
-                    throw new Auth0MyOrg.TooManyRequestsError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
+                    throw new MyOrganization.TooManyRequestsError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
                         _response.rawResponse,
                     );
                 default:
-                    throw new errors.Auth0MyOrgError({
+                    throw new errors.MyOrganizationError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
                         rawResponse: _response.rawResponse,
@@ -251,15 +259,15 @@ export class Members {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.Auth0MyOrgError({
+                throw new errors.MyOrganizationError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                     rawResponse: _response.rawResponse,
                 });
             case "timeout":
-                throw new errors.Auth0MyOrgTimeoutError("Timeout exceeded when calling GET /members/{user_id}.");
+                throw new errors.MyOrganizationTimeoutError("Timeout exceeded when calling GET /members/{user_id}.");
             case "unknown":
-                throw new errors.Auth0MyOrgError({
+                throw new errors.MyOrganizationError({
                     message: _response.error.errorMessage,
                     rawResponse: _response.rawResponse,
                 });
@@ -269,14 +277,15 @@ export class Members {
     /**
      * Delete a single user's membership.
      *
-     * @param {Auth0MyOrg.OrgMemberId} userId
-     * @param {Auth0MyOrg.DeleteOrganizationMemberRequestParameters} request
+     * @param {MyOrganization.OrgMemberId} userId
+     * @param {MyOrganization.DeleteOrganizationMemberRequestParameters} request
      * @param {Members.RequestOptions} requestOptions - Request-specific configuration.
      *
-     * @throws {@link Auth0MyOrg.UnauthorizedError}
-     * @throws {@link Auth0MyOrg.ForbiddenError}
-     * @throws {@link Auth0MyOrg.NotFoundError}
-     * @throws {@link Auth0MyOrg.TooManyRequestsError}
+     * @throws {@link MyOrganization.BadRequestError}
+     * @throws {@link MyOrganization.UnauthorizedError}
+     * @throws {@link MyOrganization.ForbiddenError}
+     * @throws {@link MyOrganization.NotFoundError}
+     * @throws {@link MyOrganization.TooManyRequestsError}
      *
      * @example
      *     await client.organization.members.delete("user_id", {
@@ -284,16 +293,16 @@ export class Members {
      *     })
      */
     public delete(
-        userId: Auth0MyOrg.OrgMemberId,
-        request: Auth0MyOrg.DeleteOrganizationMemberRequestParameters,
+        userId: MyOrganization.OrgMemberId,
+        request: MyOrganization.DeleteOrganizationMemberRequestParameters,
         requestOptions?: Members.RequestOptions,
     ): core.HttpResponsePromise<void> {
         return core.HttpResponsePromise.fromPromise(this.__delete(userId, request, requestOptions));
     }
 
     private async __delete(
-        userId: Auth0MyOrg.OrgMemberId,
-        request: Auth0MyOrg.DeleteOrganizationMemberRequestParameters,
+        userId: MyOrganization.OrgMemberId,
+        request: MyOrganization.DeleteOrganizationMemberRequestParameters,
         requestOptions?: Members.RequestOptions,
     ): Promise<core.WithRawResponse<void>> {
         const _metadata: core.EndpointMetadata = {
@@ -314,8 +323,8 @@ export class Members {
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
-                    environments.Auth0MyOrgEnvironment.Default,
-                `members/${encodeURIComponent(userId)}`,
+                    environments.MyOrganizationEnvironment.Default,
+                `members/${core.url.encodePathParam(userId)}`,
             ),
             method: "DELETE",
             headers: _headers,
@@ -324,6 +333,7 @@ export class Members {
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
             endpointMetadata: _metadata,
+            fetchFn: this._options?.fetch,
         });
         if (_response.ok) {
             return { data: undefined, rawResponse: _response.rawResponse };
@@ -331,28 +341,30 @@ export class Members {
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
+                case 400:
+                    throw new MyOrganization.BadRequestError(_response.error.body as unknown, _response.rawResponse);
                 case 401:
-                    throw new Auth0MyOrg.UnauthorizedError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
+                    throw new MyOrganization.UnauthorizedError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
                         _response.rawResponse,
                     );
                 case 403:
-                    throw new Auth0MyOrg.ForbiddenError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
+                    throw new MyOrganization.ForbiddenError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
                         _response.rawResponse,
                     );
                 case 404:
-                    throw new Auth0MyOrg.NotFoundError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
+                    throw new MyOrganization.NotFoundError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
                         _response.rawResponse,
                     );
                 case 429:
-                    throw new Auth0MyOrg.TooManyRequestsError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
+                    throw new MyOrganization.TooManyRequestsError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
                         _response.rawResponse,
                     );
                 default:
-                    throw new errors.Auth0MyOrgError({
+                    throw new errors.MyOrganizationError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
                         rawResponse: _response.rawResponse,
@@ -362,15 +374,15 @@ export class Members {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.Auth0MyOrgError({
+                throw new errors.MyOrganizationError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                     rawResponse: _response.rawResponse,
                 });
             case "timeout":
-                throw new errors.Auth0MyOrgTimeoutError("Timeout exceeded when calling DELETE /members/{user_id}.");
+                throw new errors.MyOrganizationTimeoutError("Timeout exceeded when calling DELETE /members/{user_id}.");
             case "unknown":
-                throw new errors.Auth0MyOrgError({
+                throw new errors.MyOrganizationError({
                     message: _response.error.errorMessage,
                     rawResponse: _response.rawResponse,
                 });

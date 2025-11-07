@@ -1,58 +1,198 @@
-# Auth0 TypeScript Library
+![Auth0 MyOrganization SDK for JavaScript/TypeScript](https://cdn.auth0.com/website/sdks/banners/myorganization-js-banner.png)
 
-[![fern shield](https://img.shields.io/badge/%F0%9F%8C%BF-Built%20with%20Fern-brightgreen)](https://buildwithfern.com?utm_source=github&utm_medium=github&utm_campaign=readme&utm_source=https%3A%2F%2Fgithub.com%auth0%2Fmyorganization-js)
-[![npm shield](https://img.shields.io/npm/v/auth0-my-org)](https://www.npmjs.com/package/auth0-my-org)
+![Release](https://img.shields.io/npm/v/@auth0/myorganization-js)
+[![License](https://img.shields.io/:license-mit-blue.svg?style=flat)](https://opensource.org/licenses/MIT)
+[![fern shield](https://img.shields.io/badge/%F0%9F%8C%BF-Built%20with%20Fern-brightgreen)](https://buildwithfern.com?utm_source=github&utm_medium=github&utm_campaign=readme&utm_source=https%3A%2F%2Fgithub.com%2Fauth0%2Fmyorganization-js)
 
-The Auth0 TypeScript library provides convenient access to the Auth0 APIs from TypeScript.
+📚 [Documentation](#documentation) - 🚀 [Getting Started](#getting-started) - 💻 [API Reference](#api-reference) - 💬 [Feedback](#feedback)
 
-## Installation
+## Documentation
 
-```sh
-npm i -s auth0-my-org
+- [Docs Site](https://auth0.com/docs) - explore our docs site and learn more about Auth0
+- [API Reference](https://github.com/auth0/myorganization-js/blob/main/reference.md) - full reference for this library
+
+## Getting Started
+
+### Requirements
+
+This library supports the following tooling versions:
+
+- Node.js: 20 or higher
+
+### Installation
+
+Using [npm](https://npmjs.org) in your project directory run the following command:
+
+```bash
+npm install @auth0/myorganization-js
 ```
 
-## Reference
+### Configure the SDK
 
-A full reference for this library is available [here](https://github.com/auth0/myorganization-js/blob/HEAD/./reference.md).
+The MyOrganization client allows you to manage Auth0 organizations, including members, roles, and domains.
 
-## Usage
-
-Instantiate and use the client with the following:
+Initialize your client with a domain and token supplier:
 
 ```typescript
-import { Auth0MyOrgClient } from "auth0-my-org";
+import { MyOrganizationClient } from "@auth0/myorganization-js";
 
-const client = new Auth0MyOrgClient({ token: "YOUR_TOKEN" });
-await client.organization.domains.create({
-    domain: "acme.com",
+const client = new MyOrganizationClient({
+    domain: "{YOUR_TENANT_AND_REGION}.auth0.com",
+    token: "YOUR_ACCESS_TOKEN", // or use a token supplier function
 });
 ```
 
-## Request And Response Types
+#### Using a Token Supplier
 
-The SDK exports all request and response types as TypeScript interfaces. Simply import them with the
-following namespace:
+For dynamic token retrieval (recommended for production):
 
 ```typescript
-import { Auth0MyOrg } from "auth0-my-org";
+import { MyOrganizationClient } from "@auth0/myorganization-js";
 
-const request: Auth0MyOrg.CreateOrganizationDomainRequestContent = {
-    ...
-};
+const client = new MyOrganizationClient({
+    domain: "{YOUR_TENANT_AND_REGION}.auth0.com",
+    token: async ({ scope }) => {
+        // Fetch token with required scopes
+        return await getAccessToken({
+            scope: `openid profile email ${scope}`,
+        });
+    },
+});
 ```
+
+#### Using a Custom Fetcher
+
+For advanced authentication scenarios:
+
+```typescript
+import { MyOrganizationClient } from "@auth0/myorganization-js";
+
+const client = new MyOrganizationClient({
+    domain: "{YOUR_TENANT_AND_REGION}.auth0.com",
+    fetcher: async (url, init, authParams) => {
+        const token = await getAccessToken({ scope: authParams?.scope });
+        return fetch(url, {
+            ...init,
+            headers: {
+                ...init?.headers,
+                Authorization: `Bearer ${token}`,
+            },
+        });
+    },
+});
+```
+
+### Server-Side Authentication
+
+For server-side applications, you can use the client credentials flow with a helper function that automatically handles token management:
+
+#### Using Client Credentials with Client Secret
+
+```typescript
+import { createMyOrganizationClientWithClientCredentials } from "@auth0/myorganization-js/server";
+
+const client = createMyOrganizationClientWithClientCredentials(
+    {
+        domain: "{YOUR_TENANT_AND_REGION}.auth0.com",
+    },
+    {
+        clientId: "YOUR_CLIENT_ID",
+        clientSecret: "YOUR_CLIENT_SECRET",
+        organization: "org_123456789",
+    },
+);
+```
+
+#### Using Client Credentials with Private Key Assertion
+
+For enhanced security using private key JWT:
+
+```typescript
+import { createMyOrganizationClientWithClientCredentials } from "@auth0/myorganization-js/server";
+
+const client = createMyOrganizationClientWithClientCredentials(
+    {
+        domain: "{YOUR_TENANT_AND_REGION}.auth0.com",
+    },
+    {
+        clientId: "YOUR_CLIENT_ID",
+        clientAssertionSigningKey: "YOUR_PRIVATE_KEY",
+        organization: "org_123456789",
+    },
+);
+```
+
+#### Manual Token Provider Setup
+
+For more control, you can manually configure the token provider:
+
+```typescript
+import { MyOrganizationClient, ClientCredentialsTokenProvider } from "@auth0/myorganization-js/server";
+
+const tokenProvider = new ClientCredentialsTokenProvider({
+    domain: "{YOUR_TENANT_AND_REGION}.auth0.com",
+    clientId: "YOUR_CLIENT_ID",
+    clientSecret: "YOUR_CLIENT_SECRET",
+    organization: "org_123456789",
+    audience: "https://api.example.com", // optional custom audience
+});
+
+const client = new MyOrganizationClient({
+    domain: "{YOUR_TENANT_AND_REGION}.auth0.com",
+    tokenProvider,
+});
+```
+
+**Security Warning**: Server-side authentication methods should only be used in secure server environments where client secrets and private keys can be safely stored. Never expose these credentials in browser or SPA applications.
+
+## Request and Response Types
+
+The SDK exports all request and response types as TypeScript interfaces. You can import them directly:
+
+```typescript
+import { MyOrganizationClient, MyOrganization } from "@auth0/myorganization-js";
+
+const client = new MyOrganizationClient({
+    domain: "{YOUR_TENANT_AND_REGION}.auth0.com",
+    token: "YOUR_ACCESS_TOKEN",
+});
+
+// Use the request type
+const request: MyOrganization.CreateOrganizationDomainRequestContent = {
+    domain: "acme.com",
+};
+
+await client.organization.domains.create(request);
+```
+
+## API Reference
+
+### Generated Documentation
+
+- [Full Reference](./reference.md) - complete API reference guide
+
+### Key Classes
+
+- **MyOrganizationClient** - for managing organizations, members, roles, and domains
 
 ## Exception Handling
 
-When the API returns a non-success status code (4xx or 5xx response), a subclass of the following error
-will be thrown.
+When the API returns a non-success status code (4xx or 5xx response), a subclass of the following error will be thrown:
 
 ```typescript
-import { Auth0MyOrgError } from "auth0-my-org";
+import { MyOrganizationClient, MyOrganizationError } from "@auth0/myorganization-js";
+
+const client = new MyOrganizationClient({
+    domain: "{YOUR_TENANT_AND_REGION}.auth0.com",
+    token: "YOUR_ACCESS_TOKEN",
+});
 
 try {
-    await client.organization.domains.create(...);
+    await client.organization.domains.create({
+        domain: "acme.com",
+    });
 } catch (err) {
-    if (err instanceof Auth0MyOrgError) {
+    if (err instanceof MyOrganizationError) {
         console.log(err.statusCode);
         console.log(err.message);
         console.log(err.body);
@@ -61,37 +201,71 @@ try {
 }
 ```
 
+## Pagination
+
+Some list endpoints are paginated. You can manually iterate page-by-page:
+
+```typescript
+import { MyOrganizationClient } from "@auth0/myorganization-js";
+
+const client = new MyOrganizationClient({
+    domain: "{YOUR_TENANT_AND_REGION}.auth0.com",
+    token: "YOUR_ACCESS_TOKEN",
+});
+
+let page = await client.organization.members.list({
+    take: 10,
+});
+
+// Process first page
+console.log(page.data);
+
+// Get next pages
+while (page.hasNextPage()) {
+    page = await page.getNextPage();
+    console.log(page.data);
+}
+```
+
 ## Advanced
 
 ### Additional Headers
 
-If you would like to send additional headers as part of the request, use the `headers` request option.
+If you would like to send additional headers as part of the request, use the `headers` request option:
 
 ```typescript
-const response = await client.organization.domains.create(..., {
-    headers: {
-        'X-Custom-Header': 'custom value'
-    }
-});
+const response = await client.organization.domains.create(
+    {
+        domain: "acme.com",
+    },
+    {
+        headers: {
+            "X-Custom-Header": "custom value",
+        },
+    },
+);
 ```
 
 ### Additional Query String Parameters
 
-If you would like to send additional query string parameters as part of the request, use the `queryParams` request option.
+If you would like to send additional query string parameters as part of the request, use the `queryParams` request option:
 
 ```typescript
-const response = await client.organization.domains.create(..., {
-    queryParams: {
-        'customQueryParamKey': 'custom query param value'
-    }
-});
+const response = await client.organization.domains.create(
+    {
+        domain: "acme.com",
+    },
+    {
+        queryParams: {
+            customQueryParamKey: "custom query param value",
+        },
+    },
+);
 ```
 
 ### Retries
 
-The SDK is instrumented with automatic retries with exponential backoff. A request will be retried as long
-as the request is deemed retryable and the number of retry attempts has not grown larger than the configured
-retry limit (default: 2).
+The SDK is instrumented with automatic retries with exponential backoff. A request will be retried as long as the request is deemed retryable and the number of retry attempts has not grown larger than the configured retry limit (default: 2).
 
 A request is deemed retryable when any of the following HTTP status codes is returned:
 
@@ -99,79 +273,110 @@ A request is deemed retryable when any of the following HTTP status codes is ret
 - [429](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429) (Too Many Requests)
 - [5XX](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/500) (Internal Server Errors)
 
-Use the `maxRetries` request option to configure this behavior.
+Use the `maxRetries` request option to configure this behavior:
 
 ```typescript
-const response = await client.organization.domains.create(..., {
-    maxRetries: 0 // override maxRetries at the request level
-});
+const response = await client.organization.domains.create(
+    {
+        domain: "acme.com",
+    },
+    {
+        maxRetries: 0, // override maxRetries at the request level
+    },
+);
 ```
 
 ### Timeouts
 
-The SDK defaults to a 60 second timeout. Use the `timeoutInSeconds` option to configure this behavior.
+The SDK defaults to a 60 second timeout. Use the `timeoutInSeconds` option to configure this behavior:
 
 ```typescript
-const response = await client.organization.domains.create(..., {
-    timeoutInSeconds: 30 // override timeout to 30s
-});
+const response = await client.organization.domains.create(
+    {
+        domain: "acme.com",
+    },
+    {
+        timeoutInSeconds: 30, // override timeout to 30s
+    },
+);
 ```
 
 ### Aborting Requests
 
-The SDK allows users to abort requests at any point by passing in an abort signal.
+The SDK allows users to abort requests at any point by passing in an abort signal:
 
 ```typescript
 const controller = new AbortController();
-const response = await client.organization.domains.create(..., {
-    abortSignal: controller.signal
-});
+const response = await client.organization.domains.create(
+    {
+        domain: "acme.com",
+    },
+    {
+        abortSignal: controller.signal,
+    },
+);
 controller.abort(); // aborts the request
 ```
 
 ### Access Raw Response Data
 
-The SDK provides access to raw response data, including headers, through the `.withRawResponse()` method.
-The `.withRawResponse()` method returns a promise that results to an object with a `data` and a `rawResponse` property.
+The SDK provides access to raw response data, including headers, through the `.withRawResponse()` method. The `.withRawResponse()` method returns a promise that results to an object with a `data` and a `rawResponse` property:
 
 ```typescript
-const { data, rawResponse } = await client.organization.domains.create(...).withRawResponse();
+const { data, rawResponse } = await client.organization.domains
+    .create({
+        domain: "acme.com",
+    })
+    .withRawResponse();
 
 console.log(data);
-console.log(rawResponse.headers['X-My-Header']);
+console.log(rawResponse.headers["X-My-Header"]);
 ```
 
 ### Runtime Compatibility
 
 The SDK works in the following runtimes:
 
-- Node.js 18+
+- Node.js 20 or higher
 - Vercel
 - Cloudflare Workers
 - Deno v1.25+
 - Bun 1.0+
 - React Native
 
-### Customizing Fetch Client
+## Feedback
 
-The SDK provides a way for you to customize the underlying HTTP client / Fetch function. If you're running in an
-unsupported environment, this provides a way for you to break glass and ensure the SDK works.
+### Contributing
 
-```typescript
-import { Auth0MyOrgClient } from "auth0-my-org";
+We appreciate feedback and contribution to this repo! Before you get started, please see the following:
 
-const client = new Auth0MyOrgClient({
-    ...
-    fetcher: // provide your implementation here
-});
-```
+- [Auth0's general contribution guidelines](https://github.com/auth0/open-source-template/blob/master/GENERAL-CONTRIBUTING.md)
+- [Auth0's code of conduct guidelines](https://github.com/auth0/open-source-template/blob/master/CODE-OF-CONDUCT.md)
 
-## Contributing
-
-While we value open-source contributions to this SDK, this library is generated programmatically.
-Additions made directly to this library would have to be moved over to our generation code,
-otherwise they would be overwritten upon the next generated release. Feel free to open a PR as
-a proof of concept, but know that we will not be able to merge it as-is. We suggest opening
-an issue first to discuss with us!
+While we value open-source contributions to this SDK, this library is generated programmatically. Additions made directly to this library would have to be moved over to our generation code, otherwise they would be overwritten upon the next generated release. Feel free to open a PR as a proof of concept, but know that we will not be able to merge it as-is. We suggest opening an issue first to discuss with us!
 
 On the other hand, contributions to the README are always very welcome!
+
+### Raise an issue
+
+To provide feedback or report a bug, please [raise an issue on our issue tracker](https://github.com/auth0/myorganization-js/issues).
+
+### Vulnerability Reporting
+
+Please do not report security vulnerabilities on the public GitHub issue tracker. The [Responsible Disclosure Program](https://auth0.com/whitehat) details the procedure for disclosing security issues.
+
+## What is Auth0?
+
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://cdn.auth0.com/website/sdks/logos/auth0_dark_mode.png" width="150">
+    <source media="(prefers-color-scheme: light)" srcset="https://cdn.auth0.com/website/sdks/logos/auth0_light_mode.png" width="150">
+    <img alt="Auth0 Logo" src="https://cdn.auth0.com/website/sdks/logos/auth0_light_mode.png" width="150">
+  </picture>
+</p>
+<p align="center">
+  Auth0 is an easy to implement, adaptable authentication and authorization platform. To learn more checkout <a href="https://auth0.com/why-auth0">Why Auth0?</a>
+</p>
+<p align="center">
+  This project is licensed under the MIT license. See the <a href="./LICENSE"> LICENSE</a> file for more info.
+</p>

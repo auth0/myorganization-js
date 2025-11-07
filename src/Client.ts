@@ -4,31 +4,25 @@ import type { BaseClientOptions, BaseRequestOptions } from "./BaseClient.js";
 import * as environments from "./environments.js";
 import * as core from "./core/index.js";
 import { OrganizationDetails } from "./api/resources/organizationDetails/client/Client.js";
-import { IdentityProviders } from "./api/resources/identityProviders/client/Client.js";
 import { Organization } from "./api/resources/organization/client/Client.js";
 
-export declare namespace Auth0MyOrgClient {
+export declare namespace MyOrganizationClient {
     export interface Options extends BaseClientOptions {}
 
     export interface RequestOptions extends BaseRequestOptions {}
 }
 
-export class Auth0MyOrgClient {
-    protected readonly _options: Auth0MyOrgClient.Options;
+export class MyOrganizationClient {
+    protected readonly _options: MyOrganizationClient.Options;
     protected _organizationDetails: OrganizationDetails | undefined;
-    protected _identityProviders: IdentityProviders | undefined;
     protected _organization: Organization | undefined;
 
-    constructor(_options: Auth0MyOrgClient.Options) {
+    constructor(_options: MyOrganizationClient.Options) {
         this._options = _options;
     }
 
     public get organizationDetails(): OrganizationDetails {
         return (this._organizationDetails ??= new OrganizationDetails(this._options));
-    }
-
-    public get identityProviders(): IdentityProviders {
-        return (this._identityProviders ??= new IdentityProviders(this._options));
     }
 
     public get organization(): Organization {

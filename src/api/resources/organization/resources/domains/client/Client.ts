@@ -3,7 +3,7 @@
 import type { BaseClientOptions, BaseRequestOptions } from "../../../../../../BaseClient.js";
 import * as environments from "../../../../../../environments.js";
 import * as core from "../../../../../../core/index.js";
-import * as Auth0MyOrg from "../../../../../index.js";
+import * as MyOrganization from "../../../../../index.js";
 import { mergeHeaders, mergeOnlyDefinedHeaders } from "../../../../../../core/headers.js";
 import * as errors from "../../../../../../errors/index.js";
 import { Verify } from "../resources/verify/client/Client.js";
@@ -37,23 +37,23 @@ export class Domains {
      *
      * @param {Domains.RequestOptions} requestOptions - Request-specific configuration.
      *
-     * @throws {@link Auth0MyOrg.UnauthorizedError}
-     * @throws {@link Auth0MyOrg.ForbiddenError}
-     * @throws {@link Auth0MyOrg.NotFoundError}
-     * @throws {@link Auth0MyOrg.TooManyRequestsError}
+     * @throws {@link MyOrganization.UnauthorizedError}
+     * @throws {@link MyOrganization.ForbiddenError}
+     * @throws {@link MyOrganization.NotFoundError}
+     * @throws {@link MyOrganization.TooManyRequestsError}
      *
      * @example
      *     await client.organization.domains.list()
      */
     public list(
         requestOptions?: Domains.RequestOptions,
-    ): core.HttpResponsePromise<Auth0MyOrg.ListOrganizationDomainsResponseContent> {
+    ): core.HttpResponsePromise<MyOrganization.ListOrganizationDomainsResponseContent> {
         return core.HttpResponsePromise.fromPromise(this.__list(requestOptions));
     }
 
     private async __list(
         requestOptions?: Domains.RequestOptions,
-    ): Promise<core.WithRawResponse<Auth0MyOrg.ListOrganizationDomainsResponseContent>> {
+    ): Promise<core.WithRawResponse<MyOrganization.ListOrganizationDomainsResponseContent>> {
         const _metadata: core.EndpointMetadata = {
             security: [
                 { OAuth2ClientCredentials: ["read:my_org:domains"] },
@@ -69,7 +69,7 @@ export class Domains {
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
-                    environments.Auth0MyOrgEnvironment.Default,
+                    environments.MyOrganizationEnvironment.Default,
                 "domains",
             ),
             method: "GET",
@@ -79,10 +79,11 @@ export class Domains {
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
             endpointMetadata: _metadata,
+            fetchFn: this._options?.fetch,
         });
         if (_response.ok) {
             return {
-                data: _response.body as Auth0MyOrg.ListOrganizationDomainsResponseContent,
+                data: _response.body as MyOrganization.ListOrganizationDomainsResponseContent,
                 rawResponse: _response.rawResponse,
             };
         }
@@ -90,27 +91,27 @@ export class Domains {
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 401:
-                    throw new Auth0MyOrg.UnauthorizedError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
+                    throw new MyOrganization.UnauthorizedError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
                         _response.rawResponse,
                     );
                 case 403:
-                    throw new Auth0MyOrg.ForbiddenError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
+                    throw new MyOrganization.ForbiddenError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
                         _response.rawResponse,
                     );
                 case 404:
-                    throw new Auth0MyOrg.NotFoundError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
+                    throw new MyOrganization.NotFoundError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
                         _response.rawResponse,
                     );
                 case 429:
-                    throw new Auth0MyOrg.TooManyRequestsError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
+                    throw new MyOrganization.TooManyRequestsError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
                         _response.rawResponse,
                     );
                 default:
-                    throw new errors.Auth0MyOrgError({
+                    throw new errors.MyOrganizationError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
                         rawResponse: _response.rawResponse,
@@ -120,15 +121,15 @@ export class Domains {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.Auth0MyOrgError({
+                throw new errors.MyOrganizationError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                     rawResponse: _response.rawResponse,
                 });
             case "timeout":
-                throw new errors.Auth0MyOrgTimeoutError("Timeout exceeded when calling GET /domains.");
+                throw new errors.MyOrganizationTimeoutError("Timeout exceeded when calling GET /domains.");
             case "unknown":
-                throw new errors.Auth0MyOrgError({
+                throw new errors.MyOrganizationError({
                     message: _response.error.errorMessage,
                     rawResponse: _response.rawResponse,
                 });
@@ -138,15 +139,15 @@ export class Domains {
     /**
      * Create a new domain for an organization.
      *
-     * @param {Auth0MyOrg.CreateOrganizationDomainRequestContent} request
+     * @param {MyOrganization.CreateOrganizationDomainRequestContent} request
      * @param {Domains.RequestOptions} requestOptions - Request-specific configuration.
      *
-     * @throws {@link Auth0MyOrg.BadRequestError}
-     * @throws {@link Auth0MyOrg.UnauthorizedError}
-     * @throws {@link Auth0MyOrg.ForbiddenError}
-     * @throws {@link Auth0MyOrg.NotFoundError}
-     * @throws {@link Auth0MyOrg.ConflictError}
-     * @throws {@link Auth0MyOrg.TooManyRequestsError}
+     * @throws {@link MyOrganization.BadRequestError}
+     * @throws {@link MyOrganization.UnauthorizedError}
+     * @throws {@link MyOrganization.ForbiddenError}
+     * @throws {@link MyOrganization.NotFoundError}
+     * @throws {@link MyOrganization.ConflictError}
+     * @throws {@link MyOrganization.TooManyRequestsError}
      *
      * @example
      *     await client.organization.domains.create({
@@ -154,16 +155,16 @@ export class Domains {
      *     })
      */
     public create(
-        request: Auth0MyOrg.CreateOrganizationDomainRequestContent,
+        request: MyOrganization.CreateOrganizationDomainRequestContent,
         requestOptions?: Domains.RequestOptions,
-    ): core.HttpResponsePromise<Auth0MyOrg.CreateOrganizationDomainResponseContent> {
+    ): core.HttpResponsePromise<MyOrganization.CreateOrganizationDomainResponseContent> {
         return core.HttpResponsePromise.fromPromise(this.__create(request, requestOptions));
     }
 
     private async __create(
-        request: Auth0MyOrg.CreateOrganizationDomainRequestContent,
+        request: MyOrganization.CreateOrganizationDomainRequestContent,
         requestOptions?: Domains.RequestOptions,
-    ): Promise<core.WithRawResponse<Auth0MyOrg.CreateOrganizationDomainResponseContent>> {
+    ): Promise<core.WithRawResponse<MyOrganization.CreateOrganizationDomainResponseContent>> {
         const _metadata: core.EndpointMetadata = {
             security: [
                 { OAuth2ClientCredentials: ["create:my_org:domains"] },
@@ -179,7 +180,7 @@ export class Domains {
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
-                    environments.Auth0MyOrgEnvironment.Default,
+                    environments.MyOrganizationEnvironment.Default,
                 "domains",
             ),
             method: "POST",
@@ -192,10 +193,11 @@ export class Domains {
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
             endpointMetadata: _metadata,
+            fetchFn: this._options?.fetch,
         });
         if (_response.ok) {
             return {
-                data: _response.body as Auth0MyOrg.CreateOrganizationDomainResponseContent,
+                data: _response.body as MyOrganization.CreateOrganizationDomainResponseContent,
                 rawResponse: _response.rawResponse,
             };
         }
@@ -203,37 +205,34 @@ export class Domains {
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 400:
-                    throw new Auth0MyOrg.BadRequestError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
-                        _response.rawResponse,
-                    );
+                    throw new MyOrganization.BadRequestError(_response.error.body as unknown, _response.rawResponse);
                 case 401:
-                    throw new Auth0MyOrg.UnauthorizedError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
+                    throw new MyOrganization.UnauthorizedError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
                         _response.rawResponse,
                     );
                 case 403:
-                    throw new Auth0MyOrg.ForbiddenError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
+                    throw new MyOrganization.ForbiddenError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
                         _response.rawResponse,
                     );
                 case 404:
-                    throw new Auth0MyOrg.NotFoundError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
+                    throw new MyOrganization.NotFoundError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
                         _response.rawResponse,
                     );
                 case 409:
-                    throw new Auth0MyOrg.ConflictError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
+                    throw new MyOrganization.ConflictError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
                         _response.rawResponse,
                     );
                 case 429:
-                    throw new Auth0MyOrg.TooManyRequestsError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
+                    throw new MyOrganization.TooManyRequestsError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
                         _response.rawResponse,
                     );
                 default:
-                    throw new errors.Auth0MyOrgError({
+                    throw new errors.MyOrganizationError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
                         rawResponse: _response.rawResponse,
@@ -243,15 +242,15 @@ export class Domains {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.Auth0MyOrgError({
+                throw new errors.MyOrganizationError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                     rawResponse: _response.rawResponse,
                 });
             case "timeout":
-                throw new errors.Auth0MyOrgTimeoutError("Timeout exceeded when calling POST /domains.");
+                throw new errors.MyOrganizationTimeoutError("Timeout exceeded when calling POST /domains.");
             case "unknown":
-                throw new errors.Auth0MyOrgError({
+                throw new errors.MyOrganizationError({
                     message: _response.error.errorMessage,
                     rawResponse: _response.rawResponse,
                 });
@@ -261,28 +260,29 @@ export class Domains {
     /**
      * Retrieve a domain for an organization.
      *
-     * @param {Auth0MyOrg.OrgDomainId} domainId
+     * @param {MyOrganization.OrgDomainId} domainId
      * @param {Domains.RequestOptions} requestOptions - Request-specific configuration.
      *
-     * @throws {@link Auth0MyOrg.UnauthorizedError}
-     * @throws {@link Auth0MyOrg.ForbiddenError}
-     * @throws {@link Auth0MyOrg.NotFoundError}
-     * @throws {@link Auth0MyOrg.TooManyRequestsError}
+     * @throws {@link MyOrganization.BadRequestError}
+     * @throws {@link MyOrganization.UnauthorizedError}
+     * @throws {@link MyOrganization.ForbiddenError}
+     * @throws {@link MyOrganization.NotFoundError}
+     * @throws {@link MyOrganization.TooManyRequestsError}
      *
      * @example
      *     await client.organization.domains.get("domain_id")
      */
     public get(
-        domainId: Auth0MyOrg.OrgDomainId,
+        domainId: MyOrganization.OrgDomainId,
         requestOptions?: Domains.RequestOptions,
-    ): core.HttpResponsePromise<Auth0MyOrg.GetOrganizationDomainResponseContent> {
+    ): core.HttpResponsePromise<MyOrganization.GetOrganizationDomainResponseContent> {
         return core.HttpResponsePromise.fromPromise(this.__get(domainId, requestOptions));
     }
 
     private async __get(
-        domainId: Auth0MyOrg.OrgDomainId,
+        domainId: MyOrganization.OrgDomainId,
         requestOptions?: Domains.RequestOptions,
-    ): Promise<core.WithRawResponse<Auth0MyOrg.GetOrganizationDomainResponseContent>> {
+    ): Promise<core.WithRawResponse<MyOrganization.GetOrganizationDomainResponseContent>> {
         const _metadata: core.EndpointMetadata = {
             security: [
                 { OAuth2ClientCredentials: ["read:my_org:domains"] },
@@ -298,8 +298,8 @@ export class Domains {
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
-                    environments.Auth0MyOrgEnvironment.Default,
-                `domains/${encodeURIComponent(domainId)}`,
+                    environments.MyOrganizationEnvironment.Default,
+                `domains/${core.url.encodePathParam(domainId)}`,
             ),
             method: "GET",
             headers: _headers,
@@ -308,38 +308,41 @@ export class Domains {
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
             endpointMetadata: _metadata,
+            fetchFn: this._options?.fetch,
         });
         if (_response.ok) {
             return {
-                data: _response.body as Auth0MyOrg.GetOrganizationDomainResponseContent,
+                data: _response.body as MyOrganization.GetOrganizationDomainResponseContent,
                 rawResponse: _response.rawResponse,
             };
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
+                case 400:
+                    throw new MyOrganization.BadRequestError(_response.error.body as unknown, _response.rawResponse);
                 case 401:
-                    throw new Auth0MyOrg.UnauthorizedError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
+                    throw new MyOrganization.UnauthorizedError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
                         _response.rawResponse,
                     );
                 case 403:
-                    throw new Auth0MyOrg.ForbiddenError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
+                    throw new MyOrganization.ForbiddenError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
                         _response.rawResponse,
                     );
                 case 404:
-                    throw new Auth0MyOrg.NotFoundError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
+                    throw new MyOrganization.NotFoundError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
                         _response.rawResponse,
                     );
                 case 429:
-                    throw new Auth0MyOrg.TooManyRequestsError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
+                    throw new MyOrganization.TooManyRequestsError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
                         _response.rawResponse,
                     );
                 default:
-                    throw new errors.Auth0MyOrgError({
+                    throw new errors.MyOrganizationError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
                         rawResponse: _response.rawResponse,
@@ -349,15 +352,15 @@ export class Domains {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.Auth0MyOrgError({
+                throw new errors.MyOrganizationError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                     rawResponse: _response.rawResponse,
                 });
             case "timeout":
-                throw new errors.Auth0MyOrgTimeoutError("Timeout exceeded when calling GET /domains/{domain_id}.");
+                throw new errors.MyOrganizationTimeoutError("Timeout exceeded when calling GET /domains/{domain_id}.");
             case "unknown":
-                throw new errors.Auth0MyOrgError({
+                throw new errors.MyOrganizationError({
                     message: _response.error.errorMessage,
                     rawResponse: _response.rawResponse,
                 });
@@ -367,26 +370,27 @@ export class Domains {
     /**
      * Remove a domain from this organization.
      *
-     * @param {Auth0MyOrg.OrgDomainId} domainId
+     * @param {MyOrganization.OrgDomainId} domainId
      * @param {Domains.RequestOptions} requestOptions - Request-specific configuration.
      *
-     * @throws {@link Auth0MyOrg.UnauthorizedError}
-     * @throws {@link Auth0MyOrg.ForbiddenError}
-     * @throws {@link Auth0MyOrg.NotFoundError}
-     * @throws {@link Auth0MyOrg.TooManyRequestsError}
+     * @throws {@link MyOrganization.BadRequestError}
+     * @throws {@link MyOrganization.UnauthorizedError}
+     * @throws {@link MyOrganization.ForbiddenError}
+     * @throws {@link MyOrganization.NotFoundError}
+     * @throws {@link MyOrganization.TooManyRequestsError}
      *
      * @example
      *     await client.organization.domains.delete("domain_id")
      */
     public delete(
-        domainId: Auth0MyOrg.OrgDomainId,
+        domainId: MyOrganization.OrgDomainId,
         requestOptions?: Domains.RequestOptions,
     ): core.HttpResponsePromise<void> {
         return core.HttpResponsePromise.fromPromise(this.__delete(domainId, requestOptions));
     }
 
     private async __delete(
-        domainId: Auth0MyOrg.OrgDomainId,
+        domainId: MyOrganization.OrgDomainId,
         requestOptions?: Domains.RequestOptions,
     ): Promise<core.WithRawResponse<void>> {
         const _metadata: core.EndpointMetadata = {
@@ -404,8 +408,8 @@ export class Domains {
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
-                    environments.Auth0MyOrgEnvironment.Default,
-                `domains/${encodeURIComponent(domainId)}`,
+                    environments.MyOrganizationEnvironment.Default,
+                `domains/${core.url.encodePathParam(domainId)}`,
             ),
             method: "DELETE",
             headers: _headers,
@@ -414,6 +418,7 @@ export class Domains {
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
             endpointMetadata: _metadata,
+            fetchFn: this._options?.fetch,
         });
         if (_response.ok) {
             return { data: undefined, rawResponse: _response.rawResponse };
@@ -421,28 +426,30 @@ export class Domains {
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
+                case 400:
+                    throw new MyOrganization.BadRequestError(_response.error.body as unknown, _response.rawResponse);
                 case 401:
-                    throw new Auth0MyOrg.UnauthorizedError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
+                    throw new MyOrganization.UnauthorizedError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
                         _response.rawResponse,
                     );
                 case 403:
-                    throw new Auth0MyOrg.ForbiddenError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
+                    throw new MyOrganization.ForbiddenError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
                         _response.rawResponse,
                     );
                 case 404:
-                    throw new Auth0MyOrg.NotFoundError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
+                    throw new MyOrganization.NotFoundError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
                         _response.rawResponse,
                     );
                 case 429:
-                    throw new Auth0MyOrg.TooManyRequestsError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
+                    throw new MyOrganization.TooManyRequestsError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
                         _response.rawResponse,
                     );
                 default:
-                    throw new errors.Auth0MyOrgError({
+                    throw new errors.MyOrganizationError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
                         rawResponse: _response.rawResponse,
@@ -452,15 +459,17 @@ export class Domains {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.Auth0MyOrgError({
+                throw new errors.MyOrganizationError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                     rawResponse: _response.rawResponse,
                 });
             case "timeout":
-                throw new errors.Auth0MyOrgTimeoutError("Timeout exceeded when calling DELETE /domains/{domain_id}.");
+                throw new errors.MyOrganizationTimeoutError(
+                    "Timeout exceeded when calling DELETE /domains/{domain_id}.",
+                );
             case "unknown":
-                throw new errors.Auth0MyOrgError({
+                throw new errors.MyOrganizationError({
                     message: _response.error.errorMessage,
                     rawResponse: _response.rawResponse,
                 });

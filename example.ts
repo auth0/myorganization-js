@@ -1,15 +1,15 @@
 /**
- * Auth0 MyOrg SDK - Complete Usage Examples
+ * Auth0 MyOrganization SDK - Complete Usage Examples
  *
- * This file demonstrates both SPA and server-side usage patterns for the MyOrgClient.
+ * This file demonstrates both SPA and server-side usage patterns for the MyOrganizationClient.
  * The SDK provides secure separation between client-side and server-side authentication.
  */
 
 // SPA applications - only import the main client
-import { MyOrgClient } from "./src/wrappers/index.js";
+import { MyOrganizationClient } from "./src/wrappers/index.js";
 
 // Server applications - import from server module
-import { createMyOrgClientWithClientCredentials } from "./src/server.js";
+import { createMyOrganizationClientWithClientCredentials } from "./src/server.js";
 
 /**
  * 🌐 SPA APPLICATION EXAMPLES (React, Vue, Angular, etc.)
@@ -19,7 +19,7 @@ import { createMyOrgClientWithClientCredentials } from "./src/server.js";
 
 // Example 1: SPA with static token
 async function spaExampleWithStaticToken() {
-    const client = new MyOrgClient({
+    const client = new MyOrganizationClient({
         domain: "your-tenant.auth0.com", // Your Auth0 domain
         token: "your-user-access-token", // User's access token from Auth0 SPA SDK
     });
@@ -35,7 +35,7 @@ async function spaExampleWithStaticToken() {
 
 // Example 2: SPA with dynamic token (recommended)
 async function spaExampleWithDynamicToken() {
-    const client = new MyOrgClient({
+    const client = new MyOrganizationClient({
         domain: "your-tenant.auth0.com",
         token: () => getAccessTokenFromAuth0SPA(), // Function that returns fresh token
     });
@@ -58,7 +58,7 @@ async function getAccessTokenFromAuth0SPA(): Promise<string> {
 
 // Example 3: SPA with scope-aware token function (Recommended for Auth0 SPAs)
 async function spaExampleWithScopeAwareToken() {
-    const client = new MyOrgClient({
+    const client = new MyOrganizationClient({
         domain: "your-tenant.auth0.com",
         token: async ({ authorizationParams }) => {
             // This function receives the exact scopes required by each API endpoint
@@ -108,7 +108,7 @@ async function spaExampleWithScopeAwareToken() {
 async function spaExampleWithDirectFunction() {
     // Even simpler! Just pass your getAccessToken function directly
     // The SDK automatically calls it with { scope: [...] }
-    const client = new MyOrgClient({
+    const client = new MyOrganizationClient({
         domain: "your-tenant.auth0.com",
         token: getAccessToken, // SDK handles scope passing automatically
     });
@@ -153,7 +153,7 @@ const auth0 = {
 // Example 3: Server with client secret (most common)
 async function serverExampleWithClientSecret() {
     // Option 1: Use the factory function (recommended)
-    const client = createMyOrgClientWithClientCredentials(
+    const client = createMyOrganizationClientWithClientCredentials(
         {
             domain: "your-tenant.auth0.com",
             clientInfo: {
@@ -177,7 +177,7 @@ async function serverExampleWithClientSecret() {
     //     organization: 'org_123456789'
     // });
     //
-    // const client = new MyOrgClient({
+    // const client = new MyOrganizationClient({
     //     domain: 'your-tenant.auth0.com',
     //     tokenProvider: tokenProvider,
     //     clientInfo: {
@@ -202,7 +202,7 @@ async function serverExampleWithClientSecret() {
 // Example 4: Server with private key JWT (enhanced security)
 async function serverExampleWithPrivateKey() {
     // Option 1: Use the factory function (recommended)
-    const client = createMyOrgClientWithClientCredentials(
+    const client = createMyOrganizationClientWithClientCredentials(
         { domain: "your-tenant.auth0.com" },
         {
             clientId: "YOUR_CLIENT_ID",
@@ -221,7 +221,7 @@ async function serverExampleWithPrivateKey() {
     //     audience: 'https://my-tenant.auth0.com/custom-api/'
     // });
     //
-    // const client = new MyOrgClient({
+    // const client = new MyOrganizationClient({
     //     domain: 'your-tenant.auth0.com',
     //     tokenProvider: tokenProvider
     // });
@@ -236,7 +236,7 @@ async function serverExampleWithPrivateKey() {
 
 // Example 3: Initialize client with static token
 async function exampleWithStaticToken() {
-    const client = new MyOrgClient({
+    const client = new MyOrganizationClient({
         token: "your-access-token-here", // Replace with your actual token
         domain: "your-tenant.auth0.com", // Replace with your Auth0 domain
         clientInfo: {
@@ -268,7 +268,7 @@ async function exampleWithStaticToken() {
 
 // Main function to run examples
 async function main() {
-    console.log("=== Auth0 MyOrg SDK Examples ===\n");
+    console.log("=== Auth0 MyOrganization SDK Examples ===\n");
 
     console.log("🌐 SPA Examples (Browser-safe - no client secrets):");
     console.log("1. SPA with Static Token:");
@@ -296,15 +296,15 @@ async function main() {
 /**
  * 🔒 SECURITY GUARANTEE:
  *
- * ✅ SPA users importing 'auth0-my-org' will NEVER see:
- *    - clientId, clientSecret, privateKey options in MyOrgClient
+ * ✅ SPA users importing '@auth0/myorganization-js' will NEVER see:
+ *    - clientId, clientSecret, privateKey options in MyOrganizationClient
  *    - ClientCredentialsTokenProvider class
  *    - Any client credentials related interfaces
  *
- * ✅ These are ONLY available from 'auth0-my-org/server' import!
+ * ✅ These are ONLY available from '@auth0/myorganization-js/server' import!
  *
  * 🎯 PERFECT API:
- *    - Simple factory function: createMyOrgClientWithCredentials()
+ *    - Simple factory function: createMyOrganizationClientWithClientCredentials()
  *    - Or manual setup with TokenProvider constructor
  *    - Domain specified once, audience auto-generated or customizable
  *    - Clean separation between SPA and server usage!

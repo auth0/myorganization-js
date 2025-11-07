@@ -16,7 +16,7 @@ describe("Client Info", () => {
             Object.assign(mockRuntime, { type: "node", version: "18.17.0" });
 
             const clientInfo = generateClientInfo();
-            expect(clientInfo.name).toBe("node-auth0-myorg");
+            expect(clientInfo.name).toBe("myorganization-js");
             expect(clientInfo.version).toBe(SDK_VERSION);
             expect(clientInfo.env!["node"]).toBe("18.17.0");
         });

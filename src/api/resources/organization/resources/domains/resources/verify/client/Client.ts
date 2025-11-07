@@ -3,7 +3,7 @@
 import type { BaseClientOptions, BaseRequestOptions } from "../../../../../../../../BaseClient.js";
 import * as environments from "../../../../../../../../environments.js";
 import * as core from "../../../../../../../../core/index.js";
-import * as Auth0MyOrg from "../../../../../../../index.js";
+import * as MyOrganization from "../../../../../../../index.js";
 import { mergeHeaders, mergeOnlyDefinedHeaders } from "../../../../../../../../core/headers.js";
 import * as errors from "../../../../../../../../errors/index.js";
 
@@ -23,28 +23,29 @@ export class Verify {
     /**
      * Get a verification text and start the domain verification process for a particular domain.
      *
-     * @param {Auth0MyOrg.OrgDomainId} domainId
+     * @param {MyOrganization.OrgDomainId} domainId
      * @param {Verify.RequestOptions} requestOptions - Request-specific configuration.
      *
-     * @throws {@link Auth0MyOrg.UnauthorizedError}
-     * @throws {@link Auth0MyOrg.ForbiddenError}
-     * @throws {@link Auth0MyOrg.NotFoundError}
-     * @throws {@link Auth0MyOrg.TooManyRequestsError}
+     * @throws {@link MyOrganization.BadRequestError}
+     * @throws {@link MyOrganization.UnauthorizedError}
+     * @throws {@link MyOrganization.ForbiddenError}
+     * @throws {@link MyOrganization.NotFoundError}
+     * @throws {@link MyOrganization.TooManyRequestsError}
      *
      * @example
      *     await client.organization.domains.verify.create("domain_id")
      */
     public create(
-        domainId: Auth0MyOrg.OrgDomainId,
+        domainId: MyOrganization.OrgDomainId,
         requestOptions?: Verify.RequestOptions,
-    ): core.HttpResponsePromise<Auth0MyOrg.StartOrganizationDomainVerificationResponseContent> {
+    ): core.HttpResponsePromise<MyOrganization.StartOrganizationDomainVerificationResponseContent> {
         return core.HttpResponsePromise.fromPromise(this.__create(domainId, requestOptions));
     }
 
     private async __create(
-        domainId: Auth0MyOrg.OrgDomainId,
+        domainId: MyOrganization.OrgDomainId,
         requestOptions?: Verify.RequestOptions,
-    ): Promise<core.WithRawResponse<Auth0MyOrg.StartOrganizationDomainVerificationResponseContent>> {
+    ): Promise<core.WithRawResponse<MyOrganization.StartOrganizationDomainVerificationResponseContent>> {
         const _metadata: core.EndpointMetadata = {
             security: [
                 { OAuth2ClientCredentials: ["update:my_org:domains"] },
@@ -60,8 +61,8 @@ export class Verify {
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
-                    environments.Auth0MyOrgEnvironment.Default,
-                `domains/${encodeURIComponent(domainId)}/verify`,
+                    environments.MyOrganizationEnvironment.Default,
+                `domains/${core.url.encodePathParam(domainId)}/verify`,
             ),
             method: "POST",
             headers: _headers,
@@ -70,38 +71,41 @@ export class Verify {
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
             endpointMetadata: _metadata,
+            fetchFn: this._options?.fetch,
         });
         if (_response.ok) {
             return {
-                data: _response.body as Auth0MyOrg.StartOrganizationDomainVerificationResponseContent,
+                data: _response.body as MyOrganization.StartOrganizationDomainVerificationResponseContent,
                 rawResponse: _response.rawResponse,
             };
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
+                case 400:
+                    throw new MyOrganization.BadRequestError(_response.error.body as unknown, _response.rawResponse);
                 case 401:
-                    throw new Auth0MyOrg.UnauthorizedError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
+                    throw new MyOrganization.UnauthorizedError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
                         _response.rawResponse,
                     );
                 case 403:
-                    throw new Auth0MyOrg.ForbiddenError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
+                    throw new MyOrganization.ForbiddenError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
                         _response.rawResponse,
                     );
                 case 404:
-                    throw new Auth0MyOrg.NotFoundError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
+                    throw new MyOrganization.NotFoundError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
                         _response.rawResponse,
                     );
                 case 429:
-                    throw new Auth0MyOrg.TooManyRequestsError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
+                    throw new MyOrganization.TooManyRequestsError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
                         _response.rawResponse,
                     );
                 default:
-                    throw new errors.Auth0MyOrgError({
+                    throw new errors.MyOrganizationError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
                         rawResponse: _response.rawResponse,
@@ -111,17 +115,17 @@ export class Verify {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.Auth0MyOrgError({
+                throw new errors.MyOrganizationError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                     rawResponse: _response.rawResponse,
                 });
             case "timeout":
-                throw new errors.Auth0MyOrgTimeoutError(
+                throw new errors.MyOrganizationTimeoutError(
                     "Timeout exceeded when calling POST /domains/{domain_id}/verify.",
                 );
             case "unknown":
-                throw new errors.Auth0MyOrgError({
+                throw new errors.MyOrganizationError({
                     message: _response.error.errorMessage,
                     rawResponse: _response.rawResponse,
                 });

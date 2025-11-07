@@ -3,7 +3,7 @@
 import type { BaseClientOptions, BaseRequestOptions } from "../../../../../../../../../../BaseClient.js";
 import * as environments from "../../../../../../../../../../environments.js";
 import * as core from "../../../../../../../../../../core/index.js";
-import * as Auth0MyOrg from "../../../../../../../../../index.js";
+import * as MyOrganization from "../../../../../../../../../index.js";
 import { mergeHeaders, mergeOnlyDefinedHeaders } from "../../../../../../../../../../core/headers.js";
 import * as errors from "../../../../../../../../../../errors/index.js";
 
@@ -23,32 +23,33 @@ export class ScimTokens {
     /**
      * List the Provisioning SCIM tokens for this identity provider.
      *
-     * @param {Auth0MyOrg.IdpId} idpId
+     * @param {MyOrganization.IdpId} idpId
      * @param {ScimTokens.RequestOptions} requestOptions - Request-specific configuration.
      *
-     * @throws {@link Auth0MyOrg.UnauthorizedError}
-     * @throws {@link Auth0MyOrg.ForbiddenError}
-     * @throws {@link Auth0MyOrg.NotFoundError}
-     * @throws {@link Auth0MyOrg.TooManyRequestsError}
+     * @throws {@link MyOrganization.BadRequestError}
+     * @throws {@link MyOrganization.UnauthorizedError}
+     * @throws {@link MyOrganization.ForbiddenError}
+     * @throws {@link MyOrganization.NotFoundError}
+     * @throws {@link MyOrganization.TooManyRequestsError}
      *
      * @example
      *     await client.organization.identityProviders.provisioning.scimTokens.list("idp_id")
      */
     public list(
-        idpId: Auth0MyOrg.IdpId,
+        idpId: MyOrganization.IdpId,
         requestOptions?: ScimTokens.RequestOptions,
-    ): core.HttpResponsePromise<Auth0MyOrg.ListIdpProvisioningScimTokensResponseContent> {
+    ): core.HttpResponsePromise<MyOrganization.ListIdpProvisioningScimTokensResponseContent> {
         return core.HttpResponsePromise.fromPromise(this.__list(idpId, requestOptions));
     }
 
     private async __list(
-        idpId: Auth0MyOrg.IdpId,
+        idpId: MyOrganization.IdpId,
         requestOptions?: ScimTokens.RequestOptions,
-    ): Promise<core.WithRawResponse<Auth0MyOrg.ListIdpProvisioningScimTokensResponseContent>> {
+    ): Promise<core.WithRawResponse<MyOrganization.ListIdpProvisioningScimTokensResponseContent>> {
         const _metadata: core.EndpointMetadata = {
             security: [
-                { OAuth2ClientCredentials: ["read:my_org:scim_tokens"] },
-                { OAuth2AuthCode: ["read:my_org:scim_tokens"] },
+                { OAuth2ClientCredentials: ["read:my_org:identity_providers_scim_tokens"] },
+                { OAuth2AuthCode: ["read:my_org:identity_providers_scim_tokens"] },
             ],
         };
         let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
@@ -60,8 +61,8 @@ export class ScimTokens {
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
-                    environments.Auth0MyOrgEnvironment.Default,
-                `identity-providers/${encodeURIComponent(idpId)}/provisioning/scim-tokens`,
+                    environments.MyOrganizationEnvironment.Default,
+                `identity-providers/${core.url.encodePathParam(idpId)}/provisioning/scim-tokens`,
             ),
             method: "GET",
             headers: _headers,
@@ -70,38 +71,41 @@ export class ScimTokens {
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
             endpointMetadata: _metadata,
+            fetchFn: this._options?.fetch,
         });
         if (_response.ok) {
             return {
-                data: _response.body as Auth0MyOrg.ListIdpProvisioningScimTokensResponseContent,
+                data: _response.body as MyOrganization.ListIdpProvisioningScimTokensResponseContent,
                 rawResponse: _response.rawResponse,
             };
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
+                case 400:
+                    throw new MyOrganization.BadRequestError(_response.error.body as unknown, _response.rawResponse);
                 case 401:
-                    throw new Auth0MyOrg.UnauthorizedError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
+                    throw new MyOrganization.UnauthorizedError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
                         _response.rawResponse,
                     );
                 case 403:
-                    throw new Auth0MyOrg.ForbiddenError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
+                    throw new MyOrganization.ForbiddenError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
                         _response.rawResponse,
                     );
                 case 404:
-                    throw new Auth0MyOrg.NotFoundError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
+                    throw new MyOrganization.NotFoundError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
                         _response.rawResponse,
                     );
                 case 429:
-                    throw new Auth0MyOrg.TooManyRequestsError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
+                    throw new MyOrganization.TooManyRequestsError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
                         _response.rawResponse,
                     );
                 default:
-                    throw new errors.Auth0MyOrgError({
+                    throw new errors.MyOrganizationError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
                         rawResponse: _response.rawResponse,
@@ -111,17 +115,17 @@ export class ScimTokens {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.Auth0MyOrgError({
+                throw new errors.MyOrganizationError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                     rawResponse: _response.rawResponse,
                 });
             case "timeout":
-                throw new errors.Auth0MyOrgTimeoutError(
+                throw new errors.MyOrganizationTimeoutError(
                     "Timeout exceeded when calling GET /identity-providers/{idp_id}/provisioning/scim-tokens.",
                 );
             case "unknown":
-                throw new errors.Auth0MyOrgError({
+                throw new errors.MyOrganizationError({
                     message: _response.error.errorMessage,
                     rawResponse: _response.rawResponse,
                 });
@@ -131,15 +135,15 @@ export class ScimTokens {
     /**
      * Create a Provisioning SCIM token for this identity provider.
      *
-     * @param {Auth0MyOrg.IdpId} idpId
-     * @param {Auth0MyOrg.CreateIdpProvisioningScimTokenRequestContent} request
+     * @param {MyOrganization.IdpId} idpId
+     * @param {MyOrganization.CreateIdpProvisioningScimTokenRequestContent} request
      * @param {ScimTokens.RequestOptions} requestOptions - Request-specific configuration.
      *
-     * @throws {@link Auth0MyOrg.BadRequestError}
-     * @throws {@link Auth0MyOrg.UnauthorizedError}
-     * @throws {@link Auth0MyOrg.ForbiddenError}
-     * @throws {@link Auth0MyOrg.NotFoundError}
-     * @throws {@link Auth0MyOrg.TooManyRequestsError}
+     * @throws {@link MyOrganization.BadRequestError}
+     * @throws {@link MyOrganization.UnauthorizedError}
+     * @throws {@link MyOrganization.ForbiddenError}
+     * @throws {@link MyOrganization.NotFoundError}
+     * @throws {@link MyOrganization.TooManyRequestsError}
      *
      * @example
      *     await client.organization.identityProviders.provisioning.scimTokens.create("idp_id", {
@@ -147,22 +151,22 @@ export class ScimTokens {
      *     })
      */
     public create(
-        idpId: Auth0MyOrg.IdpId,
-        request: Auth0MyOrg.CreateIdpProvisioningScimTokenRequestContent = {},
+        idpId: MyOrganization.IdpId,
+        request: MyOrganization.CreateIdpProvisioningScimTokenRequestContent = {},
         requestOptions?: ScimTokens.RequestOptions,
-    ): core.HttpResponsePromise<Auth0MyOrg.CreateIdpProvisioningScimTokenResponseContent> {
+    ): core.HttpResponsePromise<MyOrganization.CreateIdpProvisioningScimTokenResponseContent> {
         return core.HttpResponsePromise.fromPromise(this.__create(idpId, request, requestOptions));
     }
 
     private async __create(
-        idpId: Auth0MyOrg.IdpId,
-        request: Auth0MyOrg.CreateIdpProvisioningScimTokenRequestContent = {},
+        idpId: MyOrganization.IdpId,
+        request: MyOrganization.CreateIdpProvisioningScimTokenRequestContent = {},
         requestOptions?: ScimTokens.RequestOptions,
-    ): Promise<core.WithRawResponse<Auth0MyOrg.CreateIdpProvisioningScimTokenResponseContent>> {
+    ): Promise<core.WithRawResponse<MyOrganization.CreateIdpProvisioningScimTokenResponseContent>> {
         const _metadata: core.EndpointMetadata = {
             security: [
-                { OAuth2ClientCredentials: ["create:my_org:scim_tokens"] },
-                { OAuth2AuthCode: ["create:my_org:scim_tokens"] },
+                { OAuth2ClientCredentials: ["create:my_org:identity_providers_scim_tokens"] },
+                { OAuth2AuthCode: ["create:my_org:identity_providers_scim_tokens"] },
             ],
         };
         let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
@@ -174,8 +178,8 @@ export class ScimTokens {
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
-                    environments.Auth0MyOrgEnvironment.Default,
-                `identity-providers/${encodeURIComponent(idpId)}/provisioning/scim-tokens`,
+                    environments.MyOrganizationEnvironment.Default,
+                `identity-providers/${core.url.encodePathParam(idpId)}/provisioning/scim-tokens`,
             ),
             method: "POST",
             headers: _headers,
@@ -187,10 +191,11 @@ export class ScimTokens {
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
             endpointMetadata: _metadata,
+            fetchFn: this._options?.fetch,
         });
         if (_response.ok) {
             return {
-                data: _response.body as Auth0MyOrg.CreateIdpProvisioningScimTokenResponseContent,
+                data: _response.body as MyOrganization.CreateIdpProvisioningScimTokenResponseContent,
                 rawResponse: _response.rawResponse,
             };
         }
@@ -198,32 +203,29 @@ export class ScimTokens {
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 400:
-                    throw new Auth0MyOrg.BadRequestError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
-                        _response.rawResponse,
-                    );
+                    throw new MyOrganization.BadRequestError(_response.error.body as unknown, _response.rawResponse);
                 case 401:
-                    throw new Auth0MyOrg.UnauthorizedError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
+                    throw new MyOrganization.UnauthorizedError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
                         _response.rawResponse,
                     );
                 case 403:
-                    throw new Auth0MyOrg.ForbiddenError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
+                    throw new MyOrganization.ForbiddenError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
                         _response.rawResponse,
                     );
                 case 404:
-                    throw new Auth0MyOrg.NotFoundError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
+                    throw new MyOrganization.NotFoundError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
                         _response.rawResponse,
                     );
                 case 429:
-                    throw new Auth0MyOrg.TooManyRequestsError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
+                    throw new MyOrganization.TooManyRequestsError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
                         _response.rawResponse,
                     );
                 default:
-                    throw new errors.Auth0MyOrgError({
+                    throw new errors.MyOrganizationError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
                         rawResponse: _response.rawResponse,
@@ -233,17 +235,17 @@ export class ScimTokens {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.Auth0MyOrgError({
+                throw new errors.MyOrganizationError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                     rawResponse: _response.rawResponse,
                 });
             case "timeout":
-                throw new errors.Auth0MyOrgTimeoutError(
+                throw new errors.MyOrganizationTimeoutError(
                     "Timeout exceeded when calling POST /identity-providers/{idp_id}/provisioning/scim-tokens.",
                 );
             case "unknown":
-                throw new errors.Auth0MyOrgError({
+                throw new errors.MyOrganizationError({
                     message: _response.error.errorMessage,
                     rawResponse: _response.rawResponse,
                 });
@@ -253,35 +255,36 @@ export class ScimTokens {
     /**
      * Delete a Provisioning SCIM configuration for an identity provider.
      *
-     * @param {Auth0MyOrg.IdpId} idpId
-     * @param {Auth0MyOrg.IdpProvisioningScimTokenId} idpScimTokenId
+     * @param {MyOrganization.IdpId} idpId
+     * @param {MyOrganization.IdpProvisioningScimTokenId} idpScimTokenId
      * @param {ScimTokens.RequestOptions} requestOptions - Request-specific configuration.
      *
-     * @throws {@link Auth0MyOrg.UnauthorizedError}
-     * @throws {@link Auth0MyOrg.ForbiddenError}
-     * @throws {@link Auth0MyOrg.NotFoundError}
-     * @throws {@link Auth0MyOrg.TooManyRequestsError}
+     * @throws {@link MyOrganization.BadRequestError}
+     * @throws {@link MyOrganization.UnauthorizedError}
+     * @throws {@link MyOrganization.ForbiddenError}
+     * @throws {@link MyOrganization.NotFoundError}
+     * @throws {@link MyOrganization.TooManyRequestsError}
      *
      * @example
      *     await client.organization.identityProviders.provisioning.scimTokens.delete("idp_id", "idp_scim_token_id")
      */
     public delete(
-        idpId: Auth0MyOrg.IdpId,
-        idpScimTokenId: Auth0MyOrg.IdpProvisioningScimTokenId,
+        idpId: MyOrganization.IdpId,
+        idpScimTokenId: MyOrganization.IdpProvisioningScimTokenId,
         requestOptions?: ScimTokens.RequestOptions,
     ): core.HttpResponsePromise<void> {
         return core.HttpResponsePromise.fromPromise(this.__delete(idpId, idpScimTokenId, requestOptions));
     }
 
     private async __delete(
-        idpId: Auth0MyOrg.IdpId,
-        idpScimTokenId: Auth0MyOrg.IdpProvisioningScimTokenId,
+        idpId: MyOrganization.IdpId,
+        idpScimTokenId: MyOrganization.IdpProvisioningScimTokenId,
         requestOptions?: ScimTokens.RequestOptions,
     ): Promise<core.WithRawResponse<void>> {
         const _metadata: core.EndpointMetadata = {
             security: [
-                { OAuth2ClientCredentials: ["delete:my_org:scim_tokens"] },
-                { OAuth2AuthCode: ["delete:my_org:scim_tokens"] },
+                { OAuth2ClientCredentials: ["delete:my_org:identity_providers_scim_tokens"] },
+                { OAuth2AuthCode: ["delete:my_org:identity_providers_scim_tokens"] },
             ],
         };
         let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
@@ -293,8 +296,8 @@ export class ScimTokens {
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
-                    environments.Auth0MyOrgEnvironment.Default,
-                `identity-providers/${encodeURIComponent(idpId)}/provisioning/scim-tokens/${encodeURIComponent(idpScimTokenId)}`,
+                    environments.MyOrganizationEnvironment.Default,
+                `identity-providers/${core.url.encodePathParam(idpId)}/provisioning/scim-tokens/${core.url.encodePathParam(idpScimTokenId)}`,
             ),
             method: "DELETE",
             headers: _headers,
@@ -303,6 +306,7 @@ export class ScimTokens {
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
             endpointMetadata: _metadata,
+            fetchFn: this._options?.fetch,
         });
         if (_response.ok) {
             return { data: undefined, rawResponse: _response.rawResponse };
@@ -310,28 +314,30 @@ export class ScimTokens {
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
+                case 400:
+                    throw new MyOrganization.BadRequestError(_response.error.body as unknown, _response.rawResponse);
                 case 401:
-                    throw new Auth0MyOrg.UnauthorizedError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
+                    throw new MyOrganization.UnauthorizedError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
                         _response.rawResponse,
                     );
                 case 403:
-                    throw new Auth0MyOrg.ForbiddenError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
+                    throw new MyOrganization.ForbiddenError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
                         _response.rawResponse,
                     );
                 case 404:
-                    throw new Auth0MyOrg.NotFoundError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
+                    throw new MyOrganization.NotFoundError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
                         _response.rawResponse,
                     );
                 case 429:
-                    throw new Auth0MyOrg.TooManyRequestsError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
+                    throw new MyOrganization.TooManyRequestsError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
                         _response.rawResponse,
                     );
                 default:
-                    throw new errors.Auth0MyOrgError({
+                    throw new errors.MyOrganizationError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
                         rawResponse: _response.rawResponse,
@@ -341,17 +347,17 @@ export class ScimTokens {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.Auth0MyOrgError({
+                throw new errors.MyOrganizationError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                     rawResponse: _response.rawResponse,
                 });
             case "timeout":
-                throw new errors.Auth0MyOrgTimeoutError(
+                throw new errors.MyOrganizationTimeoutError(
                     "Timeout exceeded when calling DELETE /identity-providers/{idp_id}/provisioning/scim-tokens/{idp_scim_token_id}.",
                 );
             case "unknown":
-                throw new errors.Auth0MyOrgError({
+                throw new errors.MyOrganizationError({
                     message: _response.error.errorMessage,
                     rawResponse: _response.rawResponse,
                 });

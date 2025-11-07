@@ -1,4 +1,4 @@
-import { MyOrgClient } from "../../../src/wrappers/MyOrgClient.js";
+import { MyOrganizationClient } from "../../../src/wrappers/MyOrganizationClient.js";
 import { http, HttpResponse } from "msw";
 import { setupServer } from "msw/node";
 import { Auth0FetcherSupplier } from "../../../src/wrappers/index.js";
@@ -37,12 +37,12 @@ describe("Auth0Fetcher", () => {
             .fn()
             .mockImplementation(async (url, init, authParams) => fetch(url, init));
 
-        const myOrgClient = new MyOrgClient({
+        const myOrganizationClient = new MyOrganizationClient({
             fetcher: fetcher,
             domain: "example.com",
         });
 
-        const result = await myOrgClient.organizationDetails.get();
+        const result = await myOrganizationClient.organizationDetails.get();
 
         expect(result.id).toBe("org_id");
         expect(result.name).toBe("my org");

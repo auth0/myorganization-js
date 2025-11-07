@@ -3,7 +3,7 @@ module.exports = {
     entryPoints: ["src/index.ts"],
     entryPointStrategy: "resolve",
     out: "docs",
-    name: "Auth0 MyOrg SDK",
+    name: "Auth0 MyOrganization SDK",
     theme: "default",
     includeVersion: true,
     excludePrivate: true,
@@ -15,7 +15,7 @@ module.exports = {
     readme: "README.md",
     categorizeByGroup: true,
     defaultCategory: "Other",
-    categoryOrder: ["MyOrg API", "Resources", "Types", "Errors", "*"],
+    categoryOrder: ["MyOrganization API", "Resources", "Types", "Errors", "*"],
     sort: ["source-order", "kind", "alphabetical"],
     sortEntryPoints: true,
     useTsLinkResolution: true,
@@ -43,7 +43,7 @@ module.exports = {
         includeGroups: true,
         includeFolders: false,
     },
-    groupOrder: ["MyOrg API", "Resources", "Types", "Errors", "*"],
+    groupOrder: ["MyOrganization API", "Resources", "Types", "Errors", "*"],
     blockTags: [
         "@alpha",
         "@beta",
@@ -89,7 +89,7 @@ module.exports = {
     hideGenerator: true,
     navigationLinks: {
         GitHub: "https://github.com/auth0/myorganization-js",
-        npm: "https://www.npmjs.com/package/auth0-my-org",
+        npm: "https://www.npmjs.com/package/@auth0/myorganization-js",
     },
     visibilityFilters: {
         protected: false,

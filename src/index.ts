@@ -1,3 +1,3 @@
-export * as Auth0MyOrg from "./api/index.js";
-export { Auth0MyOrgError, Auth0MyOrgTimeoutError } from "./errors/index.js";
-export { MyOrgClient } from "./wrappers/index.js";
+export * as MyOrganization from "./api/index.js";
+export { MyOrganizationError, MyOrganizationTimeoutError } from "./errors/index.js";
+export { MyOrganizationClient } from "./wrappers/index.js";

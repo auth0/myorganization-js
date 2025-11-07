@@ -3,7 +3,7 @@
 import type { BaseClientOptions, BaseRequestOptions } from "../../../../../../../../BaseClient.js";
 import * as environments from "../../../../../../../../environments.js";
 import * as core from "../../../../../../../../core/index.js";
-import * as Auth0MyOrg from "../../../../../../../index.js";
+import * as MyOrganization from "../../../../../../../index.js";
 import { mergeHeaders, mergeOnlyDefinedHeaders } from "../../../../../../../../core/headers.js";
 import * as errors from "../../../../../../../../errors/index.js";
 
@@ -23,28 +23,29 @@ export class Roles {
     /**
      * Retrieve the roles for a single member.
      *
-     * @param {Auth0MyOrg.OrgMemberId} userId
+     * @param {MyOrganization.OrgMemberId} userId
      * @param {Roles.RequestOptions} requestOptions - Request-specific configuration.
      *
-     * @throws {@link Auth0MyOrg.UnauthorizedError}
-     * @throws {@link Auth0MyOrg.ForbiddenError}
-     * @throws {@link Auth0MyOrg.NotFoundError}
-     * @throws {@link Auth0MyOrg.TooManyRequestsError}
+     * @throws {@link MyOrganization.BadRequestError}
+     * @throws {@link MyOrganization.UnauthorizedError}
+     * @throws {@link MyOrganization.ForbiddenError}
+     * @throws {@link MyOrganization.NotFoundError}
+     * @throws {@link MyOrganization.TooManyRequestsError}
      *
      * @example
      *     await client.organization.members.roles.list("user_id")
      */
     public list(
-        userId: Auth0MyOrg.OrgMemberId,
+        userId: MyOrganization.OrgMemberId,
         requestOptions?: Roles.RequestOptions,
-    ): core.HttpResponsePromise<Auth0MyOrg.GetOrganizationMemberRolesResponseContent> {
+    ): core.HttpResponsePromise<MyOrganization.GetOrganizationMemberRolesResponseContent> {
         return core.HttpResponsePromise.fromPromise(this.__list(userId, requestOptions));
     }
 
     private async __list(
-        userId: Auth0MyOrg.OrgMemberId,
+        userId: MyOrganization.OrgMemberId,
         requestOptions?: Roles.RequestOptions,
-    ): Promise<core.WithRawResponse<Auth0MyOrg.GetOrganizationMemberRolesResponseContent>> {
+    ): Promise<core.WithRawResponse<MyOrganization.GetOrganizationMemberRolesResponseContent>> {
         const _metadata: core.EndpointMetadata = {
             security: [
                 { OAuth2ClientCredentials: ["read:my_org:member_roles"] },
@@ -60,8 +61,8 @@ export class Roles {
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
-                    environments.Auth0MyOrgEnvironment.Default,
-                `members/${encodeURIComponent(userId)}/roles`,
+                    environments.MyOrganizationEnvironment.Default,
+                `members/${core.url.encodePathParam(userId)}/roles`,
             ),
             method: "GET",
             headers: _headers,
@@ -70,38 +71,41 @@ export class Roles {
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
             endpointMetadata: _metadata,
+            fetchFn: this._options?.fetch,
         });
         if (_response.ok) {
             return {
-                data: _response.body as Auth0MyOrg.GetOrganizationMemberRolesResponseContent,
+                data: _response.body as MyOrganization.GetOrganizationMemberRolesResponseContent,
                 rawResponse: _response.rawResponse,
             };
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
+                case 400:
+                    throw new MyOrganization.BadRequestError(_response.error.body as unknown, _response.rawResponse);
                 case 401:
-                    throw new Auth0MyOrg.UnauthorizedError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
+                    throw new MyOrganization.UnauthorizedError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
                         _response.rawResponse,
                     );
                 case 403:
-                    throw new Auth0MyOrg.ForbiddenError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
+                    throw new MyOrganization.ForbiddenError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
                         _response.rawResponse,
                     );
                 case 404:
-                    throw new Auth0MyOrg.NotFoundError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
+                    throw new MyOrganization.NotFoundError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
                         _response.rawResponse,
                     );
                 case 429:
-                    throw new Auth0MyOrg.TooManyRequestsError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
+                    throw new MyOrganization.TooManyRequestsError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
                         _response.rawResponse,
                     );
                 default:
-                    throw new errors.Auth0MyOrgError({
+                    throw new errors.MyOrganizationError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
                         rawResponse: _response.rawResponse,
@@ -111,15 +115,17 @@ export class Roles {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.Auth0MyOrgError({
+                throw new errors.MyOrganizationError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                     rawResponse: _response.rawResponse,
                 });
             case "timeout":
-                throw new errors.Auth0MyOrgTimeoutError("Timeout exceeded when calling GET /members/{user_id}/roles.");
+                throw new errors.MyOrganizationTimeoutError(
+                    "Timeout exceeded when calling GET /members/{user_id}/roles.",
+                );
             case "unknown":
-                throw new errors.Auth0MyOrgError({
+                throw new errors.MyOrganizationError({
                     message: _response.error.errorMessage,
                     rawResponse: _response.rawResponse,
                 });
@@ -129,15 +135,15 @@ export class Roles {
     /**
      * Add a role to a member.
      *
-     * @param {Auth0MyOrg.OrgMemberId} userId
-     * @param {Auth0MyOrg.AssignOrganizationMemberRoleRequestContent} request
+     * @param {MyOrganization.OrgMemberId} userId
+     * @param {MyOrganization.AssignOrganizationMemberRoleRequestContent} request
      * @param {Roles.RequestOptions} requestOptions - Request-specific configuration.
      *
-     * @throws {@link Auth0MyOrg.BadRequestError}
-     * @throws {@link Auth0MyOrg.UnauthorizedError}
-     * @throws {@link Auth0MyOrg.ForbiddenError}
-     * @throws {@link Auth0MyOrg.NotFoundError}
-     * @throws {@link Auth0MyOrg.TooManyRequestsError}
+     * @throws {@link MyOrganization.BadRequestError}
+     * @throws {@link MyOrganization.UnauthorizedError}
+     * @throws {@link MyOrganization.ForbiddenError}
+     * @throws {@link MyOrganization.NotFoundError}
+     * @throws {@link MyOrganization.TooManyRequestsError}
      *
      * @example
      *     await client.organization.members.roles.create("user_id", {
@@ -145,18 +151,18 @@ export class Roles {
      *     })
      */
     public create(
-        userId: Auth0MyOrg.OrgMemberId,
-        request: Auth0MyOrg.AssignOrganizationMemberRoleRequestContent = {},
+        userId: MyOrganization.OrgMemberId,
+        request: MyOrganization.AssignOrganizationMemberRoleRequestContent = {},
         requestOptions?: Roles.RequestOptions,
-    ): core.HttpResponsePromise<Auth0MyOrg.AssignOrganizationMemberRoleResponseContent> {
+    ): core.HttpResponsePromise<MyOrganization.AssignOrganizationMemberRoleResponseContent> {
         return core.HttpResponsePromise.fromPromise(this.__create(userId, request, requestOptions));
     }
 
     private async __create(
-        userId: Auth0MyOrg.OrgMemberId,
-        request: Auth0MyOrg.AssignOrganizationMemberRoleRequestContent = {},
+        userId: MyOrganization.OrgMemberId,
+        request: MyOrganization.AssignOrganizationMemberRoleRequestContent = {},
         requestOptions?: Roles.RequestOptions,
-    ): Promise<core.WithRawResponse<Auth0MyOrg.AssignOrganizationMemberRoleResponseContent>> {
+    ): Promise<core.WithRawResponse<MyOrganization.AssignOrganizationMemberRoleResponseContent>> {
         const _metadata: core.EndpointMetadata = {
             security: [
                 { OAuth2ClientCredentials: ["create:my_org:member_roles"] },
@@ -172,8 +178,8 @@ export class Roles {
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
-                    environments.Auth0MyOrgEnvironment.Default,
-                `members/${encodeURIComponent(userId)}/roles`,
+                    environments.MyOrganizationEnvironment.Default,
+                `members/${core.url.encodePathParam(userId)}/roles`,
             ),
             method: "POST",
             headers: _headers,
@@ -185,10 +191,11 @@ export class Roles {
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
             endpointMetadata: _metadata,
+            fetchFn: this._options?.fetch,
         });
         if (_response.ok) {
             return {
-                data: _response.body as Auth0MyOrg.AssignOrganizationMemberRoleResponseContent,
+                data: _response.body as MyOrganization.AssignOrganizationMemberRoleResponseContent,
                 rawResponse: _response.rawResponse,
             };
         }
@@ -196,32 +203,29 @@ export class Roles {
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 400:
-                    throw new Auth0MyOrg.BadRequestError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
-                        _response.rawResponse,
-                    );
+                    throw new MyOrganization.BadRequestError(_response.error.body as unknown, _response.rawResponse);
                 case 401:
-                    throw new Auth0MyOrg.UnauthorizedError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
+                    throw new MyOrganization.UnauthorizedError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
                         _response.rawResponse,
                     );
                 case 403:
-                    throw new Auth0MyOrg.ForbiddenError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
+                    throw new MyOrganization.ForbiddenError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
                         _response.rawResponse,
                     );
                 case 404:
-                    throw new Auth0MyOrg.NotFoundError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
+                    throw new MyOrganization.NotFoundError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
                         _response.rawResponse,
                     );
                 case 429:
-                    throw new Auth0MyOrg.TooManyRequestsError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
+                    throw new MyOrganization.TooManyRequestsError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
                         _response.rawResponse,
                     );
                 default:
-                    throw new errors.Auth0MyOrgError({
+                    throw new errors.MyOrganizationError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
                         rawResponse: _response.rawResponse,
@@ -231,15 +235,17 @@ export class Roles {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.Auth0MyOrgError({
+                throw new errors.MyOrganizationError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                     rawResponse: _response.rawResponse,
                 });
             case "timeout":
-                throw new errors.Auth0MyOrgTimeoutError("Timeout exceeded when calling POST /members/{user_id}/roles.");
+                throw new errors.MyOrganizationTimeoutError(
+                    "Timeout exceeded when calling POST /members/{user_id}/roles.",
+                );
             case "unknown":
-                throw new errors.Auth0MyOrgError({
+                throw new errors.MyOrganizationError({
                     message: _response.error.errorMessage,
                     rawResponse: _response.rawResponse,
                 });
@@ -249,29 +255,30 @@ export class Roles {
     /**
      * Remove a role from a member.
      *
-     * @param {Auth0MyOrg.OrgMemberId} userId
-     * @param {Auth0MyOrg.OrgMemberRoleId} roleId
+     * @param {MyOrganization.OrgMemberId} userId
+     * @param {MyOrganization.OrgMemberRoleId} roleId
      * @param {Roles.RequestOptions} requestOptions - Request-specific configuration.
      *
-     * @throws {@link Auth0MyOrg.UnauthorizedError}
-     * @throws {@link Auth0MyOrg.ForbiddenError}
-     * @throws {@link Auth0MyOrg.NotFoundError}
-     * @throws {@link Auth0MyOrg.TooManyRequestsError}
+     * @throws {@link MyOrganization.BadRequestError}
+     * @throws {@link MyOrganization.UnauthorizedError}
+     * @throws {@link MyOrganization.ForbiddenError}
+     * @throws {@link MyOrganization.NotFoundError}
+     * @throws {@link MyOrganization.TooManyRequestsError}
      *
      * @example
      *     await client.organization.members.roles.delete("user_id", "role_id")
      */
     public delete(
-        userId: Auth0MyOrg.OrgMemberId,
-        roleId: Auth0MyOrg.OrgMemberRoleId,
+        userId: MyOrganization.OrgMemberId,
+        roleId: MyOrganization.OrgMemberRoleId,
         requestOptions?: Roles.RequestOptions,
     ): core.HttpResponsePromise<void> {
         return core.HttpResponsePromise.fromPromise(this.__delete(userId, roleId, requestOptions));
     }
 
     private async __delete(
-        userId: Auth0MyOrg.OrgMemberId,
-        roleId: Auth0MyOrg.OrgMemberRoleId,
+        userId: MyOrganization.OrgMemberId,
+        roleId: MyOrganization.OrgMemberRoleId,
         requestOptions?: Roles.RequestOptions,
     ): Promise<core.WithRawResponse<void>> {
         const _metadata: core.EndpointMetadata = {
@@ -289,8 +296,8 @@ export class Roles {
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
-                    environments.Auth0MyOrgEnvironment.Default,
-                `members/${encodeURIComponent(userId)}/roles/${encodeURIComponent(roleId)}`,
+                    environments.MyOrganizationEnvironment.Default,
+                `members/${core.url.encodePathParam(userId)}/roles/${core.url.encodePathParam(roleId)}`,
             ),
             method: "DELETE",
             headers: _headers,
@@ -299,6 +306,7 @@ export class Roles {
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
             endpointMetadata: _metadata,
+            fetchFn: this._options?.fetch,
         });
         if (_response.ok) {
             return { data: undefined, rawResponse: _response.rawResponse };
@@ -306,28 +314,30 @@ export class Roles {
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
+                case 400:
+                    throw new MyOrganization.BadRequestError(_response.error.body as unknown, _response.rawResponse);
                 case 401:
-                    throw new Auth0MyOrg.UnauthorizedError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
+                    throw new MyOrganization.UnauthorizedError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
                         _response.rawResponse,
                     );
                 case 403:
-                    throw new Auth0MyOrg.ForbiddenError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
+                    throw new MyOrganization.ForbiddenError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
                         _response.rawResponse,
                     );
                 case 404:
-                    throw new Auth0MyOrg.NotFoundError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
+                    throw new MyOrganization.NotFoundError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
                         _response.rawResponse,
                     );
                 case 429:
-                    throw new Auth0MyOrg.TooManyRequestsError(
-                        _response.error.body as Auth0MyOrg.ErrorResponseContent,
+                    throw new MyOrganization.TooManyRequestsError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
                         _response.rawResponse,
                     );
                 default:
-                    throw new errors.Auth0MyOrgError({
+                    throw new errors.MyOrganizationError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
                         rawResponse: _response.rawResponse,
@@ -337,17 +347,17 @@ export class Roles {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.Auth0MyOrgError({
+                throw new errors.MyOrganizationError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                     rawResponse: _response.rawResponse,
                 });
             case "timeout":
-                throw new errors.Auth0MyOrgTimeoutError(
+                throw new errors.MyOrganizationTimeoutError(
                     "Timeout exceeded when calling DELETE /members/{user_id}/roles/{role_id}.",
                 );
             case "unknown":
-                throw new errors.Auth0MyOrgError({
+                throw new errors.MyOrganizationError({
                     message: _response.error.errorMessage,
                     rawResponse: _response.rawResponse,
                 });

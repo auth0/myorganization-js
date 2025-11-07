@@ -1,2 +1,2 @@
-export { Auth0MyOrgError } from "./Auth0MyOrgError.js";
-export { Auth0MyOrgTimeoutError } from "./Auth0MyOrgTimeoutError.js";
+export { MyOrganizationError } from "./MyOrganizationError.js";
+export { MyOrganizationTimeoutError } from "./MyOrganizationTimeoutError.js";
