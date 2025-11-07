@@ -86,6 +86,9 @@
     "engines": {
         "node": ">=18.0.0"
     },
+    "publishConfig": {
+        "access": "public"
+    },
     "sideEffects": false,
     "description": "Auth0 SDK for JavaScript/TypeScript to manage organizations, members, roles, and identity providers",
     "author": "Auth0",
