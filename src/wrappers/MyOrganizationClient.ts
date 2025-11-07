@@ -30,7 +30,7 @@ export declare namespace MyOrganizationClient {
      * @public
      */
     export interface MyOrganizationClientOptions
-        extends Omit<FernClient.Options, "token" | "environment" | "baseUrl" | "fetcher"> {
+        extends Omit<FernClient.Options, "token" | "environment" | "baseUrl" | "fetcher" | "fetch"> {
         /** Auth0 domain (e.g., 'your-tenant.auth0.com') */
         domain: string;
         /**
