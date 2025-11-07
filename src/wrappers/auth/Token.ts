@@ -49,7 +49,7 @@ export namespace Auth0Token {
      * ```typescript
      * const client = new MyOrganizationClient({
      *   domain: 'your-tenant.auth0.com',
-     *   token: () => getCurrentToken() // Parameter ignored, works fine
+     *   token: () => getCurrentToken() // Function doesn't declare parameters, so extra args are ignored
      * });
      * ```
      *

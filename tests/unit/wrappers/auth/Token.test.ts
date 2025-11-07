@@ -15,6 +15,7 @@ describe("Token", () => {
         });
 
         it("should handle simple function token supplier", async () => {
+            // Function has no parameters, so SDK's { scope } argument is ignored by JavaScript
             const tokenSupplier: Auth0TokenSupplier = () => "dynamic-token";
             const coreSupplier = createCoreTokenSupplier(tokenSupplier);
 
@@ -105,6 +106,8 @@ describe("Token", () => {
 
         it("should deduplicate scopes in scope-aware token supplier", async () => {
             const tokenSupplier: Auth0TokenSupplier = async ({ scope }) => {
+                // Note: This works because scope will never be empty in this test
+                // For empty scopes, see "should handle empty scope string edge case" test
                 return `count:${scope.split(" ").length}`;
             };
             const coreSupplier = createCoreTokenSupplier(tokenSupplier);
@@ -156,6 +159,22 @@ describe("Token", () => {
             const invalidSupplier = [] as any;
 
             expect(() => createCoreTokenSupplier(invalidSupplier)).toThrow("Invalid token supplier provided");
+        });
+
+        it("should handle empty scope string edge case", async () => {
+            // Note: "".split(" ") returns [""], not []
+            // Token suppliers should handle this gracefully
+            const tokenSupplier: Auth0TokenSupplier = async ({ scope }) => {
+                const parts = scope ? scope.split(" ").filter((s) => s.length > 0) : [];
+                return `count:${parts.length}`;
+            };
+            const coreSupplier = createCoreTokenSupplier(tokenSupplier);
+
+            const result = await core.EndpointSupplier.get(coreSupplier, {
+                endpointMetadata: { security: [] },
+            });
+
+            expect(result).toBe("count:0");
         });
     });
 

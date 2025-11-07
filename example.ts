@@ -53,7 +53,7 @@ async function spaExampleWithDynamicToken() {
 async function spaExampleWithAsyncToken() {
     const client = new MyOrganizationClient({
         domain: "your-tenant.auth0.com",
-        // SDK always calls with { scope }, but your function can ignore it
+        // SDK always calls with { scope }, but function without parameters ignores extra arguments
         token: async () => {
             return await auth0.getTokenSilently();
         },

@@ -114,9 +114,9 @@ export declare namespace MyOrganizationClient {
          * - **String**: Static access token
          * - **Function**: `(options) => string` - Token supplier that receives scope information
          *
-         * The SDK always calls the function with a scope object. You can destructure it
-         * to use the scopes, or define your function with no parameters to ignore it.
-         * JavaScript allows functions to ignore extra arguments, making both patterns work.
+         * The SDK always calls the function with `{ scope: string }`. Functions that don't
+         * declare parameters will simply ignore this argument due to JavaScript's flexible
+         * parameter handling.
          */
         token: Auth0TokenSupplier;
         /**
