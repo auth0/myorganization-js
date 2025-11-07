@@ -110,14 +110,14 @@ describe("MyOrganizationClient Unit Tests", () => {
 
             const result = await wrappedToken({ endpointMetadata: mockEndpointMetadata });
 
-            expect(tokenFunction).toHaveBeenCalledWith(); // Simple function called with no args
+            expect(tokenFunction).toHaveBeenCalledWith({ scope: "" }); // Always called with scope object
             expect(result).toBe("dynamic-token");
         });
 
         it("should handle scope-aware function token supplier", async () => {
             // Use a real function instead of vi.fn() to ensure proper .length detection
-            const scopeAwareFunction = vi.fn(function ({ authorizationParams }) {
-                return `token-for-${authorizationParams.scope}`;
+            const scopeAwareFunction = vi.fn(function ({ scope }) {
+                return `token-for-${scope}`;
             });
             const options = {
                 token: scopeAwareFunction,
@@ -143,9 +143,7 @@ describe("MyOrganizationClient Unit Tests", () => {
             const result = await wrappedToken({ endpointMetadata: mockEndpointMetadata });
 
             expect(scopeAwareFunction).toHaveBeenCalledWith({
-                authorizationParams: {
-                    scope: "read:organizations write:members",
-                },
+                scope: "read:organizations write:members",
             });
             expect(result).toBe("token-for-read:organizations write:members");
         });

@@ -76,11 +76,11 @@ export declare namespace MyOrganizationClient {
      * ```typescript
      * const client = new MyOrganizationClient({
      *   domain: 'your-tenant.auth0.com',
-     *   token: async ({ authorizationParams }) => {
+     *   token: async ({ scope }) => {
      *     // SDK automatically passes required scopes for each API call
      *     return await auth0.getTokenSilently({
      *       authorizationParams: {
-     *         scope: `openid profile email ${authorizationParams.scope}`
+     *         scope: `openid profile email ${scope}`
      *       }
      *     });
      *   }
@@ -89,16 +89,16 @@ export declare namespace MyOrganizationClient {
      *
      * @example Pass your function directly
      * ```typescript
-     * // Your getAccessToken function receives { authorizationParams: { scope: '...' } } automatically
+     * // Your getAccessToken function receives { scope: '...' } automatically
      * const client = new MyOrganizationClient({
      *   domain: 'your-tenant.auth0.com',
      *   token: getAccessToken  // SDK calls with required scopes
      * });
      * 
-     * async function getAccessToken({ authorizationParams }) {
+     * async function getAccessToken({ scope }) {
      *   return await auth0.getTokenSilently({
      *     authorizationParams: {
-     *       scope: `openid profile email ${authorizationParams.scope}`
+     *       scope: `openid profile email ${scope}`
      *     }
      *   });
      * }
@@ -112,11 +112,11 @@ export declare namespace MyOrganizationClient {
          *
          * Supports multiple patterns:
          * - **String**: Static access token
-         * - **Simple function**: `() => string` - For dynamic tokens without scope handling
-         * - **Scope-aware function**: `({ authorizationParams }) => string` - **RECOMMENDED** for Auth0 applications
+         * - **Function**: `(options) => string` - Token supplier that receives scope information
          *
-         * The scope-aware function is ideal for Auth0 applications as the SDK automatically
-         * calls your function with the required scopes (as a space-separated string) for each API endpoint.
+         * The SDK always calls the function with `{ scope: string }`. Functions that don't
+         * declare parameters will simply ignore this argument due to JavaScript's flexible
+         * parameter handling.
          */
         token: Auth0TokenSupplier;
         /**
