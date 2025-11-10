@@ -15,66 +15,6 @@ export interface CreateOrganizationDomainRequestContent {
 /**
  * @example
  *     {
- *         q: "q",
- *         fields: "fields",
- *         include_fields: true,
- *         from: "from",
- *         take: 1
- *     }
- */
-export interface ListOrganizationMembersRequestParameters {
-    /** Query in Lucene query string syntax. */
-    q?: string | null;
-    /** Comma-separated list of fields to include or exclude (based on value provided for include_fields) in the result. Leave empty to retrieve all fields. */
-    fields?: string | null;
-    /** Whether specified fields are to be included (true) or excluded (false). */
-    include_fields?: boolean | null;
-    /** Optional Id from which to start selection. */
-    from?: string | null;
-    /** Number of results per page. Defaults to 50. */
-    take?: number | null;
-}
-
-/**
- * @example
- *     {
- *         delete_user: true
- *     }
- */
-export interface DeleteOrganizationMemberRequestParameters {
-    /** True if the underlying user should also be deleted, false if only the membership should be removed. */
-    delete_user: boolean;
-}
-
-/**
- * @example
- *     {
- *         invitee: {
- *             email: "user@example.com"
- *         },
- *         client_id: "string",
- *         connection_id: "con_2CZPv6IY0gWzDaQJ",
- *         ttl_sec: 3600,
- *         roles: ["string"],
- *         send_invitation_email: true
- *     }
- */
-export interface CreateMemberInvitationRequestContent {
-    invitee: MyOrganization.MemberInvitationInvitee;
-    /** The Organizations client Identifer. */
-    client_id: string;
-    /** Identity provider identifier. */
-    connection_id: string;
-    /** How long (in seconds) the invitation should be valid. */
-    ttl_sec: number;
-    roles: string[];
-    /** Should an invitation email be sent on member invite. */
-    send_invitation_email: boolean;
-}
-
-/**
- * @example
- *     {
  *         domain: "my-domain.com"
  *     }
  */
@@ -91,14 +31,4 @@ export interface CreateIdpDomainRequestContent {
 export interface CreateIdpProvisioningScimTokenRequestContent {
     /** Lifetime of the token in seconds. Do not set for non-expiring tokens. */
     token_lifetime?: number;
-}
-
-/**
- * @example
- *     {
- *         role_id: "rol_SO2j0sFo9NFa3F9w"
- *     }
- */
-export interface AssignOrganizationMemberRoleRequestContent {
-    role_id?: MyOrganization.OrgMemberRoleId;
 }

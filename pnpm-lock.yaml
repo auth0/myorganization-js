@@ -1789,10 +1789,10 @@ packages:
             }
         engines: { node: ">= 10.13.0" }
 
-    jose@6.1.0:
+    jose@6.1.1:
         resolution:
             {
-                integrity: sha512-TTQJyoEoKcC1lscpVDCSsVgYzUDg/0Bt3WE//WiTPK6uOCQC2KZS4MpugbMWt/zyjkopgZoXhZuCi00gLudfUA==,
+                integrity: sha512-GWSqjfOPf4cWOkBzw5THBjtGPhXKqYnfRBzh4Ni+ArTrQQ9unvmsA3oFLqaYKoKe5sjWmGu5wVKg9Ft1i+LQfg==,
             }
 
     js-tokens@9.0.1:
@@ -2872,7 +2872,7 @@ packages:
 snapshots:
     "@auth0/auth0-auth-js@1.2.0":
         dependencies:
-            jose: 6.1.0
+            jose: 6.1.1
             openid-client: 6.8.1
 
     "@bundled-es-modules/cookie@2.0.1":
@@ -3833,7 +3833,7 @@ snapshots:
             merge-stream: 2.0.0
             supports-color: 8.1.1
 
-    jose@6.1.0: {}
+    jose@6.1.1: {}
 
     js-tokens@9.0.1: {}
 
@@ -3993,7 +3993,7 @@ snapshots:
 
     openid-client@6.8.1:
         dependencies:
-            jose: 6.1.0
+            jose: 6.1.1
             oauth4webapi: 3.8.2
 
     optionator@0.9.4:

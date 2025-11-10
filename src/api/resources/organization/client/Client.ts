@@ -6,8 +6,6 @@ import * as core from "../../../../core/index.js";
 import { Configuration } from "../resources/configuration/client/Client.js";
 import { Domains } from "../resources/domains/client/Client.js";
 import { IdentityProviders } from "../resources/identityProviders/client/Client.js";
-import { Members } from "../resources/members/client/Client.js";
-import { Invitations } from "../resources/invitations/client/Client.js";
 
 export declare namespace Organization {
     export interface Options extends BaseClientOptions {}
@@ -18,8 +16,6 @@ export class Organization {
     protected _configuration: Configuration | undefined;
     protected _domains: Domains | undefined;
     protected _identityProviders: IdentityProviders | undefined;
-    protected _members: Members | undefined;
-    protected _invitations: Invitations | undefined;
 
     constructor(_options: Organization.Options) {
         this._options = _options;
@@ -35,13 +31,5 @@ export class Organization {
 
     public get identityProviders(): IdentityProviders {
         return (this._identityProviders ??= new IdentityProviders(this._options));
-    }
-
-    public get members(): Members {
-        return (this._members ??= new Members(this._options));
-    }
-
-    public get invitations(): Invitations {
-        return (this._invitations ??= new Invitations(this._options));
     }
 }

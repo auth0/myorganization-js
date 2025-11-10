@@ -1,6 +1,6 @@
 {
     "name": "@auth0/myorganization-js",
-    "version": "1.0.0-beta.0",
+    "version": "1.0.0-beta.1",
     "private": false,
     "repository": "github:auth0/myorganization-js",
     "license": "MIT",
@@ -85,9 +85,6 @@
     "packageManager": "pnpm@10.20.0",
     "engines": {
         "node": ">=18.0.0"
-    },
-    "publishConfig": {
-        "access": "public"
     },
     "sideEffects": false,
     "description": "Auth0 SDK for JavaScript/TypeScript to manage organizations, members, roles, and identity providers",
