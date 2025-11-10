@@ -370,6 +370,31 @@ describe("IdentityProviders", () => {
             .post("/identity-providers")
             .jsonBody(rawRequestBody)
             .respondWith()
+            .statusCode(409)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.organization.identityProviders.create({
+                strategy: "adfs",
+                options: {
+                    adfs_server: "adfs_server",
+                },
+                name: "x",
+            });
+        }).rejects.toThrow(MyOrganization.ConflictError);
+    });
+
+    test("create (7)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new MyOrganizationClient({ token: "test", environment: server.baseUrl });
+        const rawRequestBody = { strategy: "adfs", options: { adfs_server: "adfs_server" }, name: "x" };
+        const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+        server
+            .mockEndpoint()
+            .post("/identity-providers")
+            .jsonBody(rawRequestBody)
+            .respondWith()
             .statusCode(429)
             .jsonBody(rawResponseBody)
             .build();
