@@ -1,5 +1,19 @@
 # Change Log
 
+## [v1.0.0-beta.1](https://github.com/auth0/myorganization-js/tree/v1.0.0-beta.1) (2025-11-10)
+
+[Full Changelog](https://github.com/auth0/myorganization-js/compare/v1.0.0-beta.0...v1.0.0-beta.1)
+
+**Changed**
+
+- Updated `jose` dependency from `6.1.0` to `6.1.1`
+- Removed `members` and `invitations` resources from organization API client
+- Removed request interface definitions: `ListOrganizationMembersRequestParameters`, `DeleteOrganizationMemberRequestParameters`, `CreateMemberInvitationRequestContent`, and `AssignOrganizationMemberRoleRequestContent`
+
+**Fixed**
+
+- Improved error handling for identity provider operations with HTTP 409 Conflict support
+
 ## [v1.0.0-beta.0](https://github.com/auth0/myorganization-js/tree/v1.0.0-beta.0) (2025-11-07)
 
 **Initial beta release of Auth0 MyOrganization JavaScript SDK**
