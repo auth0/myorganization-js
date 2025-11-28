@@ -3,4 +3,6 @@
 export interface IdpProvisioningFieldMapItem {
     provisioning_field: string;
     user_attribute: string;
+    description?: string;
+    label?: string;
 }

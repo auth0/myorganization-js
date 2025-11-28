@@ -9,7 +9,7 @@ describe("Domains", () => {
         const server = mockServerPool.createServer();
         const client = new MyOrganizationClient({ token: "test", environment: server.baseUrl });
         const rawRequestBody = { domain: "my-domain.com" };
-        const rawResponseBody = { domains: ["acme.com", "my-domain.com"] };
+        const rawResponseBody = { domain: "my-domain.com" };
         server
             .mockEndpoint()
             .post("/identity-providers/idp_id/domains")
@@ -23,7 +23,7 @@ describe("Domains", () => {
             domain: "my-domain.com",
         });
         expect(response).toEqual({
-            domains: ["acme.com", "my-domain.com"],
+            domain: "my-domain.com",
         });
     });
 
@@ -112,6 +112,27 @@ describe("Domains", () => {
     });
 
     test("create (6)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new MyOrganizationClient({ token: "test", environment: server.baseUrl });
+        const rawRequestBody = { domain: "domain" };
+        const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+        server
+            .mockEndpoint()
+            .post("/identity-providers/idp_id/domains")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(409)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.organization.identityProviders.domains.create("idp_id", {
+                domain: "domain",
+            });
+        }).rejects.toThrow(MyOrganization.ConflictError);
+    });
+
+    test("create (7)", async () => {
         const server = mockServerPool.createServer();
         const client = new MyOrganizationClient({ token: "test", environment: server.baseUrl });
         const rawRequestBody = { domain: "domain" };

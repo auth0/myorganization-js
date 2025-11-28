@@ -31,6 +31,7 @@ export class Domains {
      * @throws {@link MyOrganization.UnauthorizedError}
      * @throws {@link MyOrganization.ForbiddenError}
      * @throws {@link MyOrganization.NotFoundError}
+     * @throws {@link MyOrganization.ConflictError}
      * @throws {@link MyOrganization.TooManyRequestsError}
      *
      * @example
@@ -104,6 +105,11 @@ export class Domains {
                     );
                 case 404:
                     throw new MyOrganization.NotFoundError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
+                        _response.rawResponse,
+                    );
+                case 409:
+                    throw new MyOrganization.ConflictError(
                         _response.error.body as MyOrganization.ErrorResponseContent,
                         _response.rawResponse,
                     );
