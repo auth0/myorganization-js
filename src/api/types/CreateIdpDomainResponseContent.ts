@@ -3,5 +3,5 @@
 import * as MyOrganization from "../index.js";
 
 export interface CreateIdpDomainResponseContent {
-    domains?: MyOrganization.OrgDomainName[];
+    domain: MyOrganization.OrgDomainName;
 }
