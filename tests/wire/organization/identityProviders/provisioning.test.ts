@@ -4,10 +4,10 @@ import { mockServerPool } from "../../../mock-server/MockServerPool";
 import { MyOrganizationClient } from "../../../../src/Client";
 import * as MyOrganization from "../../../../src/api/index";
 
-describe("Provisioning", () => {
+describe("ProvisioningClient", () => {
     test("get (1)", async () => {
         const server = mockServerPool.createServer();
-        const client = new MyOrganizationClient({ token: "test", environment: server.baseUrl });
+        const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = {
             identity_provider_id: "con_2CZPv6IY0gWzDaQJ",
@@ -87,7 +87,7 @@ describe("Provisioning", () => {
 
     test("get (2)", async () => {
         const server = mockServerPool.createServer();
-        const client = new MyOrganizationClient({ token: "test", environment: server.baseUrl });
+        const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { key: "value" };
         server
@@ -105,7 +105,7 @@ describe("Provisioning", () => {
 
     test("get (3)", async () => {
         const server = mockServerPool.createServer();
-        const client = new MyOrganizationClient({ token: "test", environment: server.baseUrl });
+        const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
         server
@@ -123,7 +123,7 @@ describe("Provisioning", () => {
 
     test("get (4)", async () => {
         const server = mockServerPool.createServer();
-        const client = new MyOrganizationClient({ token: "test", environment: server.baseUrl });
+        const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
         server
@@ -141,7 +141,7 @@ describe("Provisioning", () => {
 
     test("get (5)", async () => {
         const server = mockServerPool.createServer();
-        const client = new MyOrganizationClient({ token: "test", environment: server.baseUrl });
+        const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
         server
@@ -159,7 +159,7 @@ describe("Provisioning", () => {
 
     test("get (6)", async () => {
         const server = mockServerPool.createServer();
-        const client = new MyOrganizationClient({ token: "test", environment: server.baseUrl });
+        const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
         server
@@ -177,7 +177,7 @@ describe("Provisioning", () => {
 
     test("create (1)", async () => {
         const server = mockServerPool.createServer();
-        const client = new MyOrganizationClient({ token: "test", environment: server.baseUrl });
+        const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = {
             identity_provider_id: "con_2CZPv6IY0gWzDaQJ",
@@ -257,7 +257,7 @@ describe("Provisioning", () => {
 
     test("create (2)", async () => {
         const server = mockServerPool.createServer();
-        const client = new MyOrganizationClient({ token: "test", environment: server.baseUrl });
+        const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { key: "value" };
         server
@@ -275,7 +275,7 @@ describe("Provisioning", () => {
 
     test("create (3)", async () => {
         const server = mockServerPool.createServer();
-        const client = new MyOrganizationClient({ token: "test", environment: server.baseUrl });
+        const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
         server
@@ -293,7 +293,7 @@ describe("Provisioning", () => {
 
     test("create (4)", async () => {
         const server = mockServerPool.createServer();
-        const client = new MyOrganizationClient({ token: "test", environment: server.baseUrl });
+        const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
         server
@@ -311,7 +311,7 @@ describe("Provisioning", () => {
 
     test("create (5)", async () => {
         const server = mockServerPool.createServer();
-        const client = new MyOrganizationClient({ token: "test", environment: server.baseUrl });
+        const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
         server
@@ -329,7 +329,7 @@ describe("Provisioning", () => {
 
     test("create (6)", async () => {
         const server = mockServerPool.createServer();
-        const client = new MyOrganizationClient({ token: "test", environment: server.baseUrl });
+        const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
         server
@@ -347,7 +347,7 @@ describe("Provisioning", () => {
 
     test("delete (1)", async () => {
         const server = mockServerPool.createServer();
-        const client = new MyOrganizationClient({ token: "test", environment: server.baseUrl });
+        const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         server.mockEndpoint().delete("/identity-providers/idp_id/provisioning").respondWith().statusCode(200).build();
 
@@ -357,7 +357,7 @@ describe("Provisioning", () => {
 
     test("delete (2)", async () => {
         const server = mockServerPool.createServer();
-        const client = new MyOrganizationClient({ token: "test", environment: server.baseUrl });
+        const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { key: "value" };
         server
@@ -375,7 +375,7 @@ describe("Provisioning", () => {
 
     test("delete (3)", async () => {
         const server = mockServerPool.createServer();
-        const client = new MyOrganizationClient({ token: "test", environment: server.baseUrl });
+        const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
         server
@@ -393,7 +393,7 @@ describe("Provisioning", () => {
 
     test("delete (4)", async () => {
         const server = mockServerPool.createServer();
-        const client = new MyOrganizationClient({ token: "test", environment: server.baseUrl });
+        const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
         server
@@ -411,7 +411,7 @@ describe("Provisioning", () => {
 
     test("delete (5)", async () => {
         const server = mockServerPool.createServer();
-        const client = new MyOrganizationClient({ token: "test", environment: server.baseUrl });
+        const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
         server
@@ -429,7 +429,7 @@ describe("Provisioning", () => {
 
     test("delete (6)", async () => {
         const server = mockServerPool.createServer();
-        const client = new MyOrganizationClient({ token: "test", environment: server.baseUrl });
+        const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
         server

@@ -59,6 +59,9 @@
         "lint:package": "publint --pack pnpm",
         "prepare": "husky"
     },
+    "dependencies": {
+        "@auth0/auth0-auth-js": "^1.1.0"
+    },
     "devDependencies": {
         "webpack": "^5.97.1",
         "ts-loader": "^9.5.1",
@@ -106,9 +109,6 @@
     },
     "publishConfig": {
         "access": "public"
-    },
-    "dependencies": {
-        "@auth0/auth0-auth-js": "^1.1.0"
     },
     "lint-staged": {
         "*.{js,jsx,ts,tsx}": [

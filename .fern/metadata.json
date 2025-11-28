@@ -1,0 +1,77 @@
+{
+    "cliVersion": "0.117.0",
+    "generatorName": "fernapi/fern-typescript-sdk",
+    "generatorVersion": "3.34.0",
+    "generatorConfig": {
+        "namespaceExport": "MyOrganization",
+        "allowCustomFetcher": true,
+        "omitFernHeaders": true,
+        "exportAllRequestsAtRoot": true,
+        "useDefaultRequestParameterValues": true,
+        "generateEndpointMetadata": true,
+        "offsetSemantics": "page-index",
+        "linter": "none",
+        "formatter": "prettier",
+        "packageJson": {
+            "description": "Auth0 SDK for JavaScript/TypeScript to manage organizations, members, roles, and identity providers",
+            "author": "Auth0",
+            "keywords": [
+                "auth0",
+                "authentication",
+                "authorization",
+                "organizations",
+                "identity",
+                "auth",
+                "sdk",
+                "typescript",
+                "javascript"
+            ],
+            "homepage": "https://github.com/auth0/myorganization-js#readme",
+            "bugs": {
+                "url": "https://github.com/auth0/myorganization-js/issues"
+            },
+            "publishConfig": {
+                "access": "public"
+            },
+            "exports": {
+                "./server": {
+                    "types": "./dist/cjs/server.d.ts",
+                    "import": {
+                        "types": "./dist/esm/server.d.mts",
+                        "default": "./dist/esm/server.mjs"
+                    },
+                    "require": {
+                        "types": "./dist/cjs/server.d.ts",
+                        "default": "./dist/cjs/server.js"
+                    },
+                    "default": "./dist/cjs/server.js"
+                }
+            },
+            "dependencies": {
+                "@auth0/auth0-auth-js": "^1.1.0"
+            },
+            "devDependencies": {
+                "typedoc": "^0.28.13",
+                "typedoc-plugin-missing-exports": "^4.1.0",
+                "husky": "^9.1.7",
+                "lint-staged": "^16.2.4",
+                "@eslint/js": "^9.37.0",
+                "eslint": "^9.37.0",
+                "typescript-eslint": "^8.46.1",
+                "publint": "^0.3.15"
+            },
+            "scripts": {
+                "docs": "typedoc",
+                "docs:watch": "typedoc --watch",
+                "lint": "eslint .",
+                "lint:fix": "eslint . --fix",
+                "lint:package": "publint --pack pnpm",
+                "prepare": "husky"
+            },
+            "lint-staged": {
+                "*.{js,jsx,ts,tsx}": ["eslint --fix", "prettier --write"],
+                "*.{json,css,md}": ["prettier --write"]
+            }
+        }
+    }
+}
