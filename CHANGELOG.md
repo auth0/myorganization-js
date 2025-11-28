@@ -1,5 +1,11 @@
 # Change Log
 
+## [v1.0.0-beta.2](https://github.com/auth0/myorganization-js/tree/v1.0.0-beta.2) (2025-11-28)
+
+**Added**
+
+- chore(deps): update dependencies and API types [\#10](https://github.com/auth0/myorganization-js/pull/10) ([fern-api[bot]](https://github.com/apps/fern-api))
+
 ## [v1.0.0-beta.1](https://github.com/auth0/myorganization-js/tree/v1.0.0-beta.1) (2025-11-10)
 
 [Full Changelog](https://github.com/auth0/myorganization-js/compare/v1.0.0-beta.0...v1.0.0-beta.1)
