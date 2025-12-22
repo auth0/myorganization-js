@@ -620,6 +620,126 @@ export class IdentityProviders {
     }
 
     /**
+     * Triggers a refresh of attribute mappings on the identity provider by overriding it with the admin defined defaults. The endpoint doesn't accept any body parameters.
+     *
+     * @param {MyOrganization.IdpId} idpId
+     * @param {Record<string, unknown>} request
+     * @param {IdentityProviders.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link MyOrganization.BadRequestError}
+     * @throws {@link MyOrganization.UnauthorizedError}
+     * @throws {@link MyOrganization.ForbiddenError}
+     * @throws {@link MyOrganization.NotFoundError}
+     * @throws {@link MyOrganization.TooManyRequestsError}
+     *
+     * @example
+     *     await client.organization.identityProviders.updateAttributes("idp_id", {
+     *         "key": "value"
+     *     })
+     */
+    public updateAttributes(
+        idpId: MyOrganization.IdpId,
+        request: Record<string, unknown>,
+        requestOptions?: IdentityProviders.RequestOptions,
+    ): core.HttpResponsePromise<MyOrganization.GetIdentityProviderResponseContent> {
+        return core.HttpResponsePromise.fromPromise(this.__updateAttributes(idpId, request, requestOptions));
+    }
+
+    private async __updateAttributes(
+        idpId: MyOrganization.IdpId,
+        request: Record<string, unknown>,
+        requestOptions?: IdentityProviders.RequestOptions,
+    ): Promise<core.WithRawResponse<MyOrganization.GetIdentityProviderResponseContent>> {
+        const _metadata: core.EndpointMetadata = {
+            security: [
+                { OAuth2ClientCredentials: ["update:my_org:identity_providers"] },
+                { OAuth2AuthCode: ["update:my_org:identity_providers"] },
+            ],
+        };
+        let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+            this._options?.headers,
+            mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader(_metadata) }),
+            requestOptions?.headers,
+        );
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: core.url.join(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.MyOrganizationEnvironment.Default,
+                `identity-providers/${core.url.encodePathParam(idpId)}/update-attributes`,
+            ),
+            method: "PUT",
+            headers: _headers,
+            contentType: "application/json",
+            queryParameters: requestOptions?.queryParams,
+            requestType: "json",
+            body: request,
+            timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
+            maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+            endpointMetadata: _metadata,
+            fetchFn: this._options?.fetch,
+        });
+        if (_response.ok) {
+            return {
+                data: _response.body as MyOrganization.GetIdentityProviderResponseContent,
+                rawResponse: _response.rawResponse,
+            };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new MyOrganization.BadRequestError(_response.error.body as unknown, _response.rawResponse);
+                case 401:
+                    throw new MyOrganization.UnauthorizedError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
+                        _response.rawResponse,
+                    );
+                case 403:
+                    throw new MyOrganization.ForbiddenError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
+                        _response.rawResponse,
+                    );
+                case 404:
+                    throw new MyOrganization.NotFoundError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
+                        _response.rawResponse,
+                    );
+                case 429:
+                    throw new MyOrganization.TooManyRequestsError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.MyOrganizationError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.MyOrganizationError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.MyOrganizationTimeoutError(
+                    "Timeout exceeded when calling PUT /identity-providers/{idp_id}/update-attributes.",
+                );
+            case "unknown":
+                throw new errors.MyOrganizationError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
      * Delete underlying identity provider from this organization.
      *
      * @param {MyOrganization.IdpId} idpId

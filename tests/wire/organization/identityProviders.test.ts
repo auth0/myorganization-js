@@ -26,6 +26,24 @@ describe("IdentityProviders", () => {
                         client_id: "a8f3b2e7-5d1c-4f9a-8b0d-2e1c3a5b6f7d",
                         discovery_url: "https://{yourDomain}/.well-known/openid-configuration",
                     },
+                    attributes: [
+                        {
+                            user_attribute: "preferred_username",
+                            description: "Preferred Username",
+                            label: "Preferred username",
+                            is_required: true,
+                            is_extra: false,
+                            is_missing: false,
+                            sso_field: ["userName"],
+                        },
+                        {
+                            user_attribute: "external_id",
+                            is_required: true,
+                            is_extra: true,
+                            is_missing: false,
+                            sso_field: ["externalId"],
+                        },
+                    ],
                 },
                 {
                     id: "con_zW1UHutvkVWSWdCD",
@@ -52,6 +70,24 @@ describe("IdentityProviders", () => {
                             client_authorizequery: "redirect_uri=https://jwt.io&scope=openid email&response_type=token",
                         },
                     },
+                    attributes: [
+                        {
+                            user_attribute: "preferred_username",
+                            description: "Preferred Username",
+                            label: "Preferred username",
+                            is_required: true,
+                            is_extra: false,
+                            is_missing: false,
+                            sso_field: ["userName"],
+                        },
+                        {
+                            user_attribute: "external_id",
+                            is_required: true,
+                            is_extra: true,
+                            is_missing: false,
+                            sso_field: ["externalId"],
+                        },
+                    ],
                 },
             ],
         };
@@ -81,6 +117,24 @@ describe("IdentityProviders", () => {
                         client_id: "a8f3b2e7-5d1c-4f9a-8b0d-2e1c3a5b6f7d",
                         discovery_url: "https://{yourDomain}/.well-known/openid-configuration",
                     },
+                    attributes: [
+                        {
+                            user_attribute: "preferred_username",
+                            description: "Preferred Username",
+                            label: "Preferred username",
+                            is_required: true,
+                            is_extra: false,
+                            is_missing: false,
+                            sso_field: ["userName"],
+                        },
+                        {
+                            user_attribute: "external_id",
+                            is_required: true,
+                            is_extra: true,
+                            is_missing: false,
+                            sso_field: ["externalId"],
+                        },
+                    ],
                 },
                 {
                     id: "con_zW1UHutvkVWSWdCD",
@@ -107,6 +161,24 @@ describe("IdentityProviders", () => {
                             client_authorizequery: "redirect_uri=https://jwt.io&scope=openid email&response_type=token",
                         },
                     },
+                    attributes: [
+                        {
+                            user_attribute: "preferred_username",
+                            description: "Preferred Username",
+                            label: "Preferred username",
+                            is_required: true,
+                            is_extra: false,
+                            is_missing: false,
+                            sso_field: ["userName"],
+                        },
+                        {
+                            user_attribute: "external_id",
+                            is_required: true,
+                            is_extra: true,
+                            is_missing: false,
+                            sso_field: ["externalId"],
+                        },
+                    ],
                 },
             ],
         });
@@ -217,6 +289,26 @@ describe("IdentityProviders", () => {
                 client_id: "client_a8f3b2e7-5d1c-4f9a-8b0d-2e1c3a5b6f7did",
                 discovery_url: "https://{yourDomain}/.well-known/openid-configuration",
             },
+            attributes: [
+                {
+                    user_attribute: "preferred_username",
+                    description: "Preferred Username",
+                    label: "Preferred username",
+                    is_required: true,
+                    is_extra: false,
+                    is_missing: false,
+                    sso_field: ["userName"],
+                },
+                {
+                    user_attribute: "external_id",
+                    description: "description",
+                    label: "label",
+                    is_required: true,
+                    is_extra: true,
+                    is_missing: false,
+                    sso_field: ["externalId"],
+                },
+            ],
         };
         server
             .mockEndpoint()
@@ -257,6 +349,26 @@ describe("IdentityProviders", () => {
                 client_id: "client_a8f3b2e7-5d1c-4f9a-8b0d-2e1c3a5b6f7did",
                 discovery_url: "https://{yourDomain}/.well-known/openid-configuration",
             },
+            attributes: [
+                {
+                    user_attribute: "preferred_username",
+                    description: "Preferred Username",
+                    label: "Preferred username",
+                    is_required: true,
+                    is_extra: false,
+                    is_missing: false,
+                    sso_field: ["userName"],
+                },
+                {
+                    user_attribute: "external_id",
+                    description: "description",
+                    label: "label",
+                    is_required: true,
+                    is_extra: true,
+                    is_missing: false,
+                    sso_field: ["externalId"],
+                },
+            ],
         });
     });
 
@@ -429,6 +541,26 @@ describe("IdentityProviders", () => {
                 client_id: "a8f3b2e7-5d1c-4f9a-8b0d-2e1c3a5b6f7d",
                 discovery_url: "https://{yourDomain}/.well-known/openid-configuration",
             },
+            attributes: [
+                {
+                    user_attribute: "preferred_username",
+                    description: "Preferred Username",
+                    label: "Preferred username",
+                    is_required: true,
+                    is_extra: false,
+                    is_missing: false,
+                    sso_field: ["userName"],
+                },
+                {
+                    user_attribute: "external_id",
+                    description: "description",
+                    label: "label",
+                    is_required: true,
+                    is_extra: true,
+                    is_missing: false,
+                    sso_field: ["externalId"],
+                },
+            ],
         };
         server
             .mockEndpoint()
@@ -454,6 +586,26 @@ describe("IdentityProviders", () => {
                 client_id: "a8f3b2e7-5d1c-4f9a-8b0d-2e1c3a5b6f7d",
                 discovery_url: "https://{yourDomain}/.well-known/openid-configuration",
             },
+            attributes: [
+                {
+                    user_attribute: "preferred_username",
+                    description: "Preferred Username",
+                    label: "Preferred username",
+                    is_required: true,
+                    is_extra: false,
+                    is_missing: false,
+                    sso_field: ["userName"],
+                },
+                {
+                    user_attribute: "external_id",
+                    description: "description",
+                    label: "label",
+                    is_required: true,
+                    is_extra: true,
+                    is_missing: false,
+                    sso_field: ["externalId"],
+                },
+            ],
         });
     });
 
@@ -677,6 +829,26 @@ describe("IdentityProviders", () => {
                 client_id: "a8f3b2e7-5d1c-4f9a-8b0d-2e1c3a5b6f7d",
                 discovery_url: "https://{yourDomain}/.well-known/openid-configuration",
             },
+            attributes: [
+                {
+                    user_attribute: "preferred_username",
+                    description: "Preferred Username",
+                    label: "Preferred username",
+                    is_required: true,
+                    is_extra: false,
+                    is_missing: false,
+                    sso_field: ["userName"],
+                },
+                {
+                    user_attribute: "external_id",
+                    description: "description",
+                    label: "label",
+                    is_required: true,
+                    is_extra: true,
+                    is_missing: false,
+                    sso_field: ["externalId"],
+                },
+            ],
         };
         server
             .mockEndpoint()
@@ -714,6 +886,26 @@ describe("IdentityProviders", () => {
                 client_id: "a8f3b2e7-5d1c-4f9a-8b0d-2e1c3a5b6f7d",
                 discovery_url: "https://{yourDomain}/.well-known/openid-configuration",
             },
+            attributes: [
+                {
+                    user_attribute: "preferred_username",
+                    description: "Preferred Username",
+                    label: "Preferred username",
+                    is_required: true,
+                    is_extra: false,
+                    is_missing: false,
+                    sso_field: ["userName"],
+                },
+                {
+                    user_attribute: "external_id",
+                    description: "description",
+                    label: "label",
+                    is_required: true,
+                    is_extra: true,
+                    is_missing: false,
+                    sso_field: ["externalId"],
+                },
+            ],
         });
     });
 
@@ -809,6 +1001,211 @@ describe("IdentityProviders", () => {
 
         await expect(async () => {
             return await client.organization.identityProviders.update("idp_id", {});
+        }).rejects.toThrow(MyOrganization.TooManyRequestsError);
+    });
+
+    test("updateAttributes (1)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new MyOrganizationClient({ token: "test", environment: server.baseUrl });
+        const rawRequestBody = { key: "value" };
+        const rawResponseBody = {
+            id: "con_zW1UHutvkVWSWdCC",
+            name: "oidcIdp",
+            strategy: "oidc",
+            domains: ["mydomain.com"],
+            display_name: "OIDC IdP",
+            show_as_button: true,
+            assign_membership_on_login: false,
+            is_enabled: true,
+            access_level: "readonly",
+            options: {
+                type: "front_channel",
+                client_id: "a8f3b2e7-5d1c-4f9a-8b0d-2e1c3a5b6f7d",
+                discovery_url: "https://{yourDomain}/.well-known/openid-configuration",
+            },
+            attributes: [
+                {
+                    user_attribute: "preferred_username",
+                    description: "Preferred Username",
+                    label: "Preferred username",
+                    is_required: true,
+                    is_extra: false,
+                    is_missing: false,
+                    sso_field: ["userName"],
+                },
+                {
+                    user_attribute: "external_id",
+                    description: "description",
+                    label: "label",
+                    is_required: true,
+                    is_extra: true,
+                    is_missing: false,
+                    sso_field: ["externalId"],
+                },
+            ],
+        };
+        server
+            .mockEndpoint()
+            .put("/identity-providers/idp_id/update-attributes")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.organization.identityProviders.updateAttributes("idp_id", {
+            key: "value",
+        });
+        expect(response).toEqual({
+            id: "con_zW1UHutvkVWSWdCC",
+            name: "oidcIdp",
+            strategy: "oidc",
+            domains: ["mydomain.com"],
+            display_name: "OIDC IdP",
+            show_as_button: true,
+            assign_membership_on_login: false,
+            is_enabled: true,
+            access_level: "readonly",
+            options: {
+                type: "front_channel",
+                client_id: "a8f3b2e7-5d1c-4f9a-8b0d-2e1c3a5b6f7d",
+                discovery_url: "https://{yourDomain}/.well-known/openid-configuration",
+            },
+            attributes: [
+                {
+                    user_attribute: "preferred_username",
+                    description: "Preferred Username",
+                    label: "Preferred username",
+                    is_required: true,
+                    is_extra: false,
+                    is_missing: false,
+                    sso_field: ["userName"],
+                },
+                {
+                    user_attribute: "external_id",
+                    description: "description",
+                    label: "label",
+                    is_required: true,
+                    is_extra: true,
+                    is_missing: false,
+                    sso_field: ["externalId"],
+                },
+            ],
+        });
+    });
+
+    test("updateAttributes (2)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new MyOrganizationClient({ token: "test", environment: server.baseUrl });
+        const rawRequestBody = { string: { key: "value" } };
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .put("/identity-providers/idp_id/update-attributes")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(400)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.organization.identityProviders.updateAttributes("idp_id", {
+                string: {
+                    key: "value",
+                },
+            });
+        }).rejects.toThrow(MyOrganization.BadRequestError);
+    });
+
+    test("updateAttributes (3)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new MyOrganizationClient({ token: "test", environment: server.baseUrl });
+        const rawRequestBody = { string: { key: "value" } };
+        const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+        server
+            .mockEndpoint()
+            .put("/identity-providers/idp_id/update-attributes")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.organization.identityProviders.updateAttributes("idp_id", {
+                string: {
+                    key: "value",
+                },
+            });
+        }).rejects.toThrow(MyOrganization.UnauthorizedError);
+    });
+
+    test("updateAttributes (4)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new MyOrganizationClient({ token: "test", environment: server.baseUrl });
+        const rawRequestBody = { string: { key: "value" } };
+        const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+        server
+            .mockEndpoint()
+            .put("/identity-providers/idp_id/update-attributes")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(403)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.organization.identityProviders.updateAttributes("idp_id", {
+                string: {
+                    key: "value",
+                },
+            });
+        }).rejects.toThrow(MyOrganization.ForbiddenError);
+    });
+
+    test("updateAttributes (5)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new MyOrganizationClient({ token: "test", environment: server.baseUrl });
+        const rawRequestBody = { string: { key: "value" } };
+        const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+        server
+            .mockEndpoint()
+            .put("/identity-providers/idp_id/update-attributes")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(404)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.organization.identityProviders.updateAttributes("idp_id", {
+                string: {
+                    key: "value",
+                },
+            });
+        }).rejects.toThrow(MyOrganization.NotFoundError);
+    });
+
+    test("updateAttributes (6)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new MyOrganizationClient({ token: "test", environment: server.baseUrl });
+        const rawRequestBody = { string: { key: "value" } };
+        const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+        server
+            .mockEndpoint()
+            .put("/identity-providers/idp_id/update-attributes")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(429)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.organization.identityProviders.updateAttributes("idp_id", {
+                string: {
+                    key: "value",
+                },
+            });
         }).rejects.toThrow(MyOrganization.TooManyRequestsError);
     });
 
