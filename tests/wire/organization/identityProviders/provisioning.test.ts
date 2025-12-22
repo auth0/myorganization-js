@@ -35,6 +35,26 @@ describe("Provisioning", () => {
                 },
                 { provisioning_field: "active", user_attribute: "blocked", description: "description", label: "label" },
             ],
+            attributes: [
+                {
+                    user_attribute: "preferred_username",
+                    description: "Preferred Username",
+                    label: "Preferred username",
+                    is_required: true,
+                    is_extra: false,
+                    is_missing: false,
+                    provisioning_field: "userName",
+                },
+                {
+                    user_attribute: "blocked",
+                    description: "description",
+                    label: "label",
+                    is_required: true,
+                    is_extra: false,
+                    is_missing: false,
+                    provisioning_field: "active",
+                },
+            ],
             user_id_attribute: "externalId",
             created_at: "2025-05-15T23:32:52Z",
             updated_on: "2025-05-15T23:32:52Z",
@@ -77,6 +97,26 @@ describe("Provisioning", () => {
                     user_attribute: "blocked",
                     description: "description",
                     label: "label",
+                },
+            ],
+            attributes: [
+                {
+                    user_attribute: "preferred_username",
+                    description: "Preferred Username",
+                    label: "Preferred username",
+                    is_required: true,
+                    is_extra: false,
+                    is_missing: false,
+                    provisioning_field: "userName",
+                },
+                {
+                    user_attribute: "blocked",
+                    description: "description",
+                    label: "label",
+                    is_required: true,
+                    is_extra: false,
+                    is_missing: false,
+                    provisioning_field: "active",
                 },
             ],
             user_id_attribute: "externalId",
@@ -205,6 +245,26 @@ describe("Provisioning", () => {
                 },
                 { provisioning_field: "active", user_attribute: "blocked", description: "description", label: "label" },
             ],
+            attributes: [
+                {
+                    user_attribute: "preferred_username",
+                    description: "Preferred Username",
+                    label: "Preferred username",
+                    is_required: true,
+                    is_extra: false,
+                    is_missing: false,
+                    provisioning_field: "userName",
+                },
+                {
+                    user_attribute: "external_id",
+                    description: "description",
+                    label: "label",
+                    is_required: true,
+                    is_extra: true,
+                    is_missing: false,
+                    provisioning_field: "externalId",
+                },
+            ],
             user_id_attribute: "externalId",
             created_at: "2025-05-15T23:32:52Z",
             updated_on: "2025-05-15T23:32:52Z",
@@ -247,6 +307,26 @@ describe("Provisioning", () => {
                     user_attribute: "blocked",
                     description: "description",
                     label: "label",
+                },
+            ],
+            attributes: [
+                {
+                    user_attribute: "preferred_username",
+                    description: "Preferred Username",
+                    label: "Preferred username",
+                    is_required: true,
+                    is_extra: false,
+                    is_missing: false,
+                    provisioning_field: "userName",
+                },
+                {
+                    user_attribute: "external_id",
+                    description: "description",
+                    label: "label",
+                    is_required: true,
+                    is_extra: true,
+                    is_missing: false,
+                    provisioning_field: "externalId",
                 },
             ],
             user_id_attribute: "externalId",
@@ -442,6 +522,244 @@ describe("Provisioning", () => {
 
         await expect(async () => {
             return await client.organization.identityProviders.provisioning.delete("idp_id");
+        }).rejects.toThrow(MyOrganization.TooManyRequestsError);
+    });
+
+    test("updateAttributes (1)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new MyOrganizationClient({ token: "test", environment: server.baseUrl });
+        const rawRequestBody = { key: "value" };
+        const rawResponseBody = {
+            identity_provider_id: "con_2CZPv6IY0gWzDaQJ",
+            identity_provider_name: "EC-org-gaZPTTOS42pReSzs-id-ready2",
+            strategy: "okta",
+            method: "scim",
+            fields: [
+                {
+                    provisioning_field: "userName",
+                    user_attribute: "preferred_username",
+                    description: "Preferred Username",
+                    label: "Preferred username",
+                },
+                {
+                    provisioning_field: "emails[primary eq true].value",
+                    user_attribute: "email",
+                    description: "User's primary email",
+                    label: "Primary email",
+                },
+                {
+                    provisioning_field: "externalId",
+                    user_attribute: "external_id",
+                    description: "description",
+                    label: "label",
+                },
+                { provisioning_field: "active", user_attribute: "blocked", description: "description", label: "label" },
+            ],
+            attributes: [
+                {
+                    user_attribute: "preferred_username",
+                    description: "Preferred Username",
+                    label: "Preferred username",
+                    is_required: true,
+                    is_extra: false,
+                    is_missing: false,
+                    provisioning_field: "userName",
+                },
+                {
+                    user_attribute: "blocked",
+                    description: "description",
+                    label: "label",
+                    is_required: true,
+                    is_extra: false,
+                    is_missing: false,
+                    provisioning_field: "active",
+                },
+            ],
+            user_id_attribute: "externalId",
+            created_at: "2025-05-15T23:32:52Z",
+            updated_on: "2025-05-15T23:32:52Z",
+        };
+        server
+            .mockEndpoint()
+            .put("/identity-providers/idp_id/provisioning/update-attributes")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.organization.identityProviders.provisioning.updateAttributes("idp_id", {
+            key: "value",
+        });
+        expect(response).toEqual({
+            identity_provider_id: "con_2CZPv6IY0gWzDaQJ",
+            identity_provider_name: "EC-org-gaZPTTOS42pReSzs-id-ready2",
+            strategy: "okta",
+            method: "scim",
+            fields: [
+                {
+                    provisioning_field: "userName",
+                    user_attribute: "preferred_username",
+                    description: "Preferred Username",
+                    label: "Preferred username",
+                },
+                {
+                    provisioning_field: "emails[primary eq true].value",
+                    user_attribute: "email",
+                    description: "User's primary email",
+                    label: "Primary email",
+                },
+                {
+                    provisioning_field: "externalId",
+                    user_attribute: "external_id",
+                    description: "description",
+                    label: "label",
+                },
+                {
+                    provisioning_field: "active",
+                    user_attribute: "blocked",
+                    description: "description",
+                    label: "label",
+                },
+            ],
+            attributes: [
+                {
+                    user_attribute: "preferred_username",
+                    description: "Preferred Username",
+                    label: "Preferred username",
+                    is_required: true,
+                    is_extra: false,
+                    is_missing: false,
+                    provisioning_field: "userName",
+                },
+                {
+                    user_attribute: "blocked",
+                    description: "description",
+                    label: "label",
+                    is_required: true,
+                    is_extra: false,
+                    is_missing: false,
+                    provisioning_field: "active",
+                },
+            ],
+            user_id_attribute: "externalId",
+            created_at: "2025-05-15T23:32:52Z",
+            updated_on: "2025-05-15T23:32:52Z",
+        });
+    });
+
+    test("updateAttributes (2)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new MyOrganizationClient({ token: "test", environment: server.baseUrl });
+        const rawRequestBody = { string: { key: "value" } };
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .put("/identity-providers/idp_id/provisioning/update-attributes")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(400)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.organization.identityProviders.provisioning.updateAttributes("idp_id", {
+                string: {
+                    key: "value",
+                },
+            });
+        }).rejects.toThrow(MyOrganization.BadRequestError);
+    });
+
+    test("updateAttributes (3)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new MyOrganizationClient({ token: "test", environment: server.baseUrl });
+        const rawRequestBody = { string: { key: "value" } };
+        const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+        server
+            .mockEndpoint()
+            .put("/identity-providers/idp_id/provisioning/update-attributes")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.organization.identityProviders.provisioning.updateAttributes("idp_id", {
+                string: {
+                    key: "value",
+                },
+            });
+        }).rejects.toThrow(MyOrganization.UnauthorizedError);
+    });
+
+    test("updateAttributes (4)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new MyOrganizationClient({ token: "test", environment: server.baseUrl });
+        const rawRequestBody = { string: { key: "value" } };
+        const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+        server
+            .mockEndpoint()
+            .put("/identity-providers/idp_id/provisioning/update-attributes")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(403)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.organization.identityProviders.provisioning.updateAttributes("idp_id", {
+                string: {
+                    key: "value",
+                },
+            });
+        }).rejects.toThrow(MyOrganization.ForbiddenError);
+    });
+
+    test("updateAttributes (5)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new MyOrganizationClient({ token: "test", environment: server.baseUrl });
+        const rawRequestBody = { string: { key: "value" } };
+        const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+        server
+            .mockEndpoint()
+            .put("/identity-providers/idp_id/provisioning/update-attributes")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(404)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.organization.identityProviders.provisioning.updateAttributes("idp_id", {
+                string: {
+                    key: "value",
+                },
+            });
+        }).rejects.toThrow(MyOrganization.NotFoundError);
+    });
+
+    test("updateAttributes (6)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new MyOrganizationClient({ token: "test", environment: server.baseUrl });
+        const rawRequestBody = { string: { key: "value" } };
+        const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+        server
+            .mockEndpoint()
+            .put("/identity-providers/idp_id/provisioning/update-attributes")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(429)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.organization.identityProviders.provisioning.updateAttributes("idp_id", {
+                string: {
+                    key: "value",
+                },
+            });
         }).rejects.toThrow(MyOrganization.TooManyRequestsError);
     });
 });

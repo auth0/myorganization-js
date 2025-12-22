@@ -9,6 +9,7 @@ export interface IdpSamlpResponse {
     strategy: "samlp";
     /** Identity provider specific options. */
     options: MyOrganization.IdpSamlpOptionsResponse;
+    attributes?: MyOrganization.IdpUserAttributeMapItem[];
     id?: MyOrganization.IdpId;
     /** The name of the identity provider */
     name?: string | null;

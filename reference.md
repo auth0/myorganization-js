@@ -777,6 +777,79 @@ await client.organization.identityProviders.update("idp_id", {
 </dl>
 </details>
 
+<details><summary><code>client.organization.identityProviders.<a href="/src/api/resources/organization/resources/identityProviders/client/Client.ts">updateAttributes</a>(idpId, { ...params }) -> MyOrganization.GetIdentityProviderResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Triggers a refresh of attribute mappings on the identity provider by overriding it with the admin defined defaults. The endpoint doesn't accept any body parameters.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.organization.identityProviders.updateAttributes("idp_id", {
+    key: "value",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**idpId:** `MyOrganization.IdpId`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Record<string, unknown>`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `IdentityProviders.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.organization.identityProviders.<a href="/src/api/resources/organization/resources/identityProviders/client/Client.ts">detach</a>(idpId) -> MyOrganization.DetachIdpProviderResponseContent</code></summary>
 <dl>
 <dd>
@@ -1346,6 +1419,79 @@ await client.organization.identityProviders.provisioning.delete("idp_id");
 <dd>
 
 **idpId:** `MyOrganization.IdpId`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Provisioning.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.organization.identityProviders.provisioning.<a href="/src/api/resources/organization/resources/identityProviders/resources/provisioning/client/Client.ts">updateAttributes</a>(idpId, { ...params }) -> MyOrganization.GetIdPProvisioningConfigResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Triggers a refresh of attribute mappings on the provisioning configuration by overriding it with the admin defined defaults. The endpoint doesn't accept any body parameters.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.organization.identityProviders.provisioning.updateAttributes("idp_id", {
+    key: "value",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**idpId:** `MyOrganization.IdpId`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Record<string, unknown>`
 
 </dd>
 </dl>
