@@ -1,5 +1,23 @@
 # Change Log
 
+## [v1.0.0-beta.3](https://github.com/auth0/myorganization-js/tree/v1.0.0-beta.3) (2025-12-22)
+
+**Added**
+
+- feat: Add attribute mapping endpoints for Identity Providers and Provisioning [\#17](https://github.com/auth0/myorganization-js/pull/17) ([fern-api[bot]](https://github.com/apps/fern-api))
+    - Added `updateAttributes` endpoint for Identity Providers to refresh attribute mappings with admin-defined defaults
+    - Added `updateAttributes` endpoint for Identity Provider Provisioning configurations
+    - Added new attribute mapping types: `IdpUserAttributeMapItem`, `BaseUserAttributeMapItem`, `IdpProvisioningUserAttributeMapItem`
+    - Enhanced Identity Provider and Provisioning responses to include attribute mapping information
+
+**Changed**
+
+- Updated `@auth0/auth0-auth-js` from 1.2.0 to 1.3.0
+- Updated ESLint from 9.39.1 to 9.39.2
+- Updated `typescript-eslint` from 8.48.0 to 8.50.0
+- Updated TypeDoc from 0.28.14 to 0.28.15
+- Updated various other dev dependencies to their latest versions
+
 ## [v1.0.0-beta.2](https://github.com/auth0/myorganization-js/tree/v1.0.0-beta.2) (2025-11-28)
 
 **Added**
