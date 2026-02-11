@@ -4,12 +4,13 @@
 [![License](https://img.shields.io/:license-mit-blue.svg?style=flat)](https://opensource.org/licenses/MIT)
 [![fern shield](https://img.shields.io/badge/%F0%9F%8C%BF-Built%20with%20Fern-brightgreen)](https://buildwithfern.com?utm_source=github&utm_medium=github&utm_campaign=readme&utm_source=https%3A%2F%2Fgithub.com%2Fauth0%2Fmyorganization-js)
 
-📚 [Documentation](#documentation) - 🚀 [Getting Started](#getting-started) - 💻 [API Reference](#api-reference) - 💬 [Feedback](#feedback)
+📚 [Documentation](#documentation) - 🚀 [Getting Started](#getting-started) - 💻 [API Reference](#api-reference) - � [Examples](#framework-examples) - 💬 [Feedback](#feedback)
 
 ## Documentation
 
 - [Docs Site](https://auth0.com/docs) - explore our docs site and learn more about Auth0
 - [API Reference](https://github.com/auth0/myorganization-js/blob/main/reference.md) - full reference for this library
+- [Framework Examples](./examples/) - production-ready examples for Express, Node.js, React, and vanilla JavaScript
 
 ## Getting Started
 
@@ -174,6 +175,72 @@ await client.organization.domains.create(request);
 ### Key Classes
 
 - **MyOrganizationClient** - for managing organizations, members, roles, and domains
+
+## Framework Examples
+
+Comprehensive examples demonstrating how to use the MyOrganization SDK across different frameworks:
+
+### 🚀 Server-Side
+
+- **[Express TypeScript](./examples/express-typescript/)** - Complete REST API with all endpoints, workflows, and error handling
+- **[Node.js TypeScript](./examples/nodejs-typescript/)** - CLI tools and automation scripts
+
+### 🌐 Client-Side
+
+- **[React SPA](./examples/react-spa/)** - React application with Auth0 React SDK integration and custom hooks
+- **[Vanilla JavaScript SPA](./examples/vanilla-spa/)** - Pure JavaScript SPA with Auth0 SPA JS integration
+
+Each example includes:
+- ✅ Complete setup instructions
+- ✅ Environment configuration templates
+- ✅ Production-ready patterns
+- ✅ Comprehensive error handling
+- ✅ All SDK features demonstrated
+
+**Quick start:**
+```bash
+cd examples/[example-name]
+npm install
+cp .env.example .env
+# Configure .env with your Auth0 credentials
+npm run dev
+```
+
+### Key Patterns
+
+**Server-side (Express, Node.js):**
+```typescript
+import { createMyOrganizationClientWithClientCredentials } from '@auth0/myorganization-js/server';
+
+const client = createMyOrganizationClientWithClientCredentials(
+  { domain: 'tenant.auth0.com' },
+  {
+    clientId: 'YOUR_CLIENT_ID',
+    clientSecret: 'YOUR_CLIENT_SECRET',
+    organization: 'org_123456789'
+  }
+);
+```
+
+**Client-side (React, SPA) with automatic scope injection:**
+```typescript
+import { MyOrganizationClient } from '@auth0/myorganization-js';
+
+const client = new MyOrganizationClient({
+  domain: 'tenant.auth0.com',
+  // SDK automatically passes required scopes for each API call
+  token: async ({ scope }) => {
+    return await auth0.getTokenSilently({
+      authorizationParams: {
+        scope: `openid profile email ${scope}`,
+        organization: 'org_123456789'
+      }
+    });
+  }
+});
+```
+
+**[View all examples →](./examples/)**
 
 ## Exception Handling
 

@@ -1,0 +1,28 @@
+{
+  "name": "myorganization-vanilla-spa-example",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Vanilla JavaScript SPA example for Auth0 MyOrganization SDK",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@auth0/auth0-spa-js": "^2.1.3",
+    "@auth0/myorganization-js": "workspace:*"
+  },
+  "devDependencies": {
+    "vite": "^5.0.8"
+  },
+  "keywords": [
+    "auth0",
+    "myorganization",
+    "vanilla-js",
+    "spa",
+    "example"
+  ],
+  "author": "Auth0",
+  "license": "MIT"
+}

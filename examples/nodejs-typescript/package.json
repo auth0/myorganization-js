@@ -1,0 +1,35 @@
+{
+  "name": "myorganization-nodejs-typescript-example",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Node.js TypeScript CLI examples for Auth0 MyOrganization SDK",
+  "scripts": {
+    "start": "tsx src/index.ts",
+    "domain-workflow": "tsx src/workflows/domain-verification.ts",
+    "oidc-setup": "tsx src/workflows/oidc-setup.ts",
+    "batch-operations": "tsx src/batch-operations.ts",
+    "build": "tsc",
+    "start:prod": "node dist/index.js"
+  },
+  "dependencies": {
+    "@auth0/myorganization-js": "workspace:*",
+    "dotenv": "^16.3.1",
+    "chalk": "^5.3.0",
+    "commander": "^11.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "tsx": "^4.7.0",
+    "typescript": "^5.3.3"
+  },
+  "keywords": [
+    "auth0",
+    "myorganization",
+    "nodejs",
+    "typescript",
+    "cli"
+  ],
+  "author": "Auth0",
+  "license": "MIT"
+}
