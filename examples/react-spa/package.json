@@ -1,35 +1,35 @@
 {
-  "name": "myorganization-react-example",
-  "version": "1.0.0",
-  "private": true,
-  "type": "module",
-  "description": "React SPA example for Auth0 MyOrganization SDK",
-  "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview"
-  },
-  "dependencies": {
-    "@auth0/auth0-react": "^2.2.4",
-    "@auth0/myorganization-js": "workspace:*",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-router-dom": "^6.21.1"
-  },
-  "devDependencies": {
-    "@types/react": "^18.2.45",
-    "@types/react-dom": "^18.2.18",
-    "@vitejs/plugin-react": "^4.2.1",
-    "typescript": "^5.3.3",
-    "vite": "^5.0.8"
-  },
-  "keywords": [
-    "auth0",
-    "myorganization",
-    "react",
-    "spa",
-    "example"
-  ],
-  "author": "Auth0",
-  "license": "MIT"
+    "name": "myorganization-react-example",
+    "version": "1.0.0",
+    "private": true,
+    "type": "module",
+    "description": "React SPA example for Auth0 MyOrganization SDK",
+    "scripts": {
+        "dev": "vite",
+        "build": "tsc && vite build",
+        "preview": "vite preview"
+    },
+    "dependencies": {
+        "@auth0/auth0-react": "^2.2.4",
+        "@auth0/myorganization-js": "^1.0.0-beta.3",
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0",
+        "react-router-dom": "^6.21.1"
+    },
+    "devDependencies": {
+        "@types/react": "^18.2.45",
+        "@types/react-dom": "^18.2.18",
+        "@vitejs/plugin-react": "^4.2.1",
+        "typescript": "^5.3.3",
+        "vite": "^5.0.8"
+    },
+    "keywords": [
+        "auth0",
+        "myorganization",
+        "react",
+        "spa",
+        "example"
+    ],
+    "author": "Auth0",
+    "license": "MIT"
 }
