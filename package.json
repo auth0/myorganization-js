@@ -39,7 +39,8 @@
         "dist",
         "reference.md",
         "README.md",
-        "LICENSE"
+        "LICENSE",
+        "NOTICE"
     ],
     "scripts": {
         "format": "prettier . --write --ignore-unknown",
