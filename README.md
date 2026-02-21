@@ -1,7 +1,7 @@
 ![Auth0 MyOrganization SDK for JavaScript/TypeScript](https://cdn.auth0.com/website/sdks/banners/myorganization-js-banner.png)
 
 ![Release](https://img.shields.io/npm/v/@auth0/myorganization-js)
-[![License](https://img.shields.io/:license-mit-blue.svg?style=flat)](https://opensource.org/licenses/MIT)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![fern shield](https://img.shields.io/badge/%F0%9F%8C%BF-Built%20with%20Fern-brightgreen)](https://buildwithfern.com?utm_source=github&utm_medium=github&utm_campaign=readme&utm_source=https%3A%2F%2Fgithub.com%2Fauth0%2Fmyorganization-js)
 
 📚 [Documentation](#documentation) - 🚀 [Getting Started](#getting-started) - 💻 [API Reference](#api-reference) - 💬 [Feedback](#feedback)
@@ -378,5 +378,5 @@ Please do not report security vulnerabilities on the public GitHub issue tracker
   Auth0 is an easy to implement, adaptable authentication and authorization platform. To learn more checkout <a href="https://auth0.com/why-auth0">Why Auth0?</a>
 </p>
 <p align="center">
-  This project is licensed under the MIT license. See the <a href="./LICENSE"> LICENSE</a> file for more info.
+  Copyright 2026 Okta, Inc. This project is licensed under the <a href="./LICENSE">Apache License 2.0</a>. See the <a href="./LICENSE">LICENSE</a> file for details.
 </p>
