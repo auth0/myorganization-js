@@ -182,7 +182,7 @@ Comprehensive examples demonstrating how to use the MyOrganization SDK across di
 
 ### 🚀 Server-Side
 
-- **[Express TypeScript](./examples/express-typescript/)** - Complete REST API with all endpoints, workflows, and error handling
+- **[Express TypeScript](./examples/express-typescript/)** - Core organization management REST API with domain and identity provider workflows
 - **[Node.js TypeScript](./examples/nodejs-typescript/)** - CLI tools and automation scripts
 
 ### 🌐 Client-Side
@@ -191,6 +191,7 @@ Comprehensive examples demonstrating how to use the MyOrganization SDK across di
 - **[Vanilla JavaScript SPA](./examples/vanilla-spa/)** - Pure JavaScript SPA with Auth0 SPA JS integration
 
 Each example includes:
+
 - ✅ Complete setup instructions
 - ✅ Environment configuration templates
 - ✅ Production-ready patterns
@@ -198,6 +199,7 @@ Each example includes:
 - ✅ All SDK features demonstrated
 
 **Quick start:**
+
 ```bash
 cd examples/[example-name]
 npm install
@@ -209,34 +211,36 @@ npm run dev
 ### Key Patterns
 
 **Server-side (Express, Node.js):**
+
 ```typescript
-import { createMyOrganizationClientWithClientCredentials } from '@auth0/myorganization-js/server';
+import { createMyOrganizationClientWithClientCredentials } from "@auth0/myorganization-js/server";
 
 const client = createMyOrganizationClientWithClientCredentials(
-  { domain: 'tenant.auth0.com' },
-  {
-    clientId: 'YOUR_CLIENT_ID',
-    clientSecret: 'YOUR_CLIENT_SECRET',
-    organization: 'org_123456789'
-  }
+    { domain: "tenant.auth0.com" },
+    {
+        clientId: "YOUR_CLIENT_ID",
+        clientSecret: "YOUR_CLIENT_SECRET",
+        organization: "org_123456789",
+    },
 );
 ```
 
 **Client-side (React, SPA) with automatic scope injection:**
+
 ```typescript
-import { MyOrganizationClient } from '@auth0/myorganization-js';
+import { MyOrganizationClient } from "@auth0/myorganization-js";
 
 const client = new MyOrganizationClient({
-  domain: 'tenant.auth0.com',
-  // SDK automatically passes required scopes for each API call
-  token: async ({ scope }) => {
-    return await auth0.getTokenSilently({
-      authorizationParams: {
-        scope: `openid profile email ${scope}`,
-        organization: 'org_123456789'
-      }
-    });
-  }
+    domain: "tenant.auth0.com",
+    // SDK automatically passes required scopes for each API call
+    token: async ({ scope }) => {
+        return await auth0.getTokenSilently({
+            authorizationParams: {
+                scope: `openid profile email ${scope}`,
+                organization: "org_123456789",
+            },
+        });
+    },
 });
 ```
 

@@ -8,18 +8,18 @@ Production-ready examples demonstrating the MyOrganization SDK across different 
 
 ### Server-Side (M2M Authentication)
 
-| Example | Description | Best For |
-|---------|-------------|----------|
-| **[express-typescript](./express-typescript/)** | Full REST API with 40+ endpoints | Production APIs, backend services |
-| **[nodejs-typescript](./nodejs-typescript/)** | CLI tools and automation | Scripts, DevOps, batch operations |
-| **[nodejs-javascript](./nodejs-javascript/)** | Vanilla JS examples | Simple scripts, no TypeScript |
+| Example                                         | Description                           | Best For                          |
+| ----------------------------------------------- | ------------------------------------- | --------------------------------- |
+| **[express-typescript](./express-typescript/)** | Core organization management REST API | Production APIs, backend services |
+| **[nodejs-typescript](./nodejs-typescript/)**   | CLI tools and automation              | Scripts, DevOps, batch operations |
+| **[nodejs-javascript](./nodejs-javascript/)**   | Vanilla JS examples                   | Simple scripts, no TypeScript     |
 
 ### Client-Side (User Authentication)
 
-| Example | Description | Best For |
-|---------|-------------|----------|
-| **[react-spa](./react-spa/)** | React app with hooks | Modern React applications |
-| **[vanilla-spa](./vanilla-spa/)** | Framework-free SPA | Learning, no framework deps |
+| Example                           | Description          | Best For                    |
+| --------------------------------- | -------------------- | --------------------------- |
+| **[react-spa](./react-spa/)**     | React app with hooks | Modern React applications   |
+| **[vanilla-spa](./vanilla-spa/)** | Framework-free SPA   | Learning, no framework deps |
 
 ## Quick Start
 
@@ -41,27 +41,28 @@ npm run dev
 ## Authentication Quick Reference
 
 ### Server-Side
+
 ```typescript
-import { createMyOrganizationClientWithClientCredentials } from '@auth0/myorganization-js/server';
+import { createMyOrganizationClientWithClientCredentials } from "@auth0/myorganization-js/server";
 
 const client = createMyOrganizationClientWithClientCredentials(
-  { domain: 'tenant.auth0.com' },
-  {
-    clientId: process.env.AUTH0_CLIENT_ID,
-    clientSecret: process.env.AUTH0_CLIENT_SECRET,
-    organization: process.env.AUTH0_ORGANIZATION
-  }
+    { domain: "tenant.auth0.com" },
+    {
+        clientId: process.env.AUTH0_CLIENT_ID,
+        clientSecret: process.env.AUTH0_CLIENT_SECRET,
+        organization: process.env.AUTH0_ORGANIZATION,
+    },
 );
 ```
 
 ### Client-Side
+
 ```typescript
-import { MyOrganizationClient } from '@auth0/myorganization-js';
+import { MyOrganizationClient } from "@auth0/myorganization-js";
 
 const client = new MyOrganizationClient({
-  domain: 'tenant.auth0.com',
-  token: async ({ scope }) => 
-    auth0.getTokenSilently({ scope: `openid profile email ${scope}` })
+    domain: "tenant.auth0.com",
+    token: async ({ scope }) => auth0.getTokenSilently({ scope: `openid profile email ${scope}` }),
 });
 ```
 

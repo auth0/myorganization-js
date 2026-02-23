@@ -19,15 +19,17 @@ npm install
 ## Configuration
 
 1. Copy `.env.example` to `.env`:
-   ```bash
-   cp .env.example .env
-   ```
+
+    ```bash
+    cp .env.example .env
+    ```
 
 2. Configure your Auth0 credentials in `.env`
 
 ## Usage
 
 **Run the example:**
+
 ```bash
 npm start
 ```
@@ -37,15 +39,15 @@ npm start
 ### Client Initialization
 
 ```javascript
-import { createMyOrganizationClientWithClientCredentials } from '@auth0/myorganization-js/server';
+import { createMyOrganizationClientWithClientCredentials } from "@auth0/myorganization-js/server";
 
 const client = createMyOrganizationClientWithClientCredentials(
-  { domain: 'tenant.auth0.com' },
-  {
-    clientId: process.env.AUTH0_CLIENT_ID,
-    clientSecret: process.env.AUTH0_CLIENT_SECRET,
-    organization: process.env.AUTH0_ORGANIZATION
-  }
+    { domain: "tenant.auth0.com" },
+    {
+        clientId: process.env.AUTH0_CLIENT_ID,
+        clientSecret: process.env.AUTH0_CLIENT_SECRET,
+        organization: process.env.AUTH0_ORGANIZATION,
+    },
 );
 ```
 
@@ -53,31 +55,31 @@ const client = createMyOrganizationClientWithClientCredentials(
 
 ```javascript
 const details = await client.organizationDetails.get();
-console.log('Organization:', details.organization?.name);
+console.log("Organization:", details.name);
 ```
 
 ### Creating a Domain
 
 ```javascript
-const result = await client.organization.domains.create({ 
-  domain: 'example.com' 
+const result = await client.organization.domains.create({
+    domain: "example.com",
 });
-console.log('Domain created:', result.organization_domain?.id);
+console.log("Domain created:", result.id);
 ```
 
 ### Error Handling
 
 ```javascript
 try {
-  await client.organization.domains.create({ domain: 'example.com' });
+    await client.organization.domains.create({ domain: "example.com" });
 } catch (error) {
-  if (error.statusCode === 400) {
-    console.error('Bad request:', error.message);
-  } else if (error.statusCode === 409) {
-    console.error('Domain already exists');
-  } else {
-    console.error('Error:', error.message);
-  }
+    if (error.statusCode === 400) {
+        console.error("Bad request:", error.message);
+    } else if (error.statusCode === 409) {
+        console.error("Domain already exists");
+    } else {
+        console.error("Error:", error.message);
+    }
 }
 ```
 

@@ -6,9 +6,6 @@
     "description": "Node.js TypeScript CLI examples for Auth0 MyOrganization SDK",
     "scripts": {
         "start": "tsx src/index.ts",
-        "domain-workflow": "tsx src/workflows/domain-verification.ts",
-        "oidc-setup": "tsx src/workflows/oidc-setup.ts",
-        "batch-operations": "tsx src/batch-operations.ts",
         "build": "tsc",
         "start:prod": "node dist/index.js"
     },
