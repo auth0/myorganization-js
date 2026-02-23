@@ -29,31 +29,14 @@ npm install
 
 ### CLI Commands
 
-**List organization details:**
+| Command                                | Description              |
+| -------------------------------------- | ------------------------ |
+| `npm start org:details`                | Get organization details |
+| `npm start domains:list`               | List all domains         |
+| `npm start domains:create example.com` | Add a domain             |
+| `npm start idp:list`                   | List identity providers  |
 
-```bash
-npm start org:details
-```
-
-**List domains:**
-
-```bash
-npm start domains:list
-```
-
-**Create a domain:**
-
-```bash
-npm start domains:create example.com
-```
-
-**List identity providers:**
-
-```bash
-npm start idp:list
-```
-
-**Create OIDC identity provider:**
+**Create an OIDC identity provider:**
 
 ```bash
 npm start idp:create-oidc \
@@ -95,7 +78,7 @@ const client = createMyOrganizationClientWithClientCredentials(
 ### Error Handling
 
 ```typescript
-import { MyOrganization, MyOrganizationError } from "@auth0/myorganization-js/server";
+import { MyOrganization, MyOrganizationError } from "@auth0/myorganization-js";
 
 try {
     await client.organization.domains.create({ domain: "example.com" });

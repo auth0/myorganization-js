@@ -79,52 +79,28 @@ The server starts at `http://localhost:3000`.
 
 ## API Endpoints
 
-### Organization Details
+| Method | Endpoint                             | Description                                        |
+| ------ | ------------------------------------ | -------------------------------------------------- |
+| GET    | `/api/organization/details`          | Get org details                                    |
+| PATCH  | `/api/organization/details`          | Update `display_name`, `branding`                  |
+| GET    | `/api/domains`                       | List all domains                                   |
+| POST   | `/api/domains`                       | Add a domain `{"domain": "example.com"}`           |
+| GET    | `/api/domains/:domainId`             | Get domain + TXT record for verification           |
+| POST   | `/api/domains/:domainId/verify`      | Trigger DNS verification                           |
+| DELETE | `/api/domains/:domainId`             | Remove a domain                                    |
+| GET    | `/api/identity-providers`            | List all IdPs                                      |
+| POST   | `/api/identity-providers`            | Create an IdP (see body examples below)            |
+| GET    | `/api/identity-providers/:idpId`     | Get an IdP                                         |
+| PATCH  | `/api/identity-providers/:idpId`     | Update an IdP                                      |
+| DELETE | `/api/identity-providers/:idpId`     | Delete an IdP                                      |
+| POST   | `/api/workflows/domain-verification` | Create domain + return DNS TXT record instructions |
+| POST   | `/api/workflows/setup-oidc-sso`      | Create OIDC IdP + optional Home Realm Discovery    |
+
+### Create an identity provider
+
+OIDC:
 
 ```bash
-# Get organization details
-curl http://localhost:3000/api/organization/details
-
-# Update display name and branding
-curl -X PATCH http://localhost:3000/api/organization/details \
-  -H "Content-Type: application/json" \
-  -d '{
-    "display_name": "Acme Corporation",
-    "branding": {
-      "logo_url": "https://example.com/logo.png",
-      "colors": { "primary": "#0066CC", "page_background": "#FFFFFF" }
-    }
-  }'
-```
-
-### Domains
-
-```bash
-# List domains
-curl http://localhost:3000/api/domains
-
-# Add a domain
-curl -X POST http://localhost:3000/api/domains \
-  -H "Content-Type: application/json" \
-  -d '{"domain": "example.com"}'
-
-# Get domain details (includes TXT record for verification)
-curl http://localhost:3000/api/domains/dom_abc123
-
-# Start domain verification (after adding the TXT record to DNS)
-curl -X POST http://localhost:3000/api/domains/dom_abc123/verify
-
-# Delete a domain
-curl -X DELETE http://localhost:3000/api/domains/dom_abc123
-```
-
-### Identity Providers
-
-```bash
-# List identity providers
-curl http://localhost:3000/api/identity-providers
-
-# Create an OIDC identity provider
 curl -X POST http://localhost:3000/api/identity-providers \
   -H "Content-Type: application/json" \
   -d '{
@@ -141,8 +117,11 @@ curl -X POST http://localhost:3000/api/identity-providers \
       "discovery_url": "https://idp.company.com/.well-known/openid-configuration"
     }
   }'
+```
 
-# Create a SAML identity provider
+SAML:
+
+```bash
 curl -X POST http://localhost:3000/api/identity-providers \
   -H "Content-Type: application/json" \
   -d '{
@@ -158,30 +137,21 @@ curl -X POST http://localhost:3000/api/identity-providers \
       "protocol_binding": "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"
     }
   }'
-
-# Get an identity provider
-curl http://localhost:3000/api/identity-providers/idp_abc123
-
-# Update an identity provider
-curl -X PATCH http://localhost:3000/api/identity-providers/idp_abc123 \
-  -H "Content-Type: application/json" \
-  -d '{"display_name": "Updated SSO Name", "is_enabled": true}'
-
-# Delete an identity provider
-curl -X DELETE http://localhost:3000/api/identity-providers/idp_abc123
 ```
 
 ### Workflows
 
+Domain verification — creates the domain and returns the DNS TXT record to add before verifying:
+
 ```bash
-# Domain verification workflow
-# Creates a domain and returns DNS TXT record instructions
 curl -X POST http://localhost:3000/api/workflows/domain-verification \
   -H "Content-Type: application/json" \
   -d '{"domain": "example.com"}'
+```
 
-# OIDC SSO setup workflow
-# Creates an identity provider and optionally enables Home Realm Discovery
+OIDC SSO setup — creates the identity provider and optionally enables Home Realm Discovery for an email domain:
+
+```bash
 curl -X POST http://localhost:3000/api/workflows/setup-oidc-sso \
   -H "Content-Type: application/json" \
   -d '{
