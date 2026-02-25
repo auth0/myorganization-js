@@ -3,6 +3,6 @@
 import * as MyOrganization from "../index.js";
 
 export interface GetIdPProvisioningConfigResponseContent extends MyOrganization.IdpProvisioningConfig {
-    created_at?: string;
-    updated_on?: string;
+    created_at?: string | undefined;
+    updated_on?: string | undefined;
 }

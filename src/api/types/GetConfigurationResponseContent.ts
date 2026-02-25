@@ -4,6 +4,6 @@ import * as MyOrganization from "../index.js";
 
 export interface GetConfigurationResponseContent {
     /** Array of supported strategies */
-    allowed_strategies?: MyOrganization.IdpStrategyEnum[];
-    connection_deletion_behavior?: MyOrganization.IdpConnectionDeletionBehaviorEnum;
+    allowed_strategies?: MyOrganization.IdpStrategyEnum[] | undefined;
+    connection_deletion_behavior?: MyOrganization.IdpConnectionDeletionBehaviorEnum | undefined;
 }

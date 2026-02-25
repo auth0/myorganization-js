@@ -2,13 +2,13 @@
 
 export interface UserAttributes {
     /** Email */
-    email?: string;
+    email?: string | undefined;
     /** Full Name */
-    name?: string;
+    name?: string | undefined;
     /** User nickname */
-    nickname?: string;
+    nickname?: string | undefined;
     /** First name */
-    given_name?: string;
+    given_name?: string | undefined;
     /** Last name */
-    family_name?: string;
+    family_name?: string | undefined;
 }

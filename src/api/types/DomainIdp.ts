@@ -7,5 +7,5 @@ export interface DomainIdp {
     /** The name of the identity provider */
     name: string;
     /** Identity provider name used on the login screen. */
-    display_name?: string;
+    display_name?: string | undefined;
 }

@@ -7,6 +7,6 @@ import * as MyOrganization from "../index.js";
  */
 export interface OrgBranding {
     /** URL of logo to display on login page. */
-    logo_url?: string | null;
-    colors?: MyOrganization.OrgBrandingColors;
+    logo_url?: (string | null) | undefined;
+    colors?: MyOrganization.OrgBrandingColors | undefined;
 }

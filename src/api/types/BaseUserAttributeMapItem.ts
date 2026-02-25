@@ -4,9 +4,9 @@ export interface BaseUserAttributeMapItem {
     /** The name of the user attribute. */
     user_attribute: string;
     /** The description of the user attribute. */
-    description?: string;
+    description?: string | undefined;
     /** The label of the user attribute. */
-    label?: string;
+    label?: string | undefined;
     /** Indicates if the attribute is required. */
     is_required: boolean;
     /** Indicates whether this attribute is not part of the admin defined schema but is provided by the source. The property will be removed when a refresh operation is performed. */

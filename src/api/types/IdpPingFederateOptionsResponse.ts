@@ -3,15 +3,15 @@
 import * as MyOrganization from "../index.js";
 
 export interface IdpPingFederateOptionsResponse {
-    signatureAlgorithm?: MyOrganization.IdpSignAlgTypeEnum;
-    digestAlgorithm?: MyOrganization.IdpSignAlgDigestTypeEnum;
+    signatureAlgorithm?: MyOrganization.IdpSignAlgTypeEnum | undefined;
+    digestAlgorithm?: MyOrganization.IdpSignAlgDigestTypeEnum | undefined;
     /** Indicates whether PingFederate should digitally sign outgoing SAML authentication requests to relying parties */
-    signSAMLRequest?: boolean;
+    signSAMLRequest?: boolean | undefined;
     /** URL provided by PingFederate which returns information used for creating the connection */
-    pingFederateBaseUrl?: string;
+    pingFederateBaseUrl?: string | undefined;
     /** A value derived from decoding the signingCert. This should not be updated directly, instead update the signingCertificate to decode a new value for this field */
-    cert?: string;
-    idpInitiated?: MyOrganization.IdpOptionsIdpInitiated;
+    cert?: string | undefined;
+    idpInitiated?: MyOrganization.IdpOptionsIdpInitiated | undefined;
     /** A URL pointing to an image file that represents your client application. */
-    icon_url?: string;
+    icon_url?: string | undefined;
 }

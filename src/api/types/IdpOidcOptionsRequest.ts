@@ -7,7 +7,7 @@ export interface IdpOidcOptionsRequest {
     /** The identifier given to you by your provider. Unique identifier for your registered application. */
     client_id: string;
     /** Available if Back Channel is chosen earlier. The secret given to you by your provider and each provider manages this step differently. */
-    client_secret?: string;
+    client_secret?: string | undefined;
     /** The URL where the OIDC Identity Provider publishes its OpenID Provider Configuration Information */
     discovery_url: string;
 }
