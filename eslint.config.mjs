@@ -75,6 +75,7 @@ export default [
             "scripts/**",
             ".mock/**",
             "*.config.ts",
+            "*.config.mts",
             "*.config.js",
             "*.config.mjs",
             "example.ts",

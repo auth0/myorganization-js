@@ -57,3 +57,4 @@ CONTRIBUTING.md
 .gitignore
 LICENSE
 NOTICE
+.fern/

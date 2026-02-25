@@ -13,3 +13,6 @@ export {
     type ClientCredentialsWithAssertionOptions,
     type ClientCredentialsOptions,
 } from "./ClientCredentialsTokenProvider.js";
+
+// Export the BearerAuthProvider and its types
+export { BearerAuthProvider } from "./BearerAuthProvider.js";
