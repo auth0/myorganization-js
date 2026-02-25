@@ -55,3 +55,5 @@ eslint.config.mjs
 README.md
 CONTRIBUTING.md
 .gitignore
+LICENSE
+NOTICE
