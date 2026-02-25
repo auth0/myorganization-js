@@ -29,8 +29,10 @@ export declare namespace MyOrganizationClient {
      * @group MyOrganization API
      * @public
      */
-    export interface MyOrganizationClientOptions
-        extends Omit<FernClient.Options, "token" | "environment" | "baseUrl" | "fetcher" | "fetch"> {
+    export interface MyOrganizationClientOptions extends Omit<
+        FernClient.Options,
+        "token" | "environment" | "baseUrl" | "fetcher" | "fetch"
+    > {
         /** Auth0 domain (e.g., 'your-tenant.auth0.com') */
         domain: string;
         /**
@@ -253,6 +255,9 @@ export class MyOrganizationClient extends FernClient {
         const clientOptions = {
             baseUrl: _options.baseUrl || baseUrl,
             headers,
+            logging: _options.logging,
+            timeoutInSeconds: _options.timeoutInSeconds,
+            maxRetries: _options.maxRetries,
             ...(fetcher && { fetcher }),
             ...(token !== undefined && { token }),
         } as FernClient.Options;
