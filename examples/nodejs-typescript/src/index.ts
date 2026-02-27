@@ -1,7 +1,7 @@
 /**
  * Node.js TypeScript CLI Example for MyOrganization SDK
  *
- * This example demonstrates standalone scripts and CLI tools for organization management
+ * This example demonstrates standalone scripts  and CLI tools for organization management
  */
 
 import dotenv from "dotenv";
