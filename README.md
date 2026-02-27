@@ -18,7 +18,7 @@
 
 This library supports the following tooling versions:
 
-- Node.js: 20 or higher
+- Node.js: 18 or higher
 
 ### Installation
 
@@ -30,7 +30,7 @@ npm install @auth0/myorganization-js
 
 ### Configure the SDK
 
-The MyOrganization client allows you to manage Auth0 organizations, including members, roles, and domains.
+The MyOrganization client allows you to manage Auth0 organizations, including organization details, domains, identity providers, and configuration.
 
 Initialize your client with a domain and token supplier:
 
@@ -117,7 +117,7 @@ const client = createMyOrganizationClientWithClientCredentials(
     },
     {
         clientId: "YOUR_CLIENT_ID",
-        clientAssertionSigningKey: "YOUR_PRIVATE_KEY",
+        privateKey: "YOUR_PRIVATE_KEY",
         organization: "org_123456789",
     },
 );
@@ -174,7 +174,7 @@ await client.organization.domains.create(request);
 
 ### Key Classes
 
-- **MyOrganizationClient** - for managing organizations, members, roles, and domains
+- **MyOrganizationClient** - for managing organization details, domains, identity providers, and configuration
 
 ## Framework Examples
 
@@ -184,6 +184,7 @@ Comprehensive examples demonstrating how to use the MyOrganization SDK across di
 
 - **[Express TypeScript](./examples/express-typescript/)** - Core organization management REST API with domain and identity provider workflows
 - **[Node.js TypeScript](./examples/nodejs-typescript/)** - CLI tools and automation scripts
+- **[Node.js JavaScript](./examples/nodejs-javascript/)** - Vanilla JavaScript scripts and automation tasks
 
 ### 🌐 Client-Side
 
@@ -269,32 +270,6 @@ try {
         console.log(err.body);
         console.log(err.rawResponse);
     }
-}
-```
-
-## Pagination
-
-Some list endpoints are paginated. You can manually iterate page-by-page:
-
-```typescript
-import { MyOrganizationClient } from "@auth0/myorganization-js";
-
-const client = new MyOrganizationClient({
-    domain: "{YOUR_TENANT_AND_REGION}.auth0.com",
-    token: "YOUR_ACCESS_TOKEN",
-});
-
-let page = await client.organization.members.list({
-    take: 10,
-});
-
-// Process first page
-console.log(page.data);
-
-// Get next pages
-while (page.hasNextPage()) {
-    page = await page.getNextPage();
-    console.log(page.data);
 }
 ```
 
@@ -408,7 +383,7 @@ console.log(rawResponse.headers["X-My-Header"]);
 
 The SDK works in the following runtimes:
 
-- Node.js 20 or higher
+- Node.js 18 or higher
 - Vercel
 - Cloudflare Workers
 - Deno v1.25+
