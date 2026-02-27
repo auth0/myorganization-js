@@ -187,24 +187,37 @@ async function loadDomains() {
           </span>
         </div>
         <div class="actions">
-          ${
-              domain.status === "pending"
-                  ? `
-            <button class="btn btn-secondary" onclick="getDomainVerification('${domain.id}')">Get TXT Record</button>
-            <button class="btn btn-secondary" onclick="verifyDomain('${domain.id}')">Verify</button>
+          ${domain.status === "pending"
+                        ? `
+            <button class="btn btn-secondary" data-action="get-txt" data-id="${domain.id}">Get TXT Record</button>
+            <button class="btn btn-secondary" data-action="verify" data-id="${domain.id}">Verify</button>
           `
-                  : ""
-          }
-          <button class="btn btn-danger" onclick="deleteDomain('${domain.id}')">Delete</button>
+                        : ""
+                    }
+          <button class="btn btn-danger" data-action="delete-domain" data-id="${domain.id}">Delete</button>
         </div>
       </div>
     `,
             )
             .join("");
+
+        container.querySelectorAll("[data-action]").forEach((btn) => {
+            btn.addEventListener("click", handleDomainAction);
+        });
     } catch (error) {
         console.error("Error loading domains:", error);
         container.innerHTML = '<p class="error">Failed to load domains.</p>';
     }
+}
+
+function handleDomainAction(event) {
+    const btn = event.currentTarget;
+    const action = btn.dataset.action;
+    const id = btn.dataset.id;
+
+    if (action === "get-txt") getDomainVerification(id);
+    else if (action === "verify") verifyDomain(id);
+    else if (action === "delete-domain") deleteDomain(id);
 }
 
 async function addDomain() {
@@ -231,9 +244,9 @@ async function getDomainVerification(domainId) {
         const details = await myOrgClient.organization.domains.get(domainId);
         alert(
             `Add this TXT record to your DNS:\n\n` +
-                `Host:  ${details.verification_host}\n` +
-                `Value: ${details.verification_txt}\n\n` +
-                `After DNS propagates (5–30 min), click Verify.`,
+            `Host:  ${details.verification_host}\n` +
+            `Value: ${details.verification_txt}\n\n` +
+            `After DNS propagates (5–30 min), click Verify.`,
         );
     } catch (error) {
         console.error("Error getting domain verification:", error);
@@ -292,16 +305,24 @@ async function loadIdentityProviders() {
           </span>
         </div>
         <div class="actions">
-          <button class="btn btn-danger" onclick="deleteIdp('${idp.id}')">Delete</button>
+          <button class="btn btn-danger" data-action="delete-idp" data-id="${idp.id}">Delete</button>
         </div>
       </div>
     `,
             )
             .join("");
+
+        container.querySelectorAll("[data-action]").forEach((btn) => {
+            btn.addEventListener("click", handleIdpAction);
+        });
     } catch (error) {
         console.error("Error loading identity providers:", error);
         container.innerHTML = '<p class="error">Failed to load identity providers.</p>';
     }
+}
+
+function handleIdpAction(event) {
+    deleteIdp(event.currentTarget.dataset.id);
 }
 
 async function deleteIdp(idpId) {
@@ -315,12 +336,6 @@ async function deleteIdp(idpId) {
         showError("Failed to delete identity provider.");
     }
 }
-
-// Expose functions referenced via inline onclick handlers
-window.getDomainVerification = getDomainVerification;
-window.verifyDomain = verifyDomain;
-window.deleteDomain = deleteDomain;
-window.deleteIdp = deleteIdp;
 
 // Start the app
 initializeClients();

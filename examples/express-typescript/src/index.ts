@@ -555,15 +555,11 @@ app.get("/", (req: Request, res: Response) => {
 
 // Start server
 app.listen(PORT, () => {
-    console.log(`\n${"=".repeat(55)}`);
-    console.log(`  MyOrganization API`);
-    console.log(`${"=".repeat(55)}`);
-    console.log(`  Server:  http://localhost:${PORT}`);
-    console.log(`  Health:  http://localhost:${PORT}/health`);
-    console.log(`  Docs:    http://localhost:${PORT}/`);
-    console.log(`  Auth:    ${process.env.AUTH0_PRIVATE_KEY ? "Private Key JWT" : "Client Secret"}`);
-    console.log(`  Org:     ${process.env.AUTH0_ORGANIZATION}`);
-    console.log(`${"=".repeat(55)}\n`);
+    console.log(`Server:  http://localhost:${PORT}`);
+    console.log(`Health:  http://localhost:${PORT}/health`);
+    console.log(`Docs:    http://localhost:${PORT}/`);
+    console.log(`Auth:    ${process.env.AUTH0_PRIVATE_KEY ? "Private Key JWT" : "Client Secret"}`);
+    console.log(`Org:     ${process.env.AUTH0_ORGANIZATION}`);
 });
 
 export default app;

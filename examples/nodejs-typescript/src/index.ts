@@ -19,7 +19,7 @@ function getClient() {
     const { AUTH0_DOMAIN, AUTH0_CLIENT_ID, AUTH0_CLIENT_SECRET, AUTH0_PRIVATE_KEY, AUTH0_ORGANIZATION } = process.env;
 
     if (!AUTH0_DOMAIN || !AUTH0_CLIENT_ID || !AUTH0_ORGANIZATION) {
-        console.error(chalk.red("❌ Missing required environment variables"));
+        console.error(chalk.red("Missing required environment variables"));
         process.exit(1);
     }
 
@@ -51,19 +51,19 @@ function getClient() {
 // Error handler
 function handleError(error: unknown) {
     if (error instanceof MyOrganization.BadRequestError) {
-        console.error(chalk.red("❌ Bad Request:"), error.message);
+        console.error(chalk.red("Bad request:"), error.message);
     } else if (error instanceof MyOrganization.UnauthorizedError) {
-        console.error(chalk.red("❌ Unauthorized: Check your credentials"));
+        console.error(chalk.red("Unauthorized: check your credentials"));
     } else if (error instanceof MyOrganization.ForbiddenError) {
-        console.error(chalk.red("❌ Forbidden: Insufficient permissions"));
+        console.error(chalk.red("Forbidden: insufficient permissions"));
     } else if (error instanceof MyOrganization.NotFoundError) {
-        console.error(chalk.red("❌ Not Found:"), error.message);
+        console.error(chalk.red("Not found:"), error.message);
     } else if (error instanceof MyOrganization.TooManyRequestsError) {
-        console.error(chalk.red("❌ Rate Limit Exceeded"));
+        console.error(chalk.red("Rate limit exceeded"));
     } else if (error instanceof MyOrganizationError) {
-        console.error(chalk.red(`❌ API Error [${error.statusCode}]:`), error.message);
+        console.error(chalk.red(`API error [${error.statusCode}]:`), error.message);
     } else {
-        console.error(chalk.red("❌ Error:"), error);
+        console.error(chalk.red("Error:"), error);
     }
     process.exit(1);
 }
@@ -77,9 +77,8 @@ program
     .action(async () => {
         try {
             const client = getClient();
-            console.log(chalk.blue("📋 Fetching organization details...\n"));
             const details = await client.organizationDetails.get();
-            console.log(chalk.green("✓ Organization Details:"));
+            console.log(chalk.green("Organization details:"));
             console.log(JSON.stringify(details, null, 2));
         } catch (error) {
             handleError(error);
@@ -93,9 +92,8 @@ program
     .action(async () => {
         try {
             const client = getClient();
-            console.log(chalk.blue("📋 Fetching domains...\n"));
             const result = await client.organization.domains.list();
-            console.log(chalk.green(`✓ Found ${result.organization_domains?.length || 0} domains:`));
+            console.log(chalk.green(`Domains (${result.organization_domains?.length || 0}):`));
             console.log(JSON.stringify(result, null, 2));
         } catch (error) {
             handleError(error);
@@ -111,7 +109,7 @@ program
             const client = getClient();
             console.log(chalk.blue(`📋 Creating domain ${domain}...\n`));
             const result = await client.organization.domains.create({ domain });
-            console.log(chalk.green("✓ Domain created:"));
+            console.log(chalk.green("Domain created:"));
             console.log(JSON.stringify(result, null, 2));
         } catch (error) {
             handleError(error);
@@ -125,9 +123,8 @@ program
     .action(async () => {
         try {
             const client = getClient();
-            console.log(chalk.blue("📋 Fetching identity providers...\n"));
             const result = await client.organization.identityProviders.list();
-            console.log(chalk.green(`✓ Found ${result.identity_providers?.length || 0} identity providers:`));
+            console.log(chalk.green(`Identity providers (${result.identity_providers?.length || 0}):`));
             console.log(JSON.stringify(result, null, 2));
         } catch (error) {
             handleError(error);
@@ -149,7 +146,6 @@ program
     .action(async (options) => {
         try {
             const client = getClient();
-            console.log(chalk.blue(`📋 Creating OIDC identity provider "${options.name}"...\n`));
 
             const result = await client.organization.identityProviders.create({
                 strategy: "oidc",
@@ -166,7 +162,7 @@ program
                 },
             });
 
-            console.log(chalk.green("✓ Identity provider created:"));
+            console.log(chalk.green("Identity provider created:"));
             console.log(JSON.stringify(result, null, 2));
         } catch (error) {
             handleError(error);
