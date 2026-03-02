@@ -570,7 +570,9 @@ describe("IdentityProviders", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.organization.identityProviders.get("idp_id");
+        const response = await client.organization.identityProviders.get({
+            idp_id: "idp_id",
+        });
         expect(response).toEqual({
             id: "con_zW1UHutvkVWSWdCC",
             name: "oidcIdp",
@@ -623,7 +625,9 @@ describe("IdentityProviders", () => {
             .build();
 
         await expect(async () => {
-            return await client.organization.identityProviders.get("idp_id");
+            return await client.organization.identityProviders.get({
+                idp_id: "idp_id",
+            });
         }).rejects.toThrow(MyOrganization.BadRequestError);
     });
 
@@ -641,7 +645,9 @@ describe("IdentityProviders", () => {
             .build();
 
         await expect(async () => {
-            return await client.organization.identityProviders.get("idp_id");
+            return await client.organization.identityProviders.get({
+                idp_id: "idp_id",
+            });
         }).rejects.toThrow(MyOrganization.UnauthorizedError);
     });
 
@@ -659,7 +665,9 @@ describe("IdentityProviders", () => {
             .build();
 
         await expect(async () => {
-            return await client.organization.identityProviders.get("idp_id");
+            return await client.organization.identityProviders.get({
+                idp_id: "idp_id",
+            });
         }).rejects.toThrow(MyOrganization.ForbiddenError);
     });
 
@@ -677,7 +685,9 @@ describe("IdentityProviders", () => {
             .build();
 
         await expect(async () => {
-            return await client.organization.identityProviders.get("idp_id");
+            return await client.organization.identityProviders.get({
+                idp_id: "idp_id",
+            });
         }).rejects.toThrow(MyOrganization.NotFoundError);
     });
 
@@ -695,7 +705,9 @@ describe("IdentityProviders", () => {
             .build();
 
         await expect(async () => {
-            return await client.organization.identityProviders.get("idp_id");
+            return await client.organization.identityProviders.get({
+                idp_id: "idp_id",
+            });
         }).rejects.toThrow(MyOrganization.TooManyRequestsError);
     });
 
@@ -705,7 +717,9 @@ describe("IdentityProviders", () => {
 
         server.mockEndpoint().delete("/identity-providers/idp_id").respondWith().statusCode(200).build();
 
-        const response = await client.organization.identityProviders.delete("idp_id");
+        const response = await client.organization.identityProviders.delete({
+            idp_id: "idp_id",
+        });
         expect(response).toEqual(undefined);
     });
 
@@ -723,7 +737,9 @@ describe("IdentityProviders", () => {
             .build();
 
         await expect(async () => {
-            return await client.organization.identityProviders.delete("idp_id");
+            return await client.organization.identityProviders.delete({
+                idp_id: "idp_id",
+            });
         }).rejects.toThrow(MyOrganization.BadRequestError);
     });
 
@@ -741,7 +757,9 @@ describe("IdentityProviders", () => {
             .build();
 
         await expect(async () => {
-            return await client.organization.identityProviders.delete("idp_id");
+            return await client.organization.identityProviders.delete({
+                idp_id: "idp_id",
+            });
         }).rejects.toThrow(MyOrganization.UnauthorizedError);
     });
 
@@ -759,7 +777,9 @@ describe("IdentityProviders", () => {
             .build();
 
         await expect(async () => {
-            return await client.organization.identityProviders.delete("idp_id");
+            return await client.organization.identityProviders.delete({
+                idp_id: "idp_id",
+            });
         }).rejects.toThrow(MyOrganization.ForbiddenError);
     });
 
@@ -777,7 +797,9 @@ describe("IdentityProviders", () => {
             .build();
 
         await expect(async () => {
-            return await client.organization.identityProviders.delete("idp_id");
+            return await client.organization.identityProviders.delete({
+                idp_id: "idp_id",
+            });
         }).rejects.toThrow(MyOrganization.NotFoundError);
     });
 
@@ -795,7 +817,9 @@ describe("IdentityProviders", () => {
             .build();
 
         await expect(async () => {
-            return await client.organization.identityProviders.delete("idp_id");
+            return await client.organization.identityProviders.delete({
+                idp_id: "idp_id",
+            });
         }).rejects.toThrow(MyOrganization.TooManyRequestsError);
     });
 
@@ -859,16 +883,19 @@ describe("IdentityProviders", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.organization.identityProviders.update("idp_id", {
-            display_name: "OIDC IdP",
-            show_as_button: true,
-            assign_membership_on_login: false,
-            is_enabled: true,
-            options: {
-                type: "front_channel",
-                client_id: "a8f3b2e7-5d1c-4f9a-8b0d-2e1c3a5b6f7d",
-                client_secret: "KzQp2sVxR8nTgMjFhYcEWuLoIbDvUoC6A9B1zX7yWqFjHkGrP5sQdLmNp",
-                discovery_url: "https://{yourDomain}/.well-known/openid-configuration",
+        const response = await client.organization.identityProviders.update({
+            idp_id: "idp_id",
+            body: {
+                display_name: "OIDC IdP",
+                show_as_button: true,
+                assign_membership_on_login: false,
+                is_enabled: true,
+                options: {
+                    type: "front_channel",
+                    client_id: "a8f3b2e7-5d1c-4f9a-8b0d-2e1c3a5b6f7d",
+                    client_secret: "KzQp2sVxR8nTgMjFhYcEWuLoIbDvUoC6A9B1zX7yWqFjHkGrP5sQdLmNp",
+                    discovery_url: "https://{yourDomain}/.well-known/openid-configuration",
+                },
             },
         });
         expect(response).toEqual({
@@ -924,7 +951,10 @@ describe("IdentityProviders", () => {
             .build();
 
         await expect(async () => {
-            return await client.organization.identityProviders.update("idp_id", {});
+            return await client.organization.identityProviders.update({
+                idp_id: "idp_id",
+                body: {},
+            });
         }).rejects.toThrow(MyOrganization.BadRequestError);
     });
 
@@ -943,7 +973,10 @@ describe("IdentityProviders", () => {
             .build();
 
         await expect(async () => {
-            return await client.organization.identityProviders.update("idp_id", {});
+            return await client.organization.identityProviders.update({
+                idp_id: "idp_id",
+                body: {},
+            });
         }).rejects.toThrow(MyOrganization.UnauthorizedError);
     });
 
@@ -962,7 +995,10 @@ describe("IdentityProviders", () => {
             .build();
 
         await expect(async () => {
-            return await client.organization.identityProviders.update("idp_id", {});
+            return await client.organization.identityProviders.update({
+                idp_id: "idp_id",
+                body: {},
+            });
         }).rejects.toThrow(MyOrganization.ForbiddenError);
     });
 
@@ -981,7 +1017,10 @@ describe("IdentityProviders", () => {
             .build();
 
         await expect(async () => {
-            return await client.organization.identityProviders.update("idp_id", {});
+            return await client.organization.identityProviders.update({
+                idp_id: "idp_id",
+                body: {},
+            });
         }).rejects.toThrow(MyOrganization.NotFoundError);
     });
 
@@ -1000,7 +1039,10 @@ describe("IdentityProviders", () => {
             .build();
 
         await expect(async () => {
-            return await client.organization.identityProviders.update("idp_id", {});
+            return await client.organization.identityProviders.update({
+                idp_id: "idp_id",
+                body: {},
+            });
         }).rejects.toThrow(MyOrganization.TooManyRequestsError);
     });
 
@@ -1053,8 +1095,11 @@ describe("IdentityProviders", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.organization.identityProviders.updateAttributes("idp_id", {
-            key: "value",
+        const response = await client.organization.identityProviders.updateAttributes({
+            idp_id: "idp_id",
+            body: {
+                key: "value",
+            },
         });
         expect(response).toEqual({
             id: "con_zW1UHutvkVWSWdCC",
@@ -1109,9 +1154,12 @@ describe("IdentityProviders", () => {
             .build();
 
         await expect(async () => {
-            return await client.organization.identityProviders.updateAttributes("idp_id", {
-                string: {
-                    key: "value",
+            return await client.organization.identityProviders.updateAttributes({
+                idp_id: "idp_id",
+                body: {
+                    string: {
+                        key: "value",
+                    },
                 },
             });
         }).rejects.toThrow(MyOrganization.BadRequestError);
@@ -1132,9 +1180,12 @@ describe("IdentityProviders", () => {
             .build();
 
         await expect(async () => {
-            return await client.organization.identityProviders.updateAttributes("idp_id", {
-                string: {
-                    key: "value",
+            return await client.organization.identityProviders.updateAttributes({
+                idp_id: "idp_id",
+                body: {
+                    string: {
+                        key: "value",
+                    },
                 },
             });
         }).rejects.toThrow(MyOrganization.UnauthorizedError);
@@ -1155,9 +1206,12 @@ describe("IdentityProviders", () => {
             .build();
 
         await expect(async () => {
-            return await client.organization.identityProviders.updateAttributes("idp_id", {
-                string: {
-                    key: "value",
+            return await client.organization.identityProviders.updateAttributes({
+                idp_id: "idp_id",
+                body: {
+                    string: {
+                        key: "value",
+                    },
                 },
             });
         }).rejects.toThrow(MyOrganization.ForbiddenError);
@@ -1178,9 +1232,12 @@ describe("IdentityProviders", () => {
             .build();
 
         await expect(async () => {
-            return await client.organization.identityProviders.updateAttributes("idp_id", {
-                string: {
-                    key: "value",
+            return await client.organization.identityProviders.updateAttributes({
+                idp_id: "idp_id",
+                body: {
+                    string: {
+                        key: "value",
+                    },
                 },
             });
         }).rejects.toThrow(MyOrganization.NotFoundError);
@@ -1201,9 +1258,12 @@ describe("IdentityProviders", () => {
             .build();
 
         await expect(async () => {
-            return await client.organization.identityProviders.updateAttributes("idp_id", {
-                string: {
-                    key: "value",
+            return await client.organization.identityProviders.updateAttributes({
+                idp_id: "idp_id",
+                body: {
+                    string: {
+                        key: "value",
+                    },
                 },
             });
         }).rejects.toThrow(MyOrganization.TooManyRequestsError);
@@ -1213,17 +1273,12 @@ describe("IdentityProviders", () => {
         const server = mockServerPool.createServer();
         const client = new MyOrganizationClient({ token: "test", environment: server.baseUrl });
 
-        const rawResponseBody = {};
-        server
-            .mockEndpoint()
-            .post("/identity-providers/idp_id/detach")
-            .respondWith()
-            .statusCode(200)
-            .jsonBody(rawResponseBody)
-            .build();
+        server.mockEndpoint().post("/identity-providers/idp_id/detach").respondWith().statusCode(200).build();
 
-        const response = await client.organization.identityProviders.detach("idp_id");
-        expect(response).toEqual({});
+        const response = await client.organization.identityProviders.detach({
+            idp_id: "idp_id",
+        });
+        expect(response).toEqual(undefined);
     });
 
     test("detach (2)", async () => {
@@ -1240,7 +1295,9 @@ describe("IdentityProviders", () => {
             .build();
 
         await expect(async () => {
-            return await client.organization.identityProviders.detach("idp_id");
+            return await client.organization.identityProviders.detach({
+                idp_id: "idp_id",
+            });
         }).rejects.toThrow(MyOrganization.BadRequestError);
     });
 
@@ -1258,7 +1315,9 @@ describe("IdentityProviders", () => {
             .build();
 
         await expect(async () => {
-            return await client.organization.identityProviders.detach("idp_id");
+            return await client.organization.identityProviders.detach({
+                idp_id: "idp_id",
+            });
         }).rejects.toThrow(MyOrganization.UnauthorizedError);
     });
 
@@ -1276,7 +1335,9 @@ describe("IdentityProviders", () => {
             .build();
 
         await expect(async () => {
-            return await client.organization.identityProviders.detach("idp_id");
+            return await client.organization.identityProviders.detach({
+                idp_id: "idp_id",
+            });
         }).rejects.toThrow(MyOrganization.ForbiddenError);
     });
 
@@ -1294,7 +1355,9 @@ describe("IdentityProviders", () => {
             .build();
 
         await expect(async () => {
-            return await client.organization.identityProviders.detach("idp_id");
+            return await client.organization.identityProviders.detach({
+                idp_id: "idp_id",
+            });
         }).rejects.toThrow(MyOrganization.NotFoundError);
     });
 
@@ -1312,7 +1375,9 @@ describe("IdentityProviders", () => {
             .build();
 
         await expect(async () => {
-            return await client.organization.identityProviders.detach("idp_id");
+            return await client.organization.identityProviders.detach({
+                idp_id: "idp_id",
+            });
         }).rejects.toThrow(MyOrganization.TooManyRequestsError);
     });
 });

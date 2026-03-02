@@ -23,7 +23,6 @@ export class Domains {
     /**
      * Add a domain to the identity provider's list of domains for [Home Realm Discovery (HRD)](https://auth0.com/docs/get-started/architecture-scenarios/business-to-business/authentication#home-realm-discovery). The domain passed must be claimed and verified by this organization.
      *
-     * @param {MyOrganization.IdpId} idpId
      * @param {MyOrganization.CreateIdpDomainRequestContent} request
      * @param {Domains.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -35,20 +34,19 @@ export class Domains {
      * @throws {@link MyOrganization.TooManyRequestsError}
      *
      * @example
-     *     await client.organization.identityProviders.domains.create("idp_id", {
+     *     await client.organization.identityProviders.domains.create({
+     *         idp_id: "idp_id",
      *         domain: "my-domain.com"
      *     })
      */
     public create(
-        idpId: MyOrganization.IdpId,
         request: MyOrganization.CreateIdpDomainRequestContent,
         requestOptions?: Domains.RequestOptions,
     ): core.HttpResponsePromise<MyOrganization.CreateIdpDomainResponseContent> {
-        return core.HttpResponsePromise.fromPromise(this.__create(idpId, request, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__create(request, requestOptions));
     }
 
     private async __create(
-        idpId: MyOrganization.IdpId,
         request: MyOrganization.CreateIdpDomainRequestContent,
         requestOptions?: Domains.RequestOptions,
     ): Promise<core.WithRawResponse<MyOrganization.CreateIdpDomainResponseContent>> {
@@ -58,6 +56,7 @@ export class Domains {
                 { OAuth2AuthCode: ["create:my_org:identity_providers_domains"] },
             ],
         };
+        const { idp_id: idpId, ..._body } = request;
         let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader(_metadata) }),
@@ -75,7 +74,7 @@ export class Domains {
             contentType: "application/json",
             queryParameters: requestOptions?.queryParams,
             requestType: "json",
-            body: request,
+            body: _body,
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -149,8 +148,7 @@ export class Domains {
     /**
      * Remove a domain from an identity provider.
      *
-     * @param {MyOrganization.IdpId} idpId
-     * @param {MyOrganization.OrgDomainName} domain
+     * @param {MyOrganization.DeleteDomainsRequest} request
      * @param {Domains.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link MyOrganization.BadRequestError}
@@ -160,19 +158,20 @@ export class Domains {
      * @throws {@link MyOrganization.TooManyRequestsError}
      *
      * @example
-     *     await client.organization.identityProviders.domains.delete("idp_id", "domain")
+     *     await client.organization.identityProviders.domains.delete({
+     *         idp_id: "idp_id",
+     *         domain: "domain"
+     *     })
      */
     public delete(
-        idpId: MyOrganization.IdpId,
-        domain: MyOrganization.OrgDomainName,
+        request: MyOrganization.DeleteDomainsRequest,
         requestOptions?: Domains.RequestOptions,
     ): core.HttpResponsePromise<void> {
-        return core.HttpResponsePromise.fromPromise(this.__delete(idpId, domain, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__delete(request, requestOptions));
     }
 
     private async __delete(
-        idpId: MyOrganization.IdpId,
-        domain: MyOrganization.OrgDomainName,
+        request: MyOrganization.DeleteDomainsRequest,
         requestOptions?: Domains.RequestOptions,
     ): Promise<core.WithRawResponse<void>> {
         const _metadata: core.EndpointMetadata = {
@@ -181,6 +180,7 @@ export class Domains {
                 { OAuth2AuthCode: ["delete:my_org:identity_providers_domains"] },
             ],
         };
+        const { idp_id: idpId, domain } = request;
         let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader(_metadata) }),

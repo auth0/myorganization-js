@@ -19,7 +19,8 @@ describe("Domains", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.organization.identityProviders.domains.create("idp_id", {
+        const response = await client.organization.identityProviders.domains.create({
+            idp_id: "idp_id",
             domain: "my-domain.com",
         });
         expect(response).toEqual({
@@ -42,7 +43,8 @@ describe("Domains", () => {
             .build();
 
         await expect(async () => {
-            return await client.organization.identityProviders.domains.create("idp_id", {
+            return await client.organization.identityProviders.domains.create({
+                idp_id: "idp_id",
                 domain: "domain",
             });
         }).rejects.toThrow(MyOrganization.BadRequestError);
@@ -63,7 +65,8 @@ describe("Domains", () => {
             .build();
 
         await expect(async () => {
-            return await client.organization.identityProviders.domains.create("idp_id", {
+            return await client.organization.identityProviders.domains.create({
+                idp_id: "idp_id",
                 domain: "domain",
             });
         }).rejects.toThrow(MyOrganization.UnauthorizedError);
@@ -84,7 +87,8 @@ describe("Domains", () => {
             .build();
 
         await expect(async () => {
-            return await client.organization.identityProviders.domains.create("idp_id", {
+            return await client.organization.identityProviders.domains.create({
+                idp_id: "idp_id",
                 domain: "domain",
             });
         }).rejects.toThrow(MyOrganization.ForbiddenError);
@@ -105,7 +109,8 @@ describe("Domains", () => {
             .build();
 
         await expect(async () => {
-            return await client.organization.identityProviders.domains.create("idp_id", {
+            return await client.organization.identityProviders.domains.create({
+                idp_id: "idp_id",
                 domain: "domain",
             });
         }).rejects.toThrow(MyOrganization.NotFoundError);
@@ -126,7 +131,8 @@ describe("Domains", () => {
             .build();
 
         await expect(async () => {
-            return await client.organization.identityProviders.domains.create("idp_id", {
+            return await client.organization.identityProviders.domains.create({
+                idp_id: "idp_id",
                 domain: "domain",
             });
         }).rejects.toThrow(MyOrganization.ConflictError);
@@ -147,7 +153,8 @@ describe("Domains", () => {
             .build();
 
         await expect(async () => {
-            return await client.organization.identityProviders.domains.create("idp_id", {
+            return await client.organization.identityProviders.domains.create({
+                idp_id: "idp_id",
                 domain: "domain",
             });
         }).rejects.toThrow(MyOrganization.TooManyRequestsError);
@@ -159,7 +166,10 @@ describe("Domains", () => {
 
         server.mockEndpoint().delete("/identity-providers/idp_id/domains/domain").respondWith().statusCode(200).build();
 
-        const response = await client.organization.identityProviders.domains.delete("idp_id", "domain");
+        const response = await client.organization.identityProviders.domains.delete({
+            idp_id: "idp_id",
+            domain: "domain",
+        });
         expect(response).toEqual(undefined);
     });
 
@@ -177,7 +187,10 @@ describe("Domains", () => {
             .build();
 
         await expect(async () => {
-            return await client.organization.identityProviders.domains.delete("idp_id", "domain");
+            return await client.organization.identityProviders.domains.delete({
+                idp_id: "idp_id",
+                domain: "domain",
+            });
         }).rejects.toThrow(MyOrganization.BadRequestError);
     });
 
@@ -195,7 +208,10 @@ describe("Domains", () => {
             .build();
 
         await expect(async () => {
-            return await client.organization.identityProviders.domains.delete("idp_id", "domain");
+            return await client.organization.identityProviders.domains.delete({
+                idp_id: "idp_id",
+                domain: "domain",
+            });
         }).rejects.toThrow(MyOrganization.UnauthorizedError);
     });
 
@@ -213,7 +229,10 @@ describe("Domains", () => {
             .build();
 
         await expect(async () => {
-            return await client.organization.identityProviders.domains.delete("idp_id", "domain");
+            return await client.organization.identityProviders.domains.delete({
+                idp_id: "idp_id",
+                domain: "domain",
+            });
         }).rejects.toThrow(MyOrganization.ForbiddenError);
     });
 
@@ -231,7 +250,10 @@ describe("Domains", () => {
             .build();
 
         await expect(async () => {
-            return await client.organization.identityProviders.domains.delete("idp_id", "domain");
+            return await client.organization.identityProviders.domains.delete({
+                idp_id: "idp_id",
+                domain: "domain",
+            });
         }).rejects.toThrow(MyOrganization.NotFoundError);
     });
 
@@ -249,7 +271,10 @@ describe("Domains", () => {
             .build();
 
         await expect(async () => {
-            return await client.organization.identityProviders.domains.delete("idp_id", "domain");
+            return await client.organization.identityProviders.domains.delete({
+                idp_id: "idp_id",
+                domain: "domain",
+            });
         }).rejects.toThrow(MyOrganization.TooManyRequestsError);
     });
 });

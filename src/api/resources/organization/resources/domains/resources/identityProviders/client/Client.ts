@@ -23,7 +23,7 @@ export class IdentityProviders {
     /**
      * Retrieve the list of identity providers that have a specific organization domain alias.
      *
-     * @param {MyOrganization.OrgDomainId} domainId
+     * @param {MyOrganization.GetIdentityProvidersRequest} request
      * @param {IdentityProviders.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link MyOrganization.BadRequestError}
@@ -33,17 +33,19 @@ export class IdentityProviders {
      * @throws {@link MyOrganization.TooManyRequestsError}
      *
      * @example
-     *     await client.organization.domains.identityProviders.get("domain_id")
+     *     await client.organization.domains.identityProviders.get({
+     *         domain_id: "domain_id"
+     *     })
      */
     public get(
-        domainId: MyOrganization.OrgDomainId,
+        request: MyOrganization.GetIdentityProvidersRequest,
         requestOptions?: IdentityProviders.RequestOptions,
     ): core.HttpResponsePromise<MyOrganization.ListDomainIdentityProvidersResponseContent> {
-        return core.HttpResponsePromise.fromPromise(this.__get(domainId, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__get(request, requestOptions));
     }
 
     private async __get(
-        domainId: MyOrganization.OrgDomainId,
+        request: MyOrganization.GetIdentityProvidersRequest,
         requestOptions?: IdentityProviders.RequestOptions,
     ): Promise<core.WithRawResponse<MyOrganization.ListDomainIdentityProvidersResponseContent>> {
         const _metadata: core.EndpointMetadata = {
@@ -52,6 +54,7 @@ export class IdentityProviders {
                 { OAuth2AuthCode: ["read:my_org:domains", "read:my_org:identity_providers"] },
             ],
         };
+        const { domain_id: domainId } = request;
         let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader(_metadata) }),

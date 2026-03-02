@@ -23,7 +23,7 @@ export class ScimTokens {
     /**
      * List the Provisioning SCIM tokens for this identity provider.
      *
-     * @param {MyOrganization.IdpId} idpId
+     * @param {MyOrganization.ListScimTokensRequest} request
      * @param {ScimTokens.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link MyOrganization.BadRequestError}
@@ -33,17 +33,19 @@ export class ScimTokens {
      * @throws {@link MyOrganization.TooManyRequestsError}
      *
      * @example
-     *     await client.organization.identityProviders.provisioning.scimTokens.list("idp_id")
+     *     await client.organization.identityProviders.provisioning.scimTokens.list({
+     *         idp_id: "idp_id"
+     *     })
      */
     public list(
-        idpId: MyOrganization.IdpId,
+        request: MyOrganization.ListScimTokensRequest,
         requestOptions?: ScimTokens.RequestOptions,
     ): core.HttpResponsePromise<MyOrganization.ListIdpProvisioningScimTokensResponseContent> {
-        return core.HttpResponsePromise.fromPromise(this.__list(idpId, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__list(request, requestOptions));
     }
 
     private async __list(
-        idpId: MyOrganization.IdpId,
+        request: MyOrganization.ListScimTokensRequest,
         requestOptions?: ScimTokens.RequestOptions,
     ): Promise<core.WithRawResponse<MyOrganization.ListIdpProvisioningScimTokensResponseContent>> {
         const _metadata: core.EndpointMetadata = {
@@ -52,6 +54,7 @@ export class ScimTokens {
                 { OAuth2AuthCode: ["read:my_org:identity_providers_scim_tokens"] },
             ],
         };
+        const { idp_id: idpId } = request;
         let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader(_metadata) }),
@@ -135,7 +138,6 @@ export class ScimTokens {
     /**
      * Create a Provisioning SCIM token for this identity provider.
      *
-     * @param {MyOrganization.IdpId} idpId
      * @param {MyOrganization.CreateIdpProvisioningScimTokenRequestContent} request
      * @param {ScimTokens.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -146,21 +148,20 @@ export class ScimTokens {
      * @throws {@link MyOrganization.TooManyRequestsError}
      *
      * @example
-     *     await client.organization.identityProviders.provisioning.scimTokens.create("idp_id", {
+     *     await client.organization.identityProviders.provisioning.scimTokens.create({
+     *         idp_id: "idp_id",
      *         token_lifetime: 86400
      *     })
      */
     public create(
-        idpId: MyOrganization.IdpId,
-        request: MyOrganization.CreateIdpProvisioningScimTokenRequestContent = {},
+        request: MyOrganization.CreateIdpProvisioningScimTokenRequestContent,
         requestOptions?: ScimTokens.RequestOptions,
     ): core.HttpResponsePromise<MyOrganization.CreateIdpProvisioningScimTokenResponseContent> {
-        return core.HttpResponsePromise.fromPromise(this.__create(idpId, request, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__create(request, requestOptions));
     }
 
     private async __create(
-        idpId: MyOrganization.IdpId,
-        request: MyOrganization.CreateIdpProvisioningScimTokenRequestContent = {},
+        request: MyOrganization.CreateIdpProvisioningScimTokenRequestContent,
         requestOptions?: ScimTokens.RequestOptions,
     ): Promise<core.WithRawResponse<MyOrganization.CreateIdpProvisioningScimTokenResponseContent>> {
         const _metadata: core.EndpointMetadata = {
@@ -169,6 +170,7 @@ export class ScimTokens {
                 { OAuth2AuthCode: ["create:my_org:identity_providers_scim_tokens"] },
             ],
         };
+        const { idp_id: idpId, ..._body } = request;
         let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader(_metadata) }),
@@ -186,7 +188,7 @@ export class ScimTokens {
             contentType: "application/json",
             queryParameters: requestOptions?.queryParams,
             requestType: "json",
-            body: request,
+            body: _body,
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -255,8 +257,7 @@ export class ScimTokens {
     /**
      * Delete a Provisioning SCIM configuration for an identity provider.
      *
-     * @param {MyOrganization.IdpId} idpId
-     * @param {MyOrganization.IdpProvisioningScimTokenId} idpScimTokenId
+     * @param {MyOrganization.DeleteScimTokensRequest} request
      * @param {ScimTokens.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link MyOrganization.BadRequestError}
@@ -266,19 +267,20 @@ export class ScimTokens {
      * @throws {@link MyOrganization.TooManyRequestsError}
      *
      * @example
-     *     await client.organization.identityProviders.provisioning.scimTokens.delete("idp_id", "idp_scim_token_id")
+     *     await client.organization.identityProviders.provisioning.scimTokens.delete({
+     *         idp_id: "idp_id",
+     *         idp_scim_token_id: "idp_scim_token_id"
+     *     })
      */
     public delete(
-        idpId: MyOrganization.IdpId,
-        idpScimTokenId: MyOrganization.IdpProvisioningScimTokenId,
+        request: MyOrganization.DeleteScimTokensRequest,
         requestOptions?: ScimTokens.RequestOptions,
     ): core.HttpResponsePromise<void> {
-        return core.HttpResponsePromise.fromPromise(this.__delete(idpId, idpScimTokenId, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__delete(request, requestOptions));
     }
 
     private async __delete(
-        idpId: MyOrganization.IdpId,
-        idpScimTokenId: MyOrganization.IdpProvisioningScimTokenId,
+        request: MyOrganization.DeleteScimTokensRequest,
         requestOptions?: ScimTokens.RequestOptions,
     ): Promise<core.WithRawResponse<void>> {
         const _metadata: core.EndpointMetadata = {
@@ -287,6 +289,7 @@ export class ScimTokens {
                 { OAuth2AuthCode: ["delete:my_org:identity_providers_scim_tokens"] },
             ],
         };
+        const { idp_id: idpId, idp_scim_token_id: idpScimTokenId } = request;
         let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader(_metadata) }),

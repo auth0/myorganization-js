@@ -272,7 +272,7 @@ export class IdentityProviders {
     /**
      * Retrieve the details for one particular identity-provider.
      *
-     * @param {MyOrganization.IdpId} idpId
+     * @param {MyOrganization.GetIdentityProvidersRequest} request
      * @param {IdentityProviders.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link MyOrganization.BadRequestError}
@@ -282,17 +282,19 @@ export class IdentityProviders {
      * @throws {@link MyOrganization.TooManyRequestsError}
      *
      * @example
-     *     await client.organization.identityProviders.get("idp_id")
+     *     await client.organization.identityProviders.get({
+     *         idp_id: "idp_id"
+     *     })
      */
     public get(
-        idpId: MyOrganization.IdpId,
+        request: MyOrganization.GetIdentityProvidersRequest,
         requestOptions?: IdentityProviders.RequestOptions,
     ): core.HttpResponsePromise<MyOrganization.GetIdentityProviderResponseContent> {
-        return core.HttpResponsePromise.fromPromise(this.__get(idpId, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__get(request, requestOptions));
     }
 
     private async __get(
-        idpId: MyOrganization.IdpId,
+        request: MyOrganization.GetIdentityProvidersRequest,
         requestOptions?: IdentityProviders.RequestOptions,
     ): Promise<core.WithRawResponse<MyOrganization.GetIdentityProviderResponseContent>> {
         const _metadata: core.EndpointMetadata = {
@@ -301,6 +303,7 @@ export class IdentityProviders {
                 { OAuth2AuthCode: ["read:my_org:identity_providers"] },
             ],
         };
+        const { idp_id: idpId } = request;
         let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader(_metadata) }),
@@ -384,7 +387,7 @@ export class IdentityProviders {
     /**
      * Delete an identity provider from this organization.
      *
-     * @param {MyOrganization.IdpId} idpId
+     * @param {MyOrganization.DeleteIdentityProvidersRequest} request
      * @param {IdentityProviders.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link MyOrganization.BadRequestError}
@@ -394,17 +397,19 @@ export class IdentityProviders {
      * @throws {@link MyOrganization.TooManyRequestsError}
      *
      * @example
-     *     await client.organization.identityProviders.delete("idp_id")
+     *     await client.organization.identityProviders.delete({
+     *         idp_id: "idp_id"
+     *     })
      */
     public delete(
-        idpId: MyOrganization.IdpId,
+        request: MyOrganization.DeleteIdentityProvidersRequest,
         requestOptions?: IdentityProviders.RequestOptions,
     ): core.HttpResponsePromise<void> {
-        return core.HttpResponsePromise.fromPromise(this.__delete(idpId, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__delete(request, requestOptions));
     }
 
     private async __delete(
-        idpId: MyOrganization.IdpId,
+        request: MyOrganization.DeleteIdentityProvidersRequest,
         requestOptions?: IdentityProviders.RequestOptions,
     ): Promise<core.WithRawResponse<void>> {
         const _metadata: core.EndpointMetadata = {
@@ -413,6 +418,7 @@ export class IdentityProviders {
                 { OAuth2AuthCode: ["delete:my_org:identity_providers"] },
             ],
         };
+        const { idp_id: idpId } = request;
         let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader(_metadata) }),
@@ -493,8 +499,7 @@ export class IdentityProviders {
     /**
      * Update an identity provider associated with this organization.
      *
-     * @param {MyOrganization.IdpId} idpId
-     * @param {MyOrganization.UpdateIdentityProviderRequestContent} request
+     * @param {MyOrganization.UpdateIdentityProvidersRequest} request
      * @param {IdentityProviders.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link MyOrganization.BadRequestError}
@@ -504,30 +509,31 @@ export class IdentityProviders {
      * @throws {@link MyOrganization.TooManyRequestsError}
      *
      * @example
-     *     await client.organization.identityProviders.update("idp_id", {
-     *         display_name: "OIDC IdP",
-     *         show_as_button: true,
-     *         assign_membership_on_login: false,
-     *         is_enabled: true,
-     *         options: {
-     *             type: "front_channel",
-     *             client_id: "a8f3b2e7-5d1c-4f9a-8b0d-2e1c3a5b6f7d",
-     *             client_secret: "KzQp2sVxR8nTgMjFhYcEWuLoIbDvUoC6A9B1zX7yWqFjHkGrP5sQdLmNp",
-     *             discovery_url: "https://{yourDomain}/.well-known/openid-configuration"
+     *     await client.organization.identityProviders.update({
+     *         idp_id: "idp_id",
+     *         body: {
+     *             display_name: "OIDC IdP",
+     *             show_as_button: true,
+     *             assign_membership_on_login: false,
+     *             is_enabled: true,
+     *             options: {
+     *                 type: "front_channel",
+     *                 client_id: "a8f3b2e7-5d1c-4f9a-8b0d-2e1c3a5b6f7d",
+     *                 client_secret: "KzQp2sVxR8nTgMjFhYcEWuLoIbDvUoC6A9B1zX7yWqFjHkGrP5sQdLmNp",
+     *                 discovery_url: "https://{yourDomain}/.well-known/openid-configuration"
+     *             }
      *         }
      *     })
      */
     public update(
-        idpId: MyOrganization.IdpId,
-        request: MyOrganization.UpdateIdentityProviderRequestContent,
+        request: MyOrganization.UpdateIdentityProvidersRequest,
         requestOptions?: IdentityProviders.RequestOptions,
     ): core.HttpResponsePromise<MyOrganization.UpdateIdentityProviderResponseContent> {
-        return core.HttpResponsePromise.fromPromise(this.__update(idpId, request, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__update(request, requestOptions));
     }
 
     private async __update(
-        idpId: MyOrganization.IdpId,
-        request: MyOrganization.UpdateIdentityProviderRequestContent,
+        request: MyOrganization.UpdateIdentityProvidersRequest,
         requestOptions?: IdentityProviders.RequestOptions,
     ): Promise<core.WithRawResponse<MyOrganization.UpdateIdentityProviderResponseContent>> {
         const _metadata: core.EndpointMetadata = {
@@ -536,6 +542,7 @@ export class IdentityProviders {
                 { OAuth2AuthCode: ["update:my_org:identity_providers"] },
             ],
         };
+        const { idp_id: idpId, body: _body } = request;
         let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader(_metadata) }),
@@ -553,7 +560,7 @@ export class IdentityProviders {
             contentType: "application/json",
             queryParameters: requestOptions?.queryParams,
             requestType: "json",
-            body: request,
+            body: _body,
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -622,8 +629,7 @@ export class IdentityProviders {
     /**
      * Triggers a refresh of attribute mappings on the identity provider by overriding it with the admin defined defaults. The endpoint doesn't accept any body parameters.
      *
-     * @param {MyOrganization.IdpId} idpId
-     * @param {Record<string, unknown>} request
+     * @param {MyOrganization.UpdateAttributesIdentityProvidersRequest} request
      * @param {IdentityProviders.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link MyOrganization.BadRequestError}
@@ -633,21 +639,22 @@ export class IdentityProviders {
      * @throws {@link MyOrganization.TooManyRequestsError}
      *
      * @example
-     *     await client.organization.identityProviders.updateAttributes("idp_id", {
-     *         "key": "value"
+     *     await client.organization.identityProviders.updateAttributes({
+     *         idp_id: "idp_id",
+     *         body: {
+     *             "key": "value"
+     *         }
      *     })
      */
     public updateAttributes(
-        idpId: MyOrganization.IdpId,
-        request: Record<string, unknown>,
+        request: MyOrganization.UpdateAttributesIdentityProvidersRequest,
         requestOptions?: IdentityProviders.RequestOptions,
     ): core.HttpResponsePromise<MyOrganization.GetIdentityProviderResponseContent> {
-        return core.HttpResponsePromise.fromPromise(this.__updateAttributes(idpId, request, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__updateAttributes(request, requestOptions));
     }
 
     private async __updateAttributes(
-        idpId: MyOrganization.IdpId,
-        request: Record<string, unknown>,
+        request: MyOrganization.UpdateAttributesIdentityProvidersRequest,
         requestOptions?: IdentityProviders.RequestOptions,
     ): Promise<core.WithRawResponse<MyOrganization.GetIdentityProviderResponseContent>> {
         const _metadata: core.EndpointMetadata = {
@@ -656,6 +663,7 @@ export class IdentityProviders {
                 { OAuth2AuthCode: ["update:my_org:identity_providers"] },
             ],
         };
+        const { idp_id: idpId, body: _body } = request;
         let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader(_metadata) }),
@@ -673,7 +681,7 @@ export class IdentityProviders {
             contentType: "application/json",
             queryParameters: requestOptions?.queryParams,
             requestType: "json",
-            body: request,
+            body: _body,
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -742,7 +750,7 @@ export class IdentityProviders {
     /**
      * Delete underlying identity provider from this organization.
      *
-     * @param {MyOrganization.IdpId} idpId
+     * @param {MyOrganization.DetachIdentityProvidersRequest} request
      * @param {IdentityProviders.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link MyOrganization.BadRequestError}
@@ -752,25 +760,28 @@ export class IdentityProviders {
      * @throws {@link MyOrganization.TooManyRequestsError}
      *
      * @example
-     *     await client.organization.identityProviders.detach("idp_id")
+     *     await client.organization.identityProviders.detach({
+     *         idp_id: "idp_id"
+     *     })
      */
     public detach(
-        idpId: MyOrganization.IdpId,
+        request: MyOrganization.DetachIdentityProvidersRequest,
         requestOptions?: IdentityProviders.RequestOptions,
-    ): core.HttpResponsePromise<MyOrganization.DetachIdpProviderResponseContent> {
-        return core.HttpResponsePromise.fromPromise(this.__detach(idpId, requestOptions));
+    ): core.HttpResponsePromise<void> {
+        return core.HttpResponsePromise.fromPromise(this.__detach(request, requestOptions));
     }
 
     private async __detach(
-        idpId: MyOrganization.IdpId,
+        request: MyOrganization.DetachIdentityProvidersRequest,
         requestOptions?: IdentityProviders.RequestOptions,
-    ): Promise<core.WithRawResponse<MyOrganization.DetachIdpProviderResponseContent>> {
+    ): Promise<core.WithRawResponse<void>> {
         const _metadata: core.EndpointMetadata = {
             security: [
                 { OAuth2ClientCredentials: ["update:my_org:identity_providers_detach"] },
                 { OAuth2AuthCode: ["update:my_org:identity_providers_detach"] },
             ],
         };
+        const { idp_id: idpId } = request;
         let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader(_metadata) }),
@@ -793,10 +804,7 @@ export class IdentityProviders {
             fetchFn: this._options?.fetch,
         });
         if (_response.ok) {
-            return {
-                data: _response.body as MyOrganization.DetachIdpProviderResponseContent,
-                rawResponse: _response.rawResponse,
-            };
+            return { data: undefined, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {

@@ -141,7 +141,7 @@ export class OrganizationDetails {
      *         name: "testorg",
      *         display_name: "Test Organization",
      *         branding: {
-     *             logo_url: "http://example.com/logo.png",
+     *             logo_url: "https://example.com/logo.png",
      *             colors: {
      *                 primary: "#000000",
      *                 page_background: "#FFFFFF"

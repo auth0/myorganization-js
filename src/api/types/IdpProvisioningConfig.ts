@@ -8,8 +8,7 @@ export interface IdpProvisioningConfig {
     identity_provider_name?: string;
     strategy: MyOrganization.IdpStrategyEnum;
     method: MyOrganization.IdpProvisioningMethodEnum;
-    fields: MyOrganization.IdpProvisioningFieldMapItem[];
-    attributes?: MyOrganization.IdpProvisioningUserAttributeMapItem[];
+    attributes: MyOrganization.IdpProvisioningUserAttributeMapItem[];
     /** The ID of the user */
     user_id_attribute: string;
 }

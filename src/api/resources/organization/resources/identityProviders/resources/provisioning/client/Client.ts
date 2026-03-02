@@ -29,7 +29,7 @@ export class Provisioning {
     /**
      * Retrieve the Provisioning configuration for this identity provider.
      *
-     * @param {MyOrganization.IdpId} idpId
+     * @param {MyOrganization.GetProvisioningRequest} request
      * @param {Provisioning.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link MyOrganization.BadRequestError}
@@ -39,17 +39,19 @@ export class Provisioning {
      * @throws {@link MyOrganization.TooManyRequestsError}
      *
      * @example
-     *     await client.organization.identityProviders.provisioning.get("idp_id")
+     *     await client.organization.identityProviders.provisioning.get({
+     *         idp_id: "idp_id"
+     *     })
      */
     public get(
-        idpId: MyOrganization.IdpId,
+        request: MyOrganization.GetProvisioningRequest,
         requestOptions?: Provisioning.RequestOptions,
     ): core.HttpResponsePromise<MyOrganization.GetIdPProvisioningConfigResponseContent> {
-        return core.HttpResponsePromise.fromPromise(this.__get(idpId, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__get(request, requestOptions));
     }
 
     private async __get(
-        idpId: MyOrganization.IdpId,
+        request: MyOrganization.GetProvisioningRequest,
         requestOptions?: Provisioning.RequestOptions,
     ): Promise<core.WithRawResponse<MyOrganization.GetIdPProvisioningConfigResponseContent>> {
         const _metadata: core.EndpointMetadata = {
@@ -58,6 +60,7 @@ export class Provisioning {
                 { OAuth2AuthCode: ["read:my_org:identity_providers_provisioning"] },
             ],
         };
+        const { idp_id: idpId } = request;
         let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader(_metadata) }),
@@ -141,7 +144,7 @@ export class Provisioning {
     /**
      * Create the Provisioning configuration for this identity provider.
      *
-     * @param {MyOrganization.IdpId} idpId
+     * @param {MyOrganization.CreateProvisioningRequest} request
      * @param {Provisioning.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link MyOrganization.BadRequestError}
@@ -151,17 +154,19 @@ export class Provisioning {
      * @throws {@link MyOrganization.TooManyRequestsError}
      *
      * @example
-     *     await client.organization.identityProviders.provisioning.create("idp_id")
+     *     await client.organization.identityProviders.provisioning.create({
+     *         idp_id: "idp_id"
+     *     })
      */
     public create(
-        idpId: MyOrganization.IdpId,
+        request: MyOrganization.CreateProvisioningRequest,
         requestOptions?: Provisioning.RequestOptions,
     ): core.HttpResponsePromise<MyOrganization.CreateIdPProvisioningConfigResponseContent> {
-        return core.HttpResponsePromise.fromPromise(this.__create(idpId, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__create(request, requestOptions));
     }
 
     private async __create(
-        idpId: MyOrganization.IdpId,
+        request: MyOrganization.CreateProvisioningRequest,
         requestOptions?: Provisioning.RequestOptions,
     ): Promise<core.WithRawResponse<MyOrganization.CreateIdPProvisioningConfigResponseContent>> {
         const _metadata: core.EndpointMetadata = {
@@ -170,6 +175,7 @@ export class Provisioning {
                 { OAuth2AuthCode: ["create:my_org:identity_providers_provisioning"] },
             ],
         };
+        const { idp_id: idpId } = request;
         let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader(_metadata) }),
@@ -253,7 +259,7 @@ export class Provisioning {
     /**
      * Delete the Provisioning configuration for an identity provider.
      *
-     * @param {MyOrganization.IdpId} idpId
+     * @param {MyOrganization.DeleteProvisioningRequest} request
      * @param {Provisioning.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link MyOrganization.BadRequestError}
@@ -263,17 +269,19 @@ export class Provisioning {
      * @throws {@link MyOrganization.TooManyRequestsError}
      *
      * @example
-     *     await client.organization.identityProviders.provisioning.delete("idp_id")
+     *     await client.organization.identityProviders.provisioning.delete({
+     *         idp_id: "idp_id"
+     *     })
      */
     public delete(
-        idpId: MyOrganization.IdpId,
+        request: MyOrganization.DeleteProvisioningRequest,
         requestOptions?: Provisioning.RequestOptions,
     ): core.HttpResponsePromise<void> {
-        return core.HttpResponsePromise.fromPromise(this.__delete(idpId, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__delete(request, requestOptions));
     }
 
     private async __delete(
-        idpId: MyOrganization.IdpId,
+        request: MyOrganization.DeleteProvisioningRequest,
         requestOptions?: Provisioning.RequestOptions,
     ): Promise<core.WithRawResponse<void>> {
         const _metadata: core.EndpointMetadata = {
@@ -282,6 +290,7 @@ export class Provisioning {
                 { OAuth2AuthCode: ["delete:my_org:identity_providers_provisioning"] },
             ],
         };
+        const { idp_id: idpId } = request;
         let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader(_metadata) }),
@@ -362,8 +371,7 @@ export class Provisioning {
     /**
      * Triggers a refresh of attribute mappings on the provisioning configuration by overriding it with the admin defined defaults. The endpoint doesn't accept any body parameters.
      *
-     * @param {MyOrganization.IdpId} idpId
-     * @param {Record<string, unknown>} request
+     * @param {MyOrganization.UpdateAttributesProvisioningRequest} request
      * @param {Provisioning.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link MyOrganization.BadRequestError}
@@ -373,21 +381,22 @@ export class Provisioning {
      * @throws {@link MyOrganization.TooManyRequestsError}
      *
      * @example
-     *     await client.organization.identityProviders.provisioning.updateAttributes("idp_id", {
-     *         "key": "value"
+     *     await client.organization.identityProviders.provisioning.updateAttributes({
+     *         idp_id: "idp_id",
+     *         body: {
+     *             "key": "value"
+     *         }
      *     })
      */
     public updateAttributes(
-        idpId: MyOrganization.IdpId,
-        request: Record<string, unknown>,
+        request: MyOrganization.UpdateAttributesProvisioningRequest,
         requestOptions?: Provisioning.RequestOptions,
     ): core.HttpResponsePromise<MyOrganization.GetIdPProvisioningConfigResponseContent> {
-        return core.HttpResponsePromise.fromPromise(this.__updateAttributes(idpId, request, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__updateAttributes(request, requestOptions));
     }
 
     private async __updateAttributes(
-        idpId: MyOrganization.IdpId,
-        request: Record<string, unknown>,
+        request: MyOrganization.UpdateAttributesProvisioningRequest,
         requestOptions?: Provisioning.RequestOptions,
     ): Promise<core.WithRawResponse<MyOrganization.GetIdPProvisioningConfigResponseContent>> {
         const _metadata: core.EndpointMetadata = {
@@ -396,6 +405,7 @@ export class Provisioning {
                 { OAuth2AuthCode: ["update:my_org:identity_providers_provisioning"] },
             ],
         };
+        const { idp_id: idpId, body: _body } = request;
         let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader(_metadata) }),
@@ -413,7 +423,7 @@ export class Provisioning {
             contentType: "application/json",
             queryParameters: requestOptions?.queryParams,
             requestType: "json",
-            body: request,
+            body: _body,
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,

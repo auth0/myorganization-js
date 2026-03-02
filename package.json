@@ -1,9 +1,9 @@
 {
     "name": "@auth0/myorganization-js",
-    "version": "1.0.0-beta.3",
+    "version": "1.0.1",
     "private": false,
     "repository": "github:auth0/myorganization-js",
-    "license": "Apache-2.0",
+    "license": "MIT",
     "type": "commonjs",
     "main": "./dist/cjs/index.js",
     "module": "./dist/esm/index.mjs",
@@ -39,8 +39,7 @@
         "dist",
         "reference.md",
         "README.md",
-        "LICENSE",
-        "NOTICE"
+        "LICENSE"
     ],
     "scripts": {
         "format": "prettier . --write --ignore-unknown",

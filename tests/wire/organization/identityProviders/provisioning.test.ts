@@ -14,27 +14,6 @@ describe("Provisioning", () => {
             identity_provider_name: "EC-org-gaZPTTOS42pReSzs-id-ready2",
             strategy: "okta",
             method: "scim",
-            fields: [
-                {
-                    provisioning_field: "userName",
-                    user_attribute: "preferred_username",
-                    description: "Preferred Username",
-                    label: "Preferred username",
-                },
-                {
-                    provisioning_field: "emails[primary eq true].value",
-                    user_attribute: "email",
-                    description: "User's primary email",
-                    label: "Primary email",
-                },
-                {
-                    provisioning_field: "externalId",
-                    user_attribute: "external_id",
-                    description: "description",
-                    label: "label",
-                },
-                { provisioning_field: "active", user_attribute: "blocked", description: "description", label: "label" },
-            ],
             attributes: [
                 {
                     user_attribute: "preferred_username",
@@ -67,38 +46,14 @@ describe("Provisioning", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.organization.identityProviders.provisioning.get("idp_id");
+        const response = await client.organization.identityProviders.provisioning.get({
+            idp_id: "idp_id",
+        });
         expect(response).toEqual({
             identity_provider_id: "con_2CZPv6IY0gWzDaQJ",
             identity_provider_name: "EC-org-gaZPTTOS42pReSzs-id-ready2",
             strategy: "okta",
             method: "scim",
-            fields: [
-                {
-                    provisioning_field: "userName",
-                    user_attribute: "preferred_username",
-                    description: "Preferred Username",
-                    label: "Preferred username",
-                },
-                {
-                    provisioning_field: "emails[primary eq true].value",
-                    user_attribute: "email",
-                    description: "User's primary email",
-                    label: "Primary email",
-                },
-                {
-                    provisioning_field: "externalId",
-                    user_attribute: "external_id",
-                    description: "description",
-                    label: "label",
-                },
-                {
-                    provisioning_field: "active",
-                    user_attribute: "blocked",
-                    description: "description",
-                    label: "label",
-                },
-            ],
             attributes: [
                 {
                     user_attribute: "preferred_username",
@@ -139,7 +94,9 @@ describe("Provisioning", () => {
             .build();
 
         await expect(async () => {
-            return await client.organization.identityProviders.provisioning.get("idp_id");
+            return await client.organization.identityProviders.provisioning.get({
+                idp_id: "idp_id",
+            });
         }).rejects.toThrow(MyOrganization.BadRequestError);
     });
 
@@ -157,7 +114,9 @@ describe("Provisioning", () => {
             .build();
 
         await expect(async () => {
-            return await client.organization.identityProviders.provisioning.get("idp_id");
+            return await client.organization.identityProviders.provisioning.get({
+                idp_id: "idp_id",
+            });
         }).rejects.toThrow(MyOrganization.UnauthorizedError);
     });
 
@@ -175,7 +134,9 @@ describe("Provisioning", () => {
             .build();
 
         await expect(async () => {
-            return await client.organization.identityProviders.provisioning.get("idp_id");
+            return await client.organization.identityProviders.provisioning.get({
+                idp_id: "idp_id",
+            });
         }).rejects.toThrow(MyOrganization.ForbiddenError);
     });
 
@@ -193,7 +154,9 @@ describe("Provisioning", () => {
             .build();
 
         await expect(async () => {
-            return await client.organization.identityProviders.provisioning.get("idp_id");
+            return await client.organization.identityProviders.provisioning.get({
+                idp_id: "idp_id",
+            });
         }).rejects.toThrow(MyOrganization.NotFoundError);
     });
 
@@ -211,7 +174,9 @@ describe("Provisioning", () => {
             .build();
 
         await expect(async () => {
-            return await client.organization.identityProviders.provisioning.get("idp_id");
+            return await client.organization.identityProviders.provisioning.get({
+                idp_id: "idp_id",
+            });
         }).rejects.toThrow(MyOrganization.TooManyRequestsError);
     });
 
@@ -224,27 +189,6 @@ describe("Provisioning", () => {
             identity_provider_name: "EC-org-gaZPTTOS42pReSzs-id-ready2",
             strategy: "okta",
             method: "scim",
-            fields: [
-                {
-                    provisioning_field: "userName",
-                    user_attribute: "preferred_username",
-                    description: "Preferred Username",
-                    label: "Preferred username",
-                },
-                {
-                    provisioning_field: "emails[primary eq true].value",
-                    user_attribute: "email",
-                    description: "User's primary email",
-                    label: "Primary email",
-                },
-                {
-                    provisioning_field: "externalId",
-                    user_attribute: "external_id",
-                    description: "description",
-                    label: "label",
-                },
-                { provisioning_field: "active", user_attribute: "blocked", description: "description", label: "label" },
-            ],
             attributes: [
                 {
                     user_attribute: "preferred_username",
@@ -277,38 +221,14 @@ describe("Provisioning", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.organization.identityProviders.provisioning.create("idp_id");
+        const response = await client.organization.identityProviders.provisioning.create({
+            idp_id: "idp_id",
+        });
         expect(response).toEqual({
             identity_provider_id: "con_2CZPv6IY0gWzDaQJ",
             identity_provider_name: "EC-org-gaZPTTOS42pReSzs-id-ready2",
             strategy: "okta",
             method: "scim",
-            fields: [
-                {
-                    provisioning_field: "userName",
-                    user_attribute: "preferred_username",
-                    description: "Preferred Username",
-                    label: "Preferred username",
-                },
-                {
-                    provisioning_field: "emails[primary eq true].value",
-                    user_attribute: "email",
-                    description: "User's primary email",
-                    label: "Primary email",
-                },
-                {
-                    provisioning_field: "externalId",
-                    user_attribute: "external_id",
-                    description: "description",
-                    label: "label",
-                },
-                {
-                    provisioning_field: "active",
-                    user_attribute: "blocked",
-                    description: "description",
-                    label: "label",
-                },
-            ],
             attributes: [
                 {
                     user_attribute: "preferred_username",
@@ -349,7 +269,9 @@ describe("Provisioning", () => {
             .build();
 
         await expect(async () => {
-            return await client.organization.identityProviders.provisioning.create("idp_id");
+            return await client.organization.identityProviders.provisioning.create({
+                idp_id: "idp_id",
+            });
         }).rejects.toThrow(MyOrganization.BadRequestError);
     });
 
@@ -367,7 +289,9 @@ describe("Provisioning", () => {
             .build();
 
         await expect(async () => {
-            return await client.organization.identityProviders.provisioning.create("idp_id");
+            return await client.organization.identityProviders.provisioning.create({
+                idp_id: "idp_id",
+            });
         }).rejects.toThrow(MyOrganization.UnauthorizedError);
     });
 
@@ -385,7 +309,9 @@ describe("Provisioning", () => {
             .build();
 
         await expect(async () => {
-            return await client.organization.identityProviders.provisioning.create("idp_id");
+            return await client.organization.identityProviders.provisioning.create({
+                idp_id: "idp_id",
+            });
         }).rejects.toThrow(MyOrganization.ForbiddenError);
     });
 
@@ -403,7 +329,9 @@ describe("Provisioning", () => {
             .build();
 
         await expect(async () => {
-            return await client.organization.identityProviders.provisioning.create("idp_id");
+            return await client.organization.identityProviders.provisioning.create({
+                idp_id: "idp_id",
+            });
         }).rejects.toThrow(MyOrganization.NotFoundError);
     });
 
@@ -421,7 +349,9 @@ describe("Provisioning", () => {
             .build();
 
         await expect(async () => {
-            return await client.organization.identityProviders.provisioning.create("idp_id");
+            return await client.organization.identityProviders.provisioning.create({
+                idp_id: "idp_id",
+            });
         }).rejects.toThrow(MyOrganization.TooManyRequestsError);
     });
 
@@ -431,7 +361,9 @@ describe("Provisioning", () => {
 
         server.mockEndpoint().delete("/identity-providers/idp_id/provisioning").respondWith().statusCode(200).build();
 
-        const response = await client.organization.identityProviders.provisioning.delete("idp_id");
+        const response = await client.organization.identityProviders.provisioning.delete({
+            idp_id: "idp_id",
+        });
         expect(response).toEqual(undefined);
     });
 
@@ -449,7 +381,9 @@ describe("Provisioning", () => {
             .build();
 
         await expect(async () => {
-            return await client.organization.identityProviders.provisioning.delete("idp_id");
+            return await client.organization.identityProviders.provisioning.delete({
+                idp_id: "idp_id",
+            });
         }).rejects.toThrow(MyOrganization.BadRequestError);
     });
 
@@ -467,7 +401,9 @@ describe("Provisioning", () => {
             .build();
 
         await expect(async () => {
-            return await client.organization.identityProviders.provisioning.delete("idp_id");
+            return await client.organization.identityProviders.provisioning.delete({
+                idp_id: "idp_id",
+            });
         }).rejects.toThrow(MyOrganization.UnauthorizedError);
     });
 
@@ -485,7 +421,9 @@ describe("Provisioning", () => {
             .build();
 
         await expect(async () => {
-            return await client.organization.identityProviders.provisioning.delete("idp_id");
+            return await client.organization.identityProviders.provisioning.delete({
+                idp_id: "idp_id",
+            });
         }).rejects.toThrow(MyOrganization.ForbiddenError);
     });
 
@@ -503,7 +441,9 @@ describe("Provisioning", () => {
             .build();
 
         await expect(async () => {
-            return await client.organization.identityProviders.provisioning.delete("idp_id");
+            return await client.organization.identityProviders.provisioning.delete({
+                idp_id: "idp_id",
+            });
         }).rejects.toThrow(MyOrganization.NotFoundError);
     });
 
@@ -521,7 +461,9 @@ describe("Provisioning", () => {
             .build();
 
         await expect(async () => {
-            return await client.organization.identityProviders.provisioning.delete("idp_id");
+            return await client.organization.identityProviders.provisioning.delete({
+                idp_id: "idp_id",
+            });
         }).rejects.toThrow(MyOrganization.TooManyRequestsError);
     });
 
@@ -534,27 +476,6 @@ describe("Provisioning", () => {
             identity_provider_name: "EC-org-gaZPTTOS42pReSzs-id-ready2",
             strategy: "okta",
             method: "scim",
-            fields: [
-                {
-                    provisioning_field: "userName",
-                    user_attribute: "preferred_username",
-                    description: "Preferred Username",
-                    label: "Preferred username",
-                },
-                {
-                    provisioning_field: "emails[primary eq true].value",
-                    user_attribute: "email",
-                    description: "User's primary email",
-                    label: "Primary email",
-                },
-                {
-                    provisioning_field: "externalId",
-                    user_attribute: "external_id",
-                    description: "description",
-                    label: "label",
-                },
-                { provisioning_field: "active", user_attribute: "blocked", description: "description", label: "label" },
-            ],
             attributes: [
                 {
                     user_attribute: "preferred_username",
@@ -588,40 +509,17 @@ describe("Provisioning", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.organization.identityProviders.provisioning.updateAttributes("idp_id", {
-            key: "value",
+        const response = await client.organization.identityProviders.provisioning.updateAttributes({
+            idp_id: "idp_id",
+            body: {
+                key: "value",
+            },
         });
         expect(response).toEqual({
             identity_provider_id: "con_2CZPv6IY0gWzDaQJ",
             identity_provider_name: "EC-org-gaZPTTOS42pReSzs-id-ready2",
             strategy: "okta",
             method: "scim",
-            fields: [
-                {
-                    provisioning_field: "userName",
-                    user_attribute: "preferred_username",
-                    description: "Preferred Username",
-                    label: "Preferred username",
-                },
-                {
-                    provisioning_field: "emails[primary eq true].value",
-                    user_attribute: "email",
-                    description: "User's primary email",
-                    label: "Primary email",
-                },
-                {
-                    provisioning_field: "externalId",
-                    user_attribute: "external_id",
-                    description: "description",
-                    label: "label",
-                },
-                {
-                    provisioning_field: "active",
-                    user_attribute: "blocked",
-                    description: "description",
-                    label: "label",
-                },
-            ],
             attributes: [
                 {
                     user_attribute: "preferred_username",
@@ -663,9 +561,12 @@ describe("Provisioning", () => {
             .build();
 
         await expect(async () => {
-            return await client.organization.identityProviders.provisioning.updateAttributes("idp_id", {
-                string: {
-                    key: "value",
+            return await client.organization.identityProviders.provisioning.updateAttributes({
+                idp_id: "idp_id",
+                body: {
+                    string: {
+                        key: "value",
+                    },
                 },
             });
         }).rejects.toThrow(MyOrganization.BadRequestError);
@@ -686,9 +587,12 @@ describe("Provisioning", () => {
             .build();
 
         await expect(async () => {
-            return await client.organization.identityProviders.provisioning.updateAttributes("idp_id", {
-                string: {
-                    key: "value",
+            return await client.organization.identityProviders.provisioning.updateAttributes({
+                idp_id: "idp_id",
+                body: {
+                    string: {
+                        key: "value",
+                    },
                 },
             });
         }).rejects.toThrow(MyOrganization.UnauthorizedError);
@@ -709,9 +613,12 @@ describe("Provisioning", () => {
             .build();
 
         await expect(async () => {
-            return await client.organization.identityProviders.provisioning.updateAttributes("idp_id", {
-                string: {
-                    key: "value",
+            return await client.organization.identityProviders.provisioning.updateAttributes({
+                idp_id: "idp_id",
+                body: {
+                    string: {
+                        key: "value",
+                    },
                 },
             });
         }).rejects.toThrow(MyOrganization.ForbiddenError);
@@ -732,9 +639,12 @@ describe("Provisioning", () => {
             .build();
 
         await expect(async () => {
-            return await client.organization.identityProviders.provisioning.updateAttributes("idp_id", {
-                string: {
-                    key: "value",
+            return await client.organization.identityProviders.provisioning.updateAttributes({
+                idp_id: "idp_id",
+                body: {
+                    string: {
+                        key: "value",
+                    },
                 },
             });
         }).rejects.toThrow(MyOrganization.NotFoundError);
@@ -755,9 +665,12 @@ describe("Provisioning", () => {
             .build();
 
         await expect(async () => {
-            return await client.organization.identityProviders.provisioning.updateAttributes("idp_id", {
-                string: {
-                    key: "value",
+            return await client.organization.identityProviders.provisioning.updateAttributes({
+                idp_id: "idp_id",
+                body: {
+                    string: {
+                        key: "value",
+                    },
                 },
             });
         }).rejects.toThrow(MyOrganization.TooManyRequestsError);

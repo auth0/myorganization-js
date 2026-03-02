@@ -33,7 +33,9 @@ describe("ScimTokens", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.organization.identityProviders.provisioning.scimTokens.list("idp_id");
+        const response = await client.organization.identityProviders.provisioning.scimTokens.list({
+            idp_id: "idp_id",
+        });
         expect(response).toEqual({
             scim_tokens: [
                 {
@@ -66,7 +68,9 @@ describe("ScimTokens", () => {
             .build();
 
         await expect(async () => {
-            return await client.organization.identityProviders.provisioning.scimTokens.list("idp_id");
+            return await client.organization.identityProviders.provisioning.scimTokens.list({
+                idp_id: "idp_id",
+            });
         }).rejects.toThrow(MyOrganization.BadRequestError);
     });
 
@@ -84,7 +88,9 @@ describe("ScimTokens", () => {
             .build();
 
         await expect(async () => {
-            return await client.organization.identityProviders.provisioning.scimTokens.list("idp_id");
+            return await client.organization.identityProviders.provisioning.scimTokens.list({
+                idp_id: "idp_id",
+            });
         }).rejects.toThrow(MyOrganization.UnauthorizedError);
     });
 
@@ -102,7 +108,9 @@ describe("ScimTokens", () => {
             .build();
 
         await expect(async () => {
-            return await client.organization.identityProviders.provisioning.scimTokens.list("idp_id");
+            return await client.organization.identityProviders.provisioning.scimTokens.list({
+                idp_id: "idp_id",
+            });
         }).rejects.toThrow(MyOrganization.ForbiddenError);
     });
 
@@ -120,7 +128,9 @@ describe("ScimTokens", () => {
             .build();
 
         await expect(async () => {
-            return await client.organization.identityProviders.provisioning.scimTokens.list("idp_id");
+            return await client.organization.identityProviders.provisioning.scimTokens.list({
+                idp_id: "idp_id",
+            });
         }).rejects.toThrow(MyOrganization.NotFoundError);
     });
 
@@ -138,7 +148,9 @@ describe("ScimTokens", () => {
             .build();
 
         await expect(async () => {
-            return await client.organization.identityProviders.provisioning.scimTokens.list("idp_id");
+            return await client.organization.identityProviders.provisioning.scimTokens.list({
+                idp_id: "idp_id",
+            });
         }).rejects.toThrow(MyOrganization.TooManyRequestsError);
     });
 
@@ -162,7 +174,8 @@ describe("ScimTokens", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.organization.identityProviders.provisioning.scimTokens.create("idp_id", {
+        const response = await client.organization.identityProviders.provisioning.scimTokens.create({
+            idp_id: "idp_id",
             token_lifetime: 86400,
         });
         expect(response).toEqual({
@@ -189,7 +202,9 @@ describe("ScimTokens", () => {
             .build();
 
         await expect(async () => {
-            return await client.organization.identityProviders.provisioning.scimTokens.create("idp_id");
+            return await client.organization.identityProviders.provisioning.scimTokens.create({
+                idp_id: "idp_id",
+            });
         }).rejects.toThrow(MyOrganization.BadRequestError);
     });
 
@@ -208,7 +223,9 @@ describe("ScimTokens", () => {
             .build();
 
         await expect(async () => {
-            return await client.organization.identityProviders.provisioning.scimTokens.create("idp_id");
+            return await client.organization.identityProviders.provisioning.scimTokens.create({
+                idp_id: "idp_id",
+            });
         }).rejects.toThrow(MyOrganization.UnauthorizedError);
     });
 
@@ -227,7 +244,9 @@ describe("ScimTokens", () => {
             .build();
 
         await expect(async () => {
-            return await client.organization.identityProviders.provisioning.scimTokens.create("idp_id");
+            return await client.organization.identityProviders.provisioning.scimTokens.create({
+                idp_id: "idp_id",
+            });
         }).rejects.toThrow(MyOrganization.ForbiddenError);
     });
 
@@ -246,7 +265,9 @@ describe("ScimTokens", () => {
             .build();
 
         await expect(async () => {
-            return await client.organization.identityProviders.provisioning.scimTokens.create("idp_id");
+            return await client.organization.identityProviders.provisioning.scimTokens.create({
+                idp_id: "idp_id",
+            });
         }).rejects.toThrow(MyOrganization.NotFoundError);
     });
 
@@ -265,7 +286,9 @@ describe("ScimTokens", () => {
             .build();
 
         await expect(async () => {
-            return await client.organization.identityProviders.provisioning.scimTokens.create("idp_id");
+            return await client.organization.identityProviders.provisioning.scimTokens.create({
+                idp_id: "idp_id",
+            });
         }).rejects.toThrow(MyOrganization.TooManyRequestsError);
     });
 
@@ -280,10 +303,10 @@ describe("ScimTokens", () => {
             .statusCode(200)
             .build();
 
-        const response = await client.organization.identityProviders.provisioning.scimTokens.delete(
-            "idp_id",
-            "idp_scim_token_id",
-        );
+        const response = await client.organization.identityProviders.provisioning.scimTokens.delete({
+            idp_id: "idp_id",
+            idp_scim_token_id: "idp_scim_token_id",
+        });
         expect(response).toEqual(undefined);
     });
 
@@ -301,10 +324,10 @@ describe("ScimTokens", () => {
             .build();
 
         await expect(async () => {
-            return await client.organization.identityProviders.provisioning.scimTokens.delete(
-                "idp_id",
-                "idp_scim_token_id",
-            );
+            return await client.organization.identityProviders.provisioning.scimTokens.delete({
+                idp_id: "idp_id",
+                idp_scim_token_id: "idp_scim_token_id",
+            });
         }).rejects.toThrow(MyOrganization.BadRequestError);
     });
 
@@ -322,10 +345,10 @@ describe("ScimTokens", () => {
             .build();
 
         await expect(async () => {
-            return await client.organization.identityProviders.provisioning.scimTokens.delete(
-                "idp_id",
-                "idp_scim_token_id",
-            );
+            return await client.organization.identityProviders.provisioning.scimTokens.delete({
+                idp_id: "idp_id",
+                idp_scim_token_id: "idp_scim_token_id",
+            });
         }).rejects.toThrow(MyOrganization.UnauthorizedError);
     });
 
@@ -343,10 +366,10 @@ describe("ScimTokens", () => {
             .build();
 
         await expect(async () => {
-            return await client.organization.identityProviders.provisioning.scimTokens.delete(
-                "idp_id",
-                "idp_scim_token_id",
-            );
+            return await client.organization.identityProviders.provisioning.scimTokens.delete({
+                idp_id: "idp_id",
+                idp_scim_token_id: "idp_scim_token_id",
+            });
         }).rejects.toThrow(MyOrganization.ForbiddenError);
     });
 
@@ -364,10 +387,10 @@ describe("ScimTokens", () => {
             .build();
 
         await expect(async () => {
-            return await client.organization.identityProviders.provisioning.scimTokens.delete(
-                "idp_id",
-                "idp_scim_token_id",
-            );
+            return await client.organization.identityProviders.provisioning.scimTokens.delete({
+                idp_id: "idp_id",
+                idp_scim_token_id: "idp_scim_token_id",
+            });
         }).rejects.toThrow(MyOrganization.NotFoundError);
     });
 
@@ -385,10 +408,10 @@ describe("ScimTokens", () => {
             .build();
 
         await expect(async () => {
-            return await client.organization.identityProviders.provisioning.scimTokens.delete(
-                "idp_id",
-                "idp_scim_token_id",
-            );
+            return await client.organization.identityProviders.provisioning.scimTokens.delete({
+                idp_id: "idp_id",
+                idp_scim_token_id: "idp_scim_token_id",
+            });
         }).rejects.toThrow(MyOrganization.TooManyRequestsError);
     });
 });

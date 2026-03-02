@@ -278,7 +278,9 @@ describe("Domains", () => {
         };
         server.mockEndpoint().get("/domains/domain_id").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
 
-        const response = await client.organization.domains.get("domain_id");
+        const response = await client.organization.domains.get({
+            domain_id: "domain_id",
+        });
         expect(response).toEqual({
             id: "ord_aW1UHetvkBWSWdCCe8DWq7",
             org_id: "org_zW1UHutvkVWSWdCC",
@@ -297,7 +299,9 @@ describe("Domains", () => {
         server.mockEndpoint().get("/domains/domain_id").respondWith().statusCode(400).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.organization.domains.get("domain_id");
+            return await client.organization.domains.get({
+                domain_id: "domain_id",
+            });
         }).rejects.toThrow(MyOrganization.BadRequestError);
     });
 
@@ -309,7 +313,9 @@ describe("Domains", () => {
         server.mockEndpoint().get("/domains/domain_id").respondWith().statusCode(401).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.organization.domains.get("domain_id");
+            return await client.organization.domains.get({
+                domain_id: "domain_id",
+            });
         }).rejects.toThrow(MyOrganization.UnauthorizedError);
     });
 
@@ -321,7 +327,9 @@ describe("Domains", () => {
         server.mockEndpoint().get("/domains/domain_id").respondWith().statusCode(403).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.organization.domains.get("domain_id");
+            return await client.organization.domains.get({
+                domain_id: "domain_id",
+            });
         }).rejects.toThrow(MyOrganization.ForbiddenError);
     });
 
@@ -333,7 +341,9 @@ describe("Domains", () => {
         server.mockEndpoint().get("/domains/domain_id").respondWith().statusCode(404).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.organization.domains.get("domain_id");
+            return await client.organization.domains.get({
+                domain_id: "domain_id",
+            });
         }).rejects.toThrow(MyOrganization.NotFoundError);
     });
 
@@ -345,7 +355,9 @@ describe("Domains", () => {
         server.mockEndpoint().get("/domains/domain_id").respondWith().statusCode(429).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.organization.domains.get("domain_id");
+            return await client.organization.domains.get({
+                domain_id: "domain_id",
+            });
         }).rejects.toThrow(MyOrganization.TooManyRequestsError);
     });
 
@@ -355,7 +367,9 @@ describe("Domains", () => {
 
         server.mockEndpoint().delete("/domains/domain_id").respondWith().statusCode(200).build();
 
-        const response = await client.organization.domains.delete("domain_id");
+        const response = await client.organization.domains.delete({
+            domain_id: "domain_id",
+        });
         expect(response).toEqual(undefined);
     });
 
@@ -373,7 +387,9 @@ describe("Domains", () => {
             .build();
 
         await expect(async () => {
-            return await client.organization.domains.delete("domain_id");
+            return await client.organization.domains.delete({
+                domain_id: "domain_id",
+            });
         }).rejects.toThrow(MyOrganization.BadRequestError);
     });
 
@@ -391,7 +407,9 @@ describe("Domains", () => {
             .build();
 
         await expect(async () => {
-            return await client.organization.domains.delete("domain_id");
+            return await client.organization.domains.delete({
+                domain_id: "domain_id",
+            });
         }).rejects.toThrow(MyOrganization.UnauthorizedError);
     });
 
@@ -409,7 +427,9 @@ describe("Domains", () => {
             .build();
 
         await expect(async () => {
-            return await client.organization.domains.delete("domain_id");
+            return await client.organization.domains.delete({
+                domain_id: "domain_id",
+            });
         }).rejects.toThrow(MyOrganization.ForbiddenError);
     });
 
@@ -427,7 +447,9 @@ describe("Domains", () => {
             .build();
 
         await expect(async () => {
-            return await client.organization.domains.delete("domain_id");
+            return await client.organization.domains.delete({
+                domain_id: "domain_id",
+            });
         }).rejects.toThrow(MyOrganization.NotFoundError);
     });
 
@@ -445,7 +467,9 @@ describe("Domains", () => {
             .build();
 
         await expect(async () => {
-            return await client.organization.domains.delete("domain_id");
+            return await client.organization.domains.delete({
+                domain_id: "domain_id",
+            });
         }).rejects.toThrow(MyOrganization.TooManyRequestsError);
     });
 });

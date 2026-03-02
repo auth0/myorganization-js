@@ -23,7 +23,9 @@ describe("IdentityProviders", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.organization.domains.identityProviders.get("domain_id");
+        const response = await client.organization.domains.identityProviders.get({
+            domain_id: "domain_id",
+        });
         expect(response).toEqual({
             identity_providers: [
                 {
@@ -54,7 +56,9 @@ describe("IdentityProviders", () => {
             .build();
 
         await expect(async () => {
-            return await client.organization.domains.identityProviders.get("domain_id");
+            return await client.organization.domains.identityProviders.get({
+                domain_id: "domain_id",
+            });
         }).rejects.toThrow(MyOrganization.BadRequestError);
     });
 
@@ -72,7 +76,9 @@ describe("IdentityProviders", () => {
             .build();
 
         await expect(async () => {
-            return await client.organization.domains.identityProviders.get("domain_id");
+            return await client.organization.domains.identityProviders.get({
+                domain_id: "domain_id",
+            });
         }).rejects.toThrow(MyOrganization.UnauthorizedError);
     });
 
@@ -90,7 +96,9 @@ describe("IdentityProviders", () => {
             .build();
 
         await expect(async () => {
-            return await client.organization.domains.identityProviders.get("domain_id");
+            return await client.organization.domains.identityProviders.get({
+                domain_id: "domain_id",
+            });
         }).rejects.toThrow(MyOrganization.ForbiddenError);
     });
 
@@ -108,7 +116,9 @@ describe("IdentityProviders", () => {
             .build();
 
         await expect(async () => {
-            return await client.organization.domains.identityProviders.get("domain_id");
+            return await client.organization.domains.identityProviders.get({
+                domain_id: "domain_id",
+            });
         }).rejects.toThrow(MyOrganization.NotFoundError);
     });
 
@@ -126,7 +136,9 @@ describe("IdentityProviders", () => {
             .build();
 
         await expect(async () => {
-            return await client.organization.domains.identityProviders.get("domain_id");
+            return await client.organization.domains.identityProviders.get({
+                domain_id: "domain_id",
+            });
         }).rejects.toThrow(MyOrganization.TooManyRequestsError);
     });
 });

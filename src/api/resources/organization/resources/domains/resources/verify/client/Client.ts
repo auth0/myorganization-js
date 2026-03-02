@@ -23,7 +23,7 @@ export class Verify {
     /**
      * Get a verification text and start the domain verification process for a particular domain.
      *
-     * @param {MyOrganization.OrgDomainId} domainId
+     * @param {MyOrganization.CreateVerifyRequest} request
      * @param {Verify.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link MyOrganization.BadRequestError}
@@ -33,17 +33,19 @@ export class Verify {
      * @throws {@link MyOrganization.TooManyRequestsError}
      *
      * @example
-     *     await client.organization.domains.verify.create("domain_id")
+     *     await client.organization.domains.verify.create({
+     *         domain_id: "domain_id"
+     *     })
      */
     public create(
-        domainId: MyOrganization.OrgDomainId,
+        request: MyOrganization.CreateVerifyRequest,
         requestOptions?: Verify.RequestOptions,
     ): core.HttpResponsePromise<MyOrganization.StartOrganizationDomainVerificationResponseContent> {
-        return core.HttpResponsePromise.fromPromise(this.__create(domainId, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__create(request, requestOptions));
     }
 
     private async __create(
-        domainId: MyOrganization.OrgDomainId,
+        request: MyOrganization.CreateVerifyRequest,
         requestOptions?: Verify.RequestOptions,
     ): Promise<core.WithRawResponse<MyOrganization.StartOrganizationDomainVerificationResponseContent>> {
         const _metadata: core.EndpointMetadata = {
@@ -52,6 +54,7 @@ export class Verify {
                 { OAuth2AuthCode: ["update:my_org:domains"] },
             ],
         };
+        const { domain_id: domainId } = request;
         let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader(_metadata) }),

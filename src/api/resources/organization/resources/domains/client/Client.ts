@@ -260,7 +260,7 @@ export class Domains {
     /**
      * Retrieve a domain for an organization.
      *
-     * @param {MyOrganization.OrgDomainId} domainId
+     * @param {MyOrganization.GetDomainsRequest} request
      * @param {Domains.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link MyOrganization.BadRequestError}
@@ -270,17 +270,19 @@ export class Domains {
      * @throws {@link MyOrganization.TooManyRequestsError}
      *
      * @example
-     *     await client.organization.domains.get("domain_id")
+     *     await client.organization.domains.get({
+     *         domain_id: "domain_id"
+     *     })
      */
     public get(
-        domainId: MyOrganization.OrgDomainId,
+        request: MyOrganization.GetDomainsRequest,
         requestOptions?: Domains.RequestOptions,
     ): core.HttpResponsePromise<MyOrganization.GetOrganizationDomainResponseContent> {
-        return core.HttpResponsePromise.fromPromise(this.__get(domainId, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__get(request, requestOptions));
     }
 
     private async __get(
-        domainId: MyOrganization.OrgDomainId,
+        request: MyOrganization.GetDomainsRequest,
         requestOptions?: Domains.RequestOptions,
     ): Promise<core.WithRawResponse<MyOrganization.GetOrganizationDomainResponseContent>> {
         const _metadata: core.EndpointMetadata = {
@@ -289,6 +291,7 @@ export class Domains {
                 { OAuth2AuthCode: ["read:my_org:domains"] },
             ],
         };
+        const { domain_id: domainId } = request;
         let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader(_metadata) }),
@@ -370,7 +373,7 @@ export class Domains {
     /**
      * Remove a domain from this organization.
      *
-     * @param {MyOrganization.OrgDomainId} domainId
+     * @param {MyOrganization.DeleteDomainsRequest} request
      * @param {Domains.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link MyOrganization.BadRequestError}
@@ -380,17 +383,19 @@ export class Domains {
      * @throws {@link MyOrganization.TooManyRequestsError}
      *
      * @example
-     *     await client.organization.domains.delete("domain_id")
+     *     await client.organization.domains.delete({
+     *         domain_id: "domain_id"
+     *     })
      */
     public delete(
-        domainId: MyOrganization.OrgDomainId,
+        request: MyOrganization.DeleteDomainsRequest,
         requestOptions?: Domains.RequestOptions,
     ): core.HttpResponsePromise<void> {
-        return core.HttpResponsePromise.fromPromise(this.__delete(domainId, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__delete(request, requestOptions));
     }
 
     private async __delete(
-        domainId: MyOrganization.OrgDomainId,
+        request: MyOrganization.DeleteDomainsRequest,
         requestOptions?: Domains.RequestOptions,
     ): Promise<core.WithRawResponse<void>> {
         const _metadata: core.EndpointMetadata = {
@@ -399,6 +404,7 @@ export class Domains {
                 { OAuth2AuthCode: ["delete:my_org:domains"] },
             ],
         };
+        const { domain_id: domainId } = request;
         let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader(_metadata) }),

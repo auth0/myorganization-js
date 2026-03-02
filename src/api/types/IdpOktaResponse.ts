@@ -9,6 +9,7 @@ export interface IdpOktaResponse {
     strategy: "okta";
     /** Identity provider specific options. */
     options: MyOrganization.IdpOktaOptionsResponse;
+    attributes: MyOrganization.IdpUserAttributeMapItem[];
     id?: MyOrganization.IdpId;
     /** The name of the identity provider */
     name?: string | null;

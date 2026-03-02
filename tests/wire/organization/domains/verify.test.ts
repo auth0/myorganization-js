@@ -25,7 +25,9 @@ describe("Verify", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.organization.domains.verify.create("domain_id");
+        const response = await client.organization.domains.verify.create({
+            domain_id: "domain_id",
+        });
         expect(response).toEqual({
             id: "ord_aW1UHetvkBWSWdCCe8DWq7",
             org_id: "org_zW1UHutvkVWSWdCC",
@@ -50,7 +52,9 @@ describe("Verify", () => {
             .build();
 
         await expect(async () => {
-            return await client.organization.domains.verify.create("domain_id");
+            return await client.organization.domains.verify.create({
+                domain_id: "domain_id",
+            });
         }).rejects.toThrow(MyOrganization.BadRequestError);
     });
 
@@ -68,7 +72,9 @@ describe("Verify", () => {
             .build();
 
         await expect(async () => {
-            return await client.organization.domains.verify.create("domain_id");
+            return await client.organization.domains.verify.create({
+                domain_id: "domain_id",
+            });
         }).rejects.toThrow(MyOrganization.UnauthorizedError);
     });
 
@@ -86,7 +92,9 @@ describe("Verify", () => {
             .build();
 
         await expect(async () => {
-            return await client.organization.domains.verify.create("domain_id");
+            return await client.organization.domains.verify.create({
+                domain_id: "domain_id",
+            });
         }).rejects.toThrow(MyOrganization.ForbiddenError);
     });
 
@@ -104,7 +112,9 @@ describe("Verify", () => {
             .build();
 
         await expect(async () => {
-            return await client.organization.domains.verify.create("domain_id");
+            return await client.organization.domains.verify.create({
+                domain_id: "domain_id",
+            });
         }).rejects.toThrow(MyOrganization.NotFoundError);
     });
 
@@ -122,7 +132,9 @@ describe("Verify", () => {
             .build();
 
         await expect(async () => {
-            return await client.organization.domains.verify.create("domain_id");
+            return await client.organization.domains.verify.create({
+                domain_id: "domain_id",
+            });
         }).rejects.toThrow(MyOrganization.TooManyRequestsError);
     });
 });
