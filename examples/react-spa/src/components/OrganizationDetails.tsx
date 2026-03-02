@@ -1,10 +1,3 @@
-/**
- * React Component Example: Organization Details
- *
- * This component demonstrates how to use the MyOrganization SDK
- * with React for managing organization details
- */
-
 import { useState, useEffect } from "react";
 import { useMyOrganization } from "../hooks/useMyOrganization";
 import { MyOrganization } from "@auth0/myorganization-js";
@@ -54,87 +47,82 @@ export function OrganizationDetails() {
         }
     };
 
-    if (!isReady) {
-        return <div>Initializing...</div>;
-    }
-
-    if (loading && !details) {
-        return <div>Loading organization details...</div>;
+    if (!isReady || (loading && !details)) {
+        return (
+            <div className="loading-inline">
+                <span className="loading-spinner" />
+                Loading organization details&hellip;
+            </div>
+        );
     }
 
     if (error && !details) {
         return (
-            <div style={{ color: "red" }}>
-                <h3>Error</h3>
-                <p>{error}</p>
+            <div className="card">
+                <div className="card-body">
+                    <div className="alert alert-error">{error}</div>
+                </div>
             </div>
         );
     }
 
     return (
-        <div style={{ padding: "20px", maxWidth: "800px", margin: "0 auto" }}>
-            <h2>Organization Details</h2>
+        <div className="card">
+            <div className="card-header">
+                <h2>Organization Details</h2>
+                {!isEditing && (
+                    <button className="btn btn-sm" onClick={() => setIsEditing(true)}>
+                        Edit
+                    </button>
+                )}
+            </div>
 
-            {error && (
-                <div style={{ color: "red", padding: "10px", marginBottom: "10px", border: "1px solid red" }}>
-                    {error}
-                </div>
-            )}
+            <div className="card-body">
+                {error && <div className="alert alert-error">{error}</div>}
 
-            {!isEditing ? (
-                <div>
-                    <dl>
-                        <dt>
-                            <strong>ID:</strong>
-                        </dt>
-                        <dd>{details?.id}</dd>
+                {!isEditing ? (
+                    <div className="detail-grid">
+                        <span className="detail-label">ID</span>
+                        <span className="detail-value">{details?.id}</span>
 
-                        <dt>
-                            <strong>Name:</strong>
-                        </dt>
-                        <dd>{details?.name}</dd>
+                        <span className="detail-label">Name</span>
+                        <span className="detail-value">{details?.name}</span>
 
-                        <dt>
-                            <strong>Display Name:</strong>
-                        </dt>
-                        <dd>{details?.display_name || "-"}</dd>
+                        <span className="detail-label">Display Name</span>
+                        <span className="detail-value">{details?.display_name || "\u2014"}</span>
 
                         {details?.branding && (
                             <>
-                                <dt>
-                                    <strong>Branding:</strong>
-                                </dt>
-                                <dd>
+                                <span className="detail-label">Branding</span>
+                                <span className="detail-value">
                                     <pre>{JSON.stringify(details.branding, null, 2)}</pre>
-                                </dd>
+                                </span>
                             </>
                         )}
-                    </dl>
-
-                    <button onClick={() => setIsEditing(true)}>Edit Details</button>
-                </div>
-            ) : (
-                <form onSubmit={handleUpdate}>
-                    <div style={{ marginBottom: "10px" }}>
-                        <label>
-                            <strong>Display Name:</strong>
+                    </div>
+                ) : (
+                    <form onSubmit={handleUpdate}>
+                        <div className="form-group">
+                            <label className="form-label">Display Name</label>
                             <input
                                 type="text"
+                                className="form-input"
                                 value={displayName}
                                 onChange={(e) => setDisplayName(e.target.value)}
-                                style={{ marginLeft: "10px", padding: "5px" }}
                             />
-                        </label>
-                    </div>
+                        </div>
 
-                    <button type="submit" disabled={loading}>
-                        {loading ? "Saving..." : "Save"}
-                    </button>
-                    <button type="button" onClick={() => setIsEditing(false)} style={{ marginLeft: "10px" }}>
-                        Cancel
-                    </button>
-                </form>
-            )}
+                        <div className="form-actions">
+                            <button type="submit" className="btn btn-primary" disabled={loading}>
+                                {loading ? "Saving\u2026" : "Save"}
+                            </button>
+                            <button type="button" className="btn" onClick={() => setIsEditing(false)}>
+                                Cancel
+                            </button>
+                        </div>
+                    </form>
+                )}
+            </div>
         </div>
     );
 }

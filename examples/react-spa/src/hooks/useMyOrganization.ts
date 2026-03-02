@@ -18,7 +18,7 @@ import { useMemo, useCallback } from "react";
  * - Organization context from Auth0
  */
 export function useMyOrganization() {
-    const { getAccessTokenSilently, isAuthenticated, user } = useAuth0();
+    const { getAccessTokenSilently, getAccessTokenWithPopup, isAuthenticated } = useAuth0();
 
     // Create MyOrganization client with scope-aware token function
     const client = useMemo(() => {
@@ -30,16 +30,25 @@ export function useMyOrganization() {
             domain: import.meta.env.VITE_AUTH0_DOMAIN,
             // This is the recommended pattern: SDK passes required scopes automatically
             token: async ({ scope }) => {
+                const authorizationParams = {
+                    scope: `openid profile email ${scope}`,
+                    organization: import.meta.env.VITE_AUTH0_ORGANIZATION,
+                };
                 try {
-                    const token = await getAccessTokenSilently({
-                        authorizationParams: {
-                            // Combine default scopes with SDK-provided scopes
-                            scope: `openid profile email ${scope}`,
-                            organization: import.meta.env.VITE_AUTH0_ORGANIZATION,
-                        },
-                    });
-                    return token;
-                } catch (error) {
+                    return await getAccessTokenSilently({ authorizationParams });
+                } catch (error: any) {
+                    // If silent token acquisition fails due to consent, fall back to a popup
+                    // that only asks for consent (not a full re-login)
+                    if (error?.error === "consent_required" || error?.message?.includes("Consent required")) {
+                        const token = await getAccessTokenWithPopup({
+                            authorizationParams: {
+                                ...authorizationParams,
+                                prompt: "consent",
+                            },
+                        });
+                        if (!token) throw new Error("Failed to obtain access token via popup");
+                        return token;
+                    }
                     console.error("Failed to get access token:", error);
                     throw error;
                 }
@@ -95,43 +104,9 @@ export function useMyOrganization() {
         [client],
     );
 
-    // List identity providers
-    const listIdentityProviders = useCallback(async () => {
-        if (!client) throw new Error("Not authenticated");
-        return await client.organization.identityProviders.list();
-    }, [client]);
-
-    // Create identity provider
-    const createIdentityProvider = useCallback(
-        async (data: MyOrganization.CreateIdentityProviderRequestContent) => {
-            if (!client) throw new Error("Not authenticated");
-            return await client.organization.identityProviders.create(data);
-        },
-        [client],
-    );
-
-    // Update identity provider
-    const updateIdentityProvider = useCallback(
-        async (idpId: string, data: MyOrganization.UpdateIdentityProviderRequestContent) => {
-            if (!client) throw new Error("Not authenticated");
-            return await client.organization.identityProviders.update(idpId, data);
-        },
-        [client],
-    );
-
-    // Delete identity provider
-    const deleteIdentityProvider = useCallback(
-        async (idpId: string) => {
-            if (!client) throw new Error("Not authenticated");
-            return await client.organization.identityProviders.delete(idpId);
-        },
-        [client],
-    );
-
     return {
         client,
         isReady: !!client,
-        user,
         // Organization Details
         getOrganizationDetails,
         updateOrganizationDetails,
@@ -140,10 +115,5 @@ export function useMyOrganization() {
         createDomain,
         verifyDomain,
         deleteDomain,
-        // Identity Providers
-        listIdentityProviders,
-        createIdentityProvider,
-        updateIdentityProvider,
-        deleteIdentityProvider,
     };
 }
