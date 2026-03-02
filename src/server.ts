@@ -76,7 +76,7 @@ export type ClientCredentialsProviderOptions =
  *   },
  *   {
  *     clientId: 'your-client-id',
- *     clientAssertionSigningKey: privateKey,
+ *     privateKey: privateKey,
  *     organization: 'org_123456789'
  *   }
  * );

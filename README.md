@@ -4,12 +4,13 @@
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![fern shield](https://img.shields.io/badge/%F0%9F%8C%BF-Built%20with%20Fern-brightgreen)](https://buildwithfern.com?utm_source=github&utm_medium=github&utm_campaign=readme&utm_source=https%3A%2F%2Fgithub.com%2Fauth0%2Fmyorganization-js)
 
-📚 [Documentation](#documentation) - 🚀 [Getting Started](#getting-started) - 💻 [API Reference](#api-reference) - 💬 [Feedback](#feedback)
+📚 [Documentation](#documentation) - 🚀 [Getting Started](#getting-started) - 💻 [API Reference](#api-reference) - � [Examples](#framework-examples) - 💬 [Feedback](#feedback)
 
 ## Documentation
 
 - [Docs Site](https://auth0.com/docs) - explore our docs site and learn more about Auth0
 - [API Reference](https://github.com/auth0/myorganization-js/blob/main/reference.md) - full reference for this library
+- [Framework Examples](./examples/) - production-ready examples for Express, Node.js, React, and vanilla JavaScript
 
 ## Getting Started
 
@@ -17,7 +18,7 @@
 
 This library supports the following tooling versions:
 
-- Node.js: 20 or higher
+- Node.js: 18 or higher
 
 ### Installation
 
@@ -29,7 +30,7 @@ npm install @auth0/myorganization-js
 
 ### Configure the SDK
 
-The MyOrganization client allows you to manage Auth0 organizations, including members, roles, and domains.
+The MyOrganization client allows you to manage Auth0 organizations, including organization details, domains, identity providers, and configuration.
 
 Initialize your client with a domain and token supplier:
 
@@ -116,7 +117,7 @@ const client = createMyOrganizationClientWithClientCredentials(
     },
     {
         clientId: "YOUR_CLIENT_ID",
-        clientAssertionSigningKey: "YOUR_PRIVATE_KEY",
+        privateKey: "YOUR_PRIVATE_KEY",
         organization: "org_123456789",
     },
 );
@@ -173,7 +174,78 @@ await client.organization.domains.create(request);
 
 ### Key Classes
 
-- **MyOrganizationClient** - for managing organizations, members, roles, and domains
+- **MyOrganizationClient** - for managing organization details, domains, identity providers, and configuration
+
+## Framework Examples
+
+Comprehensive examples demonstrating how to use the MyOrganization SDK across different frameworks:
+
+### 🚀 Server-Side
+
+- **[Express TypeScript](./examples/express-typescript/)** - Core organization management REST API with domain and identity provider workflows
+- **[Node.js TypeScript](./examples/nodejs-typescript/)** - CLI tools and automation scripts
+- **[Node.js JavaScript](./examples/nodejs-javascript/)** - Vanilla JavaScript scripts and automation tasks
+
+### 🌐 Client-Side
+
+- **[React SPA](./examples/react-spa/)** - React application with Auth0 React SDK integration and custom hooks
+- **[Vanilla JavaScript SPA](./examples/vanilla-spa/)** - Pure JavaScript SPA with Auth0 SPA JS integration
+
+Each example includes:
+
+- ✅ Complete setup instructions
+- ✅ Environment configuration templates
+- ✅ Production-ready patterns
+- ✅ Comprehensive error handling
+- ✅ All SDK features demonstrated
+
+**Quick start:**
+
+```bash
+cd examples/[example-name]
+npm install
+cp .env.example .env
+# Configure .env with your Auth0 credentials
+npm run dev
+```
+
+### Key Patterns
+
+**Server-side (Express, Node.js):**
+
+```typescript
+import { createMyOrganizationClientWithClientCredentials } from "@auth0/myorganization-js/server";
+
+const client = createMyOrganizationClientWithClientCredentials(
+    { domain: "tenant.auth0.com" },
+    {
+        clientId: "YOUR_CLIENT_ID",
+        clientSecret: "YOUR_CLIENT_SECRET",
+        organization: "org_123456789",
+    },
+);
+```
+
+**Client-side (React, SPA) with automatic scope injection:**
+
+```typescript
+import { MyOrganizationClient } from "@auth0/myorganization-js";
+
+const client = new MyOrganizationClient({
+    domain: "tenant.auth0.com",
+    // SDK automatically passes required scopes for each API call
+    token: async ({ scope }) => {
+        return await auth0.getTokenSilently({
+            authorizationParams: {
+                scope: `openid profile email ${scope}`,
+                organization: "org_123456789",
+            },
+        });
+    },
+});
+```
+
+**[View all examples →](./examples/)**
 
 ## Exception Handling
 
@@ -198,32 +270,6 @@ try {
         console.log(err.body);
         console.log(err.rawResponse);
     }
-}
-```
-
-## Pagination
-
-Some list endpoints are paginated. You can manually iterate page-by-page:
-
-```typescript
-import { MyOrganizationClient } from "@auth0/myorganization-js";
-
-const client = new MyOrganizationClient({
-    domain: "{YOUR_TENANT_AND_REGION}.auth0.com",
-    token: "YOUR_ACCESS_TOKEN",
-});
-
-let page = await client.organization.members.list({
-    take: 10,
-});
-
-// Process first page
-console.log(page.data);
-
-// Get next pages
-while (page.hasNextPage()) {
-    page = await page.getNextPage();
-    console.log(page.data);
 }
 ```
 
@@ -337,7 +383,7 @@ console.log(rawResponse.headers["X-My-Header"]);
 
 The SDK works in the following runtimes:
 
-- Node.js 20 or higher
+- Node.js 18 or higher
 - Vercel
 - Cloudflare Workers
 - Deno v1.25+
