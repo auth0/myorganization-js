@@ -247,14 +247,12 @@ app.get(
  *   "strategy": "oidc",
  *   "name": "my-oidc-provider",
  *   "display_name": "Company SSO",
- *   "show_as_button": true,
- *   "assign_membership_on_login": true,
  *   "is_enabled": true,
  *   "options": {
  *     "type": "back_channel",
  *     "client_id": "oidc-client-id",
  *     "client_secret": "oidc-client-secret",
- *     "discovery_url": "https://idp.company.com/.well-known/openid-configuration"
+ *     "discovery_url": "https://auth0.auth0.com/.well-known/openid-configuration"
  *   }
  * }
  */
@@ -383,7 +381,7 @@ app.post(
  *   "displayName": "Company SSO",
  *   "clientId": "oidc-client-id",
  *   "clientSecret": "oidc-client-secret",
- *   "discoveryUrl": "https://idp.company.com/.well-known/openid-configuration",
+ *   "discoveryUrl": "https://auth0.auth0.com/.well-known/openid-configuration",
  *   "domain": "company.com"   // optional: enables Home Realm Discovery
  * }
  */
@@ -403,8 +401,6 @@ app.post(
             strategy: "oidc",
             name,
             display_name: displayName,
-            show_as_button: true,
-            assign_membership_on_login: true,
             is_enabled: true,
             options: {
                 type: "back_channel",

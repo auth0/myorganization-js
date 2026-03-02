@@ -141,7 +141,7 @@ program
     .requiredOption("--client-secret <clientSecret>", "OIDC client secret")
     .requiredOption(
         "--discovery-url <discoveryUrl>",
-        "OIDC discovery URL (e.g. https://idp.company.com/.well-known/openid-configuration)",
+        "OIDC discovery URL (e.g. https://auth0.auth0.com/.well-known/openid-configuration)",
     )
     .action(async (options) => {
         try {
@@ -151,8 +151,6 @@ program
                 strategy: "oidc",
                 name: options.name,
                 display_name: options.displayName,
-                show_as_button: true,
-                assign_membership_on_login: true,
                 is_enabled: true,
                 options: {
                     type: "back_channel",

@@ -138,8 +138,6 @@ async function createOIDCProvider(config) {
             strategy: "oidc",
             name: config.name,
             display_name: config.displayName,
-            show_as_button: true,
-            assign_membership_on_login: true,
             is_enabled: true,
             options: {
                 type: "back_channel",

@@ -107,14 +107,12 @@ curl -X POST http://localhost:3000/api/identity-providers \
     "strategy": "oidc",
     "name": "my-oidc-provider",
     "display_name": "Company SSO",
-    "show_as_button": true,
-    "assign_membership_on_login": true,
     "is_enabled": true,
     "options": {
       "type": "back_channel",
       "client_id": "oidc-client-id",
       "client_secret": "oidc-client-secret",
-      "discovery_url": "https://idp.company.com/.well-known/openid-configuration"
+      "discovery_url": "https://auth0.auth0.com/.well-known/openid-configuration"
     }
   }'
 ```
@@ -128,13 +126,11 @@ curl -X POST http://localhost:3000/api/identity-providers \
     "strategy": "samlp",
     "name": "my-saml-provider",
     "display_name": "Company SAML SSO",
-    "show_as_button": true,
-    "assign_membership_on_login": true,
     "is_enabled": true,
     "options": {
-      "sign_in_endpoint": "https://idp.company.com/sso/saml",
-      "signing_cert": "-----BEGIN CERTIFICATE-----\n...\n-----END CERTIFICATE-----",
-      "protocol_binding": "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"
+      "signInEndpoint": "https://idp.company.com/sso/saml",
+      "cert": "-----BEGIN CERTIFICATE-----\n...\n-----END CERTIFICATE-----",
+      "signSAMLRequest": true
     }
   }'
 ```
@@ -159,7 +155,7 @@ curl -X POST http://localhost:3000/api/workflows/setup-oidc-sso \
     "displayName": "Company SSO",
     "clientId": "oidc-client-id",
     "clientSecret": "oidc-client-secret",
-    "discoveryUrl": "https://idp.company.com/.well-known/openid-configuration",
+    "discoveryUrl": "https://auth0.auth0.com/.well-known/openid-configuration",
     "domain": "company.com"
   }'
 ```

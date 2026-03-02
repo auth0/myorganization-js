@@ -44,7 +44,7 @@ npm start idp:create-oidc \
   --display-name "My Company SSO" \
   --client-id oidc-client-id \
   --client-secret oidc-client-secret \
-  --discovery-url https://idp.company.com/.well-known/openid-configuration
+  --discovery-url https://auth0.auth0.com/.well-known/openid-configuration
 ```
 
 ## Key Patterns
