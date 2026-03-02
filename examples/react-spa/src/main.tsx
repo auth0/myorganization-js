@@ -4,6 +4,9 @@ import { Auth0Provider } from "@auth0/auth0-react";
 import { App } from "./App";
 import "./index.css";
 
+const audience =
+    import.meta.env.VITE_AUTH0_AUDIENCE || `https://${import.meta.env.VITE_AUTH0_DOMAIN}/my-org/`;
+
 ReactDOM.createRoot(document.getElementById("root")!).render(
     <React.StrictMode>
         <Auth0Provider
@@ -12,7 +15,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
             authorizationParams={{
                 redirect_uri: import.meta.env.VITE_AUTH0_REDIRECT_URI || window.location.origin,
                 organization: import.meta.env.VITE_AUTH0_ORGANIZATION,
-                ...(import.meta.env.VITE_AUTH0_AUDIENCE && { audience: import.meta.env.VITE_AUTH0_AUDIENCE }),
+                audience,
             }}
         >
             <App />

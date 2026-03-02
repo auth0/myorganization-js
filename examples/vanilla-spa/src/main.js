@@ -11,13 +11,13 @@ import { MyOrganizationClient } from "@auth0/myorganization-js";
 let auth0Client;
 let myOrgClient;
 
+const audience =
+    import.meta.env.VITE_AUTH0_AUDIENCE || `https://${import.meta.env.VITE_AUTH0_DOMAIN}/my-org/`;
+
 // ========================================
 // INITIALIZATION
 // ========================================
 
-/**
- * Initialize Auth0 and MyOrganization clients, then set up the UI.
- */
 async function initializeClients() {
     try {
         auth0Client = await createAuth0Client({
@@ -26,6 +26,7 @@ async function initializeClients() {
             authorizationParams: {
                 redirect_uri: window.location.origin,
                 organization: import.meta.env.VITE_AUTH0_ORGANIZATION,
+                audience,
             },
         });
 
@@ -37,32 +38,44 @@ async function initializeClients() {
 
         const isAuthenticated = await auth0Client.isAuthenticated();
 
+        // Hide the loading screen
+        document.getElementById("loading-screen").classList.add("hidden");
+
         if (isAuthenticated) {
             await setupMyOrganizationClient();
             showApp();
         } else {
-            showUnauthenticatedState();
+            showLoginPage();
         }
     } catch (error) {
         console.error("Error initializing clients:", error);
+        document.getElementById("loading-screen").classList.add("hidden");
+        showLoginPage();
         showError("Failed to initialize application. Check your configuration.");
     }
 }
 
-/**
- * Set up the MyOrganization client with a scope-aware token function.
- * The SDK automatically passes the required scopes for each API call.
- */
 async function setupMyOrganizationClient() {
     myOrgClient = new MyOrganizationClient({
         domain: import.meta.env.VITE_AUTH0_DOMAIN,
         token: async ({ scope }) => {
-            return await auth0Client.getTokenSilently({
-                authorizationParams: {
-                    scope: `openid profile email ${scope}`,
-                    organization: import.meta.env.VITE_AUTH0_ORGANIZATION,
-                },
-            });
+            const authorizationParams = {
+                scope: `openid profile email ${scope}`,
+                organization: import.meta.env.VITE_AUTH0_ORGANIZATION,
+                audience,
+            };
+            try {
+                return await auth0Client.getTokenSilently({ authorizationParams });
+            } catch (error) {
+                if (error?.error === "consent_required" || error?.message?.includes("Consent required")) {
+                    const token = await auth0Client.getTokenWithPopup({
+                        authorizationParams: { ...authorizationParams, prompt: "consent" },
+                    });
+                    if (!token) throw new Error("Failed to obtain access token via popup");
+                    return token;
+                }
+                throw error;
+            }
         },
     });
 }
@@ -94,39 +107,50 @@ async function logout() {
 // UI STATE
 // ========================================
 
-/**
- * Show the unauthenticated state: welcome message visible, app hidden.
- */
-function showUnauthenticatedState() {
-    document.getElementById("login-message").classList.remove("hidden");
+function showLoginPage() {
+    document.getElementById("login-page").classList.remove("hidden");
     document.getElementById("app").classList.add("hidden");
-    document.getElementById("login-btn").classList.remove("hidden");
-    document.getElementById("logout-btn").classList.add("hidden");
-
     document.getElementById("login-btn").addEventListener("click", login);
 }
 
-/**
- * Show the authenticated app: hide welcome message, show app content.
- */
-function showApp() {
-    document.getElementById("login-message").classList.add("hidden");
+async function showApp() {
+    document.getElementById("login-page").classList.add("hidden");
     document.getElementById("app").classList.remove("hidden");
-    document.getElementById("login-btn").classList.add("hidden");
-    document.getElementById("logout-btn").classList.remove("hidden");
 
+    // Display user email
+    const user = await auth0Client.getUser();
+    if (user?.email) {
+        document.getElementById("user-email").textContent = user.email;
+    }
+
+    // Wire up event listeners
     document.getElementById("logout-btn").addEventListener("click", logout);
     document.getElementById("add-domain-btn").addEventListener("click", addDomain);
 
-    // Load data into the placeholder divs
+    // Tab navigation
+    document.querySelectorAll(".app-nav button").forEach((btn) => {
+        btn.addEventListener("click", () => switchTab(btn.dataset.tab));
+    });
+
+    // Load initial data
     loadOrganizationDetails();
     loadDomains();
-    loadIdentityProviders();
+}
+
+function switchTab(tab) {
+    // Update nav buttons
+    document.querySelectorAll(".app-nav button").forEach((btn) => {
+        btn.classList.toggle("active", btn.dataset.tab === tab);
+    });
+
+    // Toggle panels
+    document.getElementById("panel-details").classList.toggle("hidden", tab !== "details");
+    document.getElementById("panel-domains").classList.toggle("hidden", tab !== "domains");
 }
 
 function showError(message) {
     const container = document.getElementById("error-container");
-    container.innerHTML = `<div class="error">${message}</div>`;
+    container.innerHTML = `<div class="alert alert-error">${message}</div>`;
     setTimeout(() => {
         container.innerHTML = "";
     }, 5000);
@@ -138,24 +162,24 @@ function showError(message) {
 
 async function loadOrganizationDetails() {
     const container = document.getElementById("org-details");
-    container.innerHTML = '<p class="loading">Loading...</p>';
+    container.innerHTML = '<div class="loading-inline"><span class="loading-spinner"></span> Loading organization details&hellip;</div>';
 
     try {
         const details = await myOrgClient.organizationDetails.get();
 
         container.innerHTML = `
-      <dl>
-        <dt><strong>ID:</strong></dt>
-        <dd>${details.id || "—"}</dd>
-        <dt><strong>Name:</strong></dt>
-        <dd>${details.name || "—"}</dd>
-        <dt><strong>Display Name:</strong></dt>
-        <dd>${details.display_name || "—"}</dd>
-      </dl>
-    `;
+            <div class="detail-grid">
+                <span class="detail-label">ID</span>
+                <span class="detail-value">${details.id || "\u2014"}</span>
+                <span class="detail-label">Name</span>
+                <span class="detail-value">${details.name || "\u2014"}</span>
+                <span class="detail-label">Display Name</span>
+                <span class="detail-value">${details.display_name || "\u2014"}</span>
+            </div>
+        `;
     } catch (error) {
         console.error("Error loading organization details:", error);
-        container.innerHTML = '<p class="error">Failed to load organization details.</p>';
+        container.innerHTML = '<div class="alert alert-error">Failed to load organization details.</div>';
     }
 }
 
@@ -165,48 +189,63 @@ async function loadOrganizationDetails() {
 
 async function loadDomains() {
     const container = document.getElementById("domains-list");
-    container.innerHTML = '<p class="loading">Loading...</p>';
+    container.innerHTML = '<div class="loading-inline"><span class="loading-spinner"></span> Loading domains&hellip;</div>';
 
     try {
         const result = await myOrgClient.organization.domains.list({ take: 20 });
         const domains = result.organization_domains || [];
 
         if (domains.length === 0) {
-            container.innerHTML = '<p class="info-text">No domains yet. Add your first domain above.</p>';
+            container.innerHTML = '<div class="empty-state">No domains yet. Add your first domain above.</div>';
             return;
         }
 
-        container.innerHTML = domains
-            .map(
-                (domain) => `
-      <div class="list-item">
-        <div>
-          <strong>${domain.domain}</strong>
-          <span class="badge ${domain.status === "verified" ? "badge-success" : "badge-warning"}">
-            ${domain.status}
-          </span>
-        </div>
-        <div class="actions">
-          ${domain.status === "pending"
-                        ? `
-            <button class="btn btn-secondary" data-action="get-txt" data-id="${domain.id}">Get TXT Record</button>
-            <button class="btn btn-secondary" data-action="verify" data-id="${domain.id}">Verify</button>
-          `
-                        : ""
-                    }
-          <button class="btn btn-danger" data-action="delete-domain" data-id="${domain.id}">Delete</button>
-        </div>
-      </div>
-    `,
-            )
-            .join("");
+        container.innerHTML = `
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Domain</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${domains
+                        .map(
+                            (domain) => `
+                        <tr>
+                            <td>${domain.domain}</td>
+                            <td>
+                                <span class="badge ${domain.status === "verified" ? "badge-success" : "badge-warning"}">
+                                    ${domain.status}
+                                </span>
+                            </td>
+                            <td>
+                                <div class="actions">
+                                    ${domain.status === "pending"
+                                        ? `
+                                        <button class="btn btn-sm" data-action="get-txt" data-id="${domain.id}">TXT Record</button>
+                                        <button class="btn btn-sm btn-primary" data-action="verify" data-id="${domain.id}">Verify</button>
+                                    `
+                                        : ""
+                                    }
+                                    <button class="btn btn-sm btn-danger" data-action="delete-domain" data-id="${domain.id}">Delete</button>
+                                </div>
+                            </td>
+                        </tr>
+                    `,
+                        )
+                        .join("")}
+                </tbody>
+            </table>
+        `;
 
         container.querySelectorAll("[data-action]").forEach((btn) => {
             btn.addEventListener("click", handleDomainAction);
         });
     } catch (error) {
         console.error("Error loading domains:", error);
-        container.innerHTML = '<p class="error">Failed to load domains.</p>';
+        container.innerHTML = '<div class="alert alert-error" style="margin: 24px;">Failed to load domains.</div>';
     }
 }
 
@@ -243,10 +282,10 @@ async function getDomainVerification(domainId) {
     try {
         const details = await myOrgClient.organization.domains.get(domainId);
         alert(
-            `Add this TXT record to your DNS:\n\n` +
-            `Host:  ${details.verification_host}\n` +
+            `Verification TXT Record:\n\n` +
+            `Host: ${details.verification_host}\n` +
             `Value: ${details.verification_txt}\n\n` +
-            `After DNS propagates (5–30 min), click Verify.`,
+            `Add this TXT record to your DNS, then click Verify.`,
         );
     } catch (error) {
         console.error("Error getting domain verification:", error);
@@ -273,67 +312,6 @@ async function deleteDomain(domainId) {
     } catch (error) {
         console.error("Error deleting domain:", error);
         showError("Failed to delete domain.");
-    }
-}
-
-// ========================================
-// IDENTITY PROVIDERS
-// ========================================
-
-async function loadIdentityProviders() {
-    const container = document.getElementById("idps-list");
-    container.innerHTML = '<p class="loading">Loading...</p>';
-
-    try {
-        const result = await myOrgClient.organization.identityProviders.list();
-        const idps = result.identity_providers || [];
-
-        if (idps.length === 0) {
-            container.innerHTML = '<p class="info-text">No identity providers configured.</p>';
-            return;
-        }
-
-        container.innerHTML = idps
-            .map(
-                (idp) => `
-      <div class="list-item">
-        <div>
-          <strong>${idp.display_name || idp.name}</strong>
-          <span class="badge badge-info">${idp.strategy}</span>
-          <span class="badge ${idp.is_enabled ? "badge-success" : "badge-warning"}">
-            ${idp.is_enabled ? "Enabled" : "Disabled"}
-          </span>
-        </div>
-        <div class="actions">
-          <button class="btn btn-danger" data-action="delete-idp" data-id="${idp.id}">Delete</button>
-        </div>
-      </div>
-    `,
-            )
-            .join("");
-
-        container.querySelectorAll("[data-action]").forEach((btn) => {
-            btn.addEventListener("click", handleIdpAction);
-        });
-    } catch (error) {
-        console.error("Error loading identity providers:", error);
-        container.innerHTML = '<p class="error">Failed to load identity providers.</p>';
-    }
-}
-
-function handleIdpAction(event) {
-    deleteIdp(event.currentTarget.dataset.id);
-}
-
-async function deleteIdp(idpId) {
-    if (!confirm("Delete this identity provider?")) return;
-
-    try {
-        await myOrgClient.organization.identityProviders.delete(idpId);
-        await loadIdentityProviders();
-    } catch (error) {
-        console.error("Error deleting identity provider:", error);
-        showError("Failed to delete identity provider.");
     }
 }
 
