@@ -82,6 +82,7 @@ export default [
             "*.config.mjs",
             "example.ts",
             "tests/mock-server/**",
+            "examples/**", // Examples are documentation with separate dependencies
         ],
     },
 ];
