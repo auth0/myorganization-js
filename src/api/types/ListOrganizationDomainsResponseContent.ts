@@ -4,6 +4,6 @@ import * as MyOrganization from "../index.js";
 
 export interface ListOrganizationDomainsResponseContent {
     /** Pagination cursor for the next page of results */
-    next?: string;
+    next?: string | undefined;
     organization_domains: MyOrganization.OrgDomain[];
 }

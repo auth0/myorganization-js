@@ -2,11 +2,11 @@
 
 export interface IdpUpdateBase {
     /** Identity provider name used on the login screen. Requires access_level to be 'full' */
-    display_name?: string;
+    display_name?: string | undefined;
     /** Enables showing a button for the connection in the login page (new experience only). If false, it will be usable only by Home Realm Discovery (HRD). Requires access_level to be 'full' or 'limited' */
-    show_as_button?: boolean;
+    show_as_button?: boolean | undefined;
     /** If true, the user will be made a member of the organization upon login. Requires access_level to be 'full' or 'limited'. */
-    assign_membership_on_login?: boolean;
+    assign_membership_on_login?: boolean | undefined;
     /** True if the identity provider is enabled for the organization. Requires access_level to be 'full' or 'limited' */
-    is_enabled?: boolean;
+    is_enabled?: boolean | undefined;
 }

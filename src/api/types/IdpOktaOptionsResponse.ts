@@ -2,9 +2,9 @@
 
 export interface IdpOktaOptionsResponse {
     /** Okta's domain name for your organization. */
-    domain?: string;
+    domain?: string | undefined;
     /** Unique identifier for your registered Okta application */
-    client_id?: string;
+    client_id?: string | undefined;
     /** A URL pointing to an image file that represents your client application. */
-    icon_url?: string;
+    icon_url?: string | undefined;
 }

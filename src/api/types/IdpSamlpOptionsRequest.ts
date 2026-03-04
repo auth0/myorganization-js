@@ -4,8 +4,8 @@ import * as MyOrganization from "../index.js";
 
 export type IdpSamlpOptionsRequest =
     | {
-          metadataUrl?: string | undefined;
-          signSAMLRequest?: boolean | undefined;
+          metadataUrl: string;
+          signSAMLRequest: boolean;
           signatureAlgorithm?: MyOrganization.IdpSignAlgTypeEnum | undefined;
           digestAlgorithm?: MyOrganization.IdpSignAlgDigestTypeEnum | undefined;
           protocolBinding?: MyOrganization.IdpProtocolBindingTypeEnum | undefined;
@@ -15,9 +15,9 @@ export type IdpSamlpOptionsRequest =
           icon_url?: string | undefined;
       }
     | {
-          signInEndpoint?: string | undefined;
-          cert?: string | undefined;
-          signSAMLRequest?: boolean | undefined;
+          signInEndpoint: string;
+          cert: string;
+          signSAMLRequest: boolean;
           signatureAlgorithm?: MyOrganization.IdpSignAlgTypeEnum | undefined;
           digestAlgorithm?: MyOrganization.IdpSignAlgDigestTypeEnum | undefined;
           protocolBinding?: MyOrganization.IdpProtocolBindingTypeEnum | undefined;

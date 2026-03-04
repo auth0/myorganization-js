@@ -7,5 +7,5 @@ import * as MyOrganization from "../index.js";
  */
 export interface IdpSamlpUpdateRequest extends MyOrganization.IdpUpdateBase {
     /** Identity provider specific options.  Requires access_level to be 'full'. */
-    options?: MyOrganization.IdpSamlpOptionsRequest;
+    options?: MyOrganization.IdpSamlpOptionsRequest | undefined;
 }

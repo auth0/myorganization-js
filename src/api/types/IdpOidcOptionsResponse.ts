@@ -3,9 +3,9 @@
 import * as MyOrganization from "../index.js";
 
 export interface IdpOidcOptionsResponse {
-    type?: MyOrganization.IdpOidcOptionsTypeEnum;
+    type?: MyOrganization.IdpOidcOptionsTypeEnum | undefined;
     /** The identifier given to you by your provider. Unique identifier for your registered application. */
-    client_id?: string;
+    client_id?: string | undefined;
     /** The URL where the OIDC Identity Provider publishes its OpenID Provider Configuration Information */
-    discovery_url?: string;
+    discovery_url?: string | undefined;
 }

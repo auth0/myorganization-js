@@ -3,14 +3,14 @@
 import * as MyOrganization from "../index.js";
 
 export interface OrgMember extends MyOrganization.UserAttributes {
-    user_id?: MyOrganization.OrgMemberId;
+    user_id?: MyOrganization.OrgMemberId | undefined;
     /** Is member a guest. */
-    is_guest?: boolean;
-    roles?: MyOrganization.OrgMemberRole[];
+    is_guest?: boolean | undefined;
+    roles?: MyOrganization.OrgMemberRole[] | undefined;
     /** Date and time when this user was created (ISO_8601 format). */
-    created_at?: string;
+    created_at?: string | undefined;
     /** Date and time when this user was last updated (ISO_8601 format). */
-    updated_at?: string;
+    updated_at?: string | undefined;
     /** Last date and time this user logged in (ISO_8601 format). */
-    last_login?: string;
+    last_login?: string | undefined;
 }

@@ -3,10 +3,10 @@
 import * as MyOrganization from "../index.js";
 
 export interface OrgDetails {
-    id?: MyOrganization.OrgId;
+    id?: MyOrganization.OrgId | undefined;
     /** The name of this organization. */
-    name?: string;
+    name?: string | undefined;
     /** Friendly name of this organization. */
-    display_name?: string;
-    branding?: MyOrganization.OrgBranding;
+    display_name?: string | undefined;
+    branding?: MyOrganization.OrgBranding | undefined;
 }

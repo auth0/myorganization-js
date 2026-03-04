@@ -4,9 +4,9 @@ export interface IdpScimTokenBase {
     /** The token identifier. */
     token_id: string;
     /** The token's scopes. */
-    scopes?: string[];
+    scopes?: string[] | undefined;
     /** The token's created at timestamp. */
     created_at: string;
     /** The token's valid until at timestamp (will not exist for non-expiring tokens). */
-    valid_until?: string;
+    valid_until?: string | undefined;
 }

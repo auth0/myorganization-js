@@ -1,16 +1,18 @@
 {
     "name": "@auth0/myorganization-js",
-    "version": "1.0.0-beta.3",
+    "version": "1.0.1",
     "private": false,
-    "repository": "github:auth0/myorganization-js",
-    "license": "Apache-2.0",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/auth0/myorganization-js.git"
+    },
+    "license": "MIT",
     "type": "commonjs",
     "main": "./dist/cjs/index.js",
     "module": "./dist/esm/index.mjs",
     "types": "./dist/cjs/index.d.ts",
     "exports": {
         ".": {
-            "types": "./dist/cjs/index.d.ts",
             "import": {
                 "types": "./dist/esm/index.d.mts",
                 "default": "./dist/esm/index.mjs"
@@ -20,6 +22,127 @@
                 "default": "./dist/cjs/index.js"
             },
             "default": "./dist/cjs/index.js"
+        },
+        "./organizationDetails": {
+            "import": {
+                "types": "./dist/esm/api/resources/organizationDetails/exports.d.mts",
+                "default": "./dist/esm/api/resources/organizationDetails/exports.mjs"
+            },
+            "require": {
+                "types": "./dist/cjs/api/resources/organizationDetails/exports.d.ts",
+                "default": "./dist/cjs/api/resources/organizationDetails/exports.js"
+            },
+            "default": "./dist/cjs/api/resources/organizationDetails/exports.js"
+        },
+        "./organization": {
+            "import": {
+                "types": "./dist/esm/api/resources/organization/exports.d.mts",
+                "default": "./dist/esm/api/resources/organization/exports.mjs"
+            },
+            "require": {
+                "types": "./dist/cjs/api/resources/organization/exports.d.ts",
+                "default": "./dist/cjs/api/resources/organization/exports.js"
+            },
+            "default": "./dist/cjs/api/resources/organization/exports.js"
+        },
+        "./organization/configuration": {
+            "import": {
+                "types": "./dist/esm/api/resources/organization/resources/configuration/exports.d.mts",
+                "default": "./dist/esm/api/resources/organization/resources/configuration/exports.mjs"
+            },
+            "require": {
+                "types": "./dist/cjs/api/resources/organization/resources/configuration/exports.d.ts",
+                "default": "./dist/cjs/api/resources/organization/resources/configuration/exports.js"
+            },
+            "default": "./dist/cjs/api/resources/organization/resources/configuration/exports.js"
+        },
+        "./organization/domains": {
+            "import": {
+                "types": "./dist/esm/api/resources/organization/resources/domains/exports.d.mts",
+                "default": "./dist/esm/api/resources/organization/resources/domains/exports.mjs"
+            },
+            "require": {
+                "types": "./dist/cjs/api/resources/organization/resources/domains/exports.d.ts",
+                "default": "./dist/cjs/api/resources/organization/resources/domains/exports.js"
+            },
+            "default": "./dist/cjs/api/resources/organization/resources/domains/exports.js"
+        },
+        "./organization/identityProviders": {
+            "import": {
+                "types": "./dist/esm/api/resources/organization/resources/identityProviders/exports.d.mts",
+                "default": "./dist/esm/api/resources/organization/resources/identityProviders/exports.mjs"
+            },
+            "require": {
+                "types": "./dist/cjs/api/resources/organization/resources/identityProviders/exports.d.ts",
+                "default": "./dist/cjs/api/resources/organization/resources/identityProviders/exports.js"
+            },
+            "default": "./dist/cjs/api/resources/organization/resources/identityProviders/exports.js"
+        },
+        "./organization/configuration/identityProviders": {
+            "import": {
+                "types": "./dist/esm/api/resources/organization/resources/configuration/resources/identityProviders/exports.d.mts",
+                "default": "./dist/esm/api/resources/organization/resources/configuration/resources/identityProviders/exports.mjs"
+            },
+            "require": {
+                "types": "./dist/cjs/api/resources/organization/resources/configuration/resources/identityProviders/exports.d.ts",
+                "default": "./dist/cjs/api/resources/organization/resources/configuration/resources/identityProviders/exports.js"
+            },
+            "default": "./dist/cjs/api/resources/organization/resources/configuration/resources/identityProviders/exports.js"
+        },
+        "./organization/domains/verify": {
+            "import": {
+                "types": "./dist/esm/api/resources/organization/resources/domains/resources/verify/exports.d.mts",
+                "default": "./dist/esm/api/resources/organization/resources/domains/resources/verify/exports.mjs"
+            },
+            "require": {
+                "types": "./dist/cjs/api/resources/organization/resources/domains/resources/verify/exports.d.ts",
+                "default": "./dist/cjs/api/resources/organization/resources/domains/resources/verify/exports.js"
+            },
+            "default": "./dist/cjs/api/resources/organization/resources/domains/resources/verify/exports.js"
+        },
+        "./organization/domains/identityProviders": {
+            "import": {
+                "types": "./dist/esm/api/resources/organization/resources/domains/resources/identityProviders/exports.d.mts",
+                "default": "./dist/esm/api/resources/organization/resources/domains/resources/identityProviders/exports.mjs"
+            },
+            "require": {
+                "types": "./dist/cjs/api/resources/organization/resources/domains/resources/identityProviders/exports.d.ts",
+                "default": "./dist/cjs/api/resources/organization/resources/domains/resources/identityProviders/exports.js"
+            },
+            "default": "./dist/cjs/api/resources/organization/resources/domains/resources/identityProviders/exports.js"
+        },
+        "./organization/identityProviders/domains": {
+            "import": {
+                "types": "./dist/esm/api/resources/organization/resources/identityProviders/resources/domains/exports.d.mts",
+                "default": "./dist/esm/api/resources/organization/resources/identityProviders/resources/domains/exports.mjs"
+            },
+            "require": {
+                "types": "./dist/cjs/api/resources/organization/resources/identityProviders/resources/domains/exports.d.ts",
+                "default": "./dist/cjs/api/resources/organization/resources/identityProviders/resources/domains/exports.js"
+            },
+            "default": "./dist/cjs/api/resources/organization/resources/identityProviders/resources/domains/exports.js"
+        },
+        "./organization/identityProviders/provisioning": {
+            "import": {
+                "types": "./dist/esm/api/resources/organization/resources/identityProviders/resources/provisioning/exports.d.mts",
+                "default": "./dist/esm/api/resources/organization/resources/identityProviders/resources/provisioning/exports.mjs"
+            },
+            "require": {
+                "types": "./dist/cjs/api/resources/organization/resources/identityProviders/resources/provisioning/exports.d.ts",
+                "default": "./dist/cjs/api/resources/organization/resources/identityProviders/resources/provisioning/exports.js"
+            },
+            "default": "./dist/cjs/api/resources/organization/resources/identityProviders/resources/provisioning/exports.js"
+        },
+        "./organization/identityProviders/provisioning/scimTokens": {
+            "import": {
+                "types": "./dist/esm/api/resources/organization/resources/identityProviders/resources/provisioning/resources/scimTokens/exports.d.mts",
+                "default": "./dist/esm/api/resources/organization/resources/identityProviders/resources/provisioning/resources/scimTokens/exports.mjs"
+            },
+            "require": {
+                "types": "./dist/cjs/api/resources/organization/resources/identityProviders/resources/provisioning/resources/scimTokens/exports.d.ts",
+                "default": "./dist/cjs/api/resources/organization/resources/identityProviders/resources/provisioning/resources/scimTokens/exports.js"
+            },
+            "default": "./dist/cjs/api/resources/organization/resources/identityProviders/resources/provisioning/resources/scimTokens/exports.js"
         },
         "./package.json": "./package.json",
         "./server": {
@@ -39,16 +162,15 @@
         "dist",
         "reference.md",
         "README.md",
-        "LICENSE",
-        "NOTICE"
+        "LICENSE"
     ],
     "scripts": {
         "format": "prettier . --write --ignore-unknown",
         "format:check": "prettier . --check --ignore-unknown",
         "lint": "eslint .",
         "lint:fix": "eslint . --fix",
-        "check": "pnpm format:check && pnpm lint",
-        "check:fix": "pnpm format && pnpm lint:fix",
+        "check": "pnpm format:check",
+        "check:fix": "pnpm format",
         "build": "pnpm build:cjs && pnpm build:esm",
         "build:cjs": "tsc --project ./tsconfig.cjs.json",
         "build:esm": "tsc --project ./tsconfig.esm.json && node scripts/rename-to-esm-files.js dist/esm",
@@ -60,6 +182,9 @@
         "lint:package": "publint --pack pnpm",
         "prepare": "husky"
     },
+    "dependencies": {
+        "@auth0/auth0-auth-js": "^1.1.0"
+    },
     "devDependencies": {
         "webpack": "^5.97.1",
         "ts-loader": "^9.5.1",
@@ -67,7 +192,7 @@
         "msw": "2.11.2",
         "@types/node": "^18.19.70",
         "typescript": "~5.7.2",
-        "prettier": "3.4.2",
+        "prettier": "3.7.4",
         "typedoc": "^0.28.13",
         "typedoc-plugin-missing-exports": "^4.1.0",
         "husky": "^9.1.7",
@@ -81,7 +206,8 @@
         "fs": false,
         "os": false,
         "path": false,
-        "stream": false
+        "stream": false,
+        "crypto": false
     },
     "packageManager": "pnpm@10.20.0",
     "engines": {
@@ -107,9 +233,6 @@
     },
     "publishConfig": {
         "access": "public"
-    },
-    "dependencies": {
-        "@auth0/auth0-auth-js": "^1.1.0"
     },
     "lint-staged": {
         "*.{js,jsx,ts,tsx}": [

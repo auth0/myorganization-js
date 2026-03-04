@@ -4,9 +4,9 @@ export interface ValidationErrorDetail {
     /** A detailed description of the error. */
     detail: string;
     /** The name of the invalid parameter. */
-    field?: string;
+    field?: string | undefined;
     /** JSON Pointer that points to the exact location of the error in a JSON document being validated. */
-    pointer?: string;
+    pointer?: string | undefined;
     /** Specifies the source of the error (e.g., body, query, or header in an HTML message). */
-    source?: string;
+    source?: string | undefined;
 }

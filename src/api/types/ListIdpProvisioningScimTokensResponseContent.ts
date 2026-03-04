@@ -3,5 +3,5 @@
 import * as MyOrganization from "../index.js";
 
 export interface ListIdpProvisioningScimTokensResponseContent {
-    scim_tokens?: MyOrganization.IdpScimTokenRead[];
+    scim_tokens?: MyOrganization.IdpScimTokenRead[] | undefined;
 }

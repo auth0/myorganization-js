@@ -5,5 +5,5 @@ import * as MyOrganization from "../index.js";
 export interface OrgMemberRole {
     id: MyOrganization.OrgMemberRoleId;
     name: string;
-    description?: string;
+    description?: string | undefined;
 }

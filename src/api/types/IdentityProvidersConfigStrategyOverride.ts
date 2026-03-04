@@ -6,11 +6,11 @@ import * as MyOrganization from "../index.js";
  * Strategy-specific overrides for identity providers
  */
 export interface IdentityProvidersConfigStrategyOverride {
-    adfs?: MyOrganization.IdentityProviderConfigAdfs;
-    googleapps?: MyOrganization.IdentityProviderConfigGoogleApps;
-    oidc?: MyOrganization.IdentityProviderConfigOidc;
-    okta?: MyOrganization.IdentityProviderConfigOkta;
-    pingfederate?: MyOrganization.IdentityProviderConfigPingFederate;
-    samlp?: MyOrganization.IdentityProviderConfigSamlp;
-    waad?: MyOrganization.IdentityProviderConfigWaad;
+    adfs?: MyOrganization.IdentityProviderConfigAdfs | undefined;
+    googleapps?: MyOrganization.IdentityProviderConfigGoogleApps | undefined;
+    oidc?: MyOrganization.IdentityProviderConfigOidc | undefined;
+    okta?: MyOrganization.IdentityProviderConfigOkta | undefined;
+    pingfederate?: MyOrganization.IdentityProviderConfigPingFederate | undefined;
+    samlp?: MyOrganization.IdentityProviderConfigSamlp | undefined;
+    waad?: MyOrganization.IdentityProviderConfigWaad | undefined;
 }
