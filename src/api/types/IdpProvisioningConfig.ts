@@ -5,11 +5,10 @@ import * as MyOrganization from "../index.js";
 export interface IdpProvisioningConfig {
     identity_provider_id: MyOrganization.IdpId;
     /** The name of the identity provider */
-    identity_provider_name?: string;
+    identity_provider_name?: string | undefined;
     strategy: MyOrganization.IdpStrategyEnum;
     method: MyOrganization.IdpProvisioningMethodEnum;
-    fields: MyOrganization.IdpProvisioningFieldMapItem[];
-    attributes?: MyOrganization.IdpProvisioningUserAttributeMapItem[];
+    attributes: MyOrganization.IdpProvisioningUserAttributeMapItem[];
     /** The ID of the user */
     user_id_attribute: string;
 }

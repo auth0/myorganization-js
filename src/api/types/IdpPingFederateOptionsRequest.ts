@@ -11,7 +11,7 @@ export interface IdpPingFederateOptionsRequest {
     pingFederateBaseUrl: string;
     /** PingFederate Server public key (encoded in PEM or CER) you retrieved from the IdP */
     signingCert: string;
-    idpInitiated?: MyOrganization.IdpOptionsIdpInitiated;
+    idpInitiated?: MyOrganization.IdpOptionsIdpInitiated | undefined;
     /** A URL pointing to an image file that represents your client application. */
-    icon_url?: string;
+    icon_url?: string | undefined;
 }

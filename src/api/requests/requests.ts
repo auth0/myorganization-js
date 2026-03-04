@@ -15,20 +15,209 @@ export interface CreateOrganizationDomainRequestContent {
 /**
  * @example
  *     {
+ *         domain_id: "domain_id"
+ *     }
+ */
+export interface GetDomainsRequest {
+    domain_id: MyOrganization.OrgDomainId;
+}
+
+/**
+ * @example
+ *     {
+ *         domain_id: "domain_id"
+ *     }
+ */
+export interface DeleteDomainsRequest {
+    domain_id: MyOrganization.OrgDomainId;
+}
+
+/**
+ * @example
+ *     {
+ *         idp_id: "idp_id"
+ *     }
+ */
+export interface GetIdentityProvidersRequest {
+    idp_id: MyOrganization.IdpId;
+}
+
+/**
+ * @example
+ *     {
+ *         idp_id: "idp_id"
+ *     }
+ */
+export interface DeleteIdentityProvidersRequest {
+    idp_id: MyOrganization.IdpId;
+}
+
+/**
+ * @example
+ *     {
+ *         idp_id: "idp_id",
+ *         body: {
+ *             display_name: "OIDC IdP",
+ *             show_as_button: true,
+ *             assign_membership_on_login: false,
+ *             is_enabled: true,
+ *             options: {
+ *                 type: "front_channel",
+ *                 client_id: "a8f3b2e7-5d1c-4f9a-8b0d-2e1c3a5b6f7d",
+ *                 client_secret: "KzQp2sVxR8nTgMjFhYcEWuLoIbDvUoC6A9B1zX7yWqFjHkGrP5sQdLmNp",
+ *                 discovery_url: "https://{yourDomain}/.well-known/openid-configuration"
+ *             }
+ *         }
+ *     }
+ */
+export interface UpdateIdentityProvidersRequest {
+    idp_id: MyOrganization.IdpId;
+    body: MyOrganization.UpdateIdentityProviderRequestContent;
+}
+
+/**
+ * @example
+ *     {
+ *         idp_id: "idp_id",
+ *         body: {
+ *             "key": "value"
+ *         }
+ *     }
+ */
+export interface UpdateAttributesIdentityProvidersRequest {
+    idp_id: MyOrganization.IdpId;
+    body: Record<string, unknown>;
+}
+
+/**
+ * @example
+ *     {
+ *         idp_id: "idp_id"
+ *     }
+ */
+export interface DetachIdentityProvidersRequest {
+    idp_id: MyOrganization.IdpId;
+}
+
+/**
+ * @example
+ *     {
+ *         domain_id: "domain_id"
+ *     }
+ */
+export interface CreateVerifyRequest {
+    domain_id: MyOrganization.OrgDomainId;
+}
+
+/**
+ * @example
+ *     {
+ *         domain_id: "domain_id"
+ *     }
+ */
+export interface GetIdentityProvidersRequest {
+    domain_id: MyOrganization.OrgDomainId;
+}
+
+/**
+ * @example
+ *     {
+ *         idp_id: "idp_id",
  *         domain: "my-domain.com"
  *     }
  */
 export interface CreateIdpDomainRequestContent {
+    idp_id: MyOrganization.IdpId;
     domain: MyOrganization.OrgDomainName;
 }
 
 /**
  * @example
  *     {
+ *         idp_id: "idp_id",
+ *         domain: "domain"
+ *     }
+ */
+export interface DeleteDomainsRequest {
+    idp_id: MyOrganization.IdpId;
+    domain: MyOrganization.OrgDomainName;
+}
+
+/**
+ * @example
+ *     {
+ *         idp_id: "idp_id"
+ *     }
+ */
+export interface GetProvisioningRequest {
+    idp_id: MyOrganization.IdpId;
+}
+
+/**
+ * @example
+ *     {
+ *         idp_id: "idp_id"
+ *     }
+ */
+export interface CreateProvisioningRequest {
+    idp_id: MyOrganization.IdpId;
+}
+
+/**
+ * @example
+ *     {
+ *         idp_id: "idp_id"
+ *     }
+ */
+export interface DeleteProvisioningRequest {
+    idp_id: MyOrganization.IdpId;
+}
+
+/**
+ * @example
+ *     {
+ *         idp_id: "idp_id",
+ *         body: {
+ *             "key": "value"
+ *         }
+ *     }
+ */
+export interface UpdateAttributesProvisioningRequest {
+    idp_id: MyOrganization.IdpId;
+    body: Record<string, unknown>;
+}
+
+/**
+ * @example
+ *     {
+ *         idp_id: "idp_id"
+ *     }
+ */
+export interface ListScimTokensRequest {
+    idp_id: MyOrganization.IdpId;
+}
+
+/**
+ * @example
+ *     {
+ *         idp_id: "idp_id",
  *         token_lifetime: 86400
  *     }
  */
 export interface CreateIdpProvisioningScimTokenRequestContent {
+    idp_id: MyOrganization.IdpId;
     /** Lifetime of the token in seconds. Do not set for non-expiring tokens. */
     token_lifetime?: number;
+}
+
+/**
+ * @example
+ *     {
+ *         idp_id: "idp_id",
+ *         idp_scim_token_id: "idp_scim_token_id"
+ *     }
+ */
+export interface DeleteScimTokensRequest {
+    idp_id: MyOrganization.IdpId;
+    idp_scim_token_id: MyOrganization.IdpProvisioningScimTokenId;
 }

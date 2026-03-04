@@ -7,5 +7,5 @@ import * as MyOrganization from "../index.js";
  */
 export interface IdpGoogleAppsUpdateRequest extends MyOrganization.IdpUpdateBase {
     /** Identity provider specific options.  Requires access_level to be 'full'. */
-    options?: MyOrganization.IdpGoogleAppsOptionsRequest;
+    options?: MyOrganization.IdpGoogleAppsOptionsRequest | undefined;
 }

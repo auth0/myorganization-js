@@ -8,5 +8,5 @@ export interface IdpWaadOptionsRequest {
     /** String used to gain access to your registered Azure AD application. */
     client_secret: string;
     /** A URL pointing to an image file that represents your client application. */
-    icon_url?: string;
+    icon_url?: string | undefined;
 }

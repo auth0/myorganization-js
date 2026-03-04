@@ -7,12 +7,12 @@ export interface MemberInvitation {
     organization_id: MyOrganization.OrgId;
     inviter: MyOrganization.MemberInvitationInviter;
     invitee: MyOrganization.MemberInvitationInvitee;
-    identity_provider_id?: MyOrganization.IdpId;
+    identity_provider_id?: MyOrganization.IdpId | undefined;
     /** The ISO 8601 formatted timestamp representing the creation time of the invitation. */
     created_at: string;
     /** The ISO 8601 formatted timestamp representing the expiration time of the invitation. */
     expires_at: string;
-    roles?: string[];
+    roles?: string[] | undefined;
     /** The invitation url to be sent to the invitee. */
     invitation_url: string;
     /** The ID of the invitation ticket. */

@@ -4,5 +4,5 @@ import * as MyOrganization from "../index.js";
 
 export interface IdpAdfsUpdateRequest extends MyOrganization.IdpUpdateBase {
     /** Identity provider specific options.  Requires access_level to be 'full'. */
-    options?: MyOrganization.IdpAdfsOptionsRequest;
+    options?: MyOrganization.IdpAdfsOptionsRequest | undefined;
 }
