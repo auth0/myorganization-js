@@ -29,8 +29,10 @@ export declare namespace MyOrganizationClient {
      * @group MyOrganization API
      * @public
      */
-    export interface MyOrganizationClientOptions
-        extends Omit<FernClient.Options, "token" | "environment" | "baseUrl" | "fetcher" | "fetch"> {
+    export interface MyOrganizationClientOptions extends Omit<
+        FernClient.Options,
+        "token" | "environment" | "baseUrl" | "fetcher" | "fetch"
+    > {
         /** Auth0 domain (e.g., 'your-tenant.auth0.com') */
         domain: string;
         /**
@@ -253,6 +255,9 @@ export class MyOrganizationClient extends FernClient {
         const clientOptions = {
             baseUrl: _options.baseUrl || baseUrl,
             headers,
+            logging: _options.logging,
+            timeoutInSeconds: _options.timeoutInSeconds,
+            maxRetries: _options.maxRetries,
             ...(fetcher && { fetcher }),
             ...(token !== undefined && { token }),
         } as FernClient.Options;
@@ -389,45 +394,13 @@ function createCoreFetcherSupplier(fetcherSupplier: Auth0FetcherSupplier, audien
         const authParams: Auth0Fetcher.AuthorizationParams | undefined =
             scopes.length > 0 ? { scope: scopes, audience: audience } : undefined;
 
-        // Build RequestInit from args
-        const init: RequestInit = {
-            method: args.method,
-            headers: args.headers as HeadersInit,
-            body: args.body ? JSON.stringify(args.body) : undefined,
-            signal: args.abortSignal,
-            credentials: args.withCredentials ? "include" : undefined,
+        // Wrap the user's fetcher as a standard fetch function so we can
+        // delegate to core.fetcher, which handles headers, body serialization,
+        // query params, retries, timeouts, and error handling.
+        const fetchFn = (input: RequestInfo | URL, init?: RequestInit): Promise<Response> => {
+            return fetcherSupplier(input.toString(), init, authParams);
         };
 
-        // Call user's custom fetch
-        const response = await fetcherSupplier(args.url, init, authParams);
-
-        // Convert Response to APIResponse
-        const responseBody = await response.text();
-        const rawResponse: core.RawResponse = {
-            headers: response.headers,
-            redirected: response.redirected,
-            status: response.status,
-            statusText: response.statusText,
-            type: response.type,
-            url: response.url,
-        };
-
-        if (response.ok) {
-            return {
-                ok: true,
-                body: responseBody ? (JSON.parse(responseBody) as R) : (undefined as R),
-                rawResponse,
-            };
-        } else {
-            return {
-                ok: false,
-                error: {
-                    reason: "status-code",
-                    statusCode: response.status,
-                    body: responseBody ? JSON.parse(responseBody) : undefined,
-                },
-                rawResponse,
-            };
-        }
+        return core.fetcher({ ...args, fetchFn });
     };
 }

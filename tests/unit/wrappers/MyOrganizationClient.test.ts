@@ -200,12 +200,13 @@ describe("MyOrganizationClient Unit Tests", () => {
 
             await wrappedFetcher!(mockArgs);
 
-            // Verify custom fetcher was called with correct params
+            // Verify custom fetcher was called with correct URL and authParams.
+            // core.fetcher builds the RequestInit internally (with Headers object,
+            // signal, etc.), so we verify the URL and authParams directly.
             expect(customFetcher).toHaveBeenCalledWith(
                 "https://test-domain.auth0.com/my-org/test",
                 expect.objectContaining({
                     method: "GET",
-                    headers: { "Custom-Header": "value" },
                 }),
                 expect.objectContaining({
                     scope: ["read:organizations", "write:members"],
@@ -361,6 +362,8 @@ describe("MyOrganizationClient Unit Tests", () => {
             const mockArgs = {
                 url: "https://test-domain.auth0.com/my-org/organizations",
                 method: "POST",
+                contentType: "application/json",
+                requestType: "json" as const,
                 body: requestBody,
                 headers: { "Content-Type": "application/json" },
                 endpointMetadata: {},
@@ -368,12 +371,13 @@ describe("MyOrganizationClient Unit Tests", () => {
 
             await wrappedFetcher!(mockArgs);
 
+            // core.fetcher serializes the body and builds RequestInit internally.
+            // Verify the fetcher received the correct URL, method, and serialized body.
             expect(customFetcher).toHaveBeenCalledWith(
                 "https://test-domain.auth0.com/my-org/organizations",
                 expect.objectContaining({
                     method: "POST",
                     body: JSON.stringify(requestBody),
-                    headers: { "Content-Type": "application/json" },
                 }),
                 undefined,
             );
