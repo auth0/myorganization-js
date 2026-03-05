@@ -200,14 +200,16 @@ describe("MyOrganizationClient Unit Tests", () => {
 
             await wrappedFetcher!(mockArgs);
 
-            // Verify custom fetcher was called with correct URL and authParams.
-            // core.fetcher builds the RequestInit internally (with Headers object,
-            // signal, etc.), so we verify the URL and authParams directly.
-            expect(customFetcher).toHaveBeenCalledWith(
-                "https://test-domain.auth0.com/my-org/test",
-                expect.objectContaining({
-                    method: "GET",
-                }),
+            // Verify custom fetcher was called with correct URL, headers, and authParams.
+            // core.fetcher builds the RequestInit internally, so we verify the
+            // URL, forwarded headers, and authParams directly.
+            const [calledUrl, calledInit, calledAuthParams] = customFetcher.mock.calls[0];
+            expect(calledUrl).toBe("https://test-domain.auth0.com/my-org/test");
+            expect(calledInit).toEqual(expect.objectContaining({ method: "GET" }));
+            // Custom headers should be forwarded through core.fetcher
+            const headers = new Headers(calledInit.headers);
+            expect(headers.get("Custom-Header")).toBe("value");
+            expect(calledAuthParams).toEqual(
                 expect.objectContaining({
                     scope: ["read:organizations", "write:members"],
                 }),
@@ -372,15 +374,14 @@ describe("MyOrganizationClient Unit Tests", () => {
             await wrappedFetcher!(mockArgs);
 
             // core.fetcher serializes the body and builds RequestInit internally.
-            // Verify the fetcher received the correct URL, method, and serialized body.
-            expect(customFetcher).toHaveBeenCalledWith(
-                "https://test-domain.auth0.com/my-org/organizations",
-                expect.objectContaining({
-                    method: "POST",
-                    body: JSON.stringify(requestBody),
-                }),
-                undefined,
-            );
+            // Verify the fetcher received the correct URL, method, serialized body, and Content-Type.
+            const [calledUrl, calledInit, calledAuthParams] = customFetcher.mock.calls[0];
+            expect(calledUrl).toBe("https://test-domain.auth0.com/my-org/organizations");
+            expect(calledInit).toEqual(expect.objectContaining({ method: "POST", body: JSON.stringify(requestBody) }));
+            // Content-Type should be set by core.fetcher from args.contentType
+            const headers = new Headers(calledInit.headers);
+            expect(headers.get("Content-Type")).toBe("application/json");
+            expect(calledAuthParams).toBeUndefined();
         });
 
         it("should handle custom fetch compatible with Auth0 createFetcher", async () => {
