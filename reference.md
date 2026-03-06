@@ -46,7 +46,7 @@ await client.organizationDetails.get();
 <dl>
 <dd>
 
-**requestOptions:** `OrganizationDetails.RequestOptions`
+**requestOptions:** `OrganizationDetailsClient.RequestOptions`
 
 </dd>
 </dl>
@@ -89,7 +89,7 @@ await client.organizationDetails.update({
     name: "testorg",
     display_name: "Test Organization",
     branding: {
-        logo_url: "http://example.com/logo.png",
+        logo_url: "https://example.com/logo.png",
         colors: {
             primary: "#000000",
             page_background: "#FFFFFF",
@@ -119,7 +119,7 @@ await client.organizationDetails.update({
 <dl>
 <dd>
 
-**requestOptions:** `OrganizationDetails.RequestOptions`
+**requestOptions:** `OrganizationDetailsClient.RequestOptions`
 
 </dd>
 </dl>
@@ -176,7 +176,7 @@ await client.organization.configuration.get();
 <dl>
 <dd>
 
-**requestOptions:** `Configuration.RequestOptions`
+**requestOptions:** `ConfigurationClient.RequestOptions`
 
 </dd>
 </dl>
@@ -233,7 +233,7 @@ await client.organization.domains.list();
 <dl>
 <dd>
 
-**requestOptions:** `Domains.RequestOptions`
+**requestOptions:** `DomainsClient.RequestOptions`
 
 </dd>
 </dl>
@@ -298,7 +298,7 @@ await client.organization.domains.create({
 <dl>
 <dd>
 
-**requestOptions:** `Domains.RequestOptions`
+**requestOptions:** `DomainsClient.RequestOptions`
 
 </dd>
 </dl>
@@ -309,7 +309,7 @@ await client.organization.domains.create({
 </dl>
 </details>
 
-<details><summary><code>client.organization.domains.<a href="/src/api/resources/organization/resources/domains/client/Client.ts">get</a>(domainId) -> MyOrganization.GetOrganizationDomainResponseContent</code></summary>
+<details><summary><code>client.organization.domains.<a href="/src/api/resources/organization/resources/domains/client/Client.ts">get</a>(domain_id) -> MyOrganization.GetOrganizationDomainResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -353,7 +353,7 @@ await client.organization.domains.get("domain_id");
 <dl>
 <dd>
 
-**domainId:** `MyOrganization.OrgDomainId`
+**domain_id:** `MyOrganization.OrgDomainId`
 
 </dd>
 </dl>
@@ -361,7 +361,7 @@ await client.organization.domains.get("domain_id");
 <dl>
 <dd>
 
-**requestOptions:** `Domains.RequestOptions`
+**requestOptions:** `DomainsClient.RequestOptions`
 
 </dd>
 </dl>
@@ -372,7 +372,7 @@ await client.organization.domains.get("domain_id");
 </dl>
 </details>
 
-<details><summary><code>client.organization.domains.<a href="/src/api/resources/organization/resources/domains/client/Client.ts">delete</a>(domainId) -> void</code></summary>
+<details><summary><code>client.organization.domains.<a href="/src/api/resources/organization/resources/domains/client/Client.ts">delete</a>(domain_id) -> void</code></summary>
 <dl>
 <dd>
 
@@ -416,7 +416,7 @@ await client.organization.domains.delete("domain_id");
 <dl>
 <dd>
 
-**domainId:** `MyOrganization.OrgDomainId`
+**domain_id:** `MyOrganization.OrgDomainId`
 
 </dd>
 </dl>
@@ -424,7 +424,7 @@ await client.organization.domains.delete("domain_id");
 <dl>
 <dd>
 
-**requestOptions:** `Domains.RequestOptions`
+**requestOptions:** `DomainsClient.RequestOptions`
 
 </dd>
 </dl>
@@ -481,7 +481,7 @@ await client.organization.identityProviders.list();
 <dl>
 <dd>
 
-**requestOptions:** `IdentityProviders.RequestOptions`
+**requestOptions:** `IdentityProvidersClient.RequestOptions`
 
 </dd>
 </dl>
@@ -558,7 +558,7 @@ await client.organization.identityProviders.create({
 <dl>
 <dd>
 
-**requestOptions:** `IdentityProviders.RequestOptions`
+**requestOptions:** `IdentityProvidersClient.RequestOptions`
 
 </dd>
 </dl>
@@ -569,7 +569,7 @@ await client.organization.identityProviders.create({
 </dl>
 </details>
 
-<details><summary><code>client.organization.identityProviders.<a href="/src/api/resources/organization/resources/identityProviders/client/Client.ts">get</a>(idpId) -> MyOrganization.GetIdentityProviderResponseContent</code></summary>
+<details><summary><code>client.organization.identityProviders.<a href="/src/api/resources/organization/resources/identityProviders/client/Client.ts">get</a>(idp_id) -> MyOrganization.GetIdentityProviderResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -613,7 +613,7 @@ await client.organization.identityProviders.get("idp_id");
 <dl>
 <dd>
 
-**idpId:** `MyOrganization.IdpId`
+**idp_id:** `MyOrganization.IdpId`
 
 </dd>
 </dl>
@@ -621,7 +621,7 @@ await client.organization.identityProviders.get("idp_id");
 <dl>
 <dd>
 
-**requestOptions:** `IdentityProviders.RequestOptions`
+**requestOptions:** `IdentityProvidersClient.RequestOptions`
 
 </dd>
 </dl>
@@ -632,7 +632,7 @@ await client.organization.identityProviders.get("idp_id");
 </dl>
 </details>
 
-<details><summary><code>client.organization.identityProviders.<a href="/src/api/resources/organization/resources/identityProviders/client/Client.ts">delete</a>(idpId) -> void</code></summary>
+<details><summary><code>client.organization.identityProviders.<a href="/src/api/resources/organization/resources/identityProviders/client/Client.ts">delete</a>(idp_id) -> void</code></summary>
 <dl>
 <dd>
 
@@ -676,7 +676,7 @@ await client.organization.identityProviders.delete("idp_id");
 <dl>
 <dd>
 
-**idpId:** `MyOrganization.IdpId`
+**idp_id:** `MyOrganization.IdpId`
 
 </dd>
 </dl>
@@ -684,7 +684,7 @@ await client.organization.identityProviders.delete("idp_id");
 <dl>
 <dd>
 
-**requestOptions:** `IdentityProviders.RequestOptions`
+**requestOptions:** `IdentityProvidersClient.RequestOptions`
 
 </dd>
 </dl>
@@ -695,7 +695,7 @@ await client.organization.identityProviders.delete("idp_id");
 </dl>
 </details>
 
-<details><summary><code>client.organization.identityProviders.<a href="/src/api/resources/organization/resources/identityProviders/client/Client.ts">update</a>(idpId, { ...params }) -> MyOrganization.UpdateIdentityProviderResponseContent</code></summary>
+<details><summary><code>client.organization.identityProviders.<a href="/src/api/resources/organization/resources/identityProviders/client/Client.ts">update</a>(idp_id, { ...params }) -> MyOrganization.UpdateIdentityProviderResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -750,7 +750,7 @@ await client.organization.identityProviders.update("idp_id", {
 <dl>
 <dd>
 
-**idpId:** `MyOrganization.IdpId`
+**idp_id:** `MyOrganization.IdpId`
 
 </dd>
 </dl>
@@ -766,7 +766,7 @@ await client.organization.identityProviders.update("idp_id", {
 <dl>
 <dd>
 
-**requestOptions:** `IdentityProviders.RequestOptions`
+**requestOptions:** `IdentityProvidersClient.RequestOptions`
 
 </dd>
 </dl>
@@ -777,7 +777,7 @@ await client.organization.identityProviders.update("idp_id", {
 </dl>
 </details>
 
-<details><summary><code>client.organization.identityProviders.<a href="/src/api/resources/organization/resources/identityProviders/client/Client.ts">updateAttributes</a>(idpId, { ...params }) -> MyOrganization.GetIdentityProviderResponseContent</code></summary>
+<details><summary><code>client.organization.identityProviders.<a href="/src/api/resources/organization/resources/identityProviders/client/Client.ts">updateAttributes</a>(idp_id, { ...params }) -> MyOrganization.GetIdentityProviderResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -823,7 +823,7 @@ await client.organization.identityProviders.updateAttributes("idp_id", {
 <dl>
 <dd>
 
-**idpId:** `MyOrganization.IdpId`
+**idp_id:** `MyOrganization.IdpId`
 
 </dd>
 </dl>
@@ -839,7 +839,7 @@ await client.organization.identityProviders.updateAttributes("idp_id", {
 <dl>
 <dd>
 
-**requestOptions:** `IdentityProviders.RequestOptions`
+**requestOptions:** `IdentityProvidersClient.RequestOptions`
 
 </dd>
 </dl>
@@ -850,7 +850,7 @@ await client.organization.identityProviders.updateAttributes("idp_id", {
 </dl>
 </details>
 
-<details><summary><code>client.organization.identityProviders.<a href="/src/api/resources/organization/resources/identityProviders/client/Client.ts">detach</a>(idpId) -> MyOrganization.DetachIdpProviderResponseContent</code></summary>
+<details><summary><code>client.organization.identityProviders.<a href="/src/api/resources/organization/resources/identityProviders/client/Client.ts">detach</a>(idp_id) -> void</code></summary>
 <dl>
 <dd>
 
@@ -894,7 +894,7 @@ await client.organization.identityProviders.detach("idp_id");
 <dl>
 <dd>
 
-**idpId:** `MyOrganization.IdpId`
+**idp_id:** `MyOrganization.IdpId`
 
 </dd>
 </dl>
@@ -902,7 +902,7 @@ await client.organization.identityProviders.detach("idp_id");
 <dl>
 <dd>
 
-**requestOptions:** `IdentityProviders.RequestOptions`
+**requestOptions:** `IdentityProvidersClient.RequestOptions`
 
 </dd>
 </dl>
@@ -959,7 +959,7 @@ await client.organization.configuration.identityProviders.get();
 <dl>
 <dd>
 
-**requestOptions:** `IdentityProviders.RequestOptions`
+**requestOptions:** `IdentityProvidersClient.RequestOptions`
 
 </dd>
 </dl>
@@ -972,7 +972,7 @@ await client.organization.configuration.identityProviders.get();
 
 ## Organization Domains Verify
 
-<details><summary><code>client.organization.domains.verify.<a href="/src/api/resources/organization/resources/domains/resources/verify/client/Client.ts">create</a>(domainId) -> MyOrganization.StartOrganizationDomainVerificationResponseContent</code></summary>
+<details><summary><code>client.organization.domains.verify.<a href="/src/api/resources/organization/resources/domains/resources/verify/client/Client.ts">create</a>(domain_id) -> MyOrganization.StartOrganizationDomainVerificationResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -1016,7 +1016,7 @@ await client.organization.domains.verify.create("domain_id");
 <dl>
 <dd>
 
-**domainId:** `MyOrganization.OrgDomainId`
+**domain_id:** `MyOrganization.OrgDomainId`
 
 </dd>
 </dl>
@@ -1024,7 +1024,7 @@ await client.organization.domains.verify.create("domain_id");
 <dl>
 <dd>
 
-**requestOptions:** `Verify.RequestOptions`
+**requestOptions:** `VerifyClient.RequestOptions`
 
 </dd>
 </dl>
@@ -1037,7 +1037,7 @@ await client.organization.domains.verify.create("domain_id");
 
 ## Organization Domains IdentityProviders
 
-<details><summary><code>client.organization.domains.identityProviders.<a href="/src/api/resources/organization/resources/domains/resources/identityProviders/client/Client.ts">get</a>(domainId) -> MyOrganization.ListDomainIdentityProvidersResponseContent</code></summary>
+<details><summary><code>client.organization.domains.identityProviders.<a href="/src/api/resources/organization/resources/domains/resources/identityProviders/client/Client.ts">get</a>(domain_id) -> MyOrganization.ListDomainIdentityProvidersResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -1081,7 +1081,7 @@ await client.organization.domains.identityProviders.get("domain_id");
 <dl>
 <dd>
 
-**domainId:** `MyOrganization.OrgDomainId`
+**domain_id:** `MyOrganization.OrgDomainId`
 
 </dd>
 </dl>
@@ -1089,7 +1089,7 @@ await client.organization.domains.identityProviders.get("domain_id");
 <dl>
 <dd>
 
-**requestOptions:** `IdentityProviders.RequestOptions`
+**requestOptions:** `IdentityProvidersClient.RequestOptions`
 
 </dd>
 </dl>
@@ -1102,7 +1102,7 @@ await client.organization.domains.identityProviders.get("domain_id");
 
 ## Organization IdentityProviders Domains
 
-<details><summary><code>client.organization.identityProviders.domains.<a href="/src/api/resources/organization/resources/identityProviders/resources/domains/client/Client.ts">create</a>(idpId, { ...params }) -> MyOrganization.CreateIdpDomainResponseContent</code></summary>
+<details><summary><code>client.organization.identityProviders.domains.<a href="/src/api/resources/organization/resources/identityProviders/resources/domains/client/Client.ts">create</a>(idp_id, { ...params }) -> MyOrganization.CreateIdpDomainResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -1148,7 +1148,7 @@ await client.organization.identityProviders.domains.create("idp_id", {
 <dl>
 <dd>
 
-**idpId:** `MyOrganization.IdpId`
+**idp_id:** `MyOrganization.IdpId`
 
 </dd>
 </dl>
@@ -1164,7 +1164,7 @@ await client.organization.identityProviders.domains.create("idp_id", {
 <dl>
 <dd>
 
-**requestOptions:** `Domains.RequestOptions`
+**requestOptions:** `DomainsClient.RequestOptions`
 
 </dd>
 </dl>
@@ -1175,7 +1175,7 @@ await client.organization.identityProviders.domains.create("idp_id", {
 </dl>
 </details>
 
-<details><summary><code>client.organization.identityProviders.domains.<a href="/src/api/resources/organization/resources/identityProviders/resources/domains/client/Client.ts">delete</a>(idpId, domain) -> void</code></summary>
+<details><summary><code>client.organization.identityProviders.domains.<a href="/src/api/resources/organization/resources/identityProviders/resources/domains/client/Client.ts">delete</a>(idp_id, domain) -> void</code></summary>
 <dl>
 <dd>
 
@@ -1219,7 +1219,7 @@ await client.organization.identityProviders.domains.delete("idp_id", "domain");
 <dl>
 <dd>
 
-**idpId:** `MyOrganization.IdpId`
+**idp_id:** `MyOrganization.IdpId`
 
 </dd>
 </dl>
@@ -1235,7 +1235,7 @@ await client.organization.identityProviders.domains.delete("idp_id", "domain");
 <dl>
 <dd>
 
-**requestOptions:** `Domains.RequestOptions`
+**requestOptions:** `DomainsClient.RequestOptions`
 
 </dd>
 </dl>
@@ -1248,7 +1248,7 @@ await client.organization.identityProviders.domains.delete("idp_id", "domain");
 
 ## Organization IdentityProviders Provisioning
 
-<details><summary><code>client.organization.identityProviders.provisioning.<a href="/src/api/resources/organization/resources/identityProviders/resources/provisioning/client/Client.ts">get</a>(idpId) -> MyOrganization.GetIdPProvisioningConfigResponseContent</code></summary>
+<details><summary><code>client.organization.identityProviders.provisioning.<a href="/src/api/resources/organization/resources/identityProviders/resources/provisioning/client/Client.ts">get</a>(idp_id) -> MyOrganization.GetIdPProvisioningConfigResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -1292,7 +1292,7 @@ await client.organization.identityProviders.provisioning.get("idp_id");
 <dl>
 <dd>
 
-**idpId:** `MyOrganization.IdpId`
+**idp_id:** `MyOrganization.IdpId`
 
 </dd>
 </dl>
@@ -1300,7 +1300,7 @@ await client.organization.identityProviders.provisioning.get("idp_id");
 <dl>
 <dd>
 
-**requestOptions:** `Provisioning.RequestOptions`
+**requestOptions:** `ProvisioningClient.RequestOptions`
 
 </dd>
 </dl>
@@ -1311,7 +1311,7 @@ await client.organization.identityProviders.provisioning.get("idp_id");
 </dl>
 </details>
 
-<details><summary><code>client.organization.identityProviders.provisioning.<a href="/src/api/resources/organization/resources/identityProviders/resources/provisioning/client/Client.ts">create</a>(idpId) -> MyOrganization.CreateIdPProvisioningConfigResponseContent</code></summary>
+<details><summary><code>client.organization.identityProviders.provisioning.<a href="/src/api/resources/organization/resources/identityProviders/resources/provisioning/client/Client.ts">create</a>(idp_id) -> MyOrganization.CreateIdPProvisioningConfigResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -1355,7 +1355,7 @@ await client.organization.identityProviders.provisioning.create("idp_id");
 <dl>
 <dd>
 
-**idpId:** `MyOrganization.IdpId`
+**idp_id:** `MyOrganization.IdpId`
 
 </dd>
 </dl>
@@ -1363,7 +1363,7 @@ await client.organization.identityProviders.provisioning.create("idp_id");
 <dl>
 <dd>
 
-**requestOptions:** `Provisioning.RequestOptions`
+**requestOptions:** `ProvisioningClient.RequestOptions`
 
 </dd>
 </dl>
@@ -1374,7 +1374,7 @@ await client.organization.identityProviders.provisioning.create("idp_id");
 </dl>
 </details>
 
-<details><summary><code>client.organization.identityProviders.provisioning.<a href="/src/api/resources/organization/resources/identityProviders/resources/provisioning/client/Client.ts">delete</a>(idpId) -> void</code></summary>
+<details><summary><code>client.organization.identityProviders.provisioning.<a href="/src/api/resources/organization/resources/identityProviders/resources/provisioning/client/Client.ts">delete</a>(idp_id) -> void</code></summary>
 <dl>
 <dd>
 
@@ -1418,7 +1418,7 @@ await client.organization.identityProviders.provisioning.delete("idp_id");
 <dl>
 <dd>
 
-**idpId:** `MyOrganization.IdpId`
+**idp_id:** `MyOrganization.IdpId`
 
 </dd>
 </dl>
@@ -1426,7 +1426,7 @@ await client.organization.identityProviders.provisioning.delete("idp_id");
 <dl>
 <dd>
 
-**requestOptions:** `Provisioning.RequestOptions`
+**requestOptions:** `ProvisioningClient.RequestOptions`
 
 </dd>
 </dl>
@@ -1437,7 +1437,7 @@ await client.organization.identityProviders.provisioning.delete("idp_id");
 </dl>
 </details>
 
-<details><summary><code>client.organization.identityProviders.provisioning.<a href="/src/api/resources/organization/resources/identityProviders/resources/provisioning/client/Client.ts">updateAttributes</a>(idpId, { ...params }) -> MyOrganization.GetIdPProvisioningConfigResponseContent</code></summary>
+<details><summary><code>client.organization.identityProviders.provisioning.<a href="/src/api/resources/organization/resources/identityProviders/resources/provisioning/client/Client.ts">updateAttributes</a>(idp_id, { ...params }) -> MyOrganization.GetIdPProvisioningConfigResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -1483,7 +1483,7 @@ await client.organization.identityProviders.provisioning.updateAttributes("idp_i
 <dl>
 <dd>
 
-**idpId:** `MyOrganization.IdpId`
+**idp_id:** `MyOrganization.IdpId`
 
 </dd>
 </dl>
@@ -1499,7 +1499,7 @@ await client.organization.identityProviders.provisioning.updateAttributes("idp_i
 <dl>
 <dd>
 
-**requestOptions:** `Provisioning.RequestOptions`
+**requestOptions:** `ProvisioningClient.RequestOptions`
 
 </dd>
 </dl>
@@ -1512,7 +1512,7 @@ await client.organization.identityProviders.provisioning.updateAttributes("idp_i
 
 ## Organization IdentityProviders Provisioning ScimTokens
 
-<details><summary><code>client.organization.identityProviders.provisioning.scimTokens.<a href="/src/api/resources/organization/resources/identityProviders/resources/provisioning/resources/scimTokens/client/Client.ts">list</a>(idpId) -> MyOrganization.ListIdpProvisioningScimTokensResponseContent</code></summary>
+<details><summary><code>client.organization.identityProviders.provisioning.scimTokens.<a href="/src/api/resources/organization/resources/identityProviders/resources/provisioning/resources/scimTokens/client/Client.ts">list</a>(idp_id) -> MyOrganization.ListIdpProvisioningScimTokensResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -1556,7 +1556,7 @@ await client.organization.identityProviders.provisioning.scimTokens.list("idp_id
 <dl>
 <dd>
 
-**idpId:** `MyOrganization.IdpId`
+**idp_id:** `MyOrganization.IdpId`
 
 </dd>
 </dl>
@@ -1564,7 +1564,7 @@ await client.organization.identityProviders.provisioning.scimTokens.list("idp_id
 <dl>
 <dd>
 
-**requestOptions:** `ScimTokens.RequestOptions`
+**requestOptions:** `ScimTokensClient.RequestOptions`
 
 </dd>
 </dl>
@@ -1575,7 +1575,7 @@ await client.organization.identityProviders.provisioning.scimTokens.list("idp_id
 </dl>
 </details>
 
-<details><summary><code>client.organization.identityProviders.provisioning.scimTokens.<a href="/src/api/resources/organization/resources/identityProviders/resources/provisioning/resources/scimTokens/client/Client.ts">create</a>(idpId, { ...params }) -> MyOrganization.CreateIdpProvisioningScimTokenResponseContent</code></summary>
+<details><summary><code>client.organization.identityProviders.provisioning.scimTokens.<a href="/src/api/resources/organization/resources/identityProviders/resources/provisioning/resources/scimTokens/client/Client.ts">create</a>(idp_id, { ...params }) -> MyOrganization.CreateIdpProvisioningScimTokenResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -1621,7 +1621,7 @@ await client.organization.identityProviders.provisioning.scimTokens.create("idp_
 <dl>
 <dd>
 
-**idpId:** `MyOrganization.IdpId`
+**idp_id:** `MyOrganization.IdpId`
 
 </dd>
 </dl>
@@ -1637,7 +1637,7 @@ await client.organization.identityProviders.provisioning.scimTokens.create("idp_
 <dl>
 <dd>
 
-**requestOptions:** `ScimTokens.RequestOptions`
+**requestOptions:** `ScimTokensClient.RequestOptions`
 
 </dd>
 </dl>
@@ -1648,7 +1648,7 @@ await client.organization.identityProviders.provisioning.scimTokens.create("idp_
 </dl>
 </details>
 
-<details><summary><code>client.organization.identityProviders.provisioning.scimTokens.<a href="/src/api/resources/organization/resources/identityProviders/resources/provisioning/resources/scimTokens/client/Client.ts">delete</a>(idpId, idpScimTokenId) -> void</code></summary>
+<details><summary><code>client.organization.identityProviders.provisioning.scimTokens.<a href="/src/api/resources/organization/resources/identityProviders/resources/provisioning/resources/scimTokens/client/Client.ts">delete</a>(idp_id, idp_scim_token_id) -> void</code></summary>
 <dl>
 <dd>
 
@@ -1692,7 +1692,7 @@ await client.organization.identityProviders.provisioning.scimTokens.delete("idp_
 <dl>
 <dd>
 
-**idpId:** `MyOrganization.IdpId`
+**idp_id:** `MyOrganization.IdpId`
 
 </dd>
 </dl>
@@ -1700,7 +1700,7 @@ await client.organization.identityProviders.provisioning.scimTokens.delete("idp_
 <dl>
 <dd>
 
-**idpScimTokenId:** `MyOrganization.IdpProvisioningScimTokenId`
+**idp_scim_token_id:** `MyOrganization.IdpProvisioningScimTokenId`
 
 </dd>
 </dl>
@@ -1708,7 +1708,7 @@ await client.organization.identityProviders.provisioning.scimTokens.delete("idp_
 <dl>
 <dd>
 
-**requestOptions:** `ScimTokens.RequestOptions`
+**requestOptions:** `ScimTokensClient.RequestOptions`
 
 </dd>
 </dl>

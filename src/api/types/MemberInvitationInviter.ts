@@ -2,5 +2,5 @@
 
 export interface MemberInvitationInviter {
     /** The inviter's name. */
-    name?: string;
+    name?: string | undefined;
 }

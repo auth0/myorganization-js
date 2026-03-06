@@ -5,11 +5,11 @@
  */
 export interface IdpOptionsIdpInitiated {
     /** A flag indicating whether IdP-initiated SSO is enabled for this connection */
-    enabled?: boolean;
+    enabled?: boolean | undefined;
     /** The client ID of your default application for which the IdP-initiated flow is being configured */
-    client_id?: string;
+    client_id?: string | undefined;
     /** This is the protocol used to connect your selected default application */
-    client_protocol?: string;
+    client_protocol?: string | undefined;
     /** This field represents a template for constructing the authorization query string when initiating an IdP-initiated flow to a specific client */
-    client_authorizequery?: string;
+    client_authorizequery?: string | undefined;
 }

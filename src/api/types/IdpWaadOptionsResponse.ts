@@ -2,9 +2,9 @@
 
 export interface IdpWaadOptionsResponse {
     /** Your Azure AD domain name. You can find this on your Azure AD directory's overview page in the Microsoft Azure portal. */
-    tenant_domain?: string;
+    tenant_domain?: string | undefined;
     /** Unique identifier for your registered Azure AD application. */
-    client_id?: string;
+    client_id?: string | undefined;
     /** A URL pointing to an image file that represents your client application. */
-    icon_url?: string;
+    icon_url?: string | undefined;
 }

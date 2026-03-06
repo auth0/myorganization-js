@@ -6,22 +6,29 @@ import * as MyOrganization from "../index.js";
  * Identity provider specific options.
  */
 export interface IdpOidcResponse {
-    strategy: "oidc";
+    strategy: IdpOidcResponse.Strategy;
     /** Identity provider specific options. */
     options: MyOrganization.IdpOidcOptionsResponse;
-    attributes?: MyOrganization.IdpUserAttributeMapItem[];
-    id?: MyOrganization.IdpId;
+    attributes: MyOrganization.IdpUserAttributeMapItem[];
+    id?: MyOrganization.IdpId | undefined;
     /** The name of the identity provider */
-    name?: string | null;
+    name?: (string | null) | undefined;
     /** List of domains for Home Realm Discovery (HRD) */
-    domains?: string[];
+    domains?: string[] | undefined;
     /** Identity provider name used on the login screen. */
-    display_name?: string;
+    display_name?: string | undefined;
     /** Enables showing a button for the connection in the login page (new experience only). If false, it will be usable only by Home Realm Discovery (HRD). */
-    show_as_button?: boolean;
+    show_as_button?: boolean | undefined;
     /** If true, the user will be made a member of the organization upon login. */
-    assign_membership_on_login?: boolean;
+    assign_membership_on_login?: boolean | undefined;
     /** True if the identity provider is enabled for the organization. */
-    is_enabled?: boolean;
-    access_level?: MyOrganization.OrganizationAccessLevelEnum;
+    is_enabled?: boolean | undefined;
+    access_level?: MyOrganization.OrganizationAccessLevelEnum | undefined;
+}
+
+export namespace IdpOidcResponse {
+    export const Strategy = {
+        Oidc: "oidc",
+    } as const;
+    export type Strategy = (typeof Strategy)[keyof typeof Strategy];
 }

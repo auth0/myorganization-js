@@ -364,6 +364,53 @@ const response = await client.organization.domains.create(
 controller.abort(); // aborts the request
 ```
 
+### Logging
+
+The SDK includes built-in logging that can help with debugging. By default, logging is silent. You can enable it by passing a `logging` configuration when creating the client:
+
+```typescript
+const client = new MyOrganizationClient({
+    domain: "{YOUR_TENANT_AND_REGION}.auth0.com",
+    token: "YOUR_ACCESS_TOKEN",
+    logging: {
+        level: "debug",
+        silent: false,
+    },
+});
+```
+
+When enabled at `debug` level, the SDK logs HTTP request and response details including method, URL, status code, and headers. Sensitive information (authorization headers, API keys, tokens in query parameters) is automatically redacted.
+
+#### Log Levels
+
+The available log levels in order of verbosity are:
+
+- `debug` - HTTP request/response details
+- `info` - General operational information
+- `warn` - Warning messages
+- `error` - Failed HTTP requests and errors
+
+#### Custom Logger
+
+You can provide your own logger implementation that satisfies the `ILogger` interface:
+
+```typescript
+const client = new MyOrganizationClient({
+    domain: "{YOUR_TENANT_AND_REGION}.auth0.com",
+    token: "YOUR_ACCESS_TOKEN",
+    logging: {
+        level: "debug",
+        silent: false,
+        logger: {
+            debug: (message, ...args) => myLogger.debug(message, ...args),
+            info: (message, ...args) => myLogger.info(message, ...args),
+            warn: (message, ...args) => myLogger.warn(message, ...args),
+            error: (message, ...args) => myLogger.error(message, ...args),
+        },
+    },
+});
+```
+
 ### Access Raw Response Data
 
 The SDK provides access to raw response data, including headers, through the `.withRawResponse()` method. The `.withRawResponse()` method returns a promise that results to an object with a `data` and a `rawResponse` property:

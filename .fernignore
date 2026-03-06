@@ -7,6 +7,7 @@ src/index.ts
 # Example usage file
 
 example.ts
+examples/
 
 # CHANGELOG file
 
@@ -57,3 +58,4 @@ CONTRIBUTING.md
 .gitignore
 LICENSE
 NOTICE
+.fern/

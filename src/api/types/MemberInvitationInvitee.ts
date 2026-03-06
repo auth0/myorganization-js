@@ -2,5 +2,5 @@
 
 export interface MemberInvitationInvitee {
     /** The invitee's email. */
-    email?: string;
+    email?: string | undefined;
 }

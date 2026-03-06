@@ -41,6 +41,7 @@ export default [
             "@typescript-eslint/ban-ts-comment": "off",
             "@typescript-eslint/restrict-template-expressions": "off",
             "@typescript-eslint/no-misused-promises": "off",
+            "@typescript-eslint/no-unnecessary-type-assertion": "warn",
         },
     },
     // Relaxed rules for core/generated files
@@ -60,6 +61,7 @@ export default [
             "@typescript-eslint/no-unused-vars": "off",
             "@typescript-eslint/no-unnecessary-type-assertion": "off",
             "no-case-declarations": "off",
+            "no-empty": "warn",
             "prefer-const": "off",
         },
     },
@@ -75,6 +77,7 @@ export default [
             "scripts/**",
             ".mock/**",
             "*.config.ts",
+            "*.config.mts",
             "*.config.js",
             "*.config.mjs",
             "example.ts",
