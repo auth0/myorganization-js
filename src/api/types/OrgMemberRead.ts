@@ -2,7 +2,7 @@
 
 import * as MyOrganization from "../index.js";
 
-export interface OrgMember extends MyOrganization.UserAttributes {
+export interface OrgMemberRead extends MyOrganization.UserAttributes {
     user_id?: MyOrganization.OrgMemberId | undefined;
     /** Is member a guest. */
     is_guest?: boolean | undefined;

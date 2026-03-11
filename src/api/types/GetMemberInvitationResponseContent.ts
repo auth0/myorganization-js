@@ -2,4 +2,4 @@
 
 import * as MyOrganization from "../index.js";
 
-export type GetMemberInvitationResponseContent = MyOrganization.MemberInvitation;
+export type GetMemberInvitationResponseContent = MyOrganization.MemberInvitationRead;

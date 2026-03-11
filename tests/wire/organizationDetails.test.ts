@@ -152,7 +152,7 @@ describe("OrganizationDetailsClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.organizationDetails.update({});
+            return await client.organizationDetails.update();
         }).rejects.toThrow(MyOrganization.BadRequestError);
     });
 
@@ -171,7 +171,7 @@ describe("OrganizationDetailsClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.organizationDetails.update({});
+            return await client.organizationDetails.update();
         }).rejects.toThrow(MyOrganization.UnauthorizedError);
     });
 
@@ -190,7 +190,7 @@ describe("OrganizationDetailsClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.organizationDetails.update({});
+            return await client.organizationDetails.update();
         }).rejects.toThrow(MyOrganization.ForbiddenError);
     });
 
@@ -209,7 +209,7 @@ describe("OrganizationDetailsClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.organizationDetails.update({});
+            return await client.organizationDetails.update();
         }).rejects.toThrow(MyOrganization.NotFoundError);
     });
 
@@ -228,7 +228,7 @@ describe("OrganizationDetailsClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.organizationDetails.update({});
+            return await client.organizationDetails.update();
         }).rejects.toThrow(MyOrganization.TooManyRequestsError);
     });
 });

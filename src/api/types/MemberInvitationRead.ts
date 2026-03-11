@@ -2,9 +2,9 @@
 
 import * as MyOrganization from "../index.js";
 
-export interface MemberInvitation {
-    id: MyOrganization.InvitationId;
-    organization_id: MyOrganization.OrgId;
+export interface MemberInvitationRead {
+    id?: MyOrganization.InvitationId | undefined;
+    organization_id?: MyOrganization.OrgId | undefined;
     inviter: MyOrganization.MemberInvitationInviter;
     invitee: MyOrganization.MemberInvitationInvitee;
     identity_provider_id?: MyOrganization.IdpId | undefined;

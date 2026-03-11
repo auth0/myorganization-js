@@ -2,10 +2,10 @@
 
 import * as MyOrganization from "../index.js";
 
-export interface IdpBaseRequest {
+export interface IdpBaseResponseRead {
     id?: MyOrganization.IdpId | undefined;
     /** The name of the identity provider */
-    name: string;
+    name?: (string | null) | undefined;
     strategy: MyOrganization.IdpStrategyEnum;
     /** List of domains for Home Realm Discovery (HRD) */
     domains?: string[] | undefined;

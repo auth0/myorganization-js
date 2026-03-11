@@ -2,4 +2,4 @@
 
 import * as MyOrganization from "../index.js";
 
-export type StartOrganizationDomainVerificationResponseContent = MyOrganization.OrgDomain;
+export type StartOrganizationDomainVerificationResponseContent = MyOrganization.OrgDomainRead;

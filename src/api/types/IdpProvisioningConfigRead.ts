@@ -2,8 +2,8 @@
 
 import * as MyOrganization from "../index.js";
 
-export interface IdpProvisioningConfig {
-    identity_provider_id: MyOrganization.IdpId;
+export interface IdpProvisioningConfigRead {
+    identity_provider_id?: MyOrganization.IdpId | undefined;
     /** The name of the identity provider */
     identity_provider_name?: string | undefined;
     strategy: MyOrganization.IdpStrategyEnum;

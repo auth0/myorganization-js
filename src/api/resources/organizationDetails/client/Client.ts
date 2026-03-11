@@ -142,14 +142,14 @@ export class OrganizationDetailsClient {
      *     })
      */
     public update(
-        request: MyOrganization.UpdateOrganizationDetailsRequestContent,
+        request: MyOrganization.UpdateOrganizationDetailsRequestContent = {},
         requestOptions?: OrganizationDetailsClient.RequestOptions,
     ): core.HttpResponsePromise<MyOrganization.UpdateOrganizationDetailsResponseContent> {
         return core.HttpResponsePromise.fromPromise(this.__update(request, requestOptions));
     }
 
     private async __update(
-        request: MyOrganization.UpdateOrganizationDetailsRequestContent,
+        request: MyOrganization.UpdateOrganizationDetailsRequestContent = {},
         requestOptions?: OrganizationDetailsClient.RequestOptions,
     ): Promise<core.WithRawResponse<MyOrganization.UpdateOrganizationDetailsResponseContent>> {
         const _metadata: core.EndpointMetadata = {

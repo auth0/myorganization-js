@@ -2,7 +2,7 @@
 
 import * as MyOrganization from "../index.js";
 
-export interface CreateIdPProvisioningConfigResponseContent extends MyOrganization.IdpProvisioningConfig {
+export interface CreateIdPProvisioningConfigResponseContent extends MyOrganization.IdpProvisioningConfigRead {
     created_at?: string | undefined;
     updated_on?: string | undefined;
 }

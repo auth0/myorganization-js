@@ -8,7 +8,7 @@ import * as MyOrganization from "../index.js";
 export interface IdpPingFederateResponse {
     strategy: IdpPingFederateResponse.Strategy;
     /** Identity provider specific options. */
-    options: MyOrganization.IdpPingFederateOptionsResponse;
+    options: MyOrganization.IdpPingFederateOptionsResponseRead;
     id?: MyOrganization.IdpId | undefined;
     /** The name of the identity provider */
     name?: (string | null) | undefined;

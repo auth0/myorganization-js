@@ -3,5 +3,5 @@
 import * as MyOrganization from "../index.js";
 
 export interface ListDomainIdentityProvidersResponseContent {
-    identity_providers?: MyOrganization.DomainIdp[] | undefined;
+    identity_providers?: MyOrganization.DomainIdpRead[] | undefined;
 }

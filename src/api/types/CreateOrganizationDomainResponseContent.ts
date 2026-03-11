@@ -2,4 +2,4 @@
 
 import * as MyOrganization from "../index.js";
 
-export type CreateOrganizationDomainResponseContent = MyOrganization.OrgDomain;
+export type CreateOrganizationDomainResponseContent = MyOrganization.OrgDomainRead;

@@ -2,8 +2,8 @@
 
 import * as MyOrganization from "../index.js";
 
-export interface DomainIdp {
-    id: MyOrganization.IdpId;
+export interface DomainIdpRead {
+    id?: MyOrganization.IdpId | undefined;
     /** The name of the identity provider */
     name: string;
     /** Identity provider name used on the login screen. */

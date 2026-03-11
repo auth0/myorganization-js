@@ -5,6 +5,28 @@ import * as MyOrganization from "../index.js";
 /**
  * @example
  *     {
+ *         name: "testorg",
+ *         display_name: "Test Organization",
+ *         branding: {
+ *             logo_url: "https://example.com/logo.png",
+ *             colors: {
+ *                 primary: "#000000",
+ *                 page_background: "#FFFFFF"
+ *             }
+ *         }
+ *     }
+ */
+export interface UpdateOrganizationDetailsRequestContent {
+    /** The name of this organization. */
+    name?: string;
+    /** Friendly name of this organization. */
+    display_name?: string;
+    branding?: MyOrganization.OrgBranding;
+}
+
+/**
+ * @example
+ *     {
  *         domain: "acme.com"
  *     }
  */

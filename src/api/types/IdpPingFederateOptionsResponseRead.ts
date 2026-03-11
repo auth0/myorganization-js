@@ -2,7 +2,7 @@
 
 import * as MyOrganization from "../index.js";
 
-export interface IdpPingFederateOptionsResponse {
+export interface IdpPingFederateOptionsResponseRead {
     signatureAlgorithm?: MyOrganization.IdpSignAlgTypeEnum | undefined;
     digestAlgorithm?: MyOrganization.IdpSignAlgDigestTypeEnum | undefined;
     /** Indicates whether PingFederate should digitally sign outgoing SAML authentication requests to relying parties */

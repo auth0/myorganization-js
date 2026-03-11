@@ -2,9 +2,9 @@
 
 import * as MyOrganization from "../index.js";
 
-export interface OrgDomain {
-    id: MyOrganization.OrgDomainId;
-    org_id: MyOrganization.OrgId;
+export interface OrgDomainRead {
+    id?: MyOrganization.OrgDomainId | undefined;
+    org_id?: MyOrganization.OrgId | undefined;
     domain: MyOrganization.OrgDomainName;
     status: MyOrganization.OrgDomainStatusEnum;
     /** Value used to verify the domain. */
