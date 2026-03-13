@@ -3,7 +3,6 @@
 import * as MyOrganization from "../index.js";
 
 export interface IdpBaseRequest {
-    id?: MyOrganization.IdpId | undefined;
     /** The name of the identity provider */
     name: string;
     strategy: MyOrganization.IdpStrategyEnum;
@@ -17,5 +16,4 @@ export interface IdpBaseRequest {
     assign_membership_on_login?: boolean | undefined;
     /** True if the identity provider is enabled for the organization. */
     is_enabled?: boolean | undefined;
-    access_level?: MyOrganization.OrganizationAccessLevelEnum | undefined;
 }

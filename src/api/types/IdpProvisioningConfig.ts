@@ -5,7 +5,7 @@ import * as MyOrganization from "../index.js";
 export interface IdpProvisioningConfig {
     identity_provider_id: MyOrganization.IdpId;
     /** The name of the identity provider */
-    identity_provider_name?: string | undefined;
+    identity_provider_name: string;
     strategy: MyOrganization.IdpStrategyEnum;
     method: MyOrganization.IdpProvisioningMethodEnum;
     attributes: MyOrganization.IdpProvisioningUserAttributeMapItem[];
