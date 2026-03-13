@@ -47,6 +47,9 @@ export const OauthScope = {
      * Create provisioning configuration for identity provider */
     CreateMyOrgIdentityProvidersProvisioning: "create:my_org:identity_providers_provisioning",
     /**
+     * Update provisioning configuration for identity provider */
+    UpdateMyOrgIdentityProvidersProvisioning: "update:my_org:identity_providers_provisioning",
+    /**
      * Read provisioning configuration for identity provider */
     ReadMyOrgIdentityProvidersProvisioning: "read:my_org:identity_providers_provisioning",
     /**

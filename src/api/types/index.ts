@@ -103,6 +103,7 @@ export * from "./OrganizationAccessLevelEnum.js";
 export * from "./OrgBranding.js";
 export * from "./OrgBrandingColors.js";
 export * from "./OrgDetails.js";
+export * from "./OrgDetailsRead.js";
 export * from "./OrgDomain.js";
 export * from "./OrgDomainId.js";
 export * from "./OrgDomainName.js";

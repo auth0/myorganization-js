@@ -2,4 +2,4 @@
 
 import * as MyOrganization from "../index.js";
 
-export type UpdateOrganizationDetailsResponseContent = MyOrganization.OrgDetails;
+export type UpdateOrganizationDetailsResponseContent = MyOrganization.OrgDetailsRead;

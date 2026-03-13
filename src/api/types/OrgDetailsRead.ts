@@ -2,7 +2,8 @@
 
 import * as MyOrganization from "../index.js";
 
-export interface OrgDetails {
+export interface OrgDetailsRead {
+    id?: MyOrganization.OrgId | undefined;
     /** The name of this organization. */
     name?: string | undefined;
     /** Friendly name of this organization. */
