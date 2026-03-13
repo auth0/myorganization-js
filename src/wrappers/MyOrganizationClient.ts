@@ -245,13 +245,16 @@ export class MyOrganizationClient extends FernClient {
         const audience = `${baseUrl}/`;
         const headers = createTelemetryHeaders(_options);
         const token = createTokenSupplier(_options);
+        // In fetcher-only mode the token is a placeholder empty string, so we
+        // need to strip the resulting Authorization header before it reaches
+        // the user's fetcher (they set their own).
+        const isFetcherOnly = !isClientOptionsWithToken(_options) && !isClientOptionsWithTokenProvider(_options);
         const fetcher =
             "fetcher" in _options && _options.fetcher
-                ? createCoreFetcherSupplier(_options.fetcher, audience)
+                ? createCoreFetcherSupplier(_options.fetcher, audience, isFetcherOnly)
                 : undefined;
 
         // Prepare the base client options
-        // When fetcher-only is used, token will be empty string (safe placeholder)
         const clientOptions = {
             baseUrl: _options.baseUrl || baseUrl,
             headers,
@@ -367,7 +370,10 @@ function createTokenSupplier(_options: MyOrganizationClientConfig): core.Endpoin
     }
 
     if (isClientOptionsWithFetcher(_options)) {
-        // Custom fetcher pattern: fetcher handles authentication, return empty string as safe placeholder
+        // Custom fetcher pattern: fetcher handles authentication.
+        // Return empty string as a placeholder to satisfy the Fern client's auth provider.
+        // The actual Authorization header set from this placeholder is stripped in
+        // createCoreFetcherSupplier before reaching the user's fetcher.
         return "";
     }
 
@@ -387,18 +393,43 @@ function createTokenSupplier(_options: MyOrganizationClientConfig): core.Endpoin
  * @namespace MyOrganizationClient.Utils
  * @private
  */
-function createCoreFetcherSupplier(fetcherSupplier: Auth0FetcherSupplier, audience: string): core.FetchFunction {
+function createCoreFetcherSupplier(
+    fetcherSupplier: Auth0FetcherSupplier,
+    audience: string,
+    stripAuthHeader: boolean,
+): core.FetchFunction {
     return async <R = unknown>(args: core.Fetcher.Args): Promise<core.APIResponse<R, core.Fetcher.Error>> => {
         // Extract scopes for authParams (optional - user's fetch may not use it)
         const scopes: string[] = args.endpointMetadata ? extractScopesFromMetadata(args.endpointMetadata) : [];
         const authParams: Auth0Fetcher.AuthorizationParams | undefined =
             scopes.length > 0 ? { scope: scopes, audience: audience } : undefined;
 
+        // In fetcher-only mode the Fern client sets a placeholder "Authorization: Bearer "
+        // header (from the empty-string token). Remove it so the user's fetcher can set
+        // its own without duplication.
+        if (stripAuthHeader && args.headers) {
+            args = {
+                ...args,
+                headers: Object.fromEntries(
+                    Object.entries(args.headers).filter(([key]) => key.toLowerCase() !== "authorization"),
+                ),
+            };
+        }
+
         // Wrap the user's fetcher as a standard fetch function so we can
         // delegate to core.fetcher, which handles headers, body serialization,
         // query params, retries, timeouts, and error handling.
         const fetchFn = (input: RequestInfo | URL, init?: RequestInit): Promise<Response> => {
             const url = input instanceof Request ? input.url : String(input);
+
+            // Convert Headers instance to a plain object so users can spread
+            // them with { ...init?.headers, Authorization: '...' }.
+            // The Web API Headers class stores entries internally — spreading
+            // an instance produces an empty object and silently drops all headers.
+            if (init?.headers instanceof Headers) {
+                init = { ...init, headers: Object.fromEntries(init.headers.entries()) };
+            }
+
             return fetcherSupplier(url, init, authParams);
         };
 
