@@ -97,4 +97,94 @@ describe("Auth0Fetcher", () => {
         // The user's Authorization header must reach the server
         expect(capturedRequestHeaders["authorization"]).toBe("Bearer my-custom-token");
     });
+
+    it("should preserve SDK Authorization header in token + fetcher mode", async () => {
+        let receivedInitHeaders: unknown = undefined;
+        const capturedRequestHeaders: Record<string, string> = {};
+
+        server.use(
+            http.get("https://example.com/my-org/details", ({ request }) => {
+                request.headers.forEach((value, key) => {
+                    capturedRequestHeaders[key] = value;
+                });
+                return HttpResponse.json({ id: "org_id", name: "my org" });
+            }),
+        );
+
+        // When both token and fetcher are provided, the SDK handles auth
+        // and the fetcher is for other customization (logging, custom headers, etc.).
+        const fetcher: Auth0FetcherSupplier = async (url, init) => {
+            receivedInitHeaders = init?.headers;
+            return fetch(url, init);
+        };
+
+        const myOrganizationClient = new MyOrganizationClient({
+            token: "my-sdk-token",
+            fetcher,
+            domain: "example.com",
+        });
+
+        const result = await myOrganizationClient.organizationDetails.get();
+
+        expect(result.id).toBe("org_id");
+
+        // Headers must be a plain object
+        expect(receivedInitHeaders).not.toBeInstanceOf(Headers);
+        expect(typeof receivedInitHeaders).toBe("object");
+
+        const headersRecord = receivedInitHeaders as Record<string, string>;
+
+        // SDK-set Authorization header from token must be present
+        expect(headersRecord["authorization"]).toBe("Bearer my-sdk-token");
+
+        // Other SDK headers must also survive
+        expect(headersRecord["accept"]).toBeDefined();
+        expect(headersRecord["auth0-client"]).toBeDefined();
+
+        // The server must receive the SDK token
+        expect(capturedRequestHeaders["authorization"]).toBe("Bearer my-sdk-token");
+    });
+
+    it("should allow fetcher to add custom headers alongside SDK headers in token + fetcher mode", async () => {
+        const capturedRequestHeaders: Record<string, string> = {};
+
+        server.use(
+            http.get("https://example.com/my-org/details", ({ request }) => {
+                request.headers.forEach((value, key) => {
+                    capturedRequestHeaders[key] = value;
+                });
+                return HttpResponse.json({ id: "org_id", name: "my org" });
+            }),
+        );
+
+        // User adds custom headers without touching Authorization
+        const fetcher: Auth0FetcherSupplier = async (url, init, authParams) => {
+            const headers = {
+                ...init?.headers,
+                "X-Custom-Header": "custom-value",
+                "X-Request-Id": "req-123",
+            };
+            return fetch(url, { ...init, headers });
+        };
+
+        const myOrganizationClient = new MyOrganizationClient({
+            token: "my-sdk-token",
+            fetcher,
+            domain: "example.com",
+        });
+
+        const result = await myOrganizationClient.organizationDetails.get();
+
+        expect(result.id).toBe("org_id");
+
+        // SDK Authorization must be preserved
+        expect(capturedRequestHeaders["authorization"]).toBe("Bearer my-sdk-token");
+
+        // Custom headers from the fetcher must be present
+        expect(capturedRequestHeaders["x-custom-header"]).toBe("custom-value");
+        expect(capturedRequestHeaders["x-request-id"]).toBe("req-123");
+
+        // SDK headers must also be present
+        expect(capturedRequestHeaders["auth0-client"]).toBeDefined();
+    });
 });
