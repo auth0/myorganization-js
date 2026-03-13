@@ -98,6 +98,46 @@ describe("Auth0Fetcher", () => {
         expect(capturedRequestHeaders["authorization"]).toBe("Bearer my-custom-token");
     });
 
+    it("should preserve a legitimate Authorization header passed via options.headers in fetcher-only mode", async () => {
+        let receivedInitHeaders: unknown = undefined;
+        const capturedRequestHeaders: Record<string, string> = {};
+
+        server.use(
+            http.get("https://example.com/my-org/details", ({ request }) => {
+                request.headers.forEach((value, key) => {
+                    capturedRequestHeaders[key] = value;
+                });
+                return HttpResponse.json({ id: "org_id", name: "my org" });
+            }),
+        );
+
+        // In fetcher-only mode, a user may pass Authorization via options.headers.
+        // The strip logic should only remove the placeholder "Bearer " (empty token),
+        // not this legitimate header.
+        const fetcher: Auth0FetcherSupplier = async (url, init) => {
+            receivedInitHeaders = init?.headers;
+            return fetch(url, init);
+        };
+
+        const myOrganizationClient = new MyOrganizationClient({
+            fetcher,
+            domain: "example.com",
+            headers: { Authorization: "Bearer legitimate-token" },
+        });
+
+        const result = await myOrganizationClient.organizationDetails.get();
+
+        expect(result.id).toBe("org_id");
+
+        const headersRecord = receivedInitHeaders as Record<string, string>;
+
+        // The legitimate Authorization from options.headers must be preserved
+        expect(headersRecord["authorization"]).toBe("Bearer legitimate-token");
+
+        // The server must receive the legitimate token
+        expect(capturedRequestHeaders["authorization"]).toBe("Bearer legitimate-token");
+    });
+
     it("should preserve SDK Authorization header in token + fetcher mode", async () => {
         let receivedInitHeaders: unknown = undefined;
         const capturedRequestHeaders: Record<string, string> = {};
@@ -158,7 +198,7 @@ describe("Auth0Fetcher", () => {
         );
 
         // User adds custom headers without touching Authorization
-        const fetcher: Auth0FetcherSupplier = async (url, init, authParams) => {
+        const fetcher: Auth0FetcherSupplier = async (url, init) => {
             const headers = {
                 ...init?.headers,
                 "X-Custom-Header": "custom-value",

@@ -405,13 +405,15 @@ function createCoreFetcherSupplier(
             scopes.length > 0 ? { scope: scopes, audience: audience } : undefined;
 
         // In fetcher-only mode the Fern client sets a placeholder "Authorization: Bearer "
-        // header (from the empty-string token). Remove it so the user's fetcher can set
-        // its own without duplication.
+        // header (from the empty-string token). Remove only this placeholder so a
+        // legitimate Authorization header passed via options.headers is preserved.
         if (stripAuthHeader && args.headers) {
             args = {
                 ...args,
                 headers: Object.fromEntries(
-                    Object.entries(args.headers).filter(([key]) => key.toLowerCase() !== "authorization"),
+                    Object.entries(args.headers).filter(
+                        ([key, value]) => !(key.toLowerCase() === "authorization" && value === "Bearer "),
+                    ),
                 ),
             };
         }
@@ -426,7 +428,8 @@ function createCoreFetcherSupplier(
             // them with { ...init?.headers, Authorization: '...' }.
             // The Web API Headers class stores entries internally — spreading
             // an instance produces an empty object and silently drops all headers.
-            if (init?.headers instanceof Headers) {
+            // Guard with typeof check for runtimes where global Headers is unavailable.
+            if (typeof Headers !== "undefined" && init?.headers instanceof Headers) {
                 init = { ...init, headers: Object.fromEntries(init.headers.entries()) };
             }
 
