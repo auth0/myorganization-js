@@ -4,5 +4,5 @@ import * as MyOrganization from "../index.js";
 
 export interface IdpScimTokenCreate extends MyOrganization.IdpScimTokenBase {
     /** The SCIM client's token. */
-    token?: string | undefined;
+    token: string;
 }

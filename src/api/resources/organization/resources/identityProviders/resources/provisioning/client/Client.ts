@@ -376,8 +376,8 @@ export class ProvisioningClient {
     ): Promise<core.WithRawResponse<MyOrganization.GetIdPProvisioningConfigResponseContent>> {
         const _metadata: core.EndpointMetadata = {
             security: [
-                { OAuth2ClientCredentials: ["create:my_org:identity_providers_provisioning"] },
-                { OAuth2AuthCode: ["create:my_org:identity_providers_provisioning"] },
+                { OAuth2ClientCredentials: ["update:my_org:identity_providers_provisioning"] },
+                { OAuth2AuthCode: ["update:my_org:identity_providers_provisioning"] },
             ],
         };
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest({
