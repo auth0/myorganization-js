@@ -149,9 +149,12 @@ function switchTab(tab) {
 
 function showError(message) {
     const container = document.getElementById("error-container");
-    container.innerHTML = `<div class="alert alert-error">${message}</div>`;
+    const alert = document.createElement("div");
+    alert.className = "alert alert-error";
+    alert.textContent = message;
+    container.replaceChildren(alert);
     setTimeout(() => {
-        container.innerHTML = "";
+        container.replaceChildren();
     }, 5000);
 }
 
@@ -180,7 +183,10 @@ async function loadOrganizationDetails() {
     } catch (error) {
         console.error("Error loading organization details:", error);
         const message = error instanceof Error ? error.message : "Failed to load organization details";
-        container.innerHTML = `<div class="alert alert-error">${message}</div>`;
+        const alert = document.createElement("div");
+        alert.className = "alert alert-error";
+        alert.textContent = message;
+        container.replaceChildren(alert);
     }
 }
 
@@ -249,7 +255,11 @@ async function loadDomains() {
     } catch (error) {
         console.error("Error loading domains:", error);
         const message = error instanceof Error ? error.message : "Failed to load domains";
-        container.innerHTML = `<div class="alert alert-error" style="margin: 24px;">${message}</div>`;
+        const alert = document.createElement("div");
+        alert.className = "alert alert-error";
+        alert.style.margin = "24px";
+        alert.textContent = message;
+        container.replaceChildren(alert);
     }
 }
 
@@ -299,7 +309,7 @@ async function getDomainVerification(domainId) {
 
 async function verifyDomain(domainId) {
     try {
-        await myOrgClient.organization.domains.verify.start(domainId);
+        await myOrgClient.organization.domains.verify.create(domainId);
         await loadDomains();
     } catch (error) {
         console.error("Error verifying domain:", error);
