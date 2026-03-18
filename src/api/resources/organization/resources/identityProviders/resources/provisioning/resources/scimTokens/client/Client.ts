@@ -26,7 +26,7 @@ export class ScimTokensClient {
     }
 
     /**
-     * List the Provisioning SCIM tokens for this identity provider.
+     * Retrieve a list of [SCIM tokens](https://auth0.com/docs/authenticate/protocols/scim/configure-inbound-scim#scim-endpoints-and-tokens) for the Provisioning Configuration of an Identity Provider specified by ID for this Organization.
      *
      * @param {MyOrganization.IdpId} idp_id
      * @param {ScimTokensClient.RequestOptions} requestOptions - Request-specific configuration.
@@ -131,7 +131,7 @@ export class ScimTokensClient {
     }
 
     /**
-     * Create a Provisioning SCIM token for this identity provider.
+     * Create a new SCIM token for the Provisioning Configuration of an Identity Provider specified by ID for this Organization.
      *
      * @param {MyOrganization.IdpId} idp_id
      * @param {MyOrganization.CreateIdpProvisioningScimTokenRequestContent} request
@@ -244,7 +244,7 @@ export class ScimTokensClient {
     }
 
     /**
-     * Delete a Provisioning SCIM configuration for an identity provider.
+     * Revoke a SCIM token specified by token ID for the Provisioning Configuration of an Identity Provider specified by ID for this Organization.
      *
      * @param {MyOrganization.IdpId} idp_id
      * @param {MyOrganization.IdpProvisioningScimTokenId} idp_scim_token_id

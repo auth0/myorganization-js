@@ -3,18 +3,18 @@
 import * as MyOrganization from "../index.js";
 
 export interface MemberInvitation {
-    id: MyOrganization.InvitationId;
-    organization_id: MyOrganization.OrgId;
-    inviter: MyOrganization.MemberInvitationInviter;
-    invitee: MyOrganization.MemberInvitationInvitee;
+    id?: MyOrganization.InvitationId | undefined;
+    organization_id?: MyOrganization.OrgId | undefined;
+    inviter?: MyOrganization.MemberInvitationInviter | undefined;
+    invitee?: MyOrganization.MemberInvitationInvitee | undefined;
     identity_provider_id?: MyOrganization.IdpId | undefined;
     /** The ISO 8601 formatted timestamp representing the creation time of the invitation. */
-    created_at: string;
+    created_at?: string | undefined;
     /** The ISO 8601 formatted timestamp representing the expiration time of the invitation. */
-    expires_at: string;
+    expires_at?: string | undefined;
     roles?: string[] | undefined;
     /** The invitation url to be sent to the invitee. */
-    invitation_url: string;
+    invitation_url?: string | undefined;
     /** The ID of the invitation ticket. */
-    ticket_id: string;
+    ticket_id?: string | undefined;
 }

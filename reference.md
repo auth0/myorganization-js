@@ -14,7 +14,7 @@
 <dl>
 <dd>
 
-Retrieve details for an Organization.
+Retrieve details for this Organization, including display name and branding options. To learn more about Auth0 Organizations, read [Organizations](https://auth0.com/docs/manage-users/organizations).
 
 </dd>
 </dl>
@@ -69,7 +69,7 @@ await client.organizationDetails.get();
 <dl>
 <dd>
 
-Update the details of a specific Organization, such as display name and branding options.
+Update details for this Organization, such as display name and branding options. To learn more about Auth0 Organizations, read [Organizations](https://auth0.com/docs/manage-users/organizations).
 
 </dd>
 </dl>
@@ -144,7 +144,7 @@ await client.organizationDetails.update({
 <dl>
 <dd>
 
-Retrieve the configuration for the /my-org API. This will return all stored client information with the exception of attributes that are identifiers. Identifier attributes will be given their own endpoint that will return the full object. This will give the components all of the information they will need to be successful. The SDK provider for the components should manage fetching and caching this information for all components.
+Retrieve the My Organization API configuration. Returns only the `connection_deletion_behavior` and `allowed_strategies`. Identifier attributes such as `user_attribute_profile_id` and `connection_profile_id` are not included. Cache this information, as it does not change frequently.
 
 </dd>
 </dl>
@@ -201,7 +201,7 @@ await client.organization.configuration.get();
 <dl>
 <dd>
 
-Lists all domains pending and verified for an organization.
+Retrieve a list of all pending and verified domains for this Organization.
 
 </dd>
 </dl>
@@ -256,7 +256,7 @@ await client.organization.domains.list();
 <dl>
 <dd>
 
-Create a new domain for an organization.
+Create a new domain for this Organization.
 
 </dd>
 </dl>
@@ -321,7 +321,7 @@ await client.organization.domains.create({
 <dl>
 <dd>
 
-Retrieve a domain for an organization.
+Retrieve details of a domain specified by ID for this Organization.
 
 </dd>
 </dl>
@@ -384,7 +384,7 @@ await client.organization.domains.get("domain_id");
 <dl>
 <dd>
 
-Remove a domain from this organization.
+Remove a domain specified by ID from this Organization.
 
 </dd>
 </dl>
@@ -449,7 +449,7 @@ await client.organization.domains.delete("domain_id");
 <dl>
 <dd>
 
-List the identity providers associated with this organization.
+Retrieve a list of all Identity Providers for this Organization.
 
 </dd>
 </dl>
@@ -504,7 +504,7 @@ await client.organization.identityProviders.list();
 <dl>
 <dd>
 
-Create an identity provider associated with this organization.
+Create a new Identity Provider for this Organization.
 
 </dd>
 </dl>
@@ -581,7 +581,7 @@ await client.organization.identityProviders.create({
 <dl>
 <dd>
 
-Retrieve the details for one particular identity-provider.
+Retrieve details of an Identity Provider specified by ID for this Organization.
 
 </dd>
 </dl>
@@ -644,7 +644,7 @@ await client.organization.identityProviders.get("idp_id");
 <dl>
 <dd>
 
-Delete an identity provider from this organization.
+Delete an Identity Provider specified by ID from this Organization. This will remove the association and delete the underlying Identity Provider. Members will no longer be able to authenticate using this Identity Provider.
 
 </dd>
 </dl>
@@ -707,7 +707,7 @@ await client.organization.identityProviders.delete("idp_id");
 <dl>
 <dd>
 
-Update an identity provider associated with this organization.
+Update the details of an Identity Provider specified by ID for this Organization.
 
 </dd>
 </dl>
@@ -789,7 +789,7 @@ await client.organization.identityProviders.update("idp_id", {
 <dl>
 <dd>
 
-Triggers a refresh of attribute mappings on the identity provider by overriding it with the admin defined defaults. The endpoint doesn't accept any body parameters.
+Refresh the attribute mapping for an Identity Provider specified by ID for this Organization. Mappings are reset to the admin-defined defaults.
 
 </dd>
 </dl>
@@ -862,7 +862,7 @@ await client.organization.identityProviders.updateAttributes("idp_id", {
 <dl>
 <dd>
 
-Delete underlying identity provider from this organization.
+Remove an Identity Provider specified by ID from this Organization. This only removes the association; the underlying Identity Provider is not deleted. Members will no longer be able to authenticate using this Identity Provider.
 
 </dd>
 </dl>
@@ -927,7 +927,7 @@ await client.organization.identityProviders.detach("idp_id");
 <dl>
 <dd>
 
-Retrieve the connection profile for the application. This will give the components all of the information they will need to be successful. The SDK provider for the components should manage fetching and caching this information for all components.
+Retrieve the [Connection Profile](https://auth0.com/docs/authenticate/enterprise-connections/connection-profile) for this application. You should cache this information as it does not change frequently.
 
 </dd>
 </dl>
@@ -984,7 +984,7 @@ await client.organization.configuration.identityProviders.get();
 <dl>
 <dd>
 
-Get a verification text and start the domain verification process for a particular domain.
+Initiate the verification process for a domain specified by ID for this Organization.
 
 </dd>
 </dl>
@@ -1049,7 +1049,7 @@ await client.organization.domains.verify.create("domain_id");
 <dl>
 <dd>
 
-Retrieve the list of identity providers that have a specific organization domain alias.
+Retrieve the list of Identity Providers associated with a domain specified by ID for this Organization.
 
 </dd>
 </dl>
@@ -1114,7 +1114,7 @@ await client.organization.domains.identityProviders.get("domain_id");
 <dl>
 <dd>
 
-Add a domain to the identity provider's list of domains for [Home Realm Discovery (HRD)](https://auth0.com/docs/get-started/architecture-scenarios/business-to-business/authentication#home-realm-discovery). The domain passed must be claimed and verified by this organization.
+Associate a domain with an Identity Provider specified by ID for this Organization. The domain must be claimed and verified.
 
 </dd>
 </dl>
@@ -1187,7 +1187,7 @@ await client.organization.identityProviders.domains.create("idp_id", {
 <dl>
 <dd>
 
-Remove a domain from an identity provider.
+Remove a domain specified by name from an Identity Provider specified by ID for this Organization.
 
 </dd>
 </dl>
@@ -1260,7 +1260,7 @@ await client.organization.identityProviders.domains.delete("idp_id", "domain");
 <dl>
 <dd>
 
-Retrieve the Provisioning configuration for this identity provider.
+Retrieve the Provisioning Configuration for an Identity Provider specified by ID for this Organization.
 
 </dd>
 </dl>
@@ -1323,7 +1323,7 @@ await client.organization.identityProviders.provisioning.get("idp_id");
 <dl>
 <dd>
 
-Create the Provisioning configuration for this identity provider.
+Create a new Provisioning Configuration for an Identity Provider specified by ID for this Organization.
 
 </dd>
 </dl>
@@ -1386,7 +1386,7 @@ await client.organization.identityProviders.provisioning.create("idp_id");
 <dl>
 <dd>
 
-Delete the Provisioning configuration for an identity provider.
+Delete the Provisioning Configuration for an Identity Provider specified by ID for this Organization.
 
 </dd>
 </dl>
@@ -1449,7 +1449,7 @@ await client.organization.identityProviders.provisioning.delete("idp_id");
 <dl>
 <dd>
 
-Triggers a refresh of attribute mappings on the provisioning configuration by overriding it with the admin defined defaults. The endpoint doesn't accept any body parameters.
+Refresh the attribute mapping for the Provisioning Configuration of an Identity Provider specified by ID for this Organization. Mappings are reset to the admin-defined defaults.
 
 </dd>
 </dl>
@@ -1524,7 +1524,7 @@ await client.organization.identityProviders.provisioning.updateAttributes("idp_i
 <dl>
 <dd>
 
-List the Provisioning SCIM tokens for this identity provider.
+Retrieve a list of [SCIM tokens](https://auth0.com/docs/authenticate/protocols/scim/configure-inbound-scim#scim-endpoints-and-tokens) for the Provisioning Configuration of an Identity Provider specified by ID for this Organization.
 
 </dd>
 </dl>
@@ -1587,7 +1587,7 @@ await client.organization.identityProviders.provisioning.scimTokens.list("idp_id
 <dl>
 <dd>
 
-Create a Provisioning SCIM token for this identity provider.
+Create a new SCIM token for the Provisioning Configuration of an Identity Provider specified by ID for this Organization.
 
 </dd>
 </dl>
@@ -1660,7 +1660,7 @@ await client.organization.identityProviders.provisioning.scimTokens.create("idp_
 <dl>
 <dd>
 
-Delete a Provisioning SCIM configuration for an identity provider.
+Revoke a SCIM token specified by token ID for the Provisioning Configuration of an Identity Provider specified by ID for this Organization.
 
 </dd>
 </dl>

@@ -26,7 +26,7 @@ export class VerifyClient {
     }
 
     /**
-     * Get a verification text and start the domain verification process for a particular domain.
+     * Initiate the verification process for a domain specified by ID for this Organization.
      *
      * @param {MyOrganization.OrgDomainId} domain_id
      * @param {VerifyClient.RequestOptions} requestOptions - Request-specific configuration.

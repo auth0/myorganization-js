@@ -32,7 +32,7 @@ export class ProvisioningClient {
     }
 
     /**
-     * Retrieve the Provisioning configuration for this identity provider.
+     * Retrieve the Provisioning Configuration for an Identity Provider specified by ID for this Organization.
      *
      * @param {MyOrganization.IdpId} idp_id
      * @param {ProvisioningClient.RequestOptions} requestOptions - Request-specific configuration.
@@ -137,7 +137,7 @@ export class ProvisioningClient {
     }
 
     /**
-     * Create the Provisioning configuration for this identity provider.
+     * Create a new Provisioning Configuration for an Identity Provider specified by ID for this Organization.
      *
      * @param {MyOrganization.IdpId} idp_id
      * @param {ProvisioningClient.RequestOptions} requestOptions - Request-specific configuration.
@@ -242,7 +242,7 @@ export class ProvisioningClient {
     }
 
     /**
-     * Delete the Provisioning configuration for an identity provider.
+     * Delete the Provisioning Configuration for an Identity Provider specified by ID for this Organization.
      *
      * @param {MyOrganization.IdpId} idp_id
      * @param {ProvisioningClient.RequestOptions} requestOptions - Request-specific configuration.
@@ -344,7 +344,7 @@ export class ProvisioningClient {
     }
 
     /**
-     * Triggers a refresh of attribute mappings on the provisioning configuration by overriding it with the admin defined defaults. The endpoint doesn't accept any body parameters.
+     * Refresh the attribute mapping for the Provisioning Configuration of an Identity Provider specified by ID for this Organization. Mappings are reset to the admin-defined defaults.
      *
      * @param {MyOrganization.IdpId} idp_id
      * @param {Record<string, unknown>} request

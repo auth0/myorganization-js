@@ -35,7 +35,7 @@ export class DomainsClient {
     }
 
     /**
-     * Lists all domains pending and verified for an organization.
+     * Retrieve a list of all pending and verified domains for this Organization.
      *
      * @param {DomainsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -129,7 +129,7 @@ export class DomainsClient {
     }
 
     /**
-     * Create a new domain for an organization.
+     * Create a new domain for this Organization.
      *
      * @param {MyOrganization.CreateOrganizationDomainRequestContent} request
      * @param {DomainsClient.RequestOptions} requestOptions - Request-specific configuration.
@@ -240,7 +240,7 @@ export class DomainsClient {
     }
 
     /**
-     * Retrieve a domain for an organization.
+     * Retrieve details of a domain specified by ID for this Organization.
      *
      * @param {MyOrganization.OrgDomainId} domain_id
      * @param {DomainsClient.RequestOptions} requestOptions - Request-specific configuration.
@@ -340,7 +340,7 @@ export class DomainsClient {
     }
 
     /**
-     * Remove a domain from this organization.
+     * Remove a domain specified by ID from this Organization.
      *
      * @param {MyOrganization.OrgDomainId} domain_id
      * @param {DomainsClient.RequestOptions} requestOptions - Request-specific configuration.
