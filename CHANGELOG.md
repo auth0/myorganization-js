@@ -1,5 +1,37 @@
 # Change Log
 
+## [v1.0.0-beta.4](https://github.com/auth0/myorganization-js/tree/v1.0.0-beta.4) (2026-03-18)
+
+**Added**
+
+- feat: upgrade Fern SDK with logging, auth refactor, and new OAuth scopes [\#21](https://github.com/auth0/myorganization-js/pull/21) ([fern-api[bot]](https://github.com/apps/fern-api))
+    - Added configurable `core.logging` module with automatic redaction of sensitive headers
+    - Added `BearerAuthProvider` pattern replacing direct `token` option
+    - Added new OAuth scopes: `create:my_org:client_grants`, `create:my_org:clients`, `read:my_org:clients`, `delete:my_org:clients`
+    - Added `BodyIsNullError` type and `Accept` header auto-set based on `responseType`
+- chore: regenerate SDK with API definition updates and core fetcher improvements [\#27](https://github.com/auth0/myorganization-js/pull/27) ([fern-api[bot]](https://github.com/apps/fern-api))
+    - Split `OrgDetails` into `OrgDetails` (write) and `OrgDetailsRead` (read)
+    - Added `cache: "no-store"` for streaming/SSE requests with Cloudflare Workers compatibility
+    - Refactored Node.js runtime detection to avoid bundler warnings
+- chore: regenerate SDK with updated API definitions and type changes [\#30](https://github.com/auth0/myorganization-js/pull/30) ([fern-api[bot]](https://github.com/apps/fern-api))
+    - Renamed `google-apps` strategy key to `googleapps` in `IdentityProvidersConfigStrategyOverride`
+    - Renamed `logout` feature to `universal_logout` in `IdentityProvidersConfigEnabledFeaturesEnum`
+    - Removed `domain_aliases_config` field from `IdentityProvidersConfig`
+    - Made several fields optional in `MemberInvitation` type
+- Add framework documentation and examples for MyOrganization SDK [\#19](https://github.com/auth0/myorganization-js/pull/19)
+
+**Fixed**
+
+- fix: delegate custom fetcher to core.fetcher for proper request handling [\#25](https://github.com/auth0/myorganization-js/pull/25)
+- fix: resolve header loss and duplicate auth in custom fetcher mode [\#28](https://github.com/auth0/myorganization-js/pull/28)
+
+**Changed**
+
+- Updated license to Apache-2.0 and added NOTICE file [\#20](https://github.com/auth0/myorganization-js/pull/20)
+- Updated `@auth0/auth0-auth-js` from 1.3.0 to 1.5.0
+- Updated `jose` from 6.1.3 to 6.2.1
+- Bumped `lint-staged`, `typescript-eslint`, `eslint`, `webpack`, and other dev dependencies
+
 ## [v1.0.0-beta.3](https://github.com/auth0/myorganization-js/tree/v1.0.0-beta.3) (2025-12-22)
 
 **Added**
