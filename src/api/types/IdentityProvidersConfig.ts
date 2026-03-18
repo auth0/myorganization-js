@@ -5,5 +5,4 @@ import * as MyOrganization from "../index.js";
 export interface IdentityProvidersConfig {
     organization: MyOrganization.IdentityProvidersConfigOrganization;
     strategies: MyOrganization.IdentityProvidersConfigStrategyOverride;
-    domain_aliases_config: MyOrganization.IdentityProvidersConfigDomainAlias;
 }

@@ -7,7 +7,7 @@ import * as MyOrganization from "../index.js";
  */
 export interface IdentityProvidersConfigStrategyOverride {
     adfs?: MyOrganization.IdentityProviderConfigAdfs | undefined;
-    "google-apps"?: MyOrganization.IdentityProviderConfigGoogleApps | undefined;
+    googleapps?: MyOrganization.IdentityProviderConfigGoogleApps | undefined;
     oidc?: MyOrganization.IdentityProviderConfigOidc | undefined;
     okta?: MyOrganization.IdentityProviderConfigOkta | undefined;
     pingfederate?: MyOrganization.IdentityProviderConfigPingFederate | undefined;

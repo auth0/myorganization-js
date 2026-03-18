@@ -26,7 +26,7 @@ export class IdentityProvidersClient {
     }
 
     /**
-     * Retrieve the list of identity providers that have a specific organization domain alias.
+     * Retrieve the list of Identity Providers associated with a domain specified by ID for this Organization.
      *
      * @param {MyOrganization.OrgDomainId} domain_id
      * @param {IdentityProvidersClient.RequestOptions} requestOptions - Request-specific configuration.
