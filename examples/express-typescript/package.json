@@ -11,7 +11,7 @@
         "start:prod": "node dist/index.js"
     },
     "dependencies": {
-        "@auth0/myorganization-js": "^1.0.0-beta.3",
+        "@auth0/myorganization-js": "^1.0.0-beta.4",
         "express": "^4.18.2",
         "dotenv": "^16.3.1",
         "helmet": "^7.1.0",

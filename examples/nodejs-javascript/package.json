@@ -8,7 +8,7 @@
         "start": "node src/index.js"
     },
     "dependencies": {
-        "@auth0/myorganization-js": "^1.0.0-beta.3",
+        "@auth0/myorganization-js": "^1.0.0-beta.4",
         "dotenv": "^16.3.1"
     },
     "keywords": [

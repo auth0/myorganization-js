@@ -1,4 +1,8 @@
 node_modules
 .DS_Store
 /dist
+dist/
 docs/
+.env
+examples/*/package-lock.json
+examples/*/.npmrc

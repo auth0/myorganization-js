@@ -1,8 +1,14 @@
 /**
- * Vanilla JavaScript SPA Example for MyOrganization SDK
+ * Vanilla JavaScript SPA Example for MyOrganization SDK with DPoP
  *
  * This example demonstrates how to use the MyOrganization SDK with Auth0 SPA JS
- * in a vanilla JavaScript application (no framework required).
+ * in a vanilla JavaScript application using DPoP (Demonstrating Proof-of-Possession)
+ * for enhanced token security.
+ *
+ * Key DPoP features:
+ * - Cryptographic proof that the sender possesses the private key bound to the token
+ * - Automatic DPoP proof generation, nonce management, and retry via createFetcher()
+ * - Protection against token theft and replay attacks
  */
 
 import { createAuth0Client } from "@auth0/auth0-spa-js";
@@ -19,9 +25,14 @@ const audience = import.meta.env.VITE_AUTH0_AUDIENCE || `https://${import.meta.e
 
 async function initializeClients() {
     try {
+        // useDpop: true → generates an ES256 key pair and binds tokens to it
+        // cacheLocation: "localstorage" → persists tokens across page refreshes
+        //   so users don't need to re-authenticate on every reload
         auth0Client = await createAuth0Client({
             domain: import.meta.env.VITE_AUTH0_DOMAIN,
             clientId: import.meta.env.VITE_AUTH0_CLIENT_ID,
+            useDpop: true,
+            cacheLocation: "localstorage",
             authorizationParams: {
                 redirect_uri: window.location.origin,
                 organization: import.meta.env.VITE_AUTH0_ORGANIZATION,
@@ -55,27 +66,23 @@ async function initializeClients() {
 }
 
 async function setupMyOrganizationClient() {
+    // createFetcher() returns a Fetcher that automatically:
+    // 1. Generates a DPoP proof JWT for each request (bound to HTTP method + URL)
+    // 2. Handles server nonce challenges (extracts dpop-nonce header, retries with nonce)
+    // 3. Attaches the DPoP token and proof to every outgoing request
+    //
+    // dpopNonceId is required to enable DPoP proof generation on the fetcher.
+    // It scopes the nonce storage so different APIs can maintain separate nonces.
+    // Without it, the fetcher sends plain Bearer tokens (no DPoP proof).
+    const fetcher = auth0Client.createFetcher({
+        dpopNonceId: "__auth0_my_org_api__",
+    });
+
+    // Pass fetchWithAuth as the fetcher — it attaches the DPoP proof + token
+    // to every request the SDK makes. No separate "token" option needed.
     myOrgClient = new MyOrganizationClient({
         domain: import.meta.env.VITE_AUTH0_DOMAIN,
-        token: async ({ scope }) => {
-            const authorizationParams = {
-                scope: `openid profile email ${scope}`,
-                organization: import.meta.env.VITE_AUTH0_ORGANIZATION,
-                audience,
-            };
-            try {
-                return await auth0Client.getTokenSilently({ authorizationParams });
-            } catch (error) {
-                if (error?.error === "consent_required" || error?.message?.includes("Consent required")) {
-                    const token = await auth0Client.getTokenWithPopup({
-                        authorizationParams: { ...authorizationParams, prompt: "consent" },
-                    });
-                    if (!token) throw new Error("Failed to obtain access token via popup");
-                    return token;
-                }
-                throw error;
-            }
-        },
+        fetcher: fetcher.fetchWithAuth.bind(fetcher),
     });
 }
 
