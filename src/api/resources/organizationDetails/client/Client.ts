@@ -23,7 +23,7 @@ export class OrganizationDetailsClient {
     }
 
     /**
-     * Retrieve details for an Organization.
+     * Retrieve details for this Organization, including display name and branding options. To learn more about Auth0 Organizations, read [Organizations](https://auth0.com/docs/manage-users/organizations).
      *
      * @param {OrganizationDetailsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -117,7 +117,7 @@ export class OrganizationDetailsClient {
     }
 
     /**
-     * Update the details of a specific Organization, such as display name and branding options.
+     * Update details for this Organization, such as display name and branding options. To learn more about Auth0 Organizations, read [Organizations](https://auth0.com/docs/manage-users/organizations).
      *
      * @param {MyOrganization.UpdateOrganizationDetailsRequestContent} request
      * @param {OrganizationDetailsClient.RequestOptions} requestOptions - Request-specific configuration.

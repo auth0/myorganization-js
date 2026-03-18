@@ -13,14 +13,13 @@ describe("IdentityProvidersClient", () => {
             organization: { can_set_show_as_button: true, can_set_assign_membership_on_login: false },
             strategies: {
                 adfs: { enabled_features: ["provisioning"], provisioning_methods: ["scim"] },
-                "google-apps": { enabled_features: ["provisioning"], provisioning_methods: ["scim"] },
+                googleapps: { enabled_features: ["provisioning"], provisioning_methods: ["scim"] },
                 oidc: { enabled_features: ["provisioning"], provisioning_methods: ["scim"] },
-                okta: { enabled_features: ["provisioning", "logout"], provisioning_methods: ["scim"] },
+                okta: { enabled_features: ["provisioning", "universal_logout"], provisioning_methods: ["scim"] },
                 pingfederate: { enabled_features: ["provisioning"], provisioning_methods: ["scim"] },
-                samlp: { enabled_features: ["provisioning", "logout"], provisioning_methods: ["scim"] },
+                samlp: { enabled_features: ["provisioning", "universal_logout"], provisioning_methods: ["scim"] },
                 waad: { enabled_features: ["provisioning"], provisioning_methods: ["scim"] },
             },
-            domain_aliases_config: { domain_verification: "none" },
         };
         server
             .mockEndpoint()
@@ -41,7 +40,7 @@ describe("IdentityProvidersClient", () => {
                     enabled_features: ["provisioning"],
                     provisioning_methods: ["scim"],
                 },
-                "google-apps": {
+                googleapps: {
                     enabled_features: ["provisioning"],
                     provisioning_methods: ["scim"],
                 },
@@ -50,7 +49,7 @@ describe("IdentityProvidersClient", () => {
                     provisioning_methods: ["scim"],
                 },
                 okta: {
-                    enabled_features: ["provisioning", "logout"],
+                    enabled_features: ["provisioning", "universal_logout"],
                     provisioning_methods: ["scim"],
                 },
                 pingfederate: {
@@ -58,16 +57,13 @@ describe("IdentityProvidersClient", () => {
                     provisioning_methods: ["scim"],
                 },
                 samlp: {
-                    enabled_features: ["provisioning", "logout"],
+                    enabled_features: ["provisioning", "universal_logout"],
                     provisioning_methods: ["scim"],
                 },
                 waad: {
                     enabled_features: ["provisioning"],
                     provisioning_methods: ["scim"],
                 },
-            },
-            domain_aliases_config: {
-                domain_verification: "none",
             },
         });
     });

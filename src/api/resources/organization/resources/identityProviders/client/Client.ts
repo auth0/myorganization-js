@@ -35,7 +35,7 @@ export class IdentityProvidersClient {
     }
 
     /**
-     * List the identity providers associated with this organization.
+     * Retrieve a list of all Identity Providers for this Organization.
      *
      * @param {IdentityProvidersClient.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -129,7 +129,7 @@ export class IdentityProvidersClient {
     }
 
     /**
-     * Create an identity provider associated with this organization.
+     * Create a new Identity Provider for this Organization.
      *
      * @param {MyOrganization.CreateIdentityProviderRequestContent} request
      * @param {IdentityProvidersClient.RequestOptions} requestOptions - Request-specific configuration.
@@ -252,7 +252,7 @@ export class IdentityProvidersClient {
     }
 
     /**
-     * Retrieve the details for one particular identity-provider.
+     * Retrieve details of an Identity Provider specified by ID for this Organization.
      *
      * @param {MyOrganization.IdpId} idp_id
      * @param {IdentityProvidersClient.RequestOptions} requestOptions - Request-specific configuration.
@@ -352,7 +352,7 @@ export class IdentityProvidersClient {
     }
 
     /**
-     * Delete an identity provider from this organization.
+     * Delete an Identity Provider specified by ID from this Organization. This will remove the association and delete the underlying Identity Provider. Members will no longer be able to authenticate using this Identity Provider.
      *
      * @param {MyOrganization.IdpId} idp_id
      * @param {IdentityProvidersClient.RequestOptions} requestOptions - Request-specific configuration.
@@ -454,7 +454,7 @@ export class IdentityProvidersClient {
     }
 
     /**
-     * Update an identity provider associated with this organization.
+     * Update the details of an Identity Provider specified by ID for this Organization.
      *
      * @param {MyOrganization.IdpId} idp_id
      * @param {MyOrganization.UpdateIdentityProviderRequestContent} request
@@ -576,7 +576,7 @@ export class IdentityProvidersClient {
     }
 
     /**
-     * Triggers a refresh of attribute mappings on the identity provider by overriding it with the admin defined defaults. The endpoint doesn't accept any body parameters.
+     * Refresh the attribute mapping for an Identity Provider specified by ID for this Organization. Mappings are reset to the admin-defined defaults.
      *
      * @param {MyOrganization.IdpId} idp_id
      * @param {Record<string, unknown>} request
@@ -689,7 +689,7 @@ export class IdentityProvidersClient {
     }
 
     /**
-     * Delete underlying identity provider from this organization.
+     * Remove an Identity Provider specified by ID from this Organization. This only removes the association; the underlying Identity Provider is not deleted. Members will no longer be able to authenticate using this Identity Provider.
      *
      * @param {MyOrganization.IdpId} idp_id
      * @param {IdentityProvidersClient.RequestOptions} requestOptions - Request-specific configuration.

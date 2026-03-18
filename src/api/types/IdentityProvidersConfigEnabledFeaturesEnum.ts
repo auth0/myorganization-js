@@ -3,7 +3,7 @@
 /** The enabled features for the identity provider */
 export const IdentityProvidersConfigEnabledFeaturesEnum = {
     Provisioning: "provisioning",
-    Logout: "logout",
+    UniversalLogout: "universal_logout",
 } as const;
 export type IdentityProvidersConfigEnabledFeaturesEnum =
     (typeof IdentityProvidersConfigEnabledFeaturesEnum)[keyof typeof IdentityProvidersConfigEnabledFeaturesEnum];
