@@ -5,6 +5,20 @@ import * as MyOrganization from "../index.js";
 /**
  * @example
  *     {
+ *         from: "from",
+ *         take: 1
+ *     }
+ */
+export interface ListOrganizationDomainsRequestParameters {
+    /** An optional cursor from which to start the selection (exclusive). */
+    from?: string | null;
+    /** Number of results per page. Defaults to 50. */
+    take?: number | null;
+}
+
+/**
+ * @example
+ *     {
  *         domain: "acme.com"
  *     }
  */

@@ -37,95 +37,120 @@ export class DomainsClient {
     /**
      * Retrieve a list of all pending and verified domains for this Organization.
      *
+     * @param {MyOrganization.ListOrganizationDomainsRequestParameters} request
      * @param {DomainsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link MyOrganization.BadRequestError}
      * @throws {@link MyOrganization.UnauthorizedError}
      * @throws {@link MyOrganization.ForbiddenError}
      * @throws {@link MyOrganization.NotFoundError}
      * @throws {@link MyOrganization.TooManyRequestsError}
      *
      * @example
-     *     await client.organization.domains.list()
+     *     await client.organization.domains.list({
+     *         from: "from",
+     *         take: 1
+     *     })
      */
-    public list(
+    public async list(
+        request: MyOrganization.ListOrganizationDomainsRequestParameters = {},
         requestOptions?: DomainsClient.RequestOptions,
-    ): core.HttpResponsePromise<MyOrganization.ListOrganizationDomainsResponseContent> {
-        return core.HttpResponsePromise.fromPromise(this.__list(requestOptions));
-    }
-
-    private async __list(
-        requestOptions?: DomainsClient.RequestOptions,
-    ): Promise<core.WithRawResponse<MyOrganization.ListOrganizationDomainsResponseContent>> {
-        const _metadata: core.EndpointMetadata = {
-            security: [
-                { OAuth2ClientCredentials: ["read:my_org:domains"] },
-                { OAuth2AuthCode: ["read:my_org:domains"] },
-            ],
-        };
-        const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest({
-            endpointMetadata: _metadata,
-        });
-        let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
-            _authRequest.headers,
-            this._options?.headers,
-            requestOptions?.headers,
-        );
-        const _response = await (this._options.fetcher ?? core.fetcher)({
-            url: core.url.join(
-                (await core.Supplier.get(this._options.baseUrl)) ??
-                    (await core.Supplier.get(this._options.environment)) ??
-                    environments.MyOrganizationEnvironment.Default,
-                "domains",
-            ),
-            method: "GET",
-            headers: _headers,
-            queryParameters: requestOptions?.queryParams,
-            timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
-            maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
-            abortSignal: requestOptions?.abortSignal,
-            endpointMetadata: _metadata,
-            fetchFn: this._options?.fetch,
-            logging: this._options.logging,
-        });
-        if (_response.ok) {
-            return {
-                data: _response.body as MyOrganization.ListOrganizationDomainsResponseContent,
-                rawResponse: _response.rawResponse,
-            };
-        }
-
-        if (_response.error.reason === "status-code") {
-            switch (_response.error.statusCode) {
-                case 401:
-                    throw new MyOrganization.UnauthorizedError(
-                        _response.error.body as MyOrganization.ErrorResponseContent,
-                        _response.rawResponse,
-                    );
-                case 403:
-                    throw new MyOrganization.ForbiddenError(
-                        _response.error.body as MyOrganization.ErrorResponseContent,
-                        _response.rawResponse,
-                    );
-                case 404:
-                    throw new MyOrganization.NotFoundError(
-                        _response.error.body as MyOrganization.ErrorResponseContent,
-                        _response.rawResponse,
-                    );
-                case 429:
-                    throw new MyOrganization.TooManyRequestsError(
-                        _response.error.body as MyOrganization.ErrorResponseContent,
-                        _response.rawResponse,
-                    );
-                default:
-                    throw new errors.MyOrganizationError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.body,
+    ): Promise<core.Page<MyOrganization.OrgDomain, MyOrganization.ListOrganizationDomainsResponseContent>> {
+        const list = core.HttpResponsePromise.interceptFunction(
+            async (
+                request: MyOrganization.ListOrganizationDomainsRequestParameters,
+            ): Promise<core.WithRawResponse<MyOrganization.ListOrganizationDomainsResponseContent>> => {
+                const _metadata: core.EndpointMetadata = {
+                    security: [
+                        { OAuth2ClientCredentials: ["read:my_org:domains"] },
+                        { OAuth2AuthCode: ["read:my_org:domains"] },
+                    ],
+                };
+                const { from: from_, take = 50 } = request;
+                const _queryParams: Record<string, unknown> = {
+                    from: from_,
+                    take,
+                };
+                const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest({
+                    endpointMetadata: _metadata,
+                });
+                let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+                    _authRequest.headers,
+                    this._options?.headers,
+                    requestOptions?.headers,
+                );
+                const _response = await (this._options.fetcher ?? core.fetcher)({
+                    url: core.url.join(
+                        (await core.Supplier.get(this._options.baseUrl)) ??
+                            (await core.Supplier.get(this._options.environment)) ??
+                            environments.MyOrganizationEnvironment.Default,
+                        "domains",
+                    ),
+                    method: "GET",
+                    headers: _headers,
+                    queryParameters: { ..._queryParams, ...requestOptions?.queryParams },
+                    timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
+                    maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
+                    abortSignal: requestOptions?.abortSignal,
+                    endpointMetadata: _metadata,
+                    fetchFn: this._options?.fetch,
+                    logging: this._options.logging,
+                });
+                if (_response.ok) {
+                    return {
+                        data: _response.body as MyOrganization.ListOrganizationDomainsResponseContent,
                         rawResponse: _response.rawResponse,
-                    });
-            }
-        }
-
-        return handleNonStatusCodeError(_response.error, _response.rawResponse, "GET", "/domains");
+                    };
+                }
+                if (_response.error.reason === "status-code") {
+                    switch (_response.error.statusCode) {
+                        case 400:
+                            throw new MyOrganization.BadRequestError(
+                                _response.error.body as unknown,
+                                _response.rawResponse,
+                            );
+                        case 401:
+                            throw new MyOrganization.UnauthorizedError(
+                                _response.error.body as MyOrganization.ErrorResponseContent,
+                                _response.rawResponse,
+                            );
+                        case 403:
+                            throw new MyOrganization.ForbiddenError(
+                                _response.error.body as MyOrganization.ErrorResponseContent,
+                                _response.rawResponse,
+                            );
+                        case 404:
+                            throw new MyOrganization.NotFoundError(
+                                _response.error.body as MyOrganization.ErrorResponseContent,
+                                _response.rawResponse,
+                            );
+                        case 429:
+                            throw new MyOrganization.TooManyRequestsError(
+                                _response.error.body as MyOrganization.ErrorResponseContent,
+                                _response.rawResponse,
+                            );
+                        default:
+                            throw new errors.MyOrganizationError({
+                                statusCode: _response.error.statusCode,
+                                body: _response.error.body,
+                                rawResponse: _response.rawResponse,
+                            });
+                    }
+                }
+                return handleNonStatusCodeError(_response.error, _response.rawResponse, "GET", "/domains");
+            },
+        );
+        const dataWithRawResponse = await list(request).withRawResponse();
+        return new core.Page<MyOrganization.OrgDomain, MyOrganization.ListOrganizationDomainsResponseContent>({
+            response: dataWithRawResponse.data,
+            rawResponse: dataWithRawResponse.rawResponse,
+            hasNextPage: (response) =>
+                response?.next != null && !(typeof response?.next === "string" && response?.next === ""),
+            getItems: (response) => response?.organization_domains ?? [],
+            loadPage: (response) => {
+                return list(core.setObjectProperty(request, "from", response?.next));
+            },
+        });
     }
 
     /**
