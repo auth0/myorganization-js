@@ -12,7 +12,7 @@
 - [API Reference](https://github.com/auth0/myorganization-js/blob/main/reference.md) - full reference for this library
 - [Framework Examples](./examples/) - production-ready examples for Express, Node.js, React, and vanilla JavaScript
 
-## Getting Started
+## Getting started
 
 ### Requirements
 
@@ -43,7 +43,7 @@ const client = new MyOrganizationClient({
 });
 ```
 
-#### Using a Token Supplier
+#### Using a token supplier
 
 For dynamic token retrieval (recommended for production):
 
@@ -61,7 +61,7 @@ const client = new MyOrganizationClient({
 });
 ```
 
-#### Using a Custom Fetcher
+#### Using a custom fetcher
 
 For advanced authentication scenarios:
 
@@ -83,7 +83,7 @@ const client = new MyOrganizationClient({
 });
 ```
 
-### Server-Side Authentication
+### Server-side authentication
 
 For server-side applications, you can use the client credentials flow with a helper function that automatically handles token management:
 
@@ -104,7 +104,7 @@ const client = createMyOrganizationClientWithClientCredentials(
 );
 ```
 
-#### Using Client Credentials with Private Key Assertion
+#### Using Client Credentials with Private Key assertion
 
 For enhanced security using private key JWT:
 
@@ -123,7 +123,7 @@ const client = createMyOrganizationClientWithClientCredentials(
 );
 ```
 
-#### Manual Token Provider Setup
+#### Manual token provider setup
 
 For more control, you can manually configure the token provider:
 
@@ -146,7 +146,7 @@ const client = new MyOrganizationClient({
 
 **Security Warning**: Server-side authentication methods should only be used in secure server environments where client secrets and private keys can be safely stored. Never expose these credentials in browser or SPA applications.
 
-## Request and Response Types
+## Request and response types
 
 The SDK exports all request and response types as TypeScript interfaces. You can import them directly:
 
@@ -166,27 +166,27 @@ const request: MyOrganization.CreateOrganizationDomainRequestContent = {
 await client.organization.domains.create(request);
 ```
 
-## API Reference
+## API reference
 
-### Generated Documentation
+### Generated documentation
 
 - [Full Reference](./reference.md) - complete API reference guide
 
-### Key Classes
+### Key classes
 
 - **MyOrganizationClient** - for managing organization details, domains, identity providers, and configuration
 
-## Framework Examples
+## Framework examples
 
 Comprehensive examples demonstrating how to use the MyOrganization SDK across different frameworks:
 
-### 🚀 Server-Side
+### 🚀 Server-side
 
 - **[Express TypeScript](./examples/express-typescript/)** - Core organization management REST API with domain and identity provider workflows
 - **[Node.js TypeScript](./examples/nodejs-typescript/)** - CLI tools and automation scripts
 - **[Node.js JavaScript](./examples/nodejs-javascript/)** - Vanilla JavaScript scripts and automation tasks
 
-### 🌐 Client-Side
+### 🌐 Client-side
 
 - **[React SPA](./examples/react-spa/)** - React application with Auth0 React SDK integration and custom hooks
 - **[Vanilla JavaScript SPA](./examples/vanilla-spa/)** - Pure JavaScript SPA with Auth0 SPA JS integration
@@ -209,7 +209,7 @@ cp .env.example .env
 npm run dev
 ```
 
-### Key Patterns
+### Key patterns
 
 **Server-side (Express, Node.js):**
 
@@ -247,7 +247,7 @@ const client = new MyOrganizationClient({
 
 **[View all examples →](./examples/)**
 
-## Exception Handling
+## Exception handling
 
 When the API returns a non-success status code (4xx or 5xx response), a subclass of the following error will be thrown:
 
@@ -275,7 +275,7 @@ try {
 
 ## Advanced
 
-### Additional Headers
+### Additional headers
 
 If you would like to send additional headers as part of the request, use the `headers` request option:
 
@@ -292,7 +292,7 @@ const response = await client.organization.domains.create(
 );
 ```
 
-### Additional Query String Parameters
+### Additional query string parameters
 
 If you would like to send additional query string parameters as part of the request, use the `queryParams` request option:
 
@@ -347,7 +347,7 @@ const response = await client.organization.domains.create(
 );
 ```
 
-### Aborting Requests
+### Aborting requests
 
 The SDK allows users to abort requests at any point by passing in an abort signal:
 
@@ -381,7 +381,7 @@ const client = new MyOrganizationClient({
 
 When enabled at `debug` level, the SDK logs HTTP request and response details including method, URL, status code, and headers. Sensitive information (authorization headers, API keys, tokens in query parameters) is automatically redacted.
 
-#### Log Levels
+#### Log levels
 
 The available log levels in order of verbosity are:
 
@@ -390,7 +390,7 @@ The available log levels in order of verbosity are:
 - `warn` - Warning messages
 - `error` - Failed HTTP requests and errors
 
-#### Custom Logger
+#### Custom logger
 
 You can provide your own logger implementation that satisfies the `ILogger` interface:
 
@@ -411,7 +411,7 @@ const client = new MyOrganizationClient({
 });
 ```
 
-### Access Raw Response Data
+### Access raw response data
 
 The SDK provides access to raw response data, including headers, through the `.withRawResponse()` method. The `.withRawResponse()` method returns a promise that results to an object with a `data` and a `rawResponse` property:
 
@@ -426,7 +426,7 @@ console.log(data);
 console.log(rawResponse.headers["X-My-Header"]);
 ```
 
-### Runtime Compatibility
+### Runtime compatibility
 
 The SDK works in the following runtimes:
 
@@ -454,7 +454,7 @@ On the other hand, contributions to the README are always very welcome!
 
 To provide feedback or report a bug, please [raise an issue on our issue tracker](https://github.com/auth0/myorganization-js/issues).
 
-### Vulnerability Reporting
+### Vulnerability reporting
 
 Please do not report security vulnerabilities on the public GitHub issue tracker. The [Responsible Disclosure Program](https://auth0.com/whitehat) details the procedure for disclosing security issues.
 

@@ -4,9 +4,9 @@ Production-ready examples demonstrating the MyOrganization SDK across different 
 
 > 📖 **New to the SDK?** Start with the [Main README](../README.md) for installation and setup instructions.
 
-## Available Examples
+## Available examples
 
-### Server-Side (M2M Authentication)
+### Server-side (M2M authentication)
 
 | Example                                         | Description                           | Best For                          |
 | ----------------------------------------------- | ------------------------------------- | --------------------------------- |
@@ -14,14 +14,14 @@ Production-ready examples demonstrating the MyOrganization SDK across different 
 | **[nodejs-typescript](./nodejs-typescript/)**   | CLI tools and automation              | Scripts, DevOps, batch operations |
 | **[nodejs-javascript](./nodejs-javascript/)**   | Vanilla JS examples                   | Simple scripts, no TypeScript     |
 
-### Client-Side (User Authentication)
+### Client-side (user authentication)
 
 | Example                           | Description          | Best For                    |
 | --------------------------------- | -------------------- | --------------------------- |
 | **[react-spa](./react-spa/)**     | React app with hooks | Modern React applications   |
 | **[vanilla-spa](./vanilla-spa/)** | Framework-free SPA   | Learning, no framework deps |
 
-## Quick Start
+## Quick start
 
 ```bash
 # 1. Choose an example
@@ -38,9 +38,9 @@ cp .env.example .env
 npm run dev
 ```
 
-## Authentication Quick Reference
+## Authentication quick reference
 
-### Server-Side
+### Server-side
 
 ```typescript
 import { createMyOrganizationClientWithClientCredentials } from "@auth0/myorganization-js/server";
@@ -55,7 +55,7 @@ const client = createMyOrganizationClientWithClientCredentials(
 );
 ```
 
-### Client-Side
+### Client-side
 
 ```typescript
 import { MyOrganizationClient } from "@auth0/myorganization-js";
@@ -66,7 +66,7 @@ const client = new MyOrganizationClient({
 });
 ```
 
-## Need Help?
+## Need help?
 
 - 📖 [Main README](../README.md) - Installation, authentication, and SDK overview
 - 📖 [API Reference](../reference.md) - Full API documentation
