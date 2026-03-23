@@ -4,7 +4,7 @@ Command-line interface and script examples for Auth0 MyOrganization SDK in TypeS
 
 ## Features
 
-- ✅ CLI tool for organization management
+- ✅ CLI tool for Organization management
 - ✅ Identity provider setup scripts
 - ✅ All authentication methods (Client Secret & Private Key JWT)
 - ✅ Comprehensive error handling
@@ -50,10 +50,10 @@ From the M2M application's **Settings** tab, copy:
 - **Client ID**
 - **Client Secret** (or configure a private key for private key JWT)
 
-### 4. Get your organization ID
+### 4. Get your Organization ID
 
 1. Navigate to **Auth0 Dashboard → Organizations**.
-2. Select your organization
+2. Select your Organization
 3. Copy the **Organization ID** (starts with `org_`)
 
 ## Installation
@@ -83,7 +83,7 @@ AUTH0_ORGANIZATION=org_123456789
 
 | Command                                | Description              |
 | -------------------------------------- | ------------------------ |
-| `npm start org:details`                | Get organization details |
+| `npm start org:details`                | Get Organization details |
 | `npm start domains:list`               | List all domains         |
 | `npm start domains:create example.com` | Add a domain             |
 | `npm start idp:list`                   | List identity providers  |

@@ -10,7 +10,7 @@ Production-ready examples demonstrating the MyOrganization SDK across different 
 
 | Example                                         | Description                           | Best For                          |
 | ----------------------------------------------- | ------------------------------------- | --------------------------------- |
-| **[express-typescript](./express-typescript/)** | Core organization management REST API | Production APIs, backend services |
+| **[express-typescript](./express-typescript/)** | Core Organization management REST API | Production APIs, backend services |
 | **[nodejs-typescript](./nodejs-typescript/)**   | CLI tools and automation              | Scripts, DevOps, batch operations |
 | **[nodejs-javascript](./nodejs-javascript/)**   | Vanilla JS examples                   | Simple scripts, no TypeScript     |
 

@@ -51,10 +51,10 @@ From the M2M application's **Settings** tab, copy:
 - **Client ID**
 - **Client Secret** (or configure a private key for private key JWT)
 
-### 4. Get your organization ID
+### 4. Get your Organization ID
 
 1. Navigate to **Auth0 Dashboard → Organizations**.
-2. Select your organization
+2. Select your Organization
 3. Copy the **Organization ID** (starts with `org_`)
 
 ## Installation
@@ -103,7 +103,7 @@ const client = createMyOrganizationClientWithClientCredentials(
 );
 ```
 
-### Getting organization details
+### Getting Organization details
 
 ```javascript
 const details = await client.organizationDetails.get();

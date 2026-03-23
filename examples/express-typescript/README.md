@@ -1,15 +1,15 @@
 # MyOrganization SDK — Express TypeScript Example
 
-A production-ready Express.js REST API demonstrating the core features of the MyOrganization SDK: organization details, domain management, and identity provider configuration.
+A production-ready Express.js REST API demonstrating the core features of the MyOrganization SDK: Organization details, domain management, and identity provider configuration.
 
 ## What this example covers
 
-- Server-side M2M authentication (Client Secret and Private Key JWT)
-- Review and update organization details — endpoints for `GET` and `POST` calls
-- Configure domains — list, create, get verification details, verify, delete
-- Configure identity providers — list, create, get, update, delete
+- Server-side M2M authentication: Client Secret and Private Key JWT
+- Review and update Organization details: endpoints for `GET` and `PATCH` calls
+- Configure domains: list, create, get verification details, verify, delete
+- Configure identity providers: list, create, get, update, delete
 - Two end-to-end workflow examples: domain verification and OpenID Connect (OIDC) SSO setup
-- Error handling: comprehensive error handling for all SDK error types
+- Comprehensive error handling for all SDK error types
 
 ## Prerequisites
 

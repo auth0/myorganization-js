@@ -37,17 +37,17 @@ Before running this example you need to configure several things in the Auth0 Da
 3. Find the SPA you created and toggle it **on** (authorize it).
 4. Select **all scopes** the application needs (or select all available scopes for the example).
 
-### 4. Configure the login experience for organizations
+### 4. Configure the login experience for Organizations
 
 The application sends an `organization` parameter during login, so Auth0 must be configured to allow this.
 
 1. Navigate to **Applications > Applications** and open your SPA.
 2. Click the **Login Experience** tab.
-3. Under **Types of Users**, select **Both** — this allows users to sign up with a personal account and also be affiliated with one or more organizations.
+3. Under **Types of Users**, select **Both** — this allows users to sign up with a personal account and also be affiliated with one or more Organizations.
 4. Under **Login Flow**, select **No Prompt** — the application handles sending the `organization` parameter itself, so Auth0 does not need to prompt the user for it.
 5. Save your changes.
 
-### 5. Create an organization and add members
+### 5. Create an Organization and add members
 
 1. Navigate to **Organizations** in the Auth0 Dashboard.
 2. Click **+ Create Organization** (or open an existing one).
@@ -56,7 +56,7 @@ The application sends an `organization` parameter during login, so Auth0 must be
 
 ### 6. Define roles and assign to members
 
-The MyOrganization API uses roles to control what actions a user can perform. You must create a role with the required API permissions and assign it to your organization members.
+The MyOrganization API uses roles to control what actions a user can perform. You must create a role with the required API permissions and assign it to your Organization members.
 
 1. Navigate to **User Management > Roles** in the Auth0 Dashboard.
 2. Click **+ Create Role** and give it a name (e.g. "MyOrg Admin").
@@ -64,7 +64,7 @@ The MyOrganization API uses roles to control what actions a user can perform. Yo
 4. Select the **MyOrganization API** (`https://<YOUR_DOMAIN>/my-org/`) from the dropdown.
 5. Check all the permissions the role should have (e.g. `read:organization`, `update:organization`, `read:domains`, `create:domains`, `delete:domains`).
 6. Click **Add Permissions**.
-7. Now navigate to **Organizations**, open your organization, and navigate to the **Members** tab.
+7. Now navigate to **Organizations**, open your Organization, and navigate to the **Members** tab.
 8. Click the **"..."** menu next to a member and select **Assign Roles**.
 9. Select the role you created (e.g. "MyOrg Admin") and save.
 
@@ -200,10 +200,10 @@ await myOrgClient.organization.domains.create({ domain: "example.com" });
 | Problem                                     | Cause                                                                                            | Fix                                                                                                                                                                                                                                           |
 | ------------------------------------------- | ------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `Consent required` error                    | Using a localhost callback URI with "Non-Verifiable Callback URI End-User Confirmation" enabled. | Disable the setting in Auth0 Dashboard > Settings > Advanced, or use a non-localhost callback URI.                                                                                                                                            |
-| `Login required` on every page load         | The SPA is not authorized for the organization, or the user is not a member.                     | Check the SPA's Organizations tab and add the user to the organization's Members list.                                                                                                                                                        |
+| `Login required` on every page load         | The SPA is not authorized for the Organization, or the user is not a member.                     | Check the SPA's Organizations tab and add the user to the Organization's Members list.                                                                                                                                                        |
 | Opaque (non-JWT) access token               | No `audience` parameter is being sent.                                                           | Make sure `VITE_AUTH0_AUDIENCE` is set in `.env` and matches the API identifier.                                                                                                                                                              |
 | `Unauthorized` from the MyOrganization API  | The SPA is not authorized to call the API, or the required scopes were not granted.              | Authorize the SPA on the API's Machine to Machine tab and select all scopes.                                                                                                                                                                  |
-| `403 Forbidden` from the MyOrganization API | The user does not have a role with the required permissions assigned within the organization.    | Navigate to Organizations > your org > Members, click "..." next to the user, assign a role that includes the MyOrganization API permissions (see step 6).                                                                                    |
+| `403 Forbidden` from the MyOrganization API | The user does not have a role with the required permissions assigned within the Organization.    | Navigate to Organizations > your org > Members, click "..." next to the user, assign a role that includes the MyOrganization API permissions (see step 6).                                                                                    |
 | `use_dpop_nonce` error                      | The API requires a DPoP nonce but the client didn't include one.                                 | This is handled automatically by `createFetcher()` — it extracts the nonce from the `dpop-nonce` response header and retries. If you see this persistently, ensure you are using `createFetcher()` and not manually constructing DPoP proofs. |
 | `invalid_dpop_proof` error                  | The DPoP proof JWT is malformed or the key doesn't match.                                        | Ensure `useDpop: true` is set on `createAuth0Client`. Clear browser storage and try again — the DPoP key pair may be corrupted.                                                                                                               |
 | Token works but API rejects with 401        | DPoP is enabled on the API but the request doesn't include a DPoP proof.                         | Make sure you are using `fetcher: fetcher.fetchWithAuth.bind(fetcher)` instead of the `token` option. The `token` pattern sends a plain Bearer token without DPoP proof.                                                                      |
@@ -211,7 +211,7 @@ await myOrgClient.organization.domains.create({ domain: "example.com" });
 ## Security notes
 
 - Never include client secrets in a SPA — secrets are only for server-side applications.
-- Always pass the `organization` parameter in authorization requests to scope tokens to the correct organization.
+- Always pass the `organization` parameter in authorization requests to scope tokens to the correct Organization.
 - The SDK handles scope management automatically; you do not need to hard-code scope strings for each API call.
 
 ## Learn more

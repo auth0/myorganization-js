@@ -30,7 +30,7 @@ npm install @auth0/myorganization-js
 
 ### Configure the SDK
 
-The MyOrganization client allows you to manage Auth0 organizations, including organization details, domains, identity providers, and configuration.
+The MyOrganization client allows you to manage Auth0 Organizations, including Organization details, domains, identity providers, and configuration.
 
 Initialize your client with a domain and token supplier:
 
@@ -104,7 +104,7 @@ const client = createMyOrganizationClientWithClientCredentials(
 );
 ```
 
-#### Using Client Credentials with Private Key assertion
+#### Using Client Credentials with Private Key JWT
 
 For enhanced security using private key JWT:
 
@@ -174,7 +174,7 @@ await client.organization.domains.create(request);
 
 ### Key classes
 
-- **MyOrganizationClient** - for managing organization details, domains, identity providers, and configuration
+- **MyOrganizationClient** - for managing Organization details, domains, identity providers, and configuration
 
 ## Framework examples
 
@@ -182,7 +182,7 @@ Comprehensive examples demonstrating how to use the MyOrganization SDK across di
 
 ### 🚀 Server-side
 
-- **[Express TypeScript](./examples/express-typescript/)** - Core organization management REST API with domain and identity provider workflows
+- **[Express TypeScript](./examples/express-typescript/)** - Core Organization management REST API with domain and identity provider workflows
 - **[Node.js TypeScript](./examples/nodejs-typescript/)** - CLI tools and automation scripts
 - **[Node.js JavaScript](./examples/nodejs-javascript/)** - Vanilla JavaScript scripts and automation tasks
 
