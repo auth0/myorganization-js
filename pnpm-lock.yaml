@@ -1794,10 +1794,10 @@ packages:
             }
         engines: { node: ">= 10.13.0" }
 
-    jose@6.2.1:
+    jose@6.2.2:
         resolution:
             {
-                integrity: sha512-jUaKr1yrbfaImV7R2TN/b3IcZzsw38/chqMpo2XJ7i2F8AfM/lA4G1goC3JVEwg0H7UldTmSt3P68nt31W7/mw==,
+                integrity: sha512-d7kPDd34KO/YnzaDOlikGpOurfF0ByC2sEV4cANCtdqLlTfBlw2p14O/5d/zv40gJPbIQxfES3nSx1/oYNyuZQ==,
             }
 
     js-tokens@9.0.1:
@@ -2544,10 +2544,10 @@ packages:
             }
         engines: { node: ">=16" }
 
-    ts-api-utils@2.4.0:
+    ts-api-utils@2.5.0:
         resolution:
             {
-                integrity: sha512-3TaVTaAv2gTiMB35i3FiGJaRfwb3Pyn/j3m/bfAvGe8FB7CF6u+LMYqYlDh7reQf7UNvoTvdfAqHGmPGOSsPmA==,
+                integrity: sha512-OJ/ibxhPlqrMM0UiNHJ/0CKQkoKF243/AEmplt3qpRgkW8VG7IfOS41h7V8TjITqdByHzrjcS/2si+y4lIh8NA==,
             }
         engines: { node: ">=18.12" }
         peerDependencies:
@@ -2839,7 +2839,7 @@ packages:
 snapshots:
     "@auth0/auth0-auth-js@1.5.0":
         dependencies:
-            jose: 6.2.1
+            jose: 6.2.2
             openid-client: 6.8.2
 
     "@bundled-es-modules/cookie@2.0.1":
@@ -3201,7 +3201,7 @@ snapshots:
             eslint: 9.39.4
             ignore: 7.0.5
             natural-compare: 1.4.0
-            ts-api-utils: 2.4.0(typescript@5.7.3)
+            ts-api-utils: 2.5.0(typescript@5.7.3)
             typescript: 5.7.3
         transitivePeerDependencies:
             - supports-color
@@ -3243,7 +3243,7 @@ snapshots:
             "@typescript-eslint/utils": 8.57.1(eslint@9.39.4)(typescript@5.7.3)
             debug: 4.4.3
             eslint: 9.39.4
-            ts-api-utils: 2.4.0(typescript@5.7.3)
+            ts-api-utils: 2.5.0(typescript@5.7.3)
             typescript: 5.7.3
         transitivePeerDependencies:
             - supports-color
@@ -3260,7 +3260,7 @@ snapshots:
             minimatch: 10.2.4
             semver: 7.7.4
             tinyglobby: 0.2.15
-            ts-api-utils: 2.4.0(typescript@5.7.3)
+            ts-api-utils: 2.5.0(typescript@5.7.3)
             typescript: 5.7.3
         transitivePeerDependencies:
             - supports-color
@@ -3787,7 +3787,7 @@ snapshots:
             merge-stream: 2.0.0
             supports-color: 8.1.1
 
-    jose@6.2.1: {}
+    jose@6.2.2: {}
 
     js-tokens@9.0.1: {}
 
@@ -3946,7 +3946,7 @@ snapshots:
 
     openid-client@6.8.2:
         dependencies:
-            jose: 6.2.1
+            jose: 6.2.2
             oauth4webapi: 3.8.5
 
     optionator@0.9.4:
@@ -4198,7 +4198,7 @@ snapshots:
         dependencies:
             tldts: 7.0.25
 
-    ts-api-utils@2.4.0(typescript@5.7.3):
+    ts-api-utils@2.5.0(typescript@5.7.3):
         dependencies:
             typescript: 5.7.3
 

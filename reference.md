@@ -189,7 +189,7 @@ await client.organization.configuration.get();
 
 ## Organization Domains
 
-<details><summary><code>client.organization.domains.<a href="/src/api/resources/organization/resources/domains/client/Client.ts">list</a>() -> MyOrganization.ListOrganizationDomainsResponseContent</code></summary>
+<details><summary><code>client.organization.domains.<a href="/src/api/resources/organization/resources/domains/client/Client.ts">list</a>({ ...params }) -> core.Page&lt;MyOrganization.OrgDomain, MyOrganization.ListOrganizationDomainsResponseContent&gt;</code></summary>
 <dl>
 <dd>
 
@@ -217,7 +217,25 @@ Retrieve a list of all pending and verified domains for this Organization.
 <dd>
 
 ```typescript
-await client.organization.domains.list();
+const pageableResponse = await client.organization.domains.list({
+    from: "from",
+    take: 1,
+});
+for await (const item of pageableResponse) {
+    console.log(item);
+}
+
+// Or you can manually iterate page-by-page
+let page = await client.organization.domains.list({
+    from: "from",
+    take: 1,
+});
+while (page.hasNextPage()) {
+    page = page.getNextPage();
+}
+
+// You can also access the underlying response
+const response = page.response;
 ```
 
 </dd>
@@ -229,6 +247,14 @@ await client.organization.domains.list();
 
 <dl>
 <dd>
+
+<dl>
+<dd>
+
+**request:** `MyOrganization.ListOrganizationDomainsRequestParameters`
+
+</dd>
+</dl>
 
 <dl>
 <dd>

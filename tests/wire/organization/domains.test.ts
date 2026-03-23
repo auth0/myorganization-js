@@ -30,10 +30,15 @@ describe("DomainsClient", () => {
                 },
             ],
         };
-        server.mockEndpoint().get("/domains").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
+        server
+            .mockEndpoint({ once: false })
+            .get("/domains")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
 
-        const response = await client.organization.domains.list();
-        expect(response).toEqual({
+        const expected = {
             next: "eyJpZCI6Im9yZF96VzFVSGV0dmtCV1NXZENEZThEV3E3IiwidGVuYW50IjoidGVzdC10ZW5hbnQifQ",
             organization_domains: [
                 {
@@ -53,10 +58,31 @@ describe("DomainsClient", () => {
                     verification_host: "_ss-verification.org_nW1UHutvkVWSWdCG.acme.com",
                 },
             ],
+        };
+        const page = await client.organization.domains.list({
+            from: "from",
+            take: 1,
         });
+
+        expect(expected.organization_domains).toEqual(page.data);
+        expect(page.hasNextPage()).toBe(true);
+        const nextPage = await page.getNextPage();
+        expect(expected.organization_domains).toEqual(nextPage.data);
     });
 
     test("list (2)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { key: "value" };
+        server.mockEndpoint().get("/domains").respondWith().statusCode(400).jsonBody(rawResponseBody).build();
+
+        await expect(async () => {
+            return await client.organization.domains.list();
+        }).rejects.toThrow(MyOrganization.BadRequestError);
+    });
+
+    test("list (3)", async () => {
         const server = mockServerPool.createServer();
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
@@ -68,7 +94,7 @@ describe("DomainsClient", () => {
         }).rejects.toThrow(MyOrganization.UnauthorizedError);
     });
 
-    test("list (3)", async () => {
+    test("list (4)", async () => {
         const server = mockServerPool.createServer();
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
@@ -80,7 +106,7 @@ describe("DomainsClient", () => {
         }).rejects.toThrow(MyOrganization.ForbiddenError);
     });
 
-    test("list (4)", async () => {
+    test("list (5)", async () => {
         const server = mockServerPool.createServer();
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
@@ -92,7 +118,7 @@ describe("DomainsClient", () => {
         }).rejects.toThrow(MyOrganization.NotFoundError);
     });
 
-    test("list (5)", async () => {
+    test("list (6)", async () => {
         const server = mockServerPool.createServer();
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
