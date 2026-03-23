@@ -1,5 +1,32 @@
 # Change Log
 
+## [v1.0.0-beta.5](https://github.com/auth0/myorganization-js/tree/v1.0.0-beta.5) (2026-03-23)
+
+**Breaking**
+
+- chore!: regenerate SDK with pagination support for domains list [\#34](https://github.com/auth0/myorganization-js/pull/34) ([fern-api[bot]](https://github.com/apps/fern-api))
+    - Changed `organization.domains.list()` return type from `HttpResponsePromise` to `Promise<Page>` with cursor-based pagination (`from`/`take` parameters)
+    - Added new `core/pagination` module with `Page` and `CustomPager` classes
+    - Added `BadRequestError` (400) handling to the domains list endpoint
+- chore!: regenerate SDK with member type changes and scope updates [\#35](https://github.com/auth0/myorganization-js/pull/35) ([fern-api[bot]](https://github.com/apps/fern-api))
+    - Removed `google-sync` provisioning method from `IdpProvisioningMethodEnum` and `IdentityProvidersConfigProvisioningMethodsEnum` (affects identity providers configuration client)
+    - Renamed `OrgMemberId` type to `OrgMemberIdReadOnly`
+    - Removed `is_guest` field from `OrgMember`
+    - Removed `CreateMemberInvitationResponseContent` type
+    - Made `BaseUserAttributeMapItem.user_attribute` optional
+    - Changed `MemberInvitation.roles` type from `string[]` to `OrgMemberRoleId[]`
+
+**Added**
+
+- Added new OAuth scope `delete:my_org:memberships` (deletes membership without deleting underlying users)
+- Added DPoP examples for vanilla and React SPAs [\#29](https://github.com/auth0/myorganization-js/pull/29)
+
+**Changed**
+
+- Updated `delete:my_org:members` scope description to clarify it deletes underlying users
+- Updated `jose` from 6.2.1 to 6.2.2
+- Bumped `typedoc`, `ts-api-utils`, `yaml`, and other dev dependencies
+
 ## [v1.0.0-beta.4](https://github.com/auth0/myorganization-js/tree/v1.0.0-beta.4) (2026-03-18)
 
 **Added**
