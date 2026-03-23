@@ -3,7 +3,6 @@
 /** The provisioning method for the identity provider */
 export const IdentityProvidersConfigProvisioningMethodsEnum = {
     Scim: "scim",
-    GoogleSync: "google-sync",
 } as const;
 export type IdentityProvidersConfigProvisioningMethodsEnum =
     (typeof IdentityProvidersConfigProvisioningMethodsEnum)[keyof typeof IdentityProvidersConfigProvisioningMethodsEnum];

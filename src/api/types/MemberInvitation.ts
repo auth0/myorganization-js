@@ -12,7 +12,7 @@ export interface MemberInvitation {
     created_at?: string | undefined;
     /** The ISO 8601 formatted timestamp representing the expiration time of the invitation. */
     expires_at?: string | undefined;
-    roles?: string[] | undefined;
+    roles?: MyOrganization.OrgMemberRoleId[] | undefined;
     /** The invitation url to be sent to the invitee. */
     invitation_url?: string | undefined;
     /** The ID of the invitation ticket. */

@@ -3,9 +3,7 @@
 import * as MyOrganization from "../index.js";
 
 export interface OrgMember extends MyOrganization.UserAttributes {
-    user_id?: MyOrganization.OrgMemberId | undefined;
-    /** Is member a guest. */
-    is_guest?: boolean | undefined;
+    user_id?: MyOrganization.OrgMemberIdReadOnly | undefined;
     roles?: MyOrganization.OrgMemberRole[] | undefined;
     /** Date and time when this user was created (ISO_8601 format). */
     created_at?: string | undefined;

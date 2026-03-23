@@ -2,7 +2,6 @@
 
 /** The type of an identity provider's provisioning method */
 export const IdpProvisioningMethodEnum = {
-    GoogleSync: "google-sync",
     None: "none",
     Scim: "scim",
 } as const;

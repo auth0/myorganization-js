@@ -77,8 +77,11 @@ export const OauthScope = {
      * List members for organization */
     ReadMyOrgMembers: "read:my_org:members",
     /**
-     * Delete members from organization */
+     * Delete members from organization and the underlying users */
     DeleteMyOrgMembers: "delete:my_org:members",
+    /**
+     * Delete members from organization without deleting underlying users */
+    DeleteMyOrgMemberships: "delete:my_org:memberships",
     /**
      * List Roles for members in organization */
     ReadMyOrgMemberRoles: "read:my_org:member_roles",

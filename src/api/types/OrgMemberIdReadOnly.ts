@@ -3,4 +3,4 @@
 /**
  * The user ID.
  */
-export type OrgMemberId = string;
+export type OrgMemberIdReadOnly = string;
