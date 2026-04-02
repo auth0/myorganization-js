@@ -9,20 +9,20 @@ DPoP binds access tokens to a cryptographic key pair, preventing token theft and
 - An Auth0 tenant with the **MyOrganization** feature enabled
 - Node.js 18+
 
-## Auth0 Dashboard Configuration
+## Auth0 dashboard configuration
 
 Before running this example you need to configure several things in the Auth0 Dashboard.
 
 ### 1. Enable the MyOrganization API
 
-1. Go to **Applications > APIs** in the Auth0 Dashboard.
+1. Navigate to **Applications > APIs** in the Auth0 Dashboard.
 2. Locate the **MyOrganization API** (`https://<YOUR_DOMAIN>/my-org/`). If it does not exist, make sure MyOrganization is enabled on your tenant.
 3. Open the API and confirm it is **Enabled**.
 4. Under the **Permissions** tab, verify the required scopes are listed (e.g. `read:organization`, `update:organization`, `read:domains`, `create:domains`, `delete:domains`, `read:identity_providers`, `create:identity_providers`, `update:identity_providers`, `delete:identity_providers`).
 
-### 2. Create a Single Page Application
+### 2. Create a single page application
 
-1. Go to **Applications > Applications** and click **+ Create Application**.
+1. Navigate to **Applications > Applications** and click **+ Create Application**.
 2. Choose **Single Page Web Applications** and give it a name (e.g. "MyOrg Vanilla SPA").
 3. On the **Settings** tab configure:
     - **Allowed Callback URLs**: `http://localhost:5173`
@@ -30,41 +30,41 @@ Before running this example you need to configure several things in the Auth0 Da
     - **Allowed Web Origins**: `http://localhost:5173`
 4. Note down the **Domain** and **Client ID** — you will need them for the `.env` file.
 
-### 3. Authorize the SPA to Access the MyOrganization API
+### 3. Authorize the SPA to access the MyOrganization API
 
 1. Open the **MyOrganization API** settings (Applications > APIs).
-2. Go to the **Machine to Machine Applications** tab (or the **Authorized Application** section).
+2. Navigate to the **Machine to Machine Applications** tab (or the **Authorized Application** section).
 3. Find the SPA you created and toggle it **on** (authorize it).
 4. Select **all scopes** the application needs (or select all available scopes for the example).
 
-### 4. Configure the Login Experience for Organizations
+### 4. Configure the login experience for Organizations
 
 The application sends an `organization` parameter during login, so Auth0 must be configured to allow this.
 
-1. Go to **Applications > Applications** and open your SPA.
+1. Navigate to **Applications > Applications** and open your SPA.
 2. Click the **Login Experience** tab.
-3. Under **Types of Users**, select **Both** — this allows users to sign up with a personal account and also be affiliated with one or more organizations.
+3. Under **Types of Users**, select **Both** — this allows users to sign up with a personal account and also be affiliated with one or more Organizations.
 4. Under **Login Flow**, select **No Prompt** — the application handles sending the `organization` parameter itself, so Auth0 does not need to prompt the user for it.
 5. Save your changes.
 
-### 5. Create an Organization and Add Members
+### 5. Create an Organization and add members
 
-1. Go to **Organizations** in the Auth0 Dashboard.
+1. Navigate to **Organizations** in the Auth0 Dashboard.
 2. Click **+ Create Organization** (or open an existing one).
-3. Go to the **Members** tab and click **Add Members**. Add the user(s) that will log in to this example.
+3. Navigate to the **Members** tab and click **Add Members**. Add the user(s) that will log in to this example.
 4. Note down the **Organization ID** (`org_...`) — you will need it for the `.env` file.
 
-### 6. Define Roles and Assign to Members
+### 6. Define roles and assign to members
 
-The MyOrganization API uses roles to control what actions a user can perform. You must create a role with the required API permissions and assign it to your organization members.
+The MyOrganization API uses roles to control what actions a user can perform. You must create a role with the required API permissions and assign it to your Organization members.
 
-1. Go to **User Management > Roles** in the Auth0 Dashboard.
+1. Navigate to **User Management > Roles** in the Auth0 Dashboard.
 2. Click **+ Create Role** and give it a name (e.g. "MyOrg Admin").
-3. Open the role, go to the **Permissions** tab, and click **Add Permissions**.
+3. Open the role, navigate to the **Permissions** tab, and click **Add Permissions**.
 4. Select the **MyOrganization API** (`https://<YOUR_DOMAIN>/my-org/`) from the dropdown.
 5. Check all the permissions the role should have (e.g. `read:organization`, `update:organization`, `read:domains`, `create:domains`, `delete:domains`).
 6. Click **Add Permissions**.
-7. Now go to **Organizations**, open your organization, and go to the **Members** tab.
+7. Now navigate to **Organizations**, open your Organization, and navigate to the **Members** tab.
 8. Click the **"..."** menu next to a member and select **Assign Roles**.
 9. Select the role you created (e.g. "MyOrg Admin") and save.
 
@@ -73,19 +73,19 @@ The MyOrganization API uses roles to control what actions a user can perform. Yo
 ### 7. Enable DPoP on the API
 
 1. Open the **MyOrganization API** settings (Applications > APIs).
-2. Go to the **Settings** tab.
+2. Navigate to the **Settings** tab.
 3. Under **Token Settings**, set the **Token Endpoint Auth Method** or locate the **DPoP** section.
 4. Enable **Require DPoP** (or "Allow DPoP") for this API.
 
 > When DPoP is enabled, the API will reject Bearer tokens that are not accompanied by a valid DPoP proof. The Auth0 SPA SDK handles proof generation automatically via `createFetcher()`.
 
-### 8. Configure Consent for the MyOrganization API
+### 8. Configure consent for the MyOrganization API
 
 Auth0 shows a consent prompt when the callback URI is non-verifiable (e.g. `http://localhost`). This is controlled by the **Non-Verifiable Callback URI End-User Confirmation** setting.
 
 **To avoid consent prompts during local development:**
 
-1. Go to **Auth0 Dashboard > Settings > Advanced**.
+1. Navigate to **Auth0 Dashboard > Settings > Advanced**.
 2. Under **Non-Verifiable Callback URI End-User Confirmation**, toggle it **off**.
 
 > **In production** with a verifiable (non-localhost) callback URI, consent prompts do not appear regardless of this setting, as long as "Allow Skipping User Consent" is enabled on the API (Applications > APIs > MyOrganization API > Settings).
@@ -141,9 +141,9 @@ npm run build
 npm run preview
 ```
 
-## Key Patterns
+## Key patterns
 
-### Initialization with DPoP Fetcher
+### Initialization with DPoP fetcher
 
 ```javascript
 import { createAuth0Client } from "@auth0/auth0-spa-js";
@@ -182,7 +182,7 @@ const myOrgClient = new MyOrganizationClient({
 });
 ```
 
-### Making API Calls
+### Making API calls
 
 ```javascript
 // Get organization details
@@ -200,21 +200,21 @@ await myOrgClient.organization.domains.create({ domain: "example.com" });
 | Problem                                     | Cause                                                                                            | Fix                                                                                                                                                                                                                                           |
 | ------------------------------------------- | ------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `Consent required` error                    | Using a localhost callback URI with "Non-Verifiable Callback URI End-User Confirmation" enabled. | Disable the setting in Auth0 Dashboard > Settings > Advanced, or use a non-localhost callback URI.                                                                                                                                            |
-| `Login required` on every page load         | The SPA is not authorized for the organization, or the user is not a member.                     | Check the SPA's Organizations tab and add the user to the organization's Members list.                                                                                                                                                        |
+| `Login required` on every page load         | The SPA is not authorized for the Organization, or the user is not a member.                     | Check the SPA's Organizations tab and add the user to the Organization's Members list.                                                                                                                                                        |
 | Opaque (non-JWT) access token               | No `audience` parameter is being sent.                                                           | Make sure `VITE_AUTH0_AUDIENCE` is set in `.env` and matches the API identifier.                                                                                                                                                              |
 | `Unauthorized` from the MyOrganization API  | The SPA is not authorized to call the API, or the required scopes were not granted.              | Authorize the SPA on the API's Machine to Machine tab and select all scopes.                                                                                                                                                                  |
-| `403 Forbidden` from the MyOrganization API | The user does not have a role with the required permissions assigned within the organization.    | Go to Organizations > your org > Members, click "..." next to the user, assign a role that includes the MyOrganization API permissions (see step 6).                                                                                          |
+| `403 Forbidden` from the MyOrganization API | The user does not have a role with the required permissions assigned within the Organization.    | Navigate to Organizations > your org > Members, click "..." next to the user, assign a role that includes the MyOrganization API permissions (see step 6).                                                                                    |
 | `use_dpop_nonce` error                      | The API requires a DPoP nonce but the client didn't include one.                                 | This is handled automatically by `createFetcher()` — it extracts the nonce from the `dpop-nonce` response header and retries. If you see this persistently, ensure you are using `createFetcher()` and not manually constructing DPoP proofs. |
 | `invalid_dpop_proof` error                  | The DPoP proof JWT is malformed or the key doesn't match.                                        | Ensure `useDpop: true` is set on `createAuth0Client`. Clear browser storage and try again — the DPoP key pair may be corrupted.                                                                                                               |
 | Token works but API rejects with 401        | DPoP is enabled on the API but the request doesn't include a DPoP proof.                         | Make sure you are using `fetcher: fetcher.fetchWithAuth.bind(fetcher)` instead of the `token` option. The `token` pattern sends a plain Bearer token without DPoP proof.                                                                      |
 
-## Security Notes
+## Security notes
 
 - Never include client secrets in a SPA — secrets are only for server-side applications.
-- Always pass the `organization` parameter in authorization requests to scope tokens to the correct organization.
+- Always pass the `organization` parameter in authorization requests to scope tokens to the correct Organization.
 - The SDK handles scope management automatically; you do not need to hard-code scope strings for each API call.
 
-## Learn More
+## Learn more
 
 - [Auth0 SPA JS SDK](https://github.com/auth0/auth0-spa-js)
 - [MyOrganization SDK Documentation](../../README.md)

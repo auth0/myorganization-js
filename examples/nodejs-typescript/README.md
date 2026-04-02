@@ -4,9 +4,9 @@ Command-line interface and script examples for Auth0 MyOrganization SDK in TypeS
 
 ## Features
 
-- ✅ CLI tool for organization management
+- ✅ CLI tool for Organization management
 - ✅ Identity provider setup scripts
-- ✅ All authentication methods (client secret & private key JWT)
+- ✅ All authentication methods (Client Secret & Private Key JWT)
 - ✅ Comprehensive error handling
 
 ## Prerequisites
@@ -15,16 +15,16 @@ Command-line interface and script examples for Auth0 MyOrganization SDK in TypeS
 - An Auth0 tenant with the MyOrganization API enabled
 - A Machine-to-Machine (M2M) application in Auth0
 
-## Auth0 Setup
+## Auth0 setup
 
 ### 1. Enable the MyOrganization API
 
-1. Go to **Auth0 Dashboard → Applications → APIs**
-2. Find **Auth0 My Organization API** and confirm it is enabled
+1. Navigate to **Auth0 Dashboard → Applications → APIs**.
+2. Find **Auth0 My Organization API** and confirm it is enabled. If not, select **Activate**.
 
-### 2. Create an M2M Application
+### 2. Create an M2M application
 
-1. Go to **Applications → Applications → Create Application**
+1. Navigate to **Applications → Applications → Create Application**.
 2. Select **Machine to Machine Applications**
 3. Authorize it for the **Auth0 My Organization API**
 4. Grant the following scopes:
@@ -42,7 +42,7 @@ update:my_org:identity_providers
 delete:my_org:identity_providers
 ```
 
-### 3. Note Your Credentials
+### 3. Note your credentials
 
 From the M2M application's **Settings** tab, copy:
 
@@ -50,10 +50,10 @@ From the M2M application's **Settings** tab, copy:
 - **Client ID**
 - **Client Secret** (or configure a private key for private key JWT)
 
-### 4. Get Your Organization ID
+### 4. Get your Organization ID
 
-1. Go to **Auth0 Dashboard → Organizations**
-2. Select your organization
+1. Navigate to **Auth0 Dashboard → Organizations**.
+2. Select your Organization
 3. Copy the **Organization ID** (starts with `org_`)
 
 ## Installation
@@ -79,11 +79,11 @@ AUTH0_ORGANIZATION=org_123456789
 
 ## Usage
 
-### CLI Commands
+### CLI commands
 
 | Command                                | Description              |
 | -------------------------------------- | ------------------------ |
-| `npm start org:details`                | Get organization details |
+| `npm start org:details`                | Get Organization details |
 | `npm start domains:list`               | List all domains         |
 | `npm start domains:create example.com` | Add a domain             |
 | `npm start idp:list`                   | List identity providers  |
@@ -99,9 +99,9 @@ npm start idp:create-oidc \
   --discovery-url https://auth0.auth0.com/.well-known/openid-configuration
 ```
 
-## Key Patterns
+## Key patterns
 
-### Client Initialization
+### Client initialization
 
 ```typescript
 import { createMyOrganizationClientWithClientCredentials } from "@auth0/myorganization-js/server";
@@ -127,7 +127,7 @@ const client = createMyOrganizationClientWithClientCredentials(
 );
 ```
 
-### Error Handling
+### Error handling
 
 ```typescript
 import { MyOrganization, MyOrganizationError } from "@auth0/myorganization-js";
@@ -147,7 +147,7 @@ try {
 
 ## Security
 
-**Use private key JWT in production** — more secure than a client secret:
+**Use Private Key JWT in production** — more secure than a Client Secret:
 
 ```bash
 AUTH0_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----"
@@ -163,7 +163,7 @@ Never commit your `.env` file. Use a secrets manager (AWS Secrets Manager, Azure
 
 **403 Forbidden** — Grant the required scopes listed above to your M2M application in the Auth0 Dashboard.
 
-## Learn More
+## Learn more
 
 - [MyOrganization SDK Documentation](../../README.md)
 - [API Reference](../../reference.md)
