@@ -30,6 +30,7 @@ describe("DomainsClient", () => {
                 },
             ],
         };
+
         server
             .mockEndpoint({ once: false })
             .get("/domains")
@@ -75,6 +76,7 @@ describe("DomainsClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { key: "value" };
+
         server.mockEndpoint().get("/domains").respondWith().statusCode(400).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
@@ -87,6 +89,7 @@ describe("DomainsClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
         server.mockEndpoint().get("/domains").respondWith().statusCode(401).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
@@ -99,6 +102,7 @@ describe("DomainsClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
         server.mockEndpoint().get("/domains").respondWith().statusCode(403).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
@@ -111,6 +115,7 @@ describe("DomainsClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
         server.mockEndpoint().get("/domains").respondWith().statusCode(404).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
@@ -123,6 +128,7 @@ describe("DomainsClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
         server.mockEndpoint().get("/domains").respondWith().statusCode(429).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
@@ -142,6 +148,7 @@ describe("DomainsClient", () => {
             verification_txt: "dove_text=asdfpiujnlewp-23849jdkfjzxcfpiawer",
             verification_host: "_ss-verification.org_zW1UHutvkVWSWdCC.acme.com",
         };
+
         server
             .mockEndpoint()
             .post("/domains")
@@ -169,6 +176,7 @@ describe("DomainsClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
         const rawRequestBody = { domain: "domain" };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/domains")
@@ -190,6 +198,7 @@ describe("DomainsClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
         const rawRequestBody = { domain: "domain" };
         const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
         server
             .mockEndpoint()
             .post("/domains")
@@ -211,6 +220,7 @@ describe("DomainsClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
         const rawRequestBody = { domain: "domain" };
         const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
         server
             .mockEndpoint()
             .post("/domains")
@@ -232,6 +242,7 @@ describe("DomainsClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
         const rawRequestBody = { domain: "domain" };
         const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
         server
             .mockEndpoint()
             .post("/domains")
@@ -253,6 +264,7 @@ describe("DomainsClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
         const rawRequestBody = { domain: "domain" };
         const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
         server
             .mockEndpoint()
             .post("/domains")
@@ -274,6 +286,7 @@ describe("DomainsClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
         const rawRequestBody = { domain: "domain" };
         const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
         server
             .mockEndpoint()
             .post("/domains")
@@ -302,6 +315,7 @@ describe("DomainsClient", () => {
             verification_txt: "dove_text=asdfpiujnlewp-23849jdkfjzxcfpiawer",
             verification_host: "_ss-verification.org_zW1UHutvkVWSWdCC.acme.com",
         };
+
         server.mockEndpoint().get("/domains/domain_id").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
 
         const response = await client.organization.domains.get("domain_id");
@@ -320,6 +334,7 @@ describe("DomainsClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { key: "value" };
+
         server.mockEndpoint().get("/domains/domain_id").respondWith().statusCode(400).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
@@ -332,6 +347,7 @@ describe("DomainsClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
         server.mockEndpoint().get("/domains/domain_id").respondWith().statusCode(401).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
@@ -344,6 +360,7 @@ describe("DomainsClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
         server.mockEndpoint().get("/domains/domain_id").respondWith().statusCode(403).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
@@ -356,6 +373,7 @@ describe("DomainsClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
         server.mockEndpoint().get("/domains/domain_id").respondWith().statusCode(404).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
@@ -368,6 +386,7 @@ describe("DomainsClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
         server.mockEndpoint().get("/domains/domain_id").respondWith().statusCode(429).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
@@ -390,6 +409,7 @@ describe("DomainsClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .delete("/domains/domain_id")
@@ -408,6 +428,7 @@ describe("DomainsClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
         server
             .mockEndpoint()
             .delete("/domains/domain_id")
@@ -426,6 +447,7 @@ describe("DomainsClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
         server
             .mockEndpoint()
             .delete("/domains/domain_id")
@@ -444,6 +466,7 @@ describe("DomainsClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
         server
             .mockEndpoint()
             .delete("/domains/domain_id")
@@ -462,6 +485,7 @@ describe("DomainsClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
         server
             .mockEndpoint()
             .delete("/domains/domain_id")

@@ -15,6 +15,7 @@ describe("IdentityProvidersClient", () => {
                 { id: "con_2CZPv6IY0gWzDaQG", name: "acme-engineering-2", display_name: "Acme Engineering 2" },
             ],
         };
+
         server
             .mockEndpoint()
             .get("/domains/domain_id/identity-providers")
@@ -45,6 +46,7 @@ describe("IdentityProvidersClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .get("/domains/domain_id/identity-providers")
@@ -63,6 +65,7 @@ describe("IdentityProvidersClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
         server
             .mockEndpoint()
             .get("/domains/domain_id/identity-providers")
@@ -81,6 +84,7 @@ describe("IdentityProvidersClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
         server
             .mockEndpoint()
             .get("/domains/domain_id/identity-providers")
@@ -99,6 +103,7 @@ describe("IdentityProvidersClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
         server
             .mockEndpoint()
             .get("/domains/domain_id/identity-providers")
@@ -117,6 +122,7 @@ describe("IdentityProvidersClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
         server
             .mockEndpoint()
             .get("/domains/domain_id/identity-providers")

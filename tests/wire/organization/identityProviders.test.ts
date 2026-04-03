@@ -91,6 +91,7 @@ describe("IdentityProvidersClient", () => {
                 },
             ],
         };
+
         server
             .mockEndpoint()
             .get("/identity-providers")
@@ -189,6 +190,7 @@ describe("IdentityProvidersClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
         server
             .mockEndpoint()
             .get("/identity-providers")
@@ -207,6 +209,7 @@ describe("IdentityProvidersClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
         server
             .mockEndpoint()
             .get("/identity-providers")
@@ -225,6 +228,7 @@ describe("IdentityProvidersClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
         server
             .mockEndpoint()
             .get("/identity-providers")
@@ -243,6 +247,7 @@ describe("IdentityProvidersClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
         server
             .mockEndpoint()
             .get("/identity-providers")
@@ -310,6 +315,7 @@ describe("IdentityProvidersClient", () => {
                 },
             ],
         };
+
         server
             .mockEndpoint()
             .post("/identity-providers")
@@ -377,6 +383,7 @@ describe("IdentityProvidersClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
         const rawRequestBody = { strategy: "adfs", options: { adfs_server: "adfs_server" }, name: "x" };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/identity-providers")
@@ -402,6 +409,7 @@ describe("IdentityProvidersClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
         const rawRequestBody = { strategy: "adfs", options: { adfs_server: "adfs_server" }, name: "x" };
         const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
         server
             .mockEndpoint()
             .post("/identity-providers")
@@ -427,6 +435,7 @@ describe("IdentityProvidersClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
         const rawRequestBody = { strategy: "adfs", options: { adfs_server: "adfs_server" }, name: "x" };
         const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
         server
             .mockEndpoint()
             .post("/identity-providers")
@@ -452,6 +461,7 @@ describe("IdentityProvidersClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
         const rawRequestBody = { strategy: "adfs", options: { adfs_server: "adfs_server" }, name: "x" };
         const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
         server
             .mockEndpoint()
             .post("/identity-providers")
@@ -477,6 +487,7 @@ describe("IdentityProvidersClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
         const rawRequestBody = { strategy: "adfs", options: { adfs_server: "adfs_server" }, name: "x" };
         const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
         server
             .mockEndpoint()
             .post("/identity-providers")
@@ -502,6 +513,7 @@ describe("IdentityProvidersClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
         const rawRequestBody = { strategy: "adfs", options: { adfs_server: "adfs_server" }, name: "x" };
         const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
         server
             .mockEndpoint()
             .post("/identity-providers")
@@ -562,6 +574,7 @@ describe("IdentityProvidersClient", () => {
                 },
             ],
         };
+
         server
             .mockEndpoint()
             .get("/identity-providers/idp_id")
@@ -614,6 +627,7 @@ describe("IdentityProvidersClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .get("/identity-providers/idp_id")
@@ -632,6 +646,7 @@ describe("IdentityProvidersClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
         server
             .mockEndpoint()
             .get("/identity-providers/idp_id")
@@ -650,6 +665,7 @@ describe("IdentityProvidersClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
         server
             .mockEndpoint()
             .get("/identity-providers/idp_id")
@@ -668,6 +684,7 @@ describe("IdentityProvidersClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
         server
             .mockEndpoint()
             .get("/identity-providers/idp_id")
@@ -686,6 +703,7 @@ describe("IdentityProvidersClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
         server
             .mockEndpoint()
             .get("/identity-providers/idp_id")
@@ -714,6 +732,7 @@ describe("IdentityProvidersClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .delete("/identity-providers/idp_id")
@@ -732,6 +751,7 @@ describe("IdentityProvidersClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
         server
             .mockEndpoint()
             .delete("/identity-providers/idp_id")
@@ -750,6 +770,7 @@ describe("IdentityProvidersClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
         server
             .mockEndpoint()
             .delete("/identity-providers/idp_id")
@@ -768,6 +789,7 @@ describe("IdentityProvidersClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
         server
             .mockEndpoint()
             .delete("/identity-providers/idp_id")
@@ -786,6 +808,7 @@ describe("IdentityProvidersClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
         server
             .mockEndpoint()
             .delete("/identity-providers/idp_id")
@@ -850,6 +873,7 @@ describe("IdentityProvidersClient", () => {
                 },
             ],
         };
+
         server
             .mockEndpoint()
             .patch("/identity-providers/idp_id")
@@ -914,6 +938,7 @@ describe("IdentityProvidersClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
         const rawRequestBody = {};
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .patch("/identity-providers/idp_id")
@@ -933,6 +958,7 @@ describe("IdentityProvidersClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
         const rawRequestBody = {};
         const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
         server
             .mockEndpoint()
             .patch("/identity-providers/idp_id")
@@ -952,6 +978,7 @@ describe("IdentityProvidersClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
         const rawRequestBody = {};
         const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
         server
             .mockEndpoint()
             .patch("/identity-providers/idp_id")
@@ -971,6 +998,7 @@ describe("IdentityProvidersClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
         const rawRequestBody = {};
         const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
         server
             .mockEndpoint()
             .patch("/identity-providers/idp_id")
@@ -990,6 +1018,7 @@ describe("IdentityProvidersClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
         const rawRequestBody = {};
         const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
         server
             .mockEndpoint()
             .patch("/identity-providers/idp_id")
@@ -1044,6 +1073,7 @@ describe("IdentityProvidersClient", () => {
                 },
             ],
         };
+
         server
             .mockEndpoint()
             .put("/identity-providers/idp_id/update-attributes")
@@ -1099,6 +1129,7 @@ describe("IdentityProvidersClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
         const rawRequestBody = { string: { key: "value" } };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .put("/identity-providers/idp_id/update-attributes")
@@ -1122,6 +1153,7 @@ describe("IdentityProvidersClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
         const rawRequestBody = { string: { key: "value" } };
         const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
         server
             .mockEndpoint()
             .put("/identity-providers/idp_id/update-attributes")
@@ -1145,6 +1177,7 @@ describe("IdentityProvidersClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
         const rawRequestBody = { string: { key: "value" } };
         const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
         server
             .mockEndpoint()
             .put("/identity-providers/idp_id/update-attributes")
@@ -1168,6 +1201,7 @@ describe("IdentityProvidersClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
         const rawRequestBody = { string: { key: "value" } };
         const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
         server
             .mockEndpoint()
             .put("/identity-providers/idp_id/update-attributes")
@@ -1191,6 +1225,7 @@ describe("IdentityProvidersClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
         const rawRequestBody = { string: { key: "value" } };
         const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
         server
             .mockEndpoint()
             .put("/identity-providers/idp_id/update-attributes")
@@ -1224,6 +1259,7 @@ describe("IdentityProvidersClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/identity-providers/idp_id/detach")
@@ -1242,6 +1278,7 @@ describe("IdentityProvidersClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
         server
             .mockEndpoint()
             .post("/identity-providers/idp_id/detach")
@@ -1260,6 +1297,7 @@ describe("IdentityProvidersClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
         server
             .mockEndpoint()
             .post("/identity-providers/idp_id/detach")
@@ -1278,6 +1316,7 @@ describe("IdentityProvidersClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
         server
             .mockEndpoint()
             .post("/identity-providers/idp_id/detach")
@@ -1296,6 +1335,7 @@ describe("IdentityProvidersClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
         server
             .mockEndpoint()
             .post("/identity-providers/idp_id/detach")

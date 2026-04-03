@@ -17,6 +17,7 @@ describe("VerifyClient", () => {
             verification_txt: "dove_text=asdfpiujnlewp-23849jdkfjzxcfpiawer",
             verification_host: "_ss-verification.org_zW1UHutvkVWSWdCC.acme.com",
         };
+
         server
             .mockEndpoint()
             .post("/domains/domain_id/verify")
@@ -41,6 +42,7 @@ describe("VerifyClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/domains/domain_id/verify")
@@ -59,6 +61,7 @@ describe("VerifyClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
         server
             .mockEndpoint()
             .post("/domains/domain_id/verify")
@@ -77,6 +80,7 @@ describe("VerifyClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
         server
             .mockEndpoint()
             .post("/domains/domain_id/verify")
@@ -95,6 +99,7 @@ describe("VerifyClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
         server
             .mockEndpoint()
             .post("/domains/domain_id/verify")
@@ -113,6 +118,7 @@ describe("VerifyClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
         server
             .mockEndpoint()
             .post("/domains/domain_id/verify")

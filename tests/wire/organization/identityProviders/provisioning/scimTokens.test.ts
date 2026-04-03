@@ -25,6 +25,7 @@ describe("ScimTokensClient", () => {
                 },
             ],
         };
+
         server
             .mockEndpoint()
             .get("/identity-providers/idp_id/provisioning/scim-tokens")
@@ -57,6 +58,7 @@ describe("ScimTokensClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .get("/identity-providers/idp_id/provisioning/scim-tokens")
@@ -75,6 +77,7 @@ describe("ScimTokensClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
         server
             .mockEndpoint()
             .get("/identity-providers/idp_id/provisioning/scim-tokens")
@@ -93,6 +96,7 @@ describe("ScimTokensClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
         server
             .mockEndpoint()
             .get("/identity-providers/idp_id/provisioning/scim-tokens")
@@ -111,6 +115,7 @@ describe("ScimTokensClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
         server
             .mockEndpoint()
             .get("/identity-providers/idp_id/provisioning/scim-tokens")
@@ -129,6 +134,7 @@ describe("ScimTokensClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
         server
             .mockEndpoint()
             .get("/identity-providers/idp_id/provisioning/scim-tokens")
@@ -153,6 +159,7 @@ describe("ScimTokensClient", () => {
             valid_until: "2025-04-12T20:11:45Z",
             token: "tok_tuz8H9hWQ8LaCkdh....",
         };
+
         server
             .mockEndpoint()
             .post("/identity-providers/idp_id/provisioning/scim-tokens")
@@ -179,6 +186,7 @@ describe("ScimTokensClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
         const rawRequestBody = {};
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/identity-providers/idp_id/provisioning/scim-tokens")
@@ -198,6 +206,7 @@ describe("ScimTokensClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
         const rawRequestBody = {};
         const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
         server
             .mockEndpoint()
             .post("/identity-providers/idp_id/provisioning/scim-tokens")
@@ -217,6 +226,7 @@ describe("ScimTokensClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
         const rawRequestBody = {};
         const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
         server
             .mockEndpoint()
             .post("/identity-providers/idp_id/provisioning/scim-tokens")
@@ -236,6 +246,7 @@ describe("ScimTokensClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
         const rawRequestBody = {};
         const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
         server
             .mockEndpoint()
             .post("/identity-providers/idp_id/provisioning/scim-tokens")
@@ -255,6 +266,7 @@ describe("ScimTokensClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
         const rawRequestBody = {};
         const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
         server
             .mockEndpoint()
             .post("/identity-providers/idp_id/provisioning/scim-tokens")
@@ -292,6 +304,7 @@ describe("ScimTokensClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .delete("/identity-providers/idp_id/provisioning/scim-tokens/idp_scim_token_id")
@@ -313,6 +326,7 @@ describe("ScimTokensClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
         server
             .mockEndpoint()
             .delete("/identity-providers/idp_id/provisioning/scim-tokens/idp_scim_token_id")
@@ -334,6 +348,7 @@ describe("ScimTokensClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
         server
             .mockEndpoint()
             .delete("/identity-providers/idp_id/provisioning/scim-tokens/idp_scim_token_id")
@@ -355,6 +370,7 @@ describe("ScimTokensClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
         server
             .mockEndpoint()
             .delete("/identity-providers/idp_id/provisioning/scim-tokens/idp_scim_token_id")
@@ -376,6 +392,7 @@ describe("ScimTokensClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
         server
             .mockEndpoint()
             .delete("/identity-providers/idp_id/provisioning/scim-tokens/idp_scim_token_id")

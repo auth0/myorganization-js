@@ -21,6 +21,7 @@ describe("IdentityProvidersClient", () => {
                 waad: { enabled_features: ["provisioning"], provisioning_methods: ["scim"] },
             },
         };
+
         server
             .mockEndpoint()
             .get("/config/identity-providers")
@@ -73,6 +74,7 @@ describe("IdentityProvidersClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
         server
             .mockEndpoint()
             .get("/config/identity-providers")
@@ -91,6 +93,7 @@ describe("IdentityProvidersClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
         server
             .mockEndpoint()
             .get("/config/identity-providers")
@@ -109,6 +112,7 @@ describe("IdentityProvidersClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
         server
             .mockEndpoint()
             .get("/config/identity-providers")
@@ -127,6 +131,7 @@ describe("IdentityProvidersClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
         server
             .mockEndpoint()
             .get("/config/identity-providers")
