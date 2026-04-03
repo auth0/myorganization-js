@@ -10,10 +10,12 @@ vi.mock("../../src/auth/ClientCredentialsTokenProvider.js");
 // Mock @auth0/auth0-auth-js
 const mockGetTokenByClientCredentials = vi.fn();
 vi.mock("@auth0/auth0-auth-js", () => ({
-    AuthClient: vi.fn().mockImplementation(() => ({
-        getTokenByClientCredentials: mockGetTokenByClientCredentials,
-    })),
+    AuthClient: vi.fn(function () {
+        return { getTokenByClientCredentials: mockGetTokenByClientCredentials };
+    }),
 }));
+
+import { AuthClient } from "@auth0/auth0-auth-js";
 
 const MockMyOrgClient = MyOrganizationClient as MockedClass<typeof MyOrganizationClient>;
 const MockClientCredentialsTokenProvider = ClientCredentialsTokenProvider as MockedClass<
@@ -23,6 +25,10 @@ const MockClientCredentialsTokenProvider = ClientCredentialsTokenProvider as Moc
 describe("Server Factory Functions", () => {
     beforeEach(() => {
         vi.clearAllMocks();
+        // Re-apply mock implementation after clearAllMocks resets it.
+        (AuthClient as ReturnType<typeof vi.fn>).mockImplementation(function () {
+            return { getTokenByClientCredentials: mockGetTokenByClientCredentials };
+        });
         mockGetTokenByClientCredentials.mockResolvedValue({
             accessToken: "mock-access-token",
             expires_in: 3600,

@@ -5,6 +5,7 @@ import { ClientCredentialsTokenProvider } from "../../../src/auth/ClientCredenti
 import type { MockedClass } from "vitest";
 
 // Mock the dependencies with explicit factory functions (vitest v4 compatible)
+// Use regular functions (not arrows) so mocks are constructible with `new`.
 vi.mock("../../../src/Client.js");
 
 const mockTelemetryInstance = {
@@ -13,14 +14,16 @@ const mockTelemetryInstance = {
 };
 
 vi.mock("../../../src/utils/auth0ClientTelemetry.js", () => ({
-    Auth0ClientTelemetry: vi.fn(() => mockTelemetryInstance),
+    Auth0ClientTelemetry: vi.fn(function () {
+        return mockTelemetryInstance;
+    }),
 }));
 
 const mockGetTokenByClientCredentials = vi.fn();
 vi.mock("@auth0/auth0-auth-js", () => ({
-    AuthClient: vi.fn(() => ({
-        getTokenByClientCredentials: mockGetTokenByClientCredentials,
-    })),
+    AuthClient: vi.fn(function () {
+        return { getTokenByClientCredentials: mockGetTokenByClientCredentials };
+    }),
 }));
 
 // Import the mocked AuthClient after mocking
@@ -44,11 +47,14 @@ describe("MyOrganizationClient Unit Tests", () => {
 
     beforeEach(() => {
         vi.clearAllMocks();
-        // Re-apply mock implementations after clearAllMocks resets them
-        (Auth0ClientTelemetry as ReturnType<typeof vi.fn>).mockImplementation(() => mockTelemetryInstance);
-        (AuthClient as ReturnType<typeof vi.fn>).mockImplementation(() => ({
-            getTokenByClientCredentials: mockGetTokenByClientCredentials,
-        }));
+        // Re-apply mock implementations after clearAllMocks resets them.
+        // Use regular functions (not arrows) so mocks remain constructible.
+        (Auth0ClientTelemetry as ReturnType<typeof vi.fn>).mockImplementation(function () {
+            return mockTelemetryInstance;
+        });
+        (AuthClient as ReturnType<typeof vi.fn>).mockImplementation(function () {
+            return { getTokenByClientCredentials: mockGetTokenByClientCredentials };
+        });
         mockGetTokenByClientCredentials.mockResolvedValue({
             accessToken: "mock-access-token",
             expires_in: 3600,

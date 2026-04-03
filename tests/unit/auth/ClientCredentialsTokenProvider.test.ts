@@ -15,7 +15,8 @@ class NotSupportedError extends Error {
 }
 
 vi.mock("@auth0/auth0-auth-js", () => ({
-    AuthClient: vi.fn().mockImplementation((options: any) => {
+    // Use regular function (not arrow) so mock is constructible with `new` in vitest v4.
+    AuthClient: vi.fn(function (options: any) {
         // Simulate the real behavior: throw error if useMtls is true but no customFetch
         if (options?.useMtls && !options?.customFetch) {
             throw new NotSupportedError(
@@ -35,6 +36,17 @@ const MockAuthClient = AuthClient as MockedClass<typeof AuthClient>;
 describe("ClientCredentialsTokenProvider", () => {
     beforeEach(() => {
         vi.clearAllMocks();
+        // Re-apply mock implementation after clearAllMocks resets it.
+        // Use regular function (not arrow) so mock remains constructible.
+        (AuthClient as ReturnType<typeof vi.fn>).mockImplementation(function (options: any) {
+            if (options?.useMtls && !options?.customFetch) {
+                throw new NotSupportedError(
+                    "Using mTLS without a custom fetch implementation is not supported",
+                    "mtls_without_custom_fetch_not_supported",
+                );
+            }
+            return { getTokenByClientCredentials: mockGetTokenByClientCredentials };
+        });
         mockGetTokenByClientCredentials.mockResolvedValue({
             accessToken: "mock-access-token",
             expires_in: 3600,
