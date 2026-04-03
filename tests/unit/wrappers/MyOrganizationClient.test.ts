@@ -4,14 +4,21 @@ import { Auth0ClientTelemetry } from "../../../src/utils/auth0ClientTelemetry.js
 import { ClientCredentialsTokenProvider } from "../../../src/auth/ClientCredentialsTokenProvider.js";
 import type { MockedClass } from "vitest";
 
-// Mock the dependencies first
+// Mock the dependencies with explicit factory functions (vitest v4 compatible)
 vi.mock("../../../src/Client.js");
-vi.mock("../../../src/utils/auth0ClientTelemetry.js");
 
-// Mock @auth0/auth0-auth-js with factory function
+const mockTelemetryInstance = {
+    getHeaders: vi.fn().mockReturnValue({ "Auth0-Client": "base64-encoded-telemetry" }),
+    getAuth0ClientHeader: vi.fn().mockReturnValue("base64-encoded-telemetry"),
+};
+
+vi.mock("../../../src/utils/auth0ClientTelemetry.js", () => ({
+    Auth0ClientTelemetry: vi.fn(() => mockTelemetryInstance),
+}));
+
 const mockGetTokenByClientCredentials = vi.fn();
 vi.mock("@auth0/auth0-auth-js", () => ({
-    AuthClient: vi.fn().mockImplementation(() => ({
+    AuthClient: vi.fn(() => ({
         getTokenByClientCredentials: mockGetTokenByClientCredentials,
     })),
 }));
@@ -24,11 +31,6 @@ const MockAuth0ClientTelemetry = Auth0ClientTelemetry as MockedClass<typeof Auth
 const MockAuthClient = AuthClient as MockedClass<typeof AuthClient>;
 
 describe("MyOrganizationClient Unit Tests", () => {
-    const mockTelemetryInstance = {
-        getHeaders: vi.fn().mockReturnValue({ "Auth0-Client": "base64-encoded-telemetry" }),
-        getAuth0ClientHeader: vi.fn().mockReturnValue("base64-encoded-telemetry"),
-    } as any;
-
     // Helper function to extract the wrapped token function from the mock calls
     const getWrappedTokenFunction = (): any => {
         const callArgs = MockAuth0MyOrganizationClient.mock.calls[0][0];
@@ -42,7 +44,11 @@ describe("MyOrganizationClient Unit Tests", () => {
 
     beforeEach(() => {
         vi.clearAllMocks();
-        MockAuth0ClientTelemetry.mockImplementation(() => mockTelemetryInstance);
+        // Re-apply mock implementations after clearAllMocks resets them
+        (Auth0ClientTelemetry as ReturnType<typeof vi.fn>).mockImplementation(() => mockTelemetryInstance);
+        (AuthClient as ReturnType<typeof vi.fn>).mockImplementation(() => ({
+            getTokenByClientCredentials: mockGetTokenByClientCredentials,
+        }));
         mockGetTokenByClientCredentials.mockResolvedValue({
             accessToken: "mock-access-token",
             expires_in: 3600,
