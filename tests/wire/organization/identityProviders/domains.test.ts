@@ -10,6 +10,7 @@ describe("DomainsClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
         const rawRequestBody = { domain: "my-domain.com" };
         const rawResponseBody = { domain: "my-domain.com" };
+
         server
             .mockEndpoint()
             .post("/identity-providers/idp_id/domains")
@@ -32,6 +33,7 @@ describe("DomainsClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
         const rawRequestBody = { domain: "domain" };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/identity-providers/idp_id/domains")
@@ -53,6 +55,7 @@ describe("DomainsClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
         const rawRequestBody = { domain: "domain" };
         const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
         server
             .mockEndpoint()
             .post("/identity-providers/idp_id/domains")
@@ -74,6 +77,7 @@ describe("DomainsClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
         const rawRequestBody = { domain: "domain" };
         const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
         server
             .mockEndpoint()
             .post("/identity-providers/idp_id/domains")
@@ -95,6 +99,7 @@ describe("DomainsClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
         const rawRequestBody = { domain: "domain" };
         const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
         server
             .mockEndpoint()
             .post("/identity-providers/idp_id/domains")
@@ -116,6 +121,7 @@ describe("DomainsClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
         const rawRequestBody = { domain: "domain" };
         const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
         server
             .mockEndpoint()
             .post("/identity-providers/idp_id/domains")
@@ -137,6 +143,7 @@ describe("DomainsClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
         const rawRequestBody = { domain: "domain" };
         const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
         server
             .mockEndpoint()
             .post("/identity-providers/idp_id/domains")
@@ -168,6 +175,7 @@ describe("DomainsClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .delete("/identity-providers/idp_id/domains/domain")
@@ -186,6 +194,7 @@ describe("DomainsClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
         server
             .mockEndpoint()
             .delete("/identity-providers/idp_id/domains/domain")
@@ -204,6 +213,7 @@ describe("DomainsClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
         server
             .mockEndpoint()
             .delete("/identity-providers/idp_id/domains/domain")
@@ -222,6 +232,7 @@ describe("DomainsClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
         server
             .mockEndpoint()
             .delete("/identity-providers/idp_id/domains/domain")
@@ -240,6 +251,7 @@ describe("DomainsClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
         server
             .mockEndpoint()
             .delete("/identity-providers/idp_id/domains/domain")

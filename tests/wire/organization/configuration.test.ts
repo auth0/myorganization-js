@@ -10,6 +10,7 @@ describe("ConfigurationClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { allowed_strategies: ["adfs", "pingfederate"], connection_deletion_behavior: "allow" };
+
         server.mockEndpoint().get("/config").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
 
         const response = await client.organization.configuration.get();
@@ -24,6 +25,7 @@ describe("ConfigurationClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
         server.mockEndpoint().get("/config").respondWith().statusCode(401).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
@@ -36,6 +38,7 @@ describe("ConfigurationClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
         server.mockEndpoint().get("/config").respondWith().statusCode(403).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
@@ -48,6 +51,7 @@ describe("ConfigurationClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
         server.mockEndpoint().get("/config").respondWith().statusCode(404).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
@@ -60,6 +64,7 @@ describe("ConfigurationClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
         server.mockEndpoint().get("/config").respondWith().statusCode(429).jsonBody(rawResponseBody).build();
 
         await expect(async () => {

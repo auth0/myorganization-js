@@ -18,6 +18,7 @@ describe("OrganizationDetailsClient", () => {
                 colors: { primary: "#000000", page_background: "#FFFFFF" },
             },
         };
+
         server.mockEndpoint().get("/details").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
 
         const response = await client.organizationDetails.get();
@@ -40,6 +41,7 @@ describe("OrganizationDetailsClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
         server.mockEndpoint().get("/details").respondWith().statusCode(401).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
@@ -52,6 +54,7 @@ describe("OrganizationDetailsClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
         server.mockEndpoint().get("/details").respondWith().statusCode(403).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
@@ -64,6 +67,7 @@ describe("OrganizationDetailsClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
         server.mockEndpoint().get("/details").respondWith().statusCode(404).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
@@ -76,6 +80,7 @@ describe("OrganizationDetailsClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
         server.mockEndpoint().get("/details").respondWith().statusCode(429).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
@@ -103,6 +108,7 @@ describe("OrganizationDetailsClient", () => {
                 colors: { primary: "#000000", page_background: "#FFFFFF" },
             },
         };
+
         server
             .mockEndpoint()
             .patch("/details")
@@ -142,6 +148,7 @@ describe("OrganizationDetailsClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
         const rawRequestBody = {};
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .patch("/details")
@@ -161,6 +168,7 @@ describe("OrganizationDetailsClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
         const rawRequestBody = {};
         const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
         server
             .mockEndpoint()
             .patch("/details")
@@ -180,6 +188,7 @@ describe("OrganizationDetailsClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
         const rawRequestBody = {};
         const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
         server
             .mockEndpoint()
             .patch("/details")
@@ -199,6 +208,7 @@ describe("OrganizationDetailsClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
         const rawRequestBody = {};
         const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
         server
             .mockEndpoint()
             .patch("/details")
@@ -218,6 +228,7 @@ describe("OrganizationDetailsClient", () => {
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
         const rawRequestBody = {};
         const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
         server
             .mockEndpoint()
             .patch("/details")
