@@ -1,5 +1,25 @@
 # Change Log
 
+## [v1.0.0-beta.6](https://github.com/auth0/myorganization-js/tree/v1.0.0-beta.6) (2026-04-06)
+
+**Breaking**
+
+- chore!: bump minimum Node.js version from 18 to 20 [\#40](https://github.com/auth0/myorganization-js/pull/40) ([fern-api[bot]](https://github.com/apps/fern-api))
+    - Bumped `engines.node` requirement from `>=18.0.0` to `>=20.0.0`
+    - Updated `@types/node` from `^18.19.70` to `^22.0.0`
+
+**Added**
+
+- Added `fetch()` passthrough method on the base client for making requests to endpoints not yet supported, using the configured auth, retry, logging, and headers [\#38](https://github.com/auth0/myorganization-js/pull/38) ([fern-api[bot]](https://github.com/apps/fern-api))
+- Added `cause` property to `MyOrganizationError` and `MyOrganizationTimeoutError`, preserving the original error through the error handling chain [\#38](https://github.com/auth0/myorganization-js/pull/38) ([fern-api[bot]](https://github.com/apps/fern-api))
+
+**Changed**
+
+- Removed `CustomPager` in favor of the existing `Page` class for pagination [\#38](https://github.com/auth0/myorganization-js/pull/38)
+- Updated `BinaryResponse.bytes()` return type from `ReturnType<Response["bytes"]>` to `Promise<Uint8Array>` for broader runtime compatibility [\#38](https://github.com/auth0/myorganization-js/pull/38)
+- Updated `@auth0/auth0-auth-js` from 1.5.0 to 1.6.0 [\#37](https://github.com/auth0/myorganization-js/pull/37)
+- Bumped dev dependencies: vitest v3 to v4, TypeScript 5.7 to 5.9, prettier 3.7 to 3.8, webpack 5.97 to 5.105, pnpm 10.20 to 10.33 [\#38](https://github.com/auth0/myorganization-js/pull/38)
+
 ## [v1.0.0-beta.5](https://github.com/auth0/myorganization-js/tree/v1.0.0-beta.5) (2026-03-23)
 
 **Breaking**
