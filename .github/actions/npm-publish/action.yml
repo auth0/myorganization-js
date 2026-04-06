@@ -54,6 +54,6 @@ runs:
               else
                 TAG="latest"
               fi
-              npm publish --provenance --tag $TAG
+              npm publish --tag $TAG
           env:
               VERSION: ${{ inputs.version }}
