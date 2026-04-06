@@ -15,8 +15,8 @@ importers:
                 specifier: ^9.37.0
                 version: 9.39.4
             "@types/node":
-                specifier: ^18.19.70
-                version: 18.19.130
+                specifier: ^22.0.0
+                version: 22.19.15
             eslint:
                 specifier: ^9.37.0
                 version: 9.39.4
@@ -28,7 +28,7 @@ importers:
                 version: 16.4.0
             msw:
                 specifier: 2.11.2
-                version: 2.11.2(@types/node@18.19.130)(typescript@5.9.3)
+                version: 2.11.2(@types/node@22.19.15)(typescript@5.9.3)
             prettier:
                 specifier: 3.8.1
                 version: 3.8.1
@@ -43,7 +43,7 @@ importers:
                 version: 0.28.18(typescript@5.9.3)
             typedoc-plugin-missing-exports:
                 specifier: ^4.1.0
-                version: 4.1.2(typedoc@0.28.18(typescript@5.9.3))
+                version: 4.1.3(typedoc@0.28.18(typescript@5.9.3))
             typescript:
                 specifier: ~5.9.3
                 version: 5.9.3
@@ -52,7 +52,7 @@ importers:
                 version: 8.58.0(eslint@9.39.4)(typescript@5.9.3)
             vitest:
                 specifier: ^4.1.1
-                version: 4.1.2(@types/node@18.19.130)(msw@2.11.2(@types/node@18.19.130)(typescript@5.9.3))(vite@8.0.3(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@types/node@18.19.130)(terser@5.46.1)(yaml@2.8.3))
+                version: 4.1.2(@types/node@22.19.15)(msw@2.11.2(@types/node@22.19.15)(typescript@5.9.3))(vite@8.0.3(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@types/node@22.19.15)(terser@5.46.1)(yaml@2.8.3))
             webpack:
                 specifier: ^5.105.4
                 version: 5.105.4
@@ -557,10 +557,10 @@ packages:
                 integrity: sha512-5+fP8P8MFNC+AyZCDxrB2pkZFPGzqQWUzpSeuuVLvm8VMcorNYavBqoFcxK8bQz4Qsbn4oUEEem4wDLfcysGHA==,
             }
 
-    "@types/node@18.19.130":
+    "@types/node@22.19.15":
         resolution:
             {
-                integrity: sha512-GRaXQx6jGfL8sKfaIDD6OupbIHBr9jv7Jnaml9tB7l4v068PAOXqfcujMMo5PhbIs6ggR1XODELqahT2R8v0fg==,
+                integrity: sha512-F0R/h2+dsy5wJAUe3tAU6oqa2qbWY5TpNfL/RGmo1y38hiyO1w3x2jPtt76wmuaJI4DQnOBu21cNXQ2STIUUWg==,
             }
 
     "@types/statuses@2.0.6":
@@ -2376,10 +2376,10 @@ packages:
             }
         engines: { node: ">=16" }
 
-    typedoc-plugin-missing-exports@4.1.2:
+    typedoc-plugin-missing-exports@4.1.3:
         resolution:
             {
-                integrity: sha512-WNoeWX9+8X3E3riuYPduilUTFefl1K+Z+5bmYqNeH5qcWjtnTRMbRzGdEQ4XXn1WEO4WCIlU0vf46Ca2y/mspg==,
+                integrity: sha512-tgrlnwzXbqMP2/3BaZk0atddPsD7UnpCoeQ0cUCtk624gODT1bLYOLBEJLXQyVmbnP8HZCMhHpRiR+rxSdZqhg==,
             }
         peerDependencies:
             typedoc: ^0.28.1
@@ -2418,10 +2418,10 @@ packages:
                 integrity: sha512-ARDJmphmdvUk6Glw7y9DQ2bFkKBHwQHLi2lsaH6PPmz/Ka9sFOBsBluozhDltWmnv9u/cF6Rt87znRTPV+yp/A==,
             }
 
-    undici-types@5.26.5:
+    undici-types@6.21.0:
         resolution:
             {
-                integrity: sha512-JlCMO+ehdEIKqlFxk6IfVoAUVmgz7cU7zD/h9XZ0qzeosSHmUJVOzSQvvYSYWXkFXC+IfLKSIffhv0sVZup6pA==,
+                integrity: sha512-iwDZqg0QAGrg9Rav5H4n0M64c3mkR59cJ6wQp+7C4nI0gsmExaedaYLNO44eT4AtBBwjbTiGPMlt2Md0T9H9JQ==,
             }
 
     update-browserslist-db@1.2.3:
@@ -2734,31 +2734,31 @@ snapshots:
 
     "@inquirer/ansi@1.0.2": {}
 
-    "@inquirer/confirm@5.1.21(@types/node@18.19.130)":
+    "@inquirer/confirm@5.1.21(@types/node@22.19.15)":
         dependencies:
-            "@inquirer/core": 10.3.2(@types/node@18.19.130)
-            "@inquirer/type": 3.0.10(@types/node@18.19.130)
+            "@inquirer/core": 10.3.2(@types/node@22.19.15)
+            "@inquirer/type": 3.0.10(@types/node@22.19.15)
         optionalDependencies:
-            "@types/node": 18.19.130
+            "@types/node": 22.19.15
 
-    "@inquirer/core@10.3.2(@types/node@18.19.130)":
+    "@inquirer/core@10.3.2(@types/node@22.19.15)":
         dependencies:
             "@inquirer/ansi": 1.0.2
             "@inquirer/figures": 1.0.15
-            "@inquirer/type": 3.0.10(@types/node@18.19.130)
+            "@inquirer/type": 3.0.10(@types/node@22.19.15)
             cli-width: 4.1.0
             mute-stream: 2.0.0
             signal-exit: 4.1.0
             wrap-ansi: 6.2.0
             yoctocolors-cjs: 2.1.3
         optionalDependencies:
-            "@types/node": 18.19.130
+            "@types/node": 22.19.15
 
     "@inquirer/figures@1.0.15": {}
 
-    "@inquirer/type@3.0.10(@types/node@18.19.130)":
+    "@inquirer/type@3.0.10(@types/node@22.19.15)":
         optionalDependencies:
-            "@types/node": 18.19.130
+            "@types/node": 22.19.15
 
     "@jridgewell/gen-mapping@0.3.13":
         dependencies:
@@ -2914,9 +2914,9 @@ snapshots:
 
     "@types/json-schema@7.0.15": {}
 
-    "@types/node@18.19.130":
+    "@types/node@22.19.15":
         dependencies:
-            undici-types: 5.26.5
+            undici-types: 6.21.0
 
     "@types/statuses@2.0.6": {}
 
@@ -3022,14 +3022,14 @@ snapshots:
             chai: 6.2.2
             tinyrainbow: 3.1.0
 
-    "@vitest/mocker@4.1.2(msw@2.11.2(@types/node@18.19.130)(typescript@5.9.3))(vite@8.0.3(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@types/node@18.19.130)(terser@5.46.1)(yaml@2.8.3))":
+    "@vitest/mocker@4.1.2(msw@2.11.2(@types/node@22.19.15)(typescript@5.9.3))(vite@8.0.3(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@types/node@22.19.15)(terser@5.46.1)(yaml@2.8.3))":
         dependencies:
             "@vitest/spy": 4.1.2
             estree-walker: 3.0.3
             magic-string: 0.30.21
         optionalDependencies:
-            msw: 2.11.2(@types/node@18.19.130)(typescript@5.9.3)
-            vite: 8.0.3(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@types/node@18.19.130)(terser@5.46.1)(yaml@2.8.3)
+            msw: 2.11.2(@types/node@22.19.15)(typescript@5.9.3)
+            vite: 8.0.3(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@types/node@22.19.15)(terser@5.46.1)(yaml@2.8.3)
 
     "@vitest/pretty-format@4.1.2":
         dependencies:
@@ -3471,7 +3471,7 @@ snapshots:
 
     jest-worker@27.5.1:
         dependencies:
-            "@types/node": 18.19.130
+            "@types/node": 22.19.15
             merge-stream: 2.0.0
             supports-color: 8.1.1
 
@@ -3631,11 +3631,11 @@ snapshots:
 
     ms@2.1.3: {}
 
-    msw@2.11.2(@types/node@18.19.130)(typescript@5.9.3):
+    msw@2.11.2(@types/node@22.19.15)(typescript@5.9.3):
         dependencies:
             "@bundled-es-modules/cookie": 2.0.1
             "@bundled-es-modules/statuses": 1.0.1
-            "@inquirer/confirm": 5.1.21(@types/node@18.19.130)
+            "@inquirer/confirm": 5.1.21(@types/node@22.19.15)
             "@mswjs/interceptors": 0.39.8
             "@open-draft/deferred-promise": 2.2.0
             "@open-draft/until": 2.1.0
@@ -3933,7 +3933,7 @@ snapshots:
 
     type-fest@4.41.0: {}
 
-    typedoc-plugin-missing-exports@4.1.2(typedoc@0.28.18(typescript@5.9.3)):
+    typedoc-plugin-missing-exports@4.1.3(typedoc@0.28.18(typescript@5.9.3)):
         dependencies:
             typedoc: 0.28.18(typescript@5.9.3)
 
@@ -3961,7 +3961,7 @@ snapshots:
 
     uc.micro@2.1.0: {}
 
-    undici-types@5.26.5: {}
+    undici-types@6.21.0: {}
 
     update-browserslist-db@1.2.3(browserslist@4.28.2):
         dependencies:
@@ -3973,7 +3973,7 @@ snapshots:
         dependencies:
             punycode: 2.3.1
 
-    vite@8.0.3(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@types/node@18.19.130)(terser@5.46.1)(yaml@2.8.3):
+    vite@8.0.3(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@types/node@22.19.15)(terser@5.46.1)(yaml@2.8.3):
         dependencies:
             lightningcss: 1.32.0
             picomatch: 4.0.4
@@ -3981,7 +3981,7 @@ snapshots:
             rolldown: 1.0.0-rc.12(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)
             tinyglobby: 0.2.15
         optionalDependencies:
-            "@types/node": 18.19.130
+            "@types/node": 22.19.15
             fsevents: 2.3.3
             terser: 5.46.1
             yaml: 2.8.3
@@ -3989,10 +3989,10 @@ snapshots:
             - "@emnapi/core"
             - "@emnapi/runtime"
 
-    vitest@4.1.2(@types/node@18.19.130)(msw@2.11.2(@types/node@18.19.130)(typescript@5.9.3))(vite@8.0.3(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@types/node@18.19.130)(terser@5.46.1)(yaml@2.8.3)):
+    vitest@4.1.2(@types/node@22.19.15)(msw@2.11.2(@types/node@22.19.15)(typescript@5.9.3))(vite@8.0.3(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@types/node@22.19.15)(terser@5.46.1)(yaml@2.8.3)):
         dependencies:
             "@vitest/expect": 4.1.2
-            "@vitest/mocker": 4.1.2(msw@2.11.2(@types/node@18.19.130)(typescript@5.9.3))(vite@8.0.3(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@types/node@18.19.130)(terser@5.46.1)(yaml@2.8.3))
+            "@vitest/mocker": 4.1.2(msw@2.11.2(@types/node@22.19.15)(typescript@5.9.3))(vite@8.0.3(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@types/node@22.19.15)(terser@5.46.1)(yaml@2.8.3))
             "@vitest/pretty-format": 4.1.2
             "@vitest/runner": 4.1.2
             "@vitest/snapshot": 4.1.2
@@ -4009,10 +4009,10 @@ snapshots:
             tinyexec: 1.0.4
             tinyglobby: 0.2.15
             tinyrainbow: 3.1.0
-            vite: 8.0.3(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@types/node@18.19.130)(terser@5.46.1)(yaml@2.8.3)
+            vite: 8.0.3(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@types/node@22.19.15)(terser@5.46.1)(yaml@2.8.3)
             why-is-node-running: 2.3.0
         optionalDependencies:
-            "@types/node": 18.19.130
+            "@types/node": 22.19.15
         transitivePeerDependencies:
             - msw
 
