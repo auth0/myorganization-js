@@ -1,5 +1,40 @@
 # Change Log
 
+## [v1.0.0](https://github.com/auth0/myorganization-js/tree/v1.0.0) (2026-04-09)
+
+[Full Changelog](https://github.com/auth0/myorganization-js/compare/v1.0.0-beta.6...v1.0.0)
+
+Early Access (EA) release of the Auth0 MyOrganization JavaScript/TypeScript SDK.
+
+**API Surface**
+
+- Organization details management (read and update)
+- Domain management with verification workflows
+- Identity provider configuration and attribute mapping
+- Identity provider provisioning with SCIM token management
+- Organization configuration (branding, metadata, enabled features)
+
+**Key Features**
+
+- Token supplier pattern for dynamic, scoped token retrieval
+- Custom fetcher support for advanced authentication scenarios (e.g., DPoP)
+- Configurable logging with automatic redaction of sensitive headers
+- Cursor-based pagination for list endpoints
+- Passthrough `fetch()` method for endpoints not yet supported by the SDK
+- Built-in retry logic, error handling with `cause` property, and telemetry headers
+- Full TypeScript type coverage
+
+**Platform Support**
+
+- Node.js >= 20
+- Browser environments
+- Dual package format (CommonJS and ESM)
+
+**Changed**
+
+- Updated `typescript-eslint` from 8.58.0 to 8.58.1 [\#44](https://github.com/auth0/myorganization-js/pull/44)
+- Updated `@napi-rs/wasm-runtime` from 1.1.2 to 1.1.3 [\#44](https://github.com/auth0/myorganization-js/pull/44)
+
 ## [v1.0.0-beta.6](https://github.com/auth0/myorganization-js/tree/v1.0.0-beta.6) (2026-04-06)
 
 **Breaking**
