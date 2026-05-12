@@ -35,22 +35,7 @@ describe("ScimTokensClient", () => {
             .build();
 
         const response = await client.organization.identityProviders.provisioning.scimTokens.list("idp_id");
-        expect(response).toEqual({
-            scim_tokens: [
-                {
-                    token_id: "tok_abc8H9hWQ8LaCkdh",
-                    scopes: ["scopes"],
-                    created_at: "2025-05-11T20:11:45Z",
-                    valid_until: "2025-05-11T20:26:45Z",
-                },
-                {
-                    token_id: "tok_tuz8H9hWQ8LaCkdh",
-                    scopes: ["scopes"],
-                    created_at: "2025-04-11T20:11:45Z",
-                    valid_until: "2025-04-12T20:11:45Z",
-                },
-            ],
-        });
+        expect(response).toEqual(rawResponseBody);
     });
 
     test("list (2)", async () => {
@@ -172,13 +157,7 @@ describe("ScimTokensClient", () => {
         const response = await client.organization.identityProviders.provisioning.scimTokens.create("idp_id", {
             token_lifetime: 86400,
         });
-        expect(response).toEqual({
-            token_id: "tok_tuz8H9hWQ8LaCkdh",
-            scopes: ["scopes"],
-            created_at: "2025-04-11T20:11:45Z",
-            valid_until: "2025-04-12T20:11:45Z",
-            token: "tok_tuz8H9hWQ8LaCkdh....",
-        });
+        expect(response).toEqual(rawResponseBody);
     });
 
     test("create (2)", async () => {

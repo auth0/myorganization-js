@@ -48,35 +48,7 @@ describe("ProvisioningClient", () => {
             .build();
 
         const response = await client.organization.identityProviders.provisioning.get("idp_id");
-        expect(response).toEqual({
-            identity_provider_id: "con_2CZPv6IY0gWzDaQJ",
-            identity_provider_name: "EC-org-gaZPTTOS42pReSzs-id-ready2",
-            strategy: "okta",
-            method: "scim",
-            attributes: [
-                {
-                    user_attribute: "preferred_username",
-                    description: "Preferred Username",
-                    label: "Preferred username",
-                    is_required: true,
-                    is_extra: false,
-                    is_missing: false,
-                    provisioning_field: "userName",
-                },
-                {
-                    user_attribute: "blocked",
-                    description: "description",
-                    label: "label",
-                    is_required: true,
-                    is_extra: false,
-                    is_missing: false,
-                    provisioning_field: "active",
-                },
-            ],
-            user_id_attribute: "externalId",
-            created_at: "2025-05-15T23:32:52Z",
-            updated_on: "2025-05-15T23:32:52Z",
-        });
+        expect(response).toEqual(rawResponseBody);
     });
 
     test("get (2)", async () => {
@@ -217,35 +189,7 @@ describe("ProvisioningClient", () => {
             .build();
 
         const response = await client.organization.identityProviders.provisioning.create("idp_id");
-        expect(response).toEqual({
-            identity_provider_id: "con_2CZPv6IY0gWzDaQJ",
-            identity_provider_name: "EC-org-gaZPTTOS42pReSzs-id-ready2",
-            strategy: "okta",
-            method: "scim",
-            attributes: [
-                {
-                    user_attribute: "preferred_username",
-                    description: "Preferred Username",
-                    label: "Preferred username",
-                    is_required: true,
-                    is_extra: false,
-                    is_missing: false,
-                    provisioning_field: "userName",
-                },
-                {
-                    user_attribute: "external_id",
-                    description: "description",
-                    label: "label",
-                    is_required: true,
-                    is_extra: true,
-                    is_missing: false,
-                    provisioning_field: "externalId",
-                },
-            ],
-            user_id_attribute: "externalId",
-            created_at: "2025-05-15T23:32:52Z",
-            updated_on: "2025-05-15T23:32:52Z",
-        });
+        expect(response).toEqual(rawResponseBody);
     });
 
     test("create (2)", async () => {
@@ -494,35 +438,7 @@ describe("ProvisioningClient", () => {
         const response = await client.organization.identityProviders.provisioning.updateAttributes("idp_id", {
             key: "value",
         });
-        expect(response).toEqual({
-            identity_provider_id: "con_2CZPv6IY0gWzDaQJ",
-            identity_provider_name: "EC-org-gaZPTTOS42pReSzs-id-ready2",
-            strategy: "okta",
-            method: "scim",
-            attributes: [
-                {
-                    user_attribute: "preferred_username",
-                    description: "Preferred Username",
-                    label: "Preferred username",
-                    is_required: true,
-                    is_extra: false,
-                    is_missing: false,
-                    provisioning_field: "userName",
-                },
-                {
-                    user_attribute: "blocked",
-                    description: "description",
-                    label: "label",
-                    is_required: true,
-                    is_extra: false,
-                    is_missing: false,
-                    provisioning_field: "active",
-                },
-            ],
-            user_id_attribute: "externalId",
-            created_at: "2025-05-15T23:32:52Z",
-            updated_on: "2025-05-15T23:32:52Z",
-        });
+        expect(response).toEqual(rawResponseBody);
     });
 
     test("updateAttributes (2)", async () => {

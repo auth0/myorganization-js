@@ -14,10 +14,7 @@ describe("ConfigurationClient", () => {
         server.mockEndpoint().get("/config").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
 
         const response = await client.organization.configuration.get();
-        expect(response).toEqual({
-            allowed_strategies: ["adfs", "pingfederate"],
-            connection_deletion_behavior: "allow",
-        });
+        expect(response).toEqual(rawResponseBody);
     });
 
     test("get (2)", async () => {

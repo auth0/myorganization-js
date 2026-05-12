@@ -22,18 +22,7 @@ describe("OrganizationDetailsClient", () => {
         server.mockEndpoint().get("/details").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
 
         const response = await client.organizationDetails.get();
-        expect(response).toEqual({
-            id: "org_zW1UHutvkVWSWdCC",
-            name: "testorg",
-            display_name: "Test Organization",
-            branding: {
-                logo_url: "https://example.com/logo.png",
-                colors: {
-                    primary: "#000000",
-                    page_background: "#FFFFFF",
-                },
-            },
-        });
+        expect(response).toEqual(rawResponseBody);
     });
 
     test("get (2)", async () => {
@@ -129,18 +118,7 @@ describe("OrganizationDetailsClient", () => {
                 },
             },
         });
-        expect(response).toEqual({
-            id: "org_zW1UHutvkVWSWdCC",
-            name: "testorg",
-            display_name: "Test Organization",
-            branding: {
-                logo_url: "https://example.com/logo.png",
-                colors: {
-                    primary: "#000000",
-                    page_background: "#FFFFFF",
-                },
-            },
-        });
+        expect(response).toEqual(rawResponseBody);
     });
 
     test("update (2)", async () => {

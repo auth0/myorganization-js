@@ -59,3 +59,6 @@ CONTRIBUTING.md
 LICENSE
 NOTICE
 .fern/
+.fern/replay.lock
+.fern/replay.yml
+.gitattributes

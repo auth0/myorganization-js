@@ -25,20 +25,7 @@ describe("IdentityProvidersClient", () => {
             .build();
 
         const response = await client.organization.domains.identityProviders.get("domain_id");
-        expect(response).toEqual({
-            identity_providers: [
-                {
-                    id: "con_2CZPv6IY0gWzDaQJ",
-                    name: "acme-engineering",
-                    display_name: "Acme Engineering",
-                },
-                {
-                    id: "con_2CZPv6IY0gWzDaQG",
-                    name: "acme-engineering-2",
-                    display_name: "Acme Engineering 2",
-                },
-            ],
-        });
+        expect(response).toEqual(rawResponseBody);
     });
 
     test("get (2)", async () => {

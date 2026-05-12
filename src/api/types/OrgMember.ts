@@ -4,11 +4,15 @@ import * as MyOrganization from "../index.js";
 
 export interface OrgMember extends MyOrganization.UserAttributes {
     user_id?: MyOrganization.OrgMemberIdReadOnly | undefined;
-    roles?: MyOrganization.OrgMemberRole[] | undefined;
+    roles?: MyOrganization.Role[] | undefined;
     /** Date and time when this user was created (ISO_8601 format). */
     created_at?: string | undefined;
     /** Date and time when this user was last updated (ISO_8601 format). */
     updated_at?: string | undefined;
     /** Last date and time this user logged in (ISO_8601 format). */
     last_login?: string | undefined;
+    /** Phone number associated with the user. */
+    phone_number?: string | undefined;
+    /** Identities for that user */
+    identities?: MyOrganization.Identity[] | undefined;
 }

@@ -31,42 +31,7 @@ describe("IdentityProvidersClient", () => {
             .build();
 
         const response = await client.organization.configuration.identityProviders.get();
-        expect(response).toEqual({
-            organization: {
-                can_set_show_as_button: true,
-                can_set_assign_membership_on_login: false,
-            },
-            strategies: {
-                adfs: {
-                    enabled_features: ["provisioning"],
-                    provisioning_methods: ["scim"],
-                },
-                googleapps: {
-                    enabled_features: ["provisioning"],
-                    provisioning_methods: ["scim"],
-                },
-                oidc: {
-                    enabled_features: ["provisioning"],
-                    provisioning_methods: ["scim"],
-                },
-                okta: {
-                    enabled_features: ["provisioning", "universal_logout"],
-                    provisioning_methods: ["scim"],
-                },
-                pingfederate: {
-                    enabled_features: ["provisioning"],
-                    provisioning_methods: ["scim"],
-                },
-                samlp: {
-                    enabled_features: ["provisioning", "universal_logout"],
-                    provisioning_methods: ["scim"],
-                },
-                waad: {
-                    enabled_features: ["provisioning"],
-                    provisioning_methods: ["scim"],
-                },
-            },
-        });
+        expect(response).toEqual(rawResponseBody);
     });
 
     test("get (2)", async () => {

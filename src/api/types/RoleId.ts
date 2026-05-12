@@ -3,4 +3,4 @@
 /**
  * The ID of a role that can be assigned to a member of an organization.
  */
-export type OrgMemberRoleId = string;
+export type RoleId = string;
