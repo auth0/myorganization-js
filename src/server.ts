@@ -25,7 +25,6 @@ export { MyOrganizationClient } from "./wrappers/MyOrganizationClient.js";
 import { MyOrganizationClient } from "./wrappers/MyOrganizationClient.js";
 import {
     ClientCredentialsTokenProvider,
-    type ClientCredentialsOptions,
     type ClientCredentialsWithSecretOptions,
     type ClientCredentialsWithAssertionOptions,
 } from "./auth/index.js";
@@ -107,7 +106,7 @@ export function createMyOrganizationClientWithClientCredentials(
     const tokenProvider = new ClientCredentialsTokenProvider({
         ...providerOptions,
         domain: clientOptions.domain,
-    } as ClientCredentialsOptions);
+    });
 
     // Create and return the MyOrganizationClient with the token provider
     return new MyOrganizationClient({
