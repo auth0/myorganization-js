@@ -1,5 +1,15 @@
 # Change Log
 
+## [v1.0.1](https://github.com/auth0/myorganization-js/tree/v1.0.1) (2026-05-15)
+
+[Full Changelog](https://github.com/auth0/myorganization-js/compare/v1.0.0...v1.0.1)
+
+**Fixed**
+
+- Updated `BearerAuthProvider` to use `EndpointSupplier` instead of plain `Supplier`, enabling scope-aware token resolution by passing endpoint metadata through to token functions [\#48](https://github.com/auth0/myorganization-js/pull/48)
+- Added `AUTH_SCHEME`, `AUTH_CONFIG_ERROR_MESSAGE` constants, and `createInstance` factory method to `BearerAuthProvider` [\#48](https://github.com/auth0/myorganization-js/pull/48)
+- Changed `canCreate` to accept `Partial<Options>` for safer null checks [\#48](https://github.com/auth0/myorganization-js/pull/48)
+
 ## [v1.0.0](https://github.com/auth0/myorganization-js/tree/v1.0.0) (2026-04-09)
 
 [Full Changelog](https://github.com/auth0/myorganization-js/compare/v1.0.0-beta.6...v1.0.0)
