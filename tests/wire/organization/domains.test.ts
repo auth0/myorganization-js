@@ -39,27 +39,7 @@ describe("DomainsClient", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const expected = {
-            next: "eyJpZCI6Im9yZF96VzFVSGV0dmtCV1NXZENEZThEV3E3IiwidGVuYW50IjoidGVzdC10ZW5hbnQifQ",
-            organization_domains: [
-                {
-                    id: "ord_aW1UHetvkBWSWdCCe8DWq7",
-                    org_id: "org_zW1UHutvkVWSWdCC",
-                    domain: "acme.com",
-                    status: "pending",
-                    verification_txt: "dove_text=asdfpiujnlewp-23849jdkfjzxcfpiawer",
-                    verification_host: "_ss-verification.org_zW1UHutvkVWSWdCC.acme.com",
-                },
-                {
-                    id: "ord_zW1UHetvkBWSWdCDe8DWq7",
-                    org_id: "org_nW1UHutvkVWSWdCG",
-                    domain: "roadrunner.com",
-                    status: "failed",
-                    verification_txt: "dove_text=bcxzpiujnlewp-23849jdkfjzxcfpiawer",
-                    verification_host: "_ss-verification.org_nW1UHutvkVWSWdCG.acme.com",
-                },
-            ],
-        };
+        const expected = rawResponseBody;
         const page = await client.organization.domains.list({
             from: "from",
             take: 1,
@@ -161,14 +141,7 @@ describe("DomainsClient", () => {
         const response = await client.organization.domains.create({
             domain: "acme.com",
         });
-        expect(response).toEqual({
-            id: "ord_aW1UHetvkBWSWdCCe8DWq7",
-            org_id: "org_zW1UHutvkVWSWdCC",
-            domain: "acme.com",
-            status: "pending",
-            verification_txt: "dove_text=asdfpiujnlewp-23849jdkfjzxcfpiawer",
-            verification_host: "_ss-verification.org_zW1UHutvkVWSWdCC.acme.com",
-        });
+        expect(response).toEqual(rawResponseBody);
     });
 
     test("create (2)", async () => {
@@ -319,14 +292,7 @@ describe("DomainsClient", () => {
         server.mockEndpoint().get("/domains/domain_id").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
 
         const response = await client.organization.domains.get("domain_id");
-        expect(response).toEqual({
-            id: "ord_aW1UHetvkBWSWdCCe8DWq7",
-            org_id: "org_zW1UHutvkVWSWdCC",
-            domain: "acme.com",
-            status: "pending",
-            verification_txt: "dove_text=asdfpiujnlewp-23849jdkfjzxcfpiawer",
-            verification_host: "_ss-verification.org_zW1UHutvkVWSWdCC.acme.com",
-        });
+        expect(response).toEqual(rawResponseBody);
     });
 
     test("get (2)", async () => {

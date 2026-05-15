@@ -23,9 +23,7 @@ describe("DomainsClient", () => {
         const response = await client.organization.identityProviders.domains.create("idp_id", {
             domain: "my-domain.com",
         });
-        expect(response).toEqual({
-            domain: "my-domain.com",
-        });
+        expect(response).toEqual(rawResponseBody);
     });
 
     test("create (2)", async () => {

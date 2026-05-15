@@ -27,14 +27,7 @@ describe("VerifyClient", () => {
             .build();
 
         const response = await client.organization.domains.verify.create("domain_id");
-        expect(response).toEqual({
-            id: "ord_aW1UHetvkBWSWdCCe8DWq7",
-            org_id: "org_zW1UHutvkVWSWdCC",
-            domain: "acme.com",
-            status: "pending",
-            verification_txt: "dove_text=asdfpiujnlewp-23849jdkfjzxcfpiawer",
-            verification_host: "_ss-verification.org_zW1UHutvkVWSWdCC.acme.com",
-        });
+        expect(response).toEqual(rawResponseBody);
     });
 
     test("create (2)", async () => {

@@ -2,8 +2,8 @@
 
 import * as MyOrganization from "../index.js";
 
-export interface OrgMemberRole {
-    id: MyOrganization.OrgMemberRoleId;
+export interface Role {
+    id: MyOrganization.RoleId;
     name: string;
     description?: string | undefined;
 }

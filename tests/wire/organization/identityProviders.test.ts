@@ -101,88 +101,7 @@ describe("IdentityProvidersClient", () => {
             .build();
 
         const response = await client.organization.identityProviders.list();
-        expect(response).toEqual({
-            identity_providers: [
-                {
-                    id: "con_zW1UHutvkVWSWdCC",
-                    name: "oidcIdp",
-                    strategy: "oidc",
-                    domains: ["mydomain.com"],
-                    display_name: "OIDC IdP",
-                    show_as_button: true,
-                    assign_membership_on_login: false,
-                    is_enabled: true,
-                    access_level: "full",
-                    options: {
-                        type: "front_channel",
-                        client_id: "a8f3b2e7-5d1c-4f9a-8b0d-2e1c3a5b6f7d",
-                        discovery_url: "https://{yourDomain}/.well-known/openid-configuration",
-                    },
-                    attributes: [
-                        {
-                            user_attribute: "preferred_username",
-                            description: "Preferred Username",
-                            label: "Preferred username",
-                            is_required: true,
-                            is_extra: false,
-                            is_missing: false,
-                            sso_field: ["userName"],
-                        },
-                        {
-                            user_attribute: "external_id",
-                            is_required: true,
-                            is_extra: true,
-                            is_missing: false,
-                            sso_field: ["externalId"],
-                        },
-                    ],
-                },
-                {
-                    id: "con_zW1UHutvkVWSWdCD",
-                    name: "samlIdp",
-                    strategy: "samlp",
-                    domains: ["mydomain.com"],
-                    display_name: "Saml IdP",
-                    show_as_button: true,
-                    assign_membership_on_login: false,
-                    is_enabled: true,
-                    access_level: "limited",
-                    options: {
-                        metadataUrl: "a.metadata.url",
-                        signSAMLRequest: true,
-                        signatureAlgorithm: "rsa-sha256",
-                        digestAlgorithm: "sha256",
-                        protocolBinding: "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST",
-                        bindingMethod: "HTTP-Redirect",
-                        cert: "MIIDQjCCAiugAwIBAgIRAMp+cW+SgQ2Yh7fF8v8b0OQwDQYJKoZIhvcNAQELBQAw...",
-                        idpInitiated: {
-                            enabled: true,
-                            client_id: "a8f3b2e7-5d1c-4f9a-8b0d-2e1c3a5b6f7d",
-                            client_protocol: "SAML",
-                            client_authorizequery: "redirect_uri=https://jwt.io&scope=openid email&response_type=token",
-                        },
-                    },
-                    attributes: [
-                        {
-                            user_attribute: "preferred_username",
-                            description: "Preferred Username",
-                            label: "Preferred username",
-                            is_required: true,
-                            is_extra: false,
-                            is_missing: false,
-                            sso_field: ["userName"],
-                        },
-                        {
-                            user_attribute: "external_id",
-                            is_required: true,
-                            is_extra: true,
-                            is_missing: false,
-                            sso_field: ["externalId"],
-                        },
-                    ],
-                },
-            ],
-        });
+        expect(response).toEqual(rawResponseBody);
     });
 
     test("list (2)", async () => {
@@ -340,42 +259,7 @@ describe("IdentityProvidersClient", () => {
                 discovery_url: "https://{yourDomain}/.well-known/openid-configuration",
             },
         });
-        expect(response).toEqual({
-            id: "con_zW1UHutvkVWSWdCC",
-            name: "oidcIdp",
-            strategy: "oidc",
-            domains: ["mydomain.com"],
-            display_name: "OIDC IdP",
-            show_as_button: true,
-            assign_membership_on_login: false,
-            is_enabled: true,
-            access_level: "full",
-            options: {
-                type: "front_channel",
-                client_id: "client_a8f3b2e7-5d1c-4f9a-8b0d-2e1c3a5b6f7did",
-                discovery_url: "https://{yourDomain}/.well-known/openid-configuration",
-            },
-            attributes: [
-                {
-                    user_attribute: "preferred_username",
-                    description: "Preferred Username",
-                    label: "Preferred username",
-                    is_required: true,
-                    is_extra: false,
-                    is_missing: false,
-                    sso_field: ["userName"],
-                },
-                {
-                    user_attribute: "external_id",
-                    description: "description",
-                    label: "label",
-                    is_required: true,
-                    is_extra: true,
-                    is_missing: false,
-                    sso_field: ["externalId"],
-                },
-            ],
-        });
+        expect(response).toEqual(rawResponseBody);
     });
 
     test("create (2)", async () => {
@@ -584,42 +468,7 @@ describe("IdentityProvidersClient", () => {
             .build();
 
         const response = await client.organization.identityProviders.get("idp_id");
-        expect(response).toEqual({
-            id: "con_zW1UHutvkVWSWdCC",
-            name: "oidcIdp",
-            strategy: "oidc",
-            domains: ["mydomain.com"],
-            display_name: "OIDC IdP",
-            show_as_button: true,
-            assign_membership_on_login: false,
-            is_enabled: true,
-            access_level: "readonly",
-            options: {
-                type: "front_channel",
-                client_id: "a8f3b2e7-5d1c-4f9a-8b0d-2e1c3a5b6f7d",
-                discovery_url: "https://{yourDomain}/.well-known/openid-configuration",
-            },
-            attributes: [
-                {
-                    user_attribute: "preferred_username",
-                    description: "Preferred Username",
-                    label: "Preferred username",
-                    is_required: true,
-                    is_extra: false,
-                    is_missing: false,
-                    sso_field: ["userName"],
-                },
-                {
-                    user_attribute: "external_id",
-                    description: "description",
-                    label: "label",
-                    is_required: true,
-                    is_extra: true,
-                    is_missing: false,
-                    sso_field: ["externalId"],
-                },
-            ],
-        });
+        expect(response).toEqual(rawResponseBody);
     });
 
     test("get (2)", async () => {
@@ -895,42 +744,7 @@ describe("IdentityProvidersClient", () => {
                 discovery_url: "https://{yourDomain}/.well-known/openid-configuration",
             },
         });
-        expect(response).toEqual({
-            id: "con_zW1UHutvkVWSWdCC",
-            name: "oidcIdp",
-            strategy: "oidc",
-            domains: ["mydomain.com"],
-            display_name: "OIDC IdP",
-            show_as_button: true,
-            assign_membership_on_login: false,
-            is_enabled: true,
-            access_level: "full",
-            options: {
-                type: "front_channel",
-                client_id: "a8f3b2e7-5d1c-4f9a-8b0d-2e1c3a5b6f7d",
-                discovery_url: "https://{yourDomain}/.well-known/openid-configuration",
-            },
-            attributes: [
-                {
-                    user_attribute: "preferred_username",
-                    description: "Preferred Username",
-                    label: "Preferred username",
-                    is_required: true,
-                    is_extra: false,
-                    is_missing: false,
-                    sso_field: ["userName"],
-                },
-                {
-                    user_attribute: "external_id",
-                    description: "description",
-                    label: "label",
-                    is_required: true,
-                    is_extra: true,
-                    is_missing: false,
-                    sso_field: ["externalId"],
-                },
-            ],
-        });
+        expect(response).toEqual(rawResponseBody);
     });
 
     test("update (2)", async () => {
@@ -1086,42 +900,7 @@ describe("IdentityProvidersClient", () => {
         const response = await client.organization.identityProviders.updateAttributes("idp_id", {
             key: "value",
         });
-        expect(response).toEqual({
-            id: "con_zW1UHutvkVWSWdCC",
-            name: "oidcIdp",
-            strategy: "oidc",
-            domains: ["mydomain.com"],
-            display_name: "OIDC IdP",
-            show_as_button: true,
-            assign_membership_on_login: false,
-            is_enabled: true,
-            access_level: "readonly",
-            options: {
-                type: "front_channel",
-                client_id: "a8f3b2e7-5d1c-4f9a-8b0d-2e1c3a5b6f7d",
-                discovery_url: "https://{yourDomain}/.well-known/openid-configuration",
-            },
-            attributes: [
-                {
-                    user_attribute: "preferred_username",
-                    description: "Preferred Username",
-                    label: "Preferred username",
-                    is_required: true,
-                    is_extra: false,
-                    is_missing: false,
-                    sso_field: ["userName"],
-                },
-                {
-                    user_attribute: "external_id",
-                    description: "description",
-                    label: "label",
-                    is_required: true,
-                    is_extra: true,
-                    is_missing: false,
-                    sso_field: ["externalId"],
-                },
-            ],
-        });
+        expect(response).toEqual(rawResponseBody);
     });
 
     test("updateAttributes (2)", async () => {
