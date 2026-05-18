@@ -11,6 +11,12 @@ import { MyOrganizationClient } from "@auth0/myorganization-js";
 let auth0Client;
 let myOrgClient;
 
+function escapeHtml(str) {
+    const div = document.createElement("div");
+    div.textContent = str;
+    return div.innerHTML;
+}
+
 const audience = import.meta.env.VITE_AUTH0_AUDIENCE || `https://${import.meta.env.VITE_AUTH0_DOMAIN}/my-org/`;
 
 // ========================================
@@ -173,11 +179,11 @@ async function loadOrganizationDetails() {
         container.innerHTML = `
             <div class="detail-grid">
                 <span class="detail-label">ID</span>
-                <span class="detail-value">${details.id || "\u2014"}</span>
+                <span class="detail-value">${escapeHtml(details.id || "\u2014")}</span>
                 <span class="detail-label">Name</span>
-                <span class="detail-value">${details.name || "\u2014"}</span>
+                <span class="detail-value">${escapeHtml(details.name || "\u2014")}</span>
                 <span class="detail-label">Display Name</span>
-                <span class="detail-value">${details.display_name || "\u2014"}</span>
+                <span class="detail-value">${escapeHtml(details.display_name || "\u2014")}</span>
             </div>
         `;
     } catch (error) {
@@ -222,10 +228,10 @@ async function loadDomains() {
                         .map(
                             (domain) => `
                         <tr>
-                            <td>${domain.domain}</td>
+                            <td>${escapeHtml(domain.domain)}</td>
                             <td>
                                 <span class="badge ${domain.status === "verified" ? "badge-success" : "badge-warning"}">
-                                    ${domain.status}
+                                    ${escapeHtml(domain.status)}
                                 </span>
                             </td>
                             <td>
@@ -233,12 +239,12 @@ async function loadDomains() {
                                     ${
                                         domain.status === "pending"
                                             ? `
-                                        <button class="btn btn-sm" data-action="get-txt" data-id="${domain.id}">TXT Record</button>
-                                        <button class="btn btn-sm btn-primary" data-action="verify" data-id="${domain.id}">Verify</button>
+                                        <button class="btn btn-sm" data-action="get-txt" data-id="${escapeHtml(domain.id)}">TXT Record</button>
+                                        <button class="btn btn-sm btn-primary" data-action="verify" data-id="${escapeHtml(domain.id)}">Verify</button>
                                     `
                                             : ""
                                     }
-                                    <button class="btn btn-sm btn-danger" data-action="delete-domain" data-id="${domain.id}">Delete</button>
+                                    <button class="btn btn-sm btn-danger" data-action="delete-domain" data-id="${escapeHtml(domain.id)}">Delete</button>
                                 </div>
                             </td>
                         </tr>
