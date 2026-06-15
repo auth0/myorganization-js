@@ -29,6 +29,128 @@ export interface CreateOrganizationDomainRequestContent {
 /**
  * @example
  *     {
+ *         fields: "fields",
+ *         include_fields: true,
+ *         from: "from",
+ *         take: 1
+ *     }
+ */
+export interface ListOrganizationMembersRequestParameters {
+    /** Comma-separated list of fields to include or exclude (based on value provided for include_fields) in the result. Leave empty to retrieve all fields. */
+    fields?: string | null;
+    /** Whether specified fields are to be included (true) or excluded (false). Defaults to true */
+    include_fields?: boolean | null;
+    /** An optional cursor from which to start the selection (exclusive). */
+    from?: string | null;
+    /** Number of results per page. Defaults to 50. */
+    take?: number | null;
+}
+
+/**
+ * @example
+ *     {
+ *         fields: "fields",
+ *         include_fields: true
+ *     }
+ */
+export interface GetOrganizationMemberRequestParameters {
+    /** Comma-separated list of fields to include or exclude (based on value provided for include_fields) in the result. Leave empty to retrieve all fields. */
+    fields?: string | null;
+    /** Whether specified fields are to be included (true) or excluded (false). Defaults to true */
+    include_fields?: boolean | null;
+}
+
+/**
+ * @example
+ *     {
+ *         members: ["auth0|1234567890"]
+ *     }
+ */
+export interface DeleteOrganizationMembershipsRequestParameters {
+    members: MyOrganization.OrgMemberId[];
+}
+
+/**
+ * @example
+ *     {
+ *         fields: "fields",
+ *         include_fields: true,
+ *         from: "from",
+ *         take: 1,
+ *         sort: "sort"
+ *     }
+ */
+export interface ListMemberInvitationsRequestParameters {
+    /** Comma-separated list of fields to include or exclude (based on value provided for include_fields) in the result. Leave empty to retrieve all fields. Note: you cannot filter on ticket_id and this value will only be returned when fields are not filtered. */
+    fields?: string | null;
+    /** Whether specified fields are to be included (true) or excluded (false). Defaults to true */
+    include_fields?: boolean | null;
+    /** An optional cursor from which to start the selection (exclusive). */
+    from?: string | null;
+    /** Number of results per page. Defaults to 50. */
+    take?: number | null;
+    /** Field to sort by. Use field:order where order is 1 for ascending and -1 for descending. Defaults to created_at:-1 */
+    sort?: string | null;
+}
+
+/**
+ * @example
+ *     {
+ *         invitees: [{
+ *                 email: "user@example.com",
+ *                 roles: ["rol_0000000000000001"]
+ *             }],
+ *         inviter: {
+ *             name: "Allison the Admin"
+ *         },
+ *         identity_provider_id: "con_2CZPv6IY0gWzDaQJ",
+ *         ttl_sec: 3600
+ *     }
+ */
+export interface CreateMemberInvitationRequestContent {
+    "auth0-custom-domain"?: string;
+    invitees: MyOrganization.CreateMemberInvitationInvitee[];
+    inviter?: MyOrganization.MemberInvitationInviter;
+    /** Identity provider identifier. */
+    identity_provider_id?: string;
+    /** Number of seconds for which the invitation is valid before expiration. If unspecified or set to 0, this value defaults to 604800 seconds (7 days). Max value: 2592000 seconds (30 days). */
+    ttl_sec?: number;
+}
+
+/**
+ * @example
+ *     {
+ *         fields: "fields",
+ *         include_fields: true
+ *     }
+ */
+export interface GetMemberInvitationRequestParameters {
+    /** Comma-separated list of fields to include or exclude (based on value provided for include_fields) in the result. Leave empty to retrieve all fields. Note: you cannot filter on ticket_id and this value will only be returned when fields are not filtered. */
+    fields?: string | null;
+    /** Whether specified fields are to be included (true) or excluded (false). Defaults to true */
+    include_fields?: boolean | null;
+}
+
+/**
+ * @example
+ *     {
+ *         from: "from",
+ *         take: 1,
+ *         name: "name"
+ *     }
+ */
+export interface ListRolesRequestParameters {
+    /** An optional cursor from which to start the selection (exclusive). */
+    from?: string | null;
+    /** Number of results per page. Defaults to 50. */
+    take?: number | null;
+    /** An optional filter on the name (case-insensitive). */
+    name?: string | null;
+}
+
+/**
+ * @example
+ *     {
  *         domain: "my-domain.com"
  *     }
  */
@@ -45,4 +167,18 @@ export interface CreateIdpDomainRequestContent {
 export interface CreateIdpProvisioningScimTokenRequestContent {
     /** Lifetime of the token in seconds. Do not set for non-expiring tokens. */
     token_lifetime?: number;
+}
+
+/**
+ * @example
+ *     {
+ *         from: "from",
+ *         take: 1
+ *     }
+ */
+export interface ListOrgMemberRolesRequestParameters {
+    /** An optional cursor from which to start the selection (exclusive). */
+    from?: string | null;
+    /** Number of results per page. Defaults to 50. */
+    take?: number | null;
 }

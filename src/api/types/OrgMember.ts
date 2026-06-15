@@ -13,6 +13,4 @@ export interface OrgMember extends MyOrganization.UserAttributes {
     last_login?: string | undefined;
     /** Phone number associated with the user. */
     phone_number?: string | undefined;
-    /** Identities for that user */
-    identities?: MyOrganization.Identity[] | undefined;
 }
