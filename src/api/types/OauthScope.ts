@@ -8,9 +8,6 @@ export const OauthScope = {
      * Read organization details */
     ReadMyOrgDetails: "read:my_org:details",
     /**
-     * Read organization permissions */
-    ReadMyOrgPermissions: "read:my_org:permissions",
-    /**
      * Update organization details */
     UpdateMyOrgDetails: "update:my_org:details",
     /**
@@ -88,9 +85,6 @@ export const OauthScope = {
     /**
      * Create Roles for members in organization */
     CreateMyOrgMemberRoles: "create:my_org:member_roles",
-    /**
-     * Update Roles for members in organization */
-    UpdateMyOrgMemberRoles: "update:my_org:member_roles",
     /**
      * Delete Roles from members for organization */
     DeleteMyOrgMemberRoles: "delete:my_org:member_roles",
