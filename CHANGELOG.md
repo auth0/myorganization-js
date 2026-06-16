@@ -1,5 +1,19 @@
 # Change Log
 
+## [v1.1.0](https://github.com/auth0/myorganization-js/tree/v1.1.0) (2026-06-16)
+
+[Full Changelog](https://github.com/auth0/myorganization-js/compare/v1.0.1...v1.1.0)
+
+**Added**
+
+- Added organization member management on `client.organization` [\#52](https://github.com/auth0/myorganization-js/pull/52)
+    - `members.list()` (paginated) and `members.get(user_id)` for reading members
+    - `members.roles.list(user_id)` (paginated), `members.roles.assign(user_id, { role_ids })`, and `members.roles.unassign(user_id, { role_ids })` for member role management
+    - `memberships.deleteMemberships({ members })` for removing members from the organization
+    - `invitations.list()` (paginated), `invitations.create()`, `invitations.get(invitation_id)`, and `invitations.delete(invitation_id)` for member invitations
+    - `roles.list()` (paginated) for listing organization roles
+- Added new types: `CreateMemberInvitationInvitee`, `CreateMemberInvitationResponseContent`, `GetOrganizationMemberRolesResponseContent`, `ListMembersInvitationsResponseContent`, `ListOrganizationMembersResponseContent`, `ListRolesResponseContent`, `OrganizationMemberRolesChangeRequestContent`, and `OrgMemberId` [\#52](https://github.com/auth0/myorganization-js/pull/52)
+
 ## [v1.0.1](https://github.com/auth0/myorganization-js/tree/v1.0.1) (2026-05-15)
 
 [Full Changelog](https://github.com/auth0/myorganization-js/compare/v1.0.0...v1.0.1)
