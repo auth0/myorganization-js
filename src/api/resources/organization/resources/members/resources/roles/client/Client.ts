@@ -263,6 +263,11 @@ export class RolesClient {
     /**
      * Remove roles from a member specified by ID for this Organization.
      *
+     * @deprecated The underlying endpoint `DELETE /members/{user_id}/roles` is being decommissioned and will be
+     * replaced by `POST /members/{user_id}/unassign-roles`. Once member management is enabled for a tenant, the
+     * legacy endpoint is switched off server side, so working calls can begin to fail. The replacement operation is
+     * available on the beta release (`@auth0/myorganization-js@beta`). See the migration guide for details.
+     *
      * @param {MyOrganization.OrgMemberId} user_id
      * @param {MyOrganization.OrganizationMemberRolesChangeRequestContent} request
      * @param {RolesClient.RequestOptions} requestOptions - Request-specific configuration.
