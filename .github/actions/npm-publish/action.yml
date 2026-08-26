@@ -23,9 +23,9 @@ runs:
               node-version: ${{ inputs.node-version }}
               registry-url: "https://registry.npmjs.org"
 
-        - name: Install latest npm
+        - name: Install npm with OIDC trusted publishing support
           shell: bash
-          run: npm install -g npm@latest
+          run: npm install -g npm@^11
 
         - name: Install pnpm
           uses: pnpm/action-setup@41ff72655975bd51cab0327fa583b6e92b6d3061 # pin@v4.2.0
@@ -54,6 +54,6 @@ runs:
               else
                 TAG="latest"
               fi
-              npm publish --tag $TAG
+              npm publish --provenance --tag $TAG
           env:
               VERSION: ${{ inputs.version }}
