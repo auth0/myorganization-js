@@ -123,6 +123,47 @@ Write clear, descriptive commit messages that explain what changed and why.
 
 This project uses automated code formatting and linting. Run `pnpm run check:fix` before committing to ensure your code meets the project's style guidelines.
 
+## Release Process
+
+This SDK is released on two parallel tracks. Each track lives on its own long-lived branch and has its own changelog and its own npm dist-tag, so a beta release never disturbs a stable one.
+
+### Stable track (`main`)
+
+Stable releases are cut from `main` and published to the npm `latest` dist-tag. A maintainer opens a release PR that bumps `.version`, `package.json`, `src/version.ts`, and prepends a `CHANGELOG.md` entry. When that PR merges, the release workflow tags the commit with the plain semver version (for example `2.1.0`) and publishes to npm.
+
+### Beta track (`beta`)
+
+Beta releases are cut from the `beta` branch and published to the npm `beta` dist-tag. Everything is hands-off: whenever a pull request is merged into `beta` (a fern-bot regeneration PR or a human PR), the `Beta Auto-Release` workflow runs and does the whole release for you. It computes the next beta version, stamps the version files, prepends a `CHANGELOG.md` entry, builds the package, publishes to npm with provenance, creates a signed release commit, and cuts a GitHub prerelease.
+
+Because the beta line is a superset of stable, install it explicitly:
+
+```bash
+npm install @auth0/myorganization-js@beta
+```
+
+### How versions are computed
+
+Both tracks derive the next version from the existing git tags, which are the single source of truth, so there is no shared version file to keep in sync. The logic lives in `.github/actions/compute-next-version`:
+
+- While the 2.x line is being cut, the base is seeded at `2.0.0`. Until a `2.x` stable tag exists, both tracks anchor on `2.0.0`.
+- The stable track resolves to that base (for example `2.0.0`). Once a `2.x` stable tag exists, it rolls forward to the next minor after the latest one.
+- The beta track resolves to `<base>-beta.N`, where `N` starts at `0` for a base and auto-increments for each subsequent beta on the same base. After `2.0.0` ships stable, the next beta becomes `2.1.0-beta.0`.
+
+### Beta release notes
+
+A combined beta PR often mixes changes mirrored from `main` with beta-only changes in a single squash commit, and those cannot be told apart from the diff. To keep the beta changelog readable, mark the two groups in the squash-commit message when you merge:
+
+```
+<!-- BETA -->
+- feat: add lifecycle delete-member-invitations (Beta)
+<!-- /BETA -->
+<!-- STABLE -->
+- fix: correct pagination cursor handling
+<!-- /STABLE -->
+```
+
+The workflow reads those markers to build the release notes. If they are absent, it falls back to the commit subject so the release never has empty notes.
+
 ## Questions or Issues?
 
 If you have questions or run into issues:
