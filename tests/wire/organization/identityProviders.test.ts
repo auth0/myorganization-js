@@ -21,6 +21,8 @@ describe("IdentityProvidersClient", () => {
                     assign_membership_on_login: false,
                     is_enabled: true,
                     access_level: "full",
+                    use_for_third_party_client_access: true,
+                    cross_app_access_resource_app: { status: "enabled" },
                     options: {
                         type: "front_channel",
                         client_id: "a8f3b2e7-5d1c-4f9a-8b0d-2e1c3a5b6f7d",
@@ -55,6 +57,8 @@ describe("IdentityProvidersClient", () => {
                     assign_membership_on_login: false,
                     is_enabled: true,
                     access_level: "limited",
+                    use_for_third_party_client_access: true,
+                    cross_app_access_resource_app: { status: "enabled" },
                     options: {
                         metadataUrl: "a.metadata.url",
                         signSAMLRequest: true,
@@ -100,11 +104,32 @@ describe("IdentityProvidersClient", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.organization.identityProviders.list();
+        const response = await client.organization.identityProviders.list({
+            member_access_level: ["none"],
+        });
         expect(response).toEqual(rawResponseBody);
     });
 
     test("list (2)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { key: "value" };
+
+        server
+            .mockEndpoint()
+            .get("/identity-providers")
+            .respondWith()
+            .statusCode(400)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.organization.identityProviders.list();
+        }).rejects.toThrow(MyOrganization.BadRequestError);
+    });
+
+    test("list (3)", async () => {
         const server = mockServerPool.createServer();
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
@@ -123,7 +148,7 @@ describe("IdentityProvidersClient", () => {
         }).rejects.toThrow(MyOrganization.UnauthorizedError);
     });
 
-    test("list (3)", async () => {
+    test("list (4)", async () => {
         const server = mockServerPool.createServer();
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
@@ -142,7 +167,7 @@ describe("IdentityProvidersClient", () => {
         }).rejects.toThrow(MyOrganization.ForbiddenError);
     });
 
-    test("list (4)", async () => {
+    test("list (5)", async () => {
         const server = mockServerPool.createServer();
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
@@ -161,7 +186,7 @@ describe("IdentityProvidersClient", () => {
         }).rejects.toThrow(MyOrganization.NotFoundError);
     });
 
-    test("list (5)", async () => {
+    test("list (6)", async () => {
         const server = mockServerPool.createServer();
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
@@ -208,6 +233,8 @@ describe("IdentityProvidersClient", () => {
             assign_membership_on_login: false,
             is_enabled: true,
             access_level: "full",
+            use_for_third_party_client_access: true,
+            cross_app_access_resource_app: { status: "enabled" },
             options: {
                 type: "front_channel",
                 client_id: "client_a8f3b2e7-5d1c-4f9a-8b0d-2e1c3a5b6f7did",
@@ -432,6 +459,8 @@ describe("IdentityProvidersClient", () => {
             assign_membership_on_login: false,
             is_enabled: true,
             access_level: "readonly",
+            use_for_third_party_client_access: true,
+            cross_app_access_resource_app: { status: "enabled" },
             options: {
                 type: "front_channel",
                 client_id: "a8f3b2e7-5d1c-4f9a-8b0d-2e1c3a5b6f7d",
@@ -696,6 +725,8 @@ describe("IdentityProvidersClient", () => {
             assign_membership_on_login: false,
             is_enabled: true,
             access_level: "full",
+            use_for_third_party_client_access: true,
+            cross_app_access_resource_app: { status: "enabled" },
             options: {
                 type: "front_channel",
                 client_id: "a8f3b2e7-5d1c-4f9a-8b0d-2e1c3a5b6f7d",
@@ -861,6 +892,8 @@ describe("IdentityProvidersClient", () => {
             assign_membership_on_login: false,
             is_enabled: true,
             access_level: "readonly",
+            use_for_third_party_client_access: true,
+            cross_app_access_resource_app: { status: "enabled" },
             options: {
                 type: "front_channel",
                 client_id: "a8f3b2e7-5d1c-4f9a-8b0d-2e1c3a5b6f7d",

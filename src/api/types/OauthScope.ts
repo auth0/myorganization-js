@@ -100,5 +100,11 @@ export const OauthScope = {
     /**
      * Delete API clients for organization */
     DeleteMyOrgClients: "delete:my_org:clients",
+    /**
+     * Read user stores for an organization */
+    ReadMyOrgUserStores: "read:my_org:user_stores",
+    /**
+     * Delete this organization */
+    DeleteMyOrgOrganizations: "delete:my_org:organizations",
 } as const;
 export type OauthScope = (typeof OauthScope)[keyof typeof OauthScope];

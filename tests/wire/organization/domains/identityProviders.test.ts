@@ -5,7 +5,7 @@ import { MyOrganizationClient } from "../../../../src/Client";
 import { mockServerPool } from "../../../mock-server/MockServerPool";
 
 describe("IdentityProvidersClient", () => {
-    test("get (1)", async () => {
+    test("list (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
@@ -24,11 +24,11 @@ describe("IdentityProvidersClient", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.organization.domains.identityProviders.get("domain_id");
+        const response = await client.organization.domains.identityProviders.list("domain_id");
         expect(response).toEqual(rawResponseBody);
     });
 
-    test("get (2)", async () => {
+    test("list (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
@@ -43,11 +43,11 @@ describe("IdentityProvidersClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.organization.domains.identityProviders.get("domain_id");
+            return await client.organization.domains.identityProviders.list("domain_id");
         }).rejects.toThrow(MyOrganization.BadRequestError);
     });
 
-    test("get (3)", async () => {
+    test("list (3)", async () => {
         const server = mockServerPool.createServer();
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
@@ -62,11 +62,11 @@ describe("IdentityProvidersClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.organization.domains.identityProviders.get("domain_id");
+            return await client.organization.domains.identityProviders.list("domain_id");
         }).rejects.toThrow(MyOrganization.UnauthorizedError);
     });
 
-    test("get (4)", async () => {
+    test("list (4)", async () => {
         const server = mockServerPool.createServer();
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
@@ -81,11 +81,11 @@ describe("IdentityProvidersClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.organization.domains.identityProviders.get("domain_id");
+            return await client.organization.domains.identityProviders.list("domain_id");
         }).rejects.toThrow(MyOrganization.ForbiddenError);
     });
 
-    test("get (5)", async () => {
+    test("list (5)", async () => {
         const server = mockServerPool.createServer();
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
@@ -100,11 +100,11 @@ describe("IdentityProvidersClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.organization.domains.identityProviders.get("domain_id");
+            return await client.organization.domains.identityProviders.list("domain_id");
         }).rejects.toThrow(MyOrganization.NotFoundError);
     });
 
-    test("get (6)", async () => {
+    test("list (6)", async () => {
         const server = mockServerPool.createServer();
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
@@ -119,7 +119,7 @@ describe("IdentityProvidersClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.organization.domains.identityProviders.get("domain_id");
+            return await client.organization.domains.identityProviders.list("domain_id");
         }).rejects.toThrow(MyOrganization.TooManyRequestsError);
     });
 });
