@@ -12,7 +12,13 @@ generations:
     cli_version: unknown
     generator_versions:
       fernapi/fern-typescript-sdk: 3.70.5
-current_generation: 5a29092267958d4d35221f2673d6a3df7f7be856
+  - commit_sha: 3a0693416b866345a4700d659368cfda2ef4fd4c
+    tree_hash: 3a96bcab220900e385b6c06990eb51ff812ab86c
+    timestamp: 2026-08-26T08:40:45.088Z
+    cli_version: unknown
+    generator_versions:
+      fernapi/fern-typescript-sdk: 3.70.5
+current_generation: 3a0693416b866345a4700d659368cfda2ef4fd4c
 patches:
   - id: patch-dde04d2d
     content_hash: sha256:94f4832455841b84de00d0f433978f9fe672c87dd5de2e8dfe5d2f3e7a23e4de
@@ -179,7 +185,7 @@ patches:
     original_commit: 48438d7d5e6e4f19a24b86a78df9d83eac49947f
     original_message: "docs: deprecate invitation delete and role unassign methods (#55)"
     original_author: Kunal Dawar <35455566+developerkunal@users.noreply.github.com>
-    base_generation: 5a29092267958d4d35221f2673d6a3df7f7be856
+    base_generation: 3a0693416b866345a4700d659368cfda2ef4fd4c
     files:
       - src/api/resources/organization/resources/invitations/client/Client.ts
       - src/api/resources/organization/resources/members/resources/roles/client/Client.ts
@@ -1312,6 +1318,7 @@ patches:
                 );
             }
         }
+    user_owned: true
   - id: patch-9193431b
     content_hash: sha256:79b3e59ff10dc6c8ef7bc3a61b7aba7f567380d6130c1f25af5085aef38ec974
     original_commit: 9193431b9b7286b26364389ca67841ee47409445
