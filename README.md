@@ -28,6 +28,17 @@ Using [npm](https://npmjs.org) in your project directory run the following comma
 npm install @auth0/myorganization-js
 ```
 
+> [!NOTE]
+> **Beta (preview) channel**
+>
+> A beta line publishes ahead of stable and is a superset that includes preview endpoints still under active development, such as batch member-invitation deletion, member role unassignment, and member-invitation roles. Install it with:
+>
+> ```bash
+> npm install @auth0/myorganization-js@beta
+> ```
+>
+> Beta prereleases can introduce breaking changes between versions, so pin an exact version if you need reproducible installs. See the [migration guide](./MIGRATION.md) for moving off the deprecated endpoints.
+
 ### Configure the SDK
 
 The MyOrganization client allows you to manage Auth0 Organizations, including Organization details, domains, identity providers, and configuration.

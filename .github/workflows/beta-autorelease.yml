@@ -195,6 +195,12 @@ jobs:
                   VERSION: ${{ steps.get_version.outputs.version }}
                   RELEASE_NOTES: ${{ steps.notes.outputs.RELEASE_NOTES }}
 
+            # Run the full test suite before building or publishing. A failing
+            # test aborts the run, so a broken regeneration can never reach npm.
+            - name: Run tests
+              shell: bash
+              run: pnpm test
+
             # Build and publish to npm on the `beta` dist-tag from the stamped
             # working tree. Provenance is emitted via OIDC (id-token: write).
             - name: Build package
