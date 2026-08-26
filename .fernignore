@@ -55,6 +55,7 @@ eslint.config.mjs
 .github/
 README.md
 CONTRIBUTING.md
+MIGRATION.md
 .gitignore
 LICENSE
 NOTICE
