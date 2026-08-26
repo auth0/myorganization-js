@@ -4,21 +4,21 @@ import * as MyOrganization from "../index.js";
 
 export type IdpSamlpOptionsRequest =
     | {
-          metadataUrl?: string | undefined;
-          signSAMLRequest?: boolean | undefined;
+          metadataUrl: string;
+          signSAMLRequest: boolean;
           signatureAlgorithm?: MyOrganization.IdpSignAlgTypeEnum | undefined;
           digestAlgorithm?: MyOrganization.IdpSignAlgDigestTypeEnum | undefined;
           protocolBinding?: MyOrganization.IdpProtocolBindingTypeEnum | undefined;
           bindingMethod?: string | undefined;
-          cert?: string | undefined;
+          signingCert?: string | undefined;
           idpInitiated?: MyOrganization.IdpOptionsIdpInitiated | undefined;
           icon_url?: string | undefined;
           discovery_url?: string | undefined;
       }
     | {
-          signInEndpoint?: string | undefined;
-          cert?: string | undefined;
-          signSAMLRequest?: boolean | undefined;
+          signInEndpoint: string;
+          signingCert: string;
+          signSAMLRequest: boolean;
           signatureAlgorithm?: MyOrganization.IdpSignAlgTypeEnum | undefined;
           digestAlgorithm?: MyOrganization.IdpSignAlgDigestTypeEnum | undefined;
           protocolBinding?: MyOrganization.IdpProtocolBindingTypeEnum | undefined;
