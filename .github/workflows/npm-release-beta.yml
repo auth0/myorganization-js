@@ -1,31 +1,27 @@
-name: Beta Auto-Release
+name: Publish beta release to npm
 
 #
-# Publishes a beta prerelease to npm (dist-tag `beta`) whenever a PR is merged
-# into the `beta` branch (every fern-bot regeneration PR or human PR). The
-# version is computed from the existing tags by the compute-next-version
-# action, the version files are stamped, a CHANGELOG.md entry is generated from
-# the merged squash-commit message, the package is published to npm, the commit
-# is tagged, and a GitHub prerelease is created.
+# Reusable workflow that publishes a beta prerelease to npm (dist-tag `beta`).
+# It is called by `release.yml` whenever a PR is merged into the `beta` branch
+# (every fern-bot regeneration PR or human PR). The version is computed from the
+# existing tags by the compute-next-version action, the version files are
+# stamped, a CHANGELOG.md entry is generated from the merged squash-commit
+# message, the package is published to npm, the commit is tagged, and a GitHub
+# prerelease is created.
 #
-# Triggering on `pull_request: closed` (merged) rather than `push` means:
-#   - the bot's own "Release ..." commit cannot re-trigger the workflow, so no
-#     infinite-loop guard is needed (a PR merges exactly once);
-#   - two PRs merging in quick succession each get their own run with their own
-#     computed version, instead of racing on the same `push` event.
-# All inflow to `beta` goes through PRs, so nothing is missed.
+# Routing through `release.yml` (rather than triggering directly) means a single
+# entry workflow is the npm trusted publisher for both the stable and beta
+# tracks, matching npm's one-trusted-publisher-per-package limit.
 #
-# This runs on the `beta` branch, so CHANGELOG.md here is the beta track's own
-# changelog and never collides with the stable changelog on `main`.
-#
-# `workflow_dispatch` is kept only as a manual backup; it is not used in the
-# normal hands-off flow.
+# This runs against the `beta` branch, so CHANGELOG.md here is the beta track's
+# own changelog and never collides with the stable changelog on `main`.
 #
 # Security notes:
-#   - This uses `pull_request` (NOT `pull_request_target`). PRs from forks run
-#     with a read-only token and no access to secrets, so a malicious fork PR
-#     cannot reach the release credentials. All real inflow (fern-bot, org
-#     members) comes from same-repo branches, which do have the needed access.
+#   - Reached via `pull_request` (NOT `pull_request_target`) in the caller. PRs
+#     from forks run with a read-only token and no access to secrets, so a
+#     malicious fork PR cannot reach the release credentials. All real inflow
+#     (fern-bot, org members) comes from same-repo branches, which do have the
+#     needed access.
 #   - The workflow never executes checked-out PR source before publishing beyond
 #     the repo's own build; it reads the merge commit message and stamps files.
 #     Untrusted text is handled via shell variables/`env:`, never interpolated
@@ -35,16 +31,17 @@ name: Beta Auto-Release
 #
 
 on:
-    pull_request:
-        branches: [beta]
-        types: [closed]
-    workflow_dispatch:
-
-# Serialize releases so concurrent merges cut versions one at a time and the
-# push-back to `beta` never races.
-concurrency:
-    group: beta-release
-    cancel-in-progress: false
+    workflow_call:
+        inputs:
+            node-version:
+                required: true
+                type: string
+            require-build:
+                default: true
+                type: string
+        secrets:
+            github-token:
+                required: true
 
 # Least privilege: grant nothing by default; the job opts into exactly what it
 # needs (publishing to npm with provenance and pushing the release commit/tag).
@@ -52,10 +49,9 @@ permissions: {}
 
 jobs:
     beta-release:
-        # Run for a genuinely merged PR into beta, or a manual dispatch on beta.
-        if: >-
-            github.repository == 'auth0/myorganization-js' &&
-            (github.event.pull_request.merged == true || github.event_name == 'workflow_dispatch')
+        # Guard against forks running the release logic. The caller (release.yml)
+        # already gates on the merge/dispatch event and the target branch.
+        if: github.repository == 'auth0/myorganization-js'
         runs-on: ubuntu-latest
         environment: release
         permissions:
@@ -83,7 +79,7 @@ jobs:
               uses: ./.github/actions/tag-exists
               with:
                   tag: ${{ steps.get_version.outputs.version }}
-                  token: ${{ secrets.GITHUB_TOKEN }}
+                  token: ${{ secrets.github-token }}
 
             - if: steps.tag_exists.outputs.exists == 'true'
               shell: bash
@@ -99,7 +95,7 @@ jobs:
             - name: Setup Node
               uses: actions/setup-node@v4
               with:
-                  node-version: 22.23.1
+                  node-version: ${{ inputs.node-version }}
                   registry-url: "https://registry.npmjs.org"
 
             - name: Install npm with OIDC trusted publishing support
@@ -195,9 +191,16 @@ jobs:
                   VERSION: ${{ steps.get_version.outputs.version }}
                   RELEASE_NOTES: ${{ steps.notes.outputs.RELEASE_NOTES }}
 
+            # Run the full test suite before building or publishing. A failing
+            # test aborts the run, so a broken regeneration can never reach npm.
+            - name: Run tests
+              shell: bash
+              run: pnpm test
+
             # Build and publish to npm on the `beta` dist-tag from the stamped
             # working tree. Provenance is emitted via OIDC (id-token: write).
             - name: Build package
+              if: inputs.require-build == 'true'
               shell: bash
               run: pnpm build
 
@@ -264,7 +267,7 @@ jobs:
             # release commit, so it points at the verified commit.
             - uses: ./.github/actions/release-create
               with:
-                  token: ${{ secrets.GITHUB_TOKEN }}
+                  token: ${{ secrets.github-token }}
                   name: ${{ steps.get_version.outputs.version }}
                   body: ${{ steps.notes.outputs.RELEASE_NOTES }}
                   tag: ${{ steps.get_version.outputs.version }}

@@ -23,6 +23,87 @@ export class OrganizationDetailsClient {
     }
 
     /**
+     * Permanently delete this Organization.
+     *
+     * @param {OrganizationDetailsClient.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link MyOrganization.UnauthorizedError}
+     * @throws {@link MyOrganization.ForbiddenError}
+     * @throws {@link MyOrganization.TooManyRequestsError}
+     *
+     * @example
+     *     await client.organizationDetails.delete()
+     */
+    public delete(requestOptions?: OrganizationDetailsClient.RequestOptions): core.HttpResponsePromise<void> {
+        return core.HttpResponsePromise.fromPromise(this.__delete(requestOptions));
+    }
+
+    private async __delete(
+        requestOptions?: OrganizationDetailsClient.RequestOptions,
+    ): Promise<core.WithRawResponse<void>> {
+        const _metadata: core.EndpointMetadata = {
+            security: [
+                { OAuth2ClientCredentials: ["delete:my_org:organizations"] },
+                { OAuth2AuthCode: ["delete:my_org:organizations"] },
+            ],
+        };
+        const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest({
+            endpointMetadata: _metadata,
+        });
+        let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+            _authRequest.headers,
+            this._options?.headers,
+            requestOptions?.headers,
+        );
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url:
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                (await core.Supplier.get(this._options.environment)) ??
+                environments.MyOrganizationEnvironment.Default,
+            method: "DELETE",
+            headers: _headers,
+            queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
+            timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
+            maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+            endpointMetadata: _metadata,
+            fetchFn: this._options?.fetch,
+            logging: this._options.logging,
+        });
+        if (_response.ok) {
+            return { data: undefined, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 401:
+                    throw new MyOrganization.UnauthorizedError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
+                        _response.rawResponse,
+                    );
+                case 403:
+                    throw new MyOrganization.ForbiddenError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
+                        _response.rawResponse,
+                    );
+                case 429:
+                    throw new MyOrganization.TooManyRequestsError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.MyOrganizationError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        return handleNonStatusCodeError(_response.error, _response.rawResponse, "DELETE", "/");
+    }
+
+    /**
      * Retrieve details for this Organization, including display name and branding options. To learn more about Auth0 Organizations, read [Organizations](https://auth0.com/docs/manage-users/organizations).
      *
      * @param {OrganizationDetailsClient.RequestOptions} requestOptions - Request-specific configuration.

@@ -8,6 +8,7 @@ import * as environments from "../../../../../../environments.js";
 import { handleNonStatusCodeError } from "../../../../../../errors/handleNonStatusCodeError.js";
 import * as errors from "../../../../../../errors/index.js";
 import * as MyOrganization from "../../../../../index.js";
+import { RolesClient } from "../resources/roles/client/Client.js";
 
 export declare namespace InvitationsClient {
     export type Options = BaseClientOptions;
@@ -17,9 +18,14 @@ export declare namespace InvitationsClient {
 
 export class InvitationsClient {
     protected readonly _options: NormalizedClientOptionsWithAuth<InvitationsClient.Options>;
+    protected _roles: RolesClient | undefined;
 
     constructor(options: InvitationsClient.Options) {
         this._options = normalizeClientOptionsWithAuth(options);
+    }
+
+    public get roles(): RolesClient {
+        return (this._roles ??= new RolesClient(this._options));
     }
 
     /**
@@ -273,6 +279,108 @@ export class InvitationsClient {
     }
 
     /**
+     * Revoke a set of member invitations specified by IDs for this Organization.
+     *
+     * @param {MyOrganization.DeleteMemberInvitationsRequestContent} request
+     * @param {InvitationsClient.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link MyOrganization.BadRequestError}
+     * @throws {@link MyOrganization.UnauthorizedError}
+     * @throws {@link MyOrganization.ForbiddenError}
+     * @throws {@link MyOrganization.NotFoundError}
+     * @throws {@link MyOrganization.TooManyRequestsError}
+     *
+     * @example
+     *     await client.organization.invitations.delete({
+     *         invitations: ["uinv_0000000000000001", "uinv_0000000000000002", "uinv_0000000000000003"]
+     *     })
+     */
+    public delete(
+        request: MyOrganization.DeleteMemberInvitationsRequestContent,
+        requestOptions?: InvitationsClient.RequestOptions,
+    ): core.HttpResponsePromise<void> {
+        return core.HttpResponsePromise.fromPromise(this.__delete(request, requestOptions));
+    }
+
+    private async __delete(
+        request: MyOrganization.DeleteMemberInvitationsRequestContent,
+        requestOptions?: InvitationsClient.RequestOptions,
+    ): Promise<core.WithRawResponse<void>> {
+        const _metadata: core.EndpointMetadata = {
+            security: [
+                { OAuth2ClientCredentials: ["delete:my_org:member_invitations"] },
+                { OAuth2AuthCode: ["delete:my_org:member_invitations"] },
+            ],
+        };
+        const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest({
+            endpointMetadata: _metadata,
+        });
+        let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+            _authRequest.headers,
+            this._options?.headers,
+            requestOptions?.headers,
+        );
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: core.url.join(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.MyOrganizationEnvironment.Default,
+                "delete-member-invitations",
+            ),
+            method: "POST",
+            headers: _headers,
+            contentType: "application/json",
+            queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
+            requestType: "json",
+            body: request,
+            timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
+            maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+            endpointMetadata: _metadata,
+            fetchFn: this._options?.fetch,
+            logging: this._options.logging,
+        });
+        if (_response.ok) {
+            return { data: undefined, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new MyOrganization.BadRequestError(_response.error.body as unknown, _response.rawResponse);
+                case 401:
+                    throw new MyOrganization.UnauthorizedError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
+                        _response.rawResponse,
+                    );
+                case 403:
+                    throw new MyOrganization.ForbiddenError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
+                        _response.rawResponse,
+                    );
+                case 404:
+                    throw new MyOrganization.NotFoundError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
+                        _response.rawResponse,
+                    );
+                case 429:
+                    throw new MyOrganization.TooManyRequestsError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.MyOrganizationError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        return handleNonStatusCodeError(_response.error, _response.rawResponse, "POST", "/delete-member-invitations");
+    }
+
+    /**
      * Retrieve details of a member invitation specified by ID for this Organization.
      *
      * @param {MyOrganization.InvitationId} invitation_id
@@ -411,16 +519,16 @@ export class InvitationsClient {
      * @throws {@link MyOrganization.TooManyRequestsError}
      *
      * @example
-     *     await client.organization.invitations.delete("invitation_id")
+     *     await client.organization.invitations.deleteLegacy("invitation_id")
      */
-    public delete(
+    public deleteLegacy(
         invitation_id: MyOrganization.InvitationId,
         requestOptions?: InvitationsClient.RequestOptions,
     ): core.HttpResponsePromise<void> {
-        return core.HttpResponsePromise.fromPromise(this.__delete(invitation_id, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__deleteLegacy(invitation_id, requestOptions));
     }
 
-    private async __delete(
+    private async __deleteLegacy(
         invitation_id: MyOrganization.InvitationId,
         requestOptions?: InvitationsClient.RequestOptions,
     ): Promise<core.WithRawResponse<void>> {

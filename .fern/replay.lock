@@ -6,5 +6,1476 @@ generations:
     timestamp: 2026-05-12T16:16:44.343Z
     cli_version: unknown
     generator_versions: {}
-current_generation: 9571e7b94ab421b949d6003022817cad58032a18
-patches: []
+  - commit_sha: 5a29092267958d4d35221f2673d6a3df7f7be856
+    tree_hash: cc6126007b1553acdfa6601c1bb1f024b554b4eb
+    timestamp: 2026-08-26T07:09:59.603Z
+    cli_version: unknown
+    generator_versions:
+      fernapi/fern-typescript-sdk: 3.70.5
+  - commit_sha: 3a0693416b866345a4700d659368cfda2ef4fd4c
+    tree_hash: 3a96bcab220900e385b6c06990eb51ff812ab86c
+    timestamp: 2026-08-26T08:40:45.088Z
+    cli_version: unknown
+    generator_versions:
+      fernapi/fern-typescript-sdk: 3.70.5
+current_generation: 3a0693416b866345a4700d659368cfda2ef4fd4c
+patches:
+  - id: patch-dde04d2d
+    content_hash: sha256:94f4832455841b84de00d0f433978f9fe672c87dd5de2e8dfe5d2f3e7a23e4de
+    original_commit: dde04d2dcc5a3c9f070d6b6f6f11e62f2ff7bd17
+    original_message: Release v1.1.0 (#53)
+    original_author: Kunal Dawar <35455566+developerkunal@users.noreply.github.com>
+    base_generation: 7113eaa13749aeadedc42700b8398c67ffc5f0a1
+    files:
+      - package.json
+      - src/version.ts
+    patch_content: |
+      diff --git a/package.json b/package.json
+      index 2a37b8d..8998a04 100644
+      --- a/package.json
+      +++ b/package.json
+      @@ -1,6 +1,6 @@
+       {
+           "name": "@auth0/myorganization-js",
+      -    "version": "1.0.1",
+      +    "version": "1.1.0",
+           "private": false,
+           "repository": {
+               "type": "git",
+      diff --git a/src/version.ts b/src/version.ts
+      index 2ff5a96..22eda09 100644
+      --- a/src/version.ts
+      +++ b/src/version.ts
+      @@ -1 +1 @@
+      -export const SDK_VERSION = "1.0.1";
+      +export const SDK_VERSION = "1.1.0";
+    theirs_snapshot:
+      package.json: |
+        {
+            "name": "@auth0/myorganization-js",
+            "version": "1.1.0",
+            "private": false,
+            "repository": {
+                "type": "git",
+                "url": "git+https://github.com/auth0/myorganization-js.git"
+            },
+            "license": "Apache-2.0",
+            "type": "commonjs",
+            "main": "./dist/cjs/index.js",
+            "module": "./dist/esm/index.mjs",
+            "types": "./dist/cjs/index.d.ts",
+            "exports": {
+                ".": {
+                    "import": {
+                        "types": "./dist/esm/index.d.mts",
+                        "default": "./dist/esm/index.mjs"
+                    },
+                    "require": {
+                        "types": "./dist/cjs/index.d.ts",
+                        "default": "./dist/cjs/index.js"
+                    },
+                    "default": "./dist/cjs/index.js"
+                },
+                "./package.json": "./package.json",
+                "./server": {
+                    "types": "./dist/cjs/server.d.ts",
+                    "import": {
+                        "types": "./dist/esm/server.d.mts",
+                        "default": "./dist/esm/server.mjs"
+                    },
+                    "require": {
+                        "types": "./dist/cjs/server.d.ts",
+                        "default": "./dist/cjs/server.js"
+                    },
+                    "default": "./dist/cjs/server.js"
+                }
+            },
+            "files": [
+                "NOTICE",
+                "dist",
+                "reference.md",
+                "README.md",
+                "LICENSE"
+            ],
+            "scripts": {
+                "format": "prettier . --write --ignore-unknown",
+                "format:check": "prettier . --check --ignore-unknown",
+                "lint": "eslint .",
+                "lint:fix": "eslint . --fix",
+                "check": "pnpm format:check",
+                "check:fix": "pnpm format",
+                "build": "pnpm build:cjs && pnpm build:esm",
+                "build:cjs": "tsc --project ./tsconfig.cjs.json",
+                "build:esm": "tsc --project ./tsconfig.esm.json && node scripts/rename-to-esm-files.js dist/esm",
+                "test": "vitest",
+                "test:unit": "vitest --project unit",
+                "test:wire": "vitest --project wire",
+                "docs": "typedoc",
+                "docs:watch": "typedoc --watch",
+                "lint:package": "publint --pack pnpm",
+                "prepare": "husky"
+            },
+            "dependencies": {
+                "@auth0/auth0-auth-js": "^1.1.0"
+            },
+            "devDependencies": {
+                "webpack": "^5.105.4",
+                "ts-loader": "^9.5.4",
+                "vitest": "^4.1.1",
+                "msw": "2.11.2",
+                "@types/node": "^22.0.0",
+                "typescript": "~5.9.3",
+                "prettier": "3.8.1",
+                "typedoc": "^0.28.13",
+                "typedoc-plugin-missing-exports": "^4.1.0",
+                "husky": "^9.1.7",
+                "lint-staged": "^16.2.4",
+                "@eslint/js": "^9.37.0",
+                "eslint": "^9.37.0",
+                "typescript-eslint": "^8.46.1",
+                "publint": "^0.3.15"
+            },
+            "browser": {
+                "fs": false,
+                "os": false,
+                "path": false,
+                "stream": false,
+                "crypto": false
+            },
+            "packageManager": "pnpm@10.33.0",
+            "engines": {
+                "node": ">=20.0.0"
+            },
+            "sideEffects": false,
+            "description": "Auth0 SDK for JavaScript/TypeScript to manage organizations, members, roles, and identity providers",
+            "author": "Auth0",
+            "keywords": [
+                "auth0",
+                "authentication",
+                "authorization",
+                "organizations",
+                "identity",
+                "auth",
+                "sdk",
+                "typescript",
+                "javascript"
+            ],
+            "homepage": "https://github.com/auth0/myorganization-js#readme",
+            "bugs": {
+                "url": "https://github.com/auth0/myorganization-js/issues"
+            },
+            "publishConfig": {
+                "access": "public"
+            },
+            "lint-staged": {
+                "*.{js,jsx,ts,tsx}": [
+                    "eslint --fix",
+                    "prettier --write"
+                ],
+                "*.{json,css,md}": [
+                    "prettier --write"
+                ]
+            }
+        }
+      src/version.ts: |
+        export const SDK_VERSION = "1.1.0";
+    status: unresolved
+  - id: patch-48438d7d
+    content_hash: sha256:21cdb62add31c6679eeb4d9de51a695665d98c1eded52e1c35694310651f56df
+    original_commit: 48438d7d5e6e4f19a24b86a78df9d83eac49947f
+    original_message: "docs: deprecate invitation delete and role unassign methods (#55)"
+    original_author: Kunal Dawar <35455566+developerkunal@users.noreply.github.com>
+    base_generation: 3a0693416b866345a4700d659368cfda2ef4fd4c
+    files:
+      - src/api/resources/organization/resources/invitations/client/Client.ts
+      - src/api/resources/organization/resources/members/resources/roles/client/Client.ts
+    patch_content: |
+      diff --git a/src/api/resources/organization/resources/invitations/client/Client.ts b/src/api/resources/organization/resources/invitations/client/Client.ts
+      index 3d8cc47..abb9a1c 100644
+      --- a/src/api/resources/organization/resources/invitations/client/Client.ts
+      +++ b/src/api/resources/organization/resources/invitations/client/Client.ts
+      @@ -503,6 +503,12 @@ export class InvitationsClient {
+           /**
+            * Revoke a member invitation specified by ID for this Organization.
+            *
+      +     * @deprecated The underlying endpoint `DELETE /member-invitations/{invitation_id}` is being decommissioned and
+      +     * will be replaced by `POST /delete-member-invitations`, which accepts an `{ invitations: [...] }` request body
+      +     * instead of a path parameter. Once member management is enabled for a tenant, the legacy endpoint is switched
+      +     * off server side. The replacement operation is available on the beta release
+      +     * (`@auth0/myorganization-js@beta`). See the migration guide for details.
+      +     *
+            * @param {MyOrganization.InvitationId} invitation_id
+            * @param {InvitationsClient.RequestOptions} requestOptions - Request-specific configuration.
+            *
+      diff --git a/src/api/resources/organization/resources/members/resources/roles/client/Client.ts b/src/api/resources/organization/resources/members/resources/roles/client/Client.ts
+      index a33a4e8..3cb6927 100644
+      --- a/src/api/resources/organization/resources/members/resources/roles/client/Client.ts
+      +++ b/src/api/resources/organization/resources/members/resources/roles/client/Client.ts
+      @@ -263,6 +263,11 @@ export class RolesClient {
+           /**
+            * Remove roles from a member specified by ID for this Organization.
+            *
+      +     * @deprecated The underlying endpoint `DELETE /members/{user_id}/roles` is being decommissioned and will be
+      +     * replaced by `POST /members/{user_id}/unassign-roles`. Once member management is enabled for a tenant, the
+      +     * legacy endpoint is switched off server side, so working calls can begin to fail. The replacement operation is
+      +     * available on the beta release (`@auth0/myorganization-js@beta`). See the migration guide for details.
+      +     *
+            * @param {MyOrganization.OrgMemberId} user_id
+            * @param {MyOrganization.OrganizationMemberRolesChangeRequestContent} request
+            * @param {RolesClient.RequestOptions} requestOptions - Request-specific configuration.
+    theirs_snapshot:
+      src/api/resources/organization/resources/invitations/client/Client.ts: |
+        // This file was auto-generated by Fern from our API Definition.
+
+        import type { BaseClientOptions, BaseRequestOptions } from "../../../../../../BaseClient.js";
+        import { normalizeClientOptionsWithAuth, type NormalizedClientOptionsWithAuth } from "../../../../../../BaseClient.js";
+        import * as core from "../../../../../../core/index.js";
+        import { mergeHeaders, mergeOnlyDefinedHeaders } from "../../../../../../core/headers.js";
+        import * as environments from "../../../../../../environments.js";
+        import { handleNonStatusCodeError } from "../../../../../../errors/handleNonStatusCodeError.js";
+        import * as errors from "../../../../../../errors/index.js";
+        import * as MyOrganization from "../../../../../index.js";
+        import { RolesClient } from "../resources/roles/client/Client.js";
+
+        export declare namespace InvitationsClient {
+            export type Options = BaseClientOptions;
+
+            export interface RequestOptions extends BaseRequestOptions {}
+        }
+
+        export class InvitationsClient {
+            protected readonly _options: NormalizedClientOptionsWithAuth<InvitationsClient.Options>;
+            protected _roles: RolesClient | undefined;
+
+            constructor(options: InvitationsClient.Options) {
+                this._options = normalizeClientOptionsWithAuth(options);
+            }
+
+            public get roles(): RolesClient {
+                return (this._roles ??= new RolesClient(this._options));
+            }
+
+            /**
+             * Retrieve a list of all member invitations for this Organization.
+             *
+             * @param {MyOrganization.ListMemberInvitationsRequestParameters} request
+             * @param {InvitationsClient.RequestOptions} requestOptions - Request-specific configuration.
+             *
+             * @throws {@link MyOrganization.BadRequestError}
+             * @throws {@link MyOrganization.UnauthorizedError}
+             * @throws {@link MyOrganization.ForbiddenError}
+             * @throws {@link MyOrganization.NotFoundError}
+             * @throws {@link MyOrganization.TooManyRequestsError}
+             *
+             * @example
+             *     await client.organization.invitations.list({
+             *         fields: "fields",
+             *         include_fields: true,
+             *         from: "from",
+             *         take: 1,
+             *         sort: "sort"
+             *     })
+             */
+            public async list(
+                request: MyOrganization.ListMemberInvitationsRequestParameters = {},
+                requestOptions?: InvitationsClient.RequestOptions,
+            ): Promise<core.Page<MyOrganization.MemberInvitation, MyOrganization.ListMembersInvitationsResponseContent>> {
+                const list = core.HttpResponsePromise.interceptFunction(
+                    async (
+                        request: MyOrganization.ListMemberInvitationsRequestParameters,
+                    ): Promise<core.WithRawResponse<MyOrganization.ListMembersInvitationsResponseContent>> => {
+                        const _metadata: core.EndpointMetadata = {
+                            security: [
+                                { OAuth2ClientCredentials: ["read:my_org:member_invitations"] },
+                                { OAuth2AuthCode: ["read:my_org:member_invitations"] },
+                            ],
+                        };
+                        const {
+                            fields,
+                            include_fields: includeFields = true,
+                            from: from_,
+                            take = 50,
+                            sort = "created_at:-1",
+                        } = request;
+                        const _queryParams: Record<string, unknown> = {
+                            fields,
+                            include_fields: includeFields,
+                            from: from_,
+                            take,
+                            sort,
+                        };
+                        const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest({
+                            endpointMetadata: _metadata,
+                        });
+                        let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+                            _authRequest.headers,
+                            this._options?.headers,
+                            requestOptions?.headers,
+                        );
+                        const _response = await (this._options.fetcher ?? core.fetcher)({
+                            url: core.url.join(
+                                (await core.Supplier.get(this._options.baseUrl)) ??
+                                    (await core.Supplier.get(this._options.environment)) ??
+                                    environments.MyOrganizationEnvironment.Default,
+                                "member-invitations",
+                            ),
+                            method: "GET",
+                            headers: _headers,
+                            queryString: core.url
+                                .queryBuilder()
+                                .addMany(_queryParams)
+                                .mergeAdditional(requestOptions?.queryParams)
+                                .build(),
+                            timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
+                            maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
+                            abortSignal: requestOptions?.abortSignal,
+                            endpointMetadata: _metadata,
+                            fetchFn: this._options?.fetch,
+                            logging: this._options.logging,
+                        });
+                        if (_response.ok) {
+                            return {
+                                data: _response.body as MyOrganization.ListMembersInvitationsResponseContent,
+                                rawResponse: _response.rawResponse,
+                            };
+                        }
+                        if (_response.error.reason === "status-code") {
+                            switch (_response.error.statusCode) {
+                                case 400:
+                                    throw new MyOrganization.BadRequestError(
+                                        _response.error.body as unknown,
+                                        _response.rawResponse,
+                                    );
+                                case 401:
+                                    throw new MyOrganization.UnauthorizedError(
+                                        _response.error.body as MyOrganization.ErrorResponseContent,
+                                        _response.rawResponse,
+                                    );
+                                case 403:
+                                    throw new MyOrganization.ForbiddenError(
+                                        _response.error.body as MyOrganization.ErrorResponseContent,
+                                        _response.rawResponse,
+                                    );
+                                case 404:
+                                    throw new MyOrganization.NotFoundError(
+                                        _response.error.body as MyOrganization.ErrorResponseContent,
+                                        _response.rawResponse,
+                                    );
+                                case 429:
+                                    throw new MyOrganization.TooManyRequestsError(
+                                        _response.error.body as MyOrganization.ErrorResponseContent,
+                                        _response.rawResponse,
+                                    );
+                                default:
+                                    throw new errors.MyOrganizationError({
+                                        statusCode: _response.error.statusCode,
+                                        body: _response.error.body,
+                                        rawResponse: _response.rawResponse,
+                                    });
+                            }
+                        }
+                        return handleNonStatusCodeError(_response.error, _response.rawResponse, "GET", "/member-invitations");
+                    },
+                );
+                const dataWithRawResponse = await list(request).withRawResponse();
+                return new core.Page<MyOrganization.MemberInvitation, MyOrganization.ListMembersInvitationsResponseContent>({
+                    response: dataWithRawResponse.data,
+                    rawResponse: dataWithRawResponse.rawResponse,
+                    hasNextPage: (response) =>
+                        response?.next != null && !(typeof response?.next === "string" && response?.next === ""),
+                    getItems: (response) => response?.invitations ?? [],
+                    loadPage: (response) => {
+                        return list(core.setObjectProperty(request, "from", response?.next));
+                    },
+                });
+            }
+
+            /**
+             * Create one or more member invitations for this Organization. If an active invitation already exists for a user, generating a new invitation will automatically revoke any outstanding invitations for that user. Roles specified in the payload will be granted to the user upon acceptance of the invitation.
+             *
+             * @param {MyOrganization.CreateMemberInvitationRequestContent} request
+             * @param {InvitationsClient.RequestOptions} requestOptions - Request-specific configuration.
+             *
+             * @throws {@link MyOrganization.BadRequestError}
+             * @throws {@link MyOrganization.UnauthorizedError}
+             * @throws {@link MyOrganization.ForbiddenError}
+             * @throws {@link MyOrganization.NotFoundError}
+             * @throws {@link MyOrganization.TooManyRequestsError}
+             *
+             * @example
+             *     await client.organization.invitations.create({
+             *         invitees: [{
+             *                 email: "user@example.com",
+             *                 roles: ["rol_0000000000000001"]
+             *             }],
+             *         inviter: {
+             *             name: "Allison the Admin"
+             *         },
+             *         identity_provider_id: "con_2CZPv6IY0gWzDaQJ",
+             *         ttl_sec: 3600
+             *     })
+             */
+            public create(
+                request: MyOrganization.CreateMemberInvitationRequestContent,
+                requestOptions?: InvitationsClient.RequestOptions,
+            ): core.HttpResponsePromise<MyOrganization.CreateMemberInvitationResponseContent> {
+                return core.HttpResponsePromise.fromPromise(this.__create(request, requestOptions));
+            }
+
+            private async __create(
+                request: MyOrganization.CreateMemberInvitationRequestContent,
+                requestOptions?: InvitationsClient.RequestOptions,
+            ): Promise<core.WithRawResponse<MyOrganization.CreateMemberInvitationResponseContent>> {
+                const _metadata: core.EndpointMetadata = {
+                    security: [
+                        { OAuth2ClientCredentials: ["create:my_org:member_invitations"] },
+                        { OAuth2AuthCode: ["create:my_org:member_invitations"] },
+                    ],
+                };
+                const { "auth0-custom-domain": auth0CustomDomain, ..._body } = request;
+                const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest({
+                    endpointMetadata: _metadata,
+                });
+                let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+                    _authRequest.headers,
+                    this._options?.headers,
+                    mergeOnlyDefinedHeaders({ "auth0-custom-domain": auth0CustomDomain }),
+                    requestOptions?.headers,
+                );
+                const _response = await (this._options.fetcher ?? core.fetcher)({
+                    url: core.url.join(
+                        (await core.Supplier.get(this._options.baseUrl)) ??
+                            (await core.Supplier.get(this._options.environment)) ??
+                            environments.MyOrganizationEnvironment.Default,
+                        "member-invitations",
+                    ),
+                    method: "POST",
+                    headers: _headers,
+                    contentType: "application/json",
+                    queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
+                    requestType: "json",
+                    body: _body,
+                    timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
+                    maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
+                    abortSignal: requestOptions?.abortSignal,
+                    endpointMetadata: _metadata,
+                    fetchFn: this._options?.fetch,
+                    logging: this._options.logging,
+                });
+                if (_response.ok) {
+                    return {
+                        data: _response.body as MyOrganization.CreateMemberInvitationResponseContent,
+                        rawResponse: _response.rawResponse,
+                    };
+                }
+
+                if (_response.error.reason === "status-code") {
+                    switch (_response.error.statusCode) {
+                        case 400:
+                            throw new MyOrganization.BadRequestError(_response.error.body as unknown, _response.rawResponse);
+                        case 401:
+                            throw new MyOrganization.UnauthorizedError(
+                                _response.error.body as MyOrganization.ErrorResponseContent,
+                                _response.rawResponse,
+                            );
+                        case 403:
+                            throw new MyOrganization.ForbiddenError(
+                                _response.error.body as MyOrganization.ErrorResponseContent,
+                                _response.rawResponse,
+                            );
+                        case 404:
+                            throw new MyOrganization.NotFoundError(
+                                _response.error.body as MyOrganization.ErrorResponseContent,
+                                _response.rawResponse,
+                            );
+                        case 429:
+                            throw new MyOrganization.TooManyRequestsError(
+                                _response.error.body as MyOrganization.ErrorResponseContent,
+                                _response.rawResponse,
+                            );
+                        default:
+                            throw new errors.MyOrganizationError({
+                                statusCode: _response.error.statusCode,
+                                body: _response.error.body,
+                                rawResponse: _response.rawResponse,
+                            });
+                    }
+                }
+
+                return handleNonStatusCodeError(_response.error, _response.rawResponse, "POST", "/member-invitations");
+            }
+
+            /**
+             * Revoke a set of member invitations specified by IDs for this Organization.
+             *
+             * @param {MyOrganization.DeleteMemberInvitationsRequestContent} request
+             * @param {InvitationsClient.RequestOptions} requestOptions - Request-specific configuration.
+             *
+             * @throws {@link MyOrganization.BadRequestError}
+             * @throws {@link MyOrganization.UnauthorizedError}
+             * @throws {@link MyOrganization.ForbiddenError}
+             * @throws {@link MyOrganization.NotFoundError}
+             * @throws {@link MyOrganization.TooManyRequestsError}
+             *
+             * @example
+             *     await client.organization.invitations.delete({
+             *         invitations: ["uinv_0000000000000001", "uinv_0000000000000002", "uinv_0000000000000003"]
+             *     })
+             */
+            public delete(
+                request: MyOrganization.DeleteMemberInvitationsRequestContent,
+                requestOptions?: InvitationsClient.RequestOptions,
+            ): core.HttpResponsePromise<void> {
+                return core.HttpResponsePromise.fromPromise(this.__delete(request, requestOptions));
+            }
+
+            private async __delete(
+                request: MyOrganization.DeleteMemberInvitationsRequestContent,
+                requestOptions?: InvitationsClient.RequestOptions,
+            ): Promise<core.WithRawResponse<void>> {
+                const _metadata: core.EndpointMetadata = {
+                    security: [
+                        { OAuth2ClientCredentials: ["delete:my_org:member_invitations"] },
+                        { OAuth2AuthCode: ["delete:my_org:member_invitations"] },
+                    ],
+                };
+                const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest({
+                    endpointMetadata: _metadata,
+                });
+                let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+                    _authRequest.headers,
+                    this._options?.headers,
+                    requestOptions?.headers,
+                );
+                const _response = await (this._options.fetcher ?? core.fetcher)({
+                    url: core.url.join(
+                        (await core.Supplier.get(this._options.baseUrl)) ??
+                            (await core.Supplier.get(this._options.environment)) ??
+                            environments.MyOrganizationEnvironment.Default,
+                        "delete-member-invitations",
+                    ),
+                    method: "POST",
+                    headers: _headers,
+                    contentType: "application/json",
+                    queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
+                    requestType: "json",
+                    body: request,
+                    timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
+                    maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
+                    abortSignal: requestOptions?.abortSignal,
+                    endpointMetadata: _metadata,
+                    fetchFn: this._options?.fetch,
+                    logging: this._options.logging,
+                });
+                if (_response.ok) {
+                    return { data: undefined, rawResponse: _response.rawResponse };
+                }
+
+                if (_response.error.reason === "status-code") {
+                    switch (_response.error.statusCode) {
+                        case 400:
+                            throw new MyOrganization.BadRequestError(_response.error.body as unknown, _response.rawResponse);
+                        case 401:
+                            throw new MyOrganization.UnauthorizedError(
+                                _response.error.body as MyOrganization.ErrorResponseContent,
+                                _response.rawResponse,
+                            );
+                        case 403:
+                            throw new MyOrganization.ForbiddenError(
+                                _response.error.body as MyOrganization.ErrorResponseContent,
+                                _response.rawResponse,
+                            );
+                        case 404:
+                            throw new MyOrganization.NotFoundError(
+                                _response.error.body as MyOrganization.ErrorResponseContent,
+                                _response.rawResponse,
+                            );
+                        case 429:
+                            throw new MyOrganization.TooManyRequestsError(
+                                _response.error.body as MyOrganization.ErrorResponseContent,
+                                _response.rawResponse,
+                            );
+                        default:
+                            throw new errors.MyOrganizationError({
+                                statusCode: _response.error.statusCode,
+                                body: _response.error.body,
+                                rawResponse: _response.rawResponse,
+                            });
+                    }
+                }
+
+                return handleNonStatusCodeError(_response.error, _response.rawResponse, "POST", "/delete-member-invitations");
+            }
+
+            /**
+             * Retrieve details of a member invitation specified by ID for this Organization.
+             *
+             * @param {MyOrganization.InvitationId} invitation_id
+             * @param {MyOrganization.GetMemberInvitationRequestParameters} request
+             * @param {InvitationsClient.RequestOptions} requestOptions - Request-specific configuration.
+             *
+             * @throws {@link MyOrganization.BadRequestError}
+             * @throws {@link MyOrganization.UnauthorizedError}
+             * @throws {@link MyOrganization.ForbiddenError}
+             * @throws {@link MyOrganization.NotFoundError}
+             * @throws {@link MyOrganization.TooManyRequestsError}
+             *
+             * @example
+             *     await client.organization.invitations.get("invitation_id", {
+             *         fields: "fields",
+             *         include_fields: true
+             *     })
+             */
+            public get(
+                invitation_id: MyOrganization.InvitationId,
+                request: MyOrganization.GetMemberInvitationRequestParameters = {},
+                requestOptions?: InvitationsClient.RequestOptions,
+            ): core.HttpResponsePromise<MyOrganization.GetMemberInvitationResponseContent> {
+                return core.HttpResponsePromise.fromPromise(this.__get(invitation_id, request, requestOptions));
+            }
+
+            private async __get(
+                invitation_id: MyOrganization.InvitationId,
+                request: MyOrganization.GetMemberInvitationRequestParameters = {},
+                requestOptions?: InvitationsClient.RequestOptions,
+            ): Promise<core.WithRawResponse<MyOrganization.GetMemberInvitationResponseContent>> {
+                const _metadata: core.EndpointMetadata = {
+                    security: [
+                        { OAuth2ClientCredentials: ["read:my_org:member_invitations"] },
+                        { OAuth2AuthCode: ["read:my_org:member_invitations"] },
+                    ],
+                };
+                const { fields, include_fields: includeFields = true } = request;
+                const _queryParams: Record<string, unknown> = {
+                    fields,
+                    include_fields: includeFields,
+                };
+                const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest({
+                    endpointMetadata: _metadata,
+                });
+                let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+                    _authRequest.headers,
+                    this._options?.headers,
+                    requestOptions?.headers,
+                );
+                const _response = await (this._options.fetcher ?? core.fetcher)({
+                    url: core.url.join(
+                        (await core.Supplier.get(this._options.baseUrl)) ??
+                            (await core.Supplier.get(this._options.environment)) ??
+                            environments.MyOrganizationEnvironment.Default,
+                        `member-invitations/${core.url.encodePathParam(invitation_id)}`,
+                    ),
+                    method: "GET",
+                    headers: _headers,
+                    queryString: core.url
+                        .queryBuilder()
+                        .addMany(_queryParams)
+                        .mergeAdditional(requestOptions?.queryParams)
+                        .build(),
+                    timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
+                    maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
+                    abortSignal: requestOptions?.abortSignal,
+                    endpointMetadata: _metadata,
+                    fetchFn: this._options?.fetch,
+                    logging: this._options.logging,
+                });
+                if (_response.ok) {
+                    return {
+                        data: _response.body as MyOrganization.GetMemberInvitationResponseContent,
+                        rawResponse: _response.rawResponse,
+                    };
+                }
+
+                if (_response.error.reason === "status-code") {
+                    switch (_response.error.statusCode) {
+                        case 400:
+                            throw new MyOrganization.BadRequestError(_response.error.body as unknown, _response.rawResponse);
+                        case 401:
+                            throw new MyOrganization.UnauthorizedError(
+                                _response.error.body as MyOrganization.ErrorResponseContent,
+                                _response.rawResponse,
+                            );
+                        case 403:
+                            throw new MyOrganization.ForbiddenError(
+                                _response.error.body as MyOrganization.ErrorResponseContent,
+                                _response.rawResponse,
+                            );
+                        case 404:
+                            throw new MyOrganization.NotFoundError(
+                                _response.error.body as MyOrganization.ErrorResponseContent,
+                                _response.rawResponse,
+                            );
+                        case 429:
+                            throw new MyOrganization.TooManyRequestsError(
+                                _response.error.body as MyOrganization.ErrorResponseContent,
+                                _response.rawResponse,
+                            );
+                        default:
+                            throw new errors.MyOrganizationError({
+                                statusCode: _response.error.statusCode,
+                                body: _response.error.body,
+                                rawResponse: _response.rawResponse,
+                            });
+                    }
+                }
+
+                return handleNonStatusCodeError(
+                    _response.error,
+                    _response.rawResponse,
+                    "GET",
+                    "/member-invitations/{invitation_id}",
+                );
+            }
+
+            /**
+             * Revoke a member invitation specified by ID for this Organization.
+             *
+             * @deprecated The underlying endpoint `DELETE /member-invitations/{invitation_id}` is being decommissioned and
+             * will be replaced by `POST /delete-member-invitations`, which accepts an `{ invitations: [...] }` request body
+             * instead of a path parameter. Once member management is enabled for a tenant, the legacy endpoint is switched
+             * off server side. The replacement operation is available on the beta release
+             * (`@auth0/myorganization-js@beta`). See the migration guide for details.
+             *
+             * @param {MyOrganization.InvitationId} invitation_id
+             * @param {InvitationsClient.RequestOptions} requestOptions - Request-specific configuration.
+             *
+             * @throws {@link MyOrganization.BadRequestError}
+             * @throws {@link MyOrganization.UnauthorizedError}
+             * @throws {@link MyOrganization.ForbiddenError}
+             * @throws {@link MyOrganization.NotFoundError}
+             * @throws {@link MyOrganization.TooManyRequestsError}
+             *
+             * @example
+             *     await client.organization.invitations.deleteLegacy("invitation_id")
+             */
+            public deleteLegacy(
+                invitation_id: MyOrganization.InvitationId,
+                requestOptions?: InvitationsClient.RequestOptions,
+            ): core.HttpResponsePromise<void> {
+                return core.HttpResponsePromise.fromPromise(this.__deleteLegacy(invitation_id, requestOptions));
+            }
+
+            private async __deleteLegacy(
+                invitation_id: MyOrganization.InvitationId,
+                requestOptions?: InvitationsClient.RequestOptions,
+            ): Promise<core.WithRawResponse<void>> {
+                const _metadata: core.EndpointMetadata = {
+                    security: [
+                        { OAuth2ClientCredentials: ["delete:my_org:member_invitations"] },
+                        { OAuth2AuthCode: ["delete:my_org:member_invitations"] },
+                    ],
+                };
+                const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest({
+                    endpointMetadata: _metadata,
+                });
+                let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+                    _authRequest.headers,
+                    this._options?.headers,
+                    requestOptions?.headers,
+                );
+                const _response = await (this._options.fetcher ?? core.fetcher)({
+                    url: core.url.join(
+                        (await core.Supplier.get(this._options.baseUrl)) ??
+                            (await core.Supplier.get(this._options.environment)) ??
+                            environments.MyOrganizationEnvironment.Default,
+                        `member-invitations/${core.url.encodePathParam(invitation_id)}`,
+                    ),
+                    method: "DELETE",
+                    headers: _headers,
+                    queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
+                    timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
+                    maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
+                    abortSignal: requestOptions?.abortSignal,
+                    endpointMetadata: _metadata,
+                    fetchFn: this._options?.fetch,
+                    logging: this._options.logging,
+                });
+                if (_response.ok) {
+                    return { data: undefined, rawResponse: _response.rawResponse };
+                }
+
+                if (_response.error.reason === "status-code") {
+                    switch (_response.error.statusCode) {
+                        case 400:
+                            throw new MyOrganization.BadRequestError(_response.error.body as unknown, _response.rawResponse);
+                        case 401:
+                            throw new MyOrganization.UnauthorizedError(
+                                _response.error.body as MyOrganization.ErrorResponseContent,
+                                _response.rawResponse,
+                            );
+                        case 403:
+                            throw new MyOrganization.ForbiddenError(
+                                _response.error.body as MyOrganization.ErrorResponseContent,
+                                _response.rawResponse,
+                            );
+                        case 404:
+                            throw new MyOrganization.NotFoundError(
+                                _response.error.body as MyOrganization.ErrorResponseContent,
+                                _response.rawResponse,
+                            );
+                        case 429:
+                            throw new MyOrganization.TooManyRequestsError(
+                                _response.error.body as MyOrganization.ErrorResponseContent,
+                                _response.rawResponse,
+                            );
+                        default:
+                            throw new errors.MyOrganizationError({
+                                statusCode: _response.error.statusCode,
+                                body: _response.error.body,
+                                rawResponse: _response.rawResponse,
+                            });
+                    }
+                }
+
+                return handleNonStatusCodeError(
+                    _response.error,
+                    _response.rawResponse,
+                    "DELETE",
+                    "/member-invitations/{invitation_id}",
+                );
+            }
+        }
+      src/api/resources/organization/resources/members/resources/roles/client/Client.ts: |
+        // This file was auto-generated by Fern from our API Definition.
+
+        import type { BaseClientOptions, BaseRequestOptions } from "../../../../../../../../BaseClient.js";
+        import {
+            normalizeClientOptionsWithAuth,
+            type NormalizedClientOptionsWithAuth,
+        } from "../../../../../../../../BaseClient.js";
+        import * as core from "../../../../../../../../core/index.js";
+        import { mergeHeaders } from "../../../../../../../../core/headers.js";
+        import * as environments from "../../../../../../../../environments.js";
+        import { handleNonStatusCodeError } from "../../../../../../../../errors/handleNonStatusCodeError.js";
+        import * as errors from "../../../../../../../../errors/index.js";
+        import * as MyOrganization from "../../../../../../../index.js";
+
+        export declare namespace RolesClient {
+            export type Options = BaseClientOptions;
+
+            export interface RequestOptions extends BaseRequestOptions {}
+        }
+
+        export class RolesClient {
+            protected readonly _options: NormalizedClientOptionsWithAuth<RolesClient.Options>;
+
+            constructor(options: RolesClient.Options) {
+                this._options = normalizeClientOptionsWithAuth(options);
+            }
+
+            /**
+             * Retrieve a list of roles assigned to a member specified by ID for this Organization.
+             *
+             * @param {MyOrganization.OrgMemberId} user_id
+             * @param {MyOrganization.ListOrgMemberRolesRequestParameters} request
+             * @param {RolesClient.RequestOptions} requestOptions - Request-specific configuration.
+             *
+             * @throws {@link MyOrganization.BadRequestError}
+             * @throws {@link MyOrganization.UnauthorizedError}
+             * @throws {@link MyOrganization.ForbiddenError}
+             * @throws {@link MyOrganization.NotFoundError}
+             * @throws {@link MyOrganization.TooManyRequestsError}
+             *
+             * @example
+             *     await client.organization.members.roles.list("user_id", {
+             *         from: "from",
+             *         take: 1
+             *     })
+             */
+            public async list(
+                user_id: MyOrganization.OrgMemberId,
+                request: MyOrganization.ListOrgMemberRolesRequestParameters = {},
+                requestOptions?: RolesClient.RequestOptions,
+            ): Promise<core.Page<MyOrganization.Role, MyOrganization.GetOrganizationMemberRolesResponseContent>> {
+                const list = core.HttpResponsePromise.interceptFunction(
+                    async (
+                        request: MyOrganization.ListOrgMemberRolesRequestParameters,
+                    ): Promise<core.WithRawResponse<MyOrganization.GetOrganizationMemberRolesResponseContent>> => {
+                        const _metadata: core.EndpointMetadata = {
+                            security: [
+                                { OAuth2ClientCredentials: ["read:my_org:member_roles"] },
+                                { OAuth2AuthCode: ["read:my_org:member_roles"] },
+                            ],
+                        };
+                        const { from: from_, take = 50 } = request;
+                        const _queryParams: Record<string, unknown> = {
+                            from: from_,
+                            take,
+                        };
+                        const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest({
+                            endpointMetadata: _metadata,
+                        });
+                        let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+                            _authRequest.headers,
+                            this._options?.headers,
+                            requestOptions?.headers,
+                        );
+                        const _response = await (this._options.fetcher ?? core.fetcher)({
+                            url: core.url.join(
+                                (await core.Supplier.get(this._options.baseUrl)) ??
+                                    (await core.Supplier.get(this._options.environment)) ??
+                                    environments.MyOrganizationEnvironment.Default,
+                                `members/${core.url.encodePathParam(user_id)}/roles`,
+                            ),
+                            method: "GET",
+                            headers: _headers,
+                            queryString: core.url
+                                .queryBuilder()
+                                .addMany(_queryParams)
+                                .mergeAdditional(requestOptions?.queryParams)
+                                .build(),
+                            timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
+                            maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
+                            abortSignal: requestOptions?.abortSignal,
+                            endpointMetadata: _metadata,
+                            fetchFn: this._options?.fetch,
+                            logging: this._options.logging,
+                        });
+                        if (_response.ok) {
+                            return {
+                                data: _response.body as MyOrganization.GetOrganizationMemberRolesResponseContent,
+                                rawResponse: _response.rawResponse,
+                            };
+                        }
+                        if (_response.error.reason === "status-code") {
+                            switch (_response.error.statusCode) {
+                                case 400:
+                                    throw new MyOrganization.BadRequestError(
+                                        _response.error.body as unknown,
+                                        _response.rawResponse,
+                                    );
+                                case 401:
+                                    throw new MyOrganization.UnauthorizedError(
+                                        _response.error.body as MyOrganization.ErrorResponseContent,
+                                        _response.rawResponse,
+                                    );
+                                case 403:
+                                    throw new MyOrganization.ForbiddenError(
+                                        _response.error.body as MyOrganization.ErrorResponseContent,
+                                        _response.rawResponse,
+                                    );
+                                case 404:
+                                    throw new MyOrganization.NotFoundError(
+                                        _response.error.body as MyOrganization.ErrorResponseContent,
+                                        _response.rawResponse,
+                                    );
+                                case 429:
+                                    throw new MyOrganization.TooManyRequestsError(
+                                        _response.error.body as MyOrganization.ErrorResponseContent,
+                                        _response.rawResponse,
+                                    );
+                                default:
+                                    throw new errors.MyOrganizationError({
+                                        statusCode: _response.error.statusCode,
+                                        body: _response.error.body,
+                                        rawResponse: _response.rawResponse,
+                                    });
+                            }
+                        }
+                        return handleNonStatusCodeError(
+                            _response.error,
+                            _response.rawResponse,
+                            "GET",
+                            "/members/{user_id}/roles",
+                        );
+                    },
+                );
+                const dataWithRawResponse = await list(request).withRawResponse();
+                return new core.Page<MyOrganization.Role, MyOrganization.GetOrganizationMemberRolesResponseContent>({
+                    response: dataWithRawResponse.data,
+                    rawResponse: dataWithRawResponse.rawResponse,
+                    hasNextPage: (response) =>
+                        response?.next != null && !(typeof response?.next === "string" && response?.next === ""),
+                    getItems: (response) => response?.roles ?? [],
+                    loadPage: (response) => {
+                        return list(core.setObjectProperty(request, "from", response?.next));
+                    },
+                });
+            }
+
+            /**
+             * Assign roles to a member specified by ID for this Organization.
+             *
+             * @param {MyOrganization.OrgMemberId} user_id
+             * @param {MyOrganization.OrganizationMemberRolesChangeRequestContent} request
+             * @param {RolesClient.RequestOptions} requestOptions - Request-specific configuration.
+             *
+             * @throws {@link MyOrganization.BadRequestError}
+             * @throws {@link MyOrganization.UnauthorizedError}
+             * @throws {@link MyOrganization.ForbiddenError}
+             * @throws {@link MyOrganization.NotFoundError}
+             * @throws {@link MyOrganization.TooManyRequestsError}
+             *
+             * @example
+             *     await client.organization.members.roles.assign("user_id", {
+             *         role_ids: ["rol_SO2j0sFo9NFa3F9w"]
+             *     })
+             */
+            public assign(
+                user_id: MyOrganization.OrgMemberId,
+                request: MyOrganization.OrganizationMemberRolesChangeRequestContent,
+                requestOptions?: RolesClient.RequestOptions,
+            ): core.HttpResponsePromise<void> {
+                return core.HttpResponsePromise.fromPromise(this.__assign(user_id, request, requestOptions));
+            }
+
+            private async __assign(
+                user_id: MyOrganization.OrgMemberId,
+                request: MyOrganization.OrganizationMemberRolesChangeRequestContent,
+                requestOptions?: RolesClient.RequestOptions,
+            ): Promise<core.WithRawResponse<void>> {
+                const _metadata: core.EndpointMetadata = {
+                    security: [
+                        { OAuth2ClientCredentials: ["create:my_org:member_roles"] },
+                        { OAuth2AuthCode: ["create:my_org:member_roles"] },
+                    ],
+                };
+                const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest({
+                    endpointMetadata: _metadata,
+                });
+                let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+                    _authRequest.headers,
+                    this._options?.headers,
+                    requestOptions?.headers,
+                );
+                const _response = await (this._options.fetcher ?? core.fetcher)({
+                    url: core.url.join(
+                        (await core.Supplier.get(this._options.baseUrl)) ??
+                            (await core.Supplier.get(this._options.environment)) ??
+                            environments.MyOrganizationEnvironment.Default,
+                        `members/${core.url.encodePathParam(user_id)}/roles`,
+                    ),
+                    method: "POST",
+                    headers: _headers,
+                    contentType: "application/json",
+                    queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
+                    requestType: "json",
+                    body: request,
+                    timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
+                    maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
+                    abortSignal: requestOptions?.abortSignal,
+                    endpointMetadata: _metadata,
+                    fetchFn: this._options?.fetch,
+                    logging: this._options.logging,
+                });
+                if (_response.ok) {
+                    return { data: undefined, rawResponse: _response.rawResponse };
+                }
+
+                if (_response.error.reason === "status-code") {
+                    switch (_response.error.statusCode) {
+                        case 400:
+                            throw new MyOrganization.BadRequestError(_response.error.body as unknown, _response.rawResponse);
+                        case 401:
+                            throw new MyOrganization.UnauthorizedError(
+                                _response.error.body as MyOrganization.ErrorResponseContent,
+                                _response.rawResponse,
+                            );
+                        case 403:
+                            throw new MyOrganization.ForbiddenError(
+                                _response.error.body as MyOrganization.ErrorResponseContent,
+                                _response.rawResponse,
+                            );
+                        case 404:
+                            throw new MyOrganization.NotFoundError(
+                                _response.error.body as MyOrganization.ErrorResponseContent,
+                                _response.rawResponse,
+                            );
+                        case 429:
+                            throw new MyOrganization.TooManyRequestsError(
+                                _response.error.body as MyOrganization.ErrorResponseContent,
+                                _response.rawResponse,
+                            );
+                        default:
+                            throw new errors.MyOrganizationError({
+                                statusCode: _response.error.statusCode,
+                                body: _response.error.body,
+                                rawResponse: _response.rawResponse,
+                            });
+                    }
+                }
+
+                return handleNonStatusCodeError(_response.error, _response.rawResponse, "POST", "/members/{user_id}/roles");
+            }
+
+            /**
+             * Remove roles from a member specified by ID for this Organization.
+             *
+             * @deprecated The underlying endpoint `DELETE /members/{user_id}/roles` is being decommissioned and will be
+             * replaced by `POST /members/{user_id}/unassign-roles`. Once member management is enabled for a tenant, the
+             * legacy endpoint is switched off server side, so working calls can begin to fail. The replacement operation is
+             * available on the beta release (`@auth0/myorganization-js@beta`). See the migration guide for details.
+             *
+             * @param {MyOrganization.OrgMemberId} user_id
+             * @param {MyOrganization.OrganizationMemberRolesChangeRequestContent} request
+             * @param {RolesClient.RequestOptions} requestOptions - Request-specific configuration.
+             *
+             * @throws {@link MyOrganization.BadRequestError}
+             * @throws {@link MyOrganization.UnauthorizedError}
+             * @throws {@link MyOrganization.ForbiddenError}
+             * @throws {@link MyOrganization.NotFoundError}
+             * @throws {@link MyOrganization.TooManyRequestsError}
+             *
+             * @example
+             *     await client.organization.members.roles.unassignLegacy("user_id", {
+             *         role_ids: ["rol_SO2j0sFo9NFa3F9w"]
+             *     })
+             */
+            public unassignLegacy(
+                user_id: MyOrganization.OrgMemberId,
+                request: MyOrganization.OrganizationMemberRolesChangeRequestContent,
+                requestOptions?: RolesClient.RequestOptions,
+            ): core.HttpResponsePromise<void> {
+                return core.HttpResponsePromise.fromPromise(this.__unassignLegacy(user_id, request, requestOptions));
+            }
+
+            private async __unassignLegacy(
+                user_id: MyOrganization.OrgMemberId,
+                request: MyOrganization.OrganizationMemberRolesChangeRequestContent,
+                requestOptions?: RolesClient.RequestOptions,
+            ): Promise<core.WithRawResponse<void>> {
+                const _metadata: core.EndpointMetadata = {
+                    security: [
+                        { OAuth2ClientCredentials: ["delete:my_org:member_roles"] },
+                        { OAuth2AuthCode: ["delete:my_org:member_roles"] },
+                    ],
+                };
+                const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest({
+                    endpointMetadata: _metadata,
+                });
+                let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+                    _authRequest.headers,
+                    this._options?.headers,
+                    requestOptions?.headers,
+                );
+                const _response = await (this._options.fetcher ?? core.fetcher)({
+                    url: core.url.join(
+                        (await core.Supplier.get(this._options.baseUrl)) ??
+                            (await core.Supplier.get(this._options.environment)) ??
+                            environments.MyOrganizationEnvironment.Default,
+                        `members/${core.url.encodePathParam(user_id)}/roles`,
+                    ),
+                    method: "DELETE",
+                    headers: _headers,
+                    contentType: "application/json",
+                    queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
+                    requestType: "json",
+                    body: request,
+                    timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
+                    maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
+                    abortSignal: requestOptions?.abortSignal,
+                    endpointMetadata: _metadata,
+                    fetchFn: this._options?.fetch,
+                    logging: this._options.logging,
+                });
+                if (_response.ok) {
+                    return { data: undefined, rawResponse: _response.rawResponse };
+                }
+
+                if (_response.error.reason === "status-code") {
+                    switch (_response.error.statusCode) {
+                        case 400:
+                            throw new MyOrganization.BadRequestError(_response.error.body as unknown, _response.rawResponse);
+                        case 401:
+                            throw new MyOrganization.UnauthorizedError(
+                                _response.error.body as MyOrganization.ErrorResponseContent,
+                                _response.rawResponse,
+                            );
+                        case 403:
+                            throw new MyOrganization.ForbiddenError(
+                                _response.error.body as MyOrganization.ErrorResponseContent,
+                                _response.rawResponse,
+                            );
+                        case 404:
+                            throw new MyOrganization.NotFoundError(
+                                _response.error.body as MyOrganization.ErrorResponseContent,
+                                _response.rawResponse,
+                            );
+                        case 429:
+                            throw new MyOrganization.TooManyRequestsError(
+                                _response.error.body as MyOrganization.ErrorResponseContent,
+                                _response.rawResponse,
+                            );
+                        default:
+                            throw new errors.MyOrganizationError({
+                                statusCode: _response.error.statusCode,
+                                body: _response.error.body,
+                                rawResponse: _response.rawResponse,
+                            });
+                    }
+                }
+
+                return handleNonStatusCodeError(_response.error, _response.rawResponse, "DELETE", "/members/{user_id}/roles");
+            }
+
+            /**
+             * Remove roles from a member specified by ID for this Organization.
+             *
+             * @param {MyOrganization.OrgMemberId} user_id
+             * @param {MyOrganization.OrganizationMemberRolesChangeRequestContent} request
+             * @param {RolesClient.RequestOptions} requestOptions - Request-specific configuration.
+             *
+             * @throws {@link MyOrganization.BadRequestError}
+             * @throws {@link MyOrganization.UnauthorizedError}
+             * @throws {@link MyOrganization.ForbiddenError}
+             * @throws {@link MyOrganization.NotFoundError}
+             * @throws {@link MyOrganization.TooManyRequestsError}
+             *
+             * @example
+             *     await client.organization.members.roles.unassign("user_id", {
+             *         role_ids: ["rol_SO2j0sFo9NFa3F9w"]
+             *     })
+             */
+            public unassign(
+                user_id: MyOrganization.OrgMemberId,
+                request: MyOrganization.OrganizationMemberRolesChangeRequestContent,
+                requestOptions?: RolesClient.RequestOptions,
+            ): core.HttpResponsePromise<void> {
+                return core.HttpResponsePromise.fromPromise(this.__unassign(user_id, request, requestOptions));
+            }
+
+            private async __unassign(
+                user_id: MyOrganization.OrgMemberId,
+                request: MyOrganization.OrganizationMemberRolesChangeRequestContent,
+                requestOptions?: RolesClient.RequestOptions,
+            ): Promise<core.WithRawResponse<void>> {
+                const _metadata: core.EndpointMetadata = {
+                    security: [
+                        { OAuth2ClientCredentials: ["delete:my_org:member_roles"] },
+                        { OAuth2AuthCode: ["delete:my_org:member_roles"] },
+                    ],
+                };
+                const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest({
+                    endpointMetadata: _metadata,
+                });
+                let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+                    _authRequest.headers,
+                    this._options?.headers,
+                    requestOptions?.headers,
+                );
+                const _response = await (this._options.fetcher ?? core.fetcher)({
+                    url: core.url.join(
+                        (await core.Supplier.get(this._options.baseUrl)) ??
+                            (await core.Supplier.get(this._options.environment)) ??
+                            environments.MyOrganizationEnvironment.Default,
+                        `members/${core.url.encodePathParam(user_id)}/unassign-roles`,
+                    ),
+                    method: "POST",
+                    headers: _headers,
+                    contentType: "application/json",
+                    queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
+                    requestType: "json",
+                    body: request,
+                    timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
+                    maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
+                    abortSignal: requestOptions?.abortSignal,
+                    endpointMetadata: _metadata,
+                    fetchFn: this._options?.fetch,
+                    logging: this._options.logging,
+                });
+                if (_response.ok) {
+                    return { data: undefined, rawResponse: _response.rawResponse };
+                }
+
+                if (_response.error.reason === "status-code") {
+                    switch (_response.error.statusCode) {
+                        case 400:
+                            throw new MyOrganization.BadRequestError(_response.error.body as unknown, _response.rawResponse);
+                        case 401:
+                            throw new MyOrganization.UnauthorizedError(
+                                _response.error.body as MyOrganization.ErrorResponseContent,
+                                _response.rawResponse,
+                            );
+                        case 403:
+                            throw new MyOrganization.ForbiddenError(
+                                _response.error.body as MyOrganization.ErrorResponseContent,
+                                _response.rawResponse,
+                            );
+                        case 404:
+                            throw new MyOrganization.NotFoundError(
+                                _response.error.body as MyOrganization.ErrorResponseContent,
+                                _response.rawResponse,
+                            );
+                        case 429:
+                            throw new MyOrganization.TooManyRequestsError(
+                                _response.error.body as MyOrganization.ErrorResponseContent,
+                                _response.rawResponse,
+                            );
+                        default:
+                            throw new errors.MyOrganizationError({
+                                statusCode: _response.error.statusCode,
+                                body: _response.error.body,
+                                rawResponse: _response.rawResponse,
+                            });
+                    }
+                }
+
+                return handleNonStatusCodeError(
+                    _response.error,
+                    _response.rawResponse,
+                    "POST",
+                    "/members/{user_id}/unassign-roles",
+                );
+            }
+        }
+    user_owned: true
+  - id: patch-9193431b
+    content_hash: sha256:79b3e59ff10dc6c8ef7bc3a61b7aba7f567380d6130c1f25af5085aef38ec974
+    original_commit: 9193431b9b7286b26364389ca67841ee47409445
+    original_message: Release v1.1.1 (#56)
+    original_author: Kunal Dawar <35455566+developerkunal@users.noreply.github.com>
+    base_generation: 7113eaa13749aeadedc42700b8398c67ffc5f0a1
+    files:
+      - package.json
+      - src/version.ts
+    patch_content: |
+      diff --git a/package.json b/package.json
+      index 8998a04..608f3c7 100644
+      --- a/package.json
+      +++ b/package.json
+      @@ -1,6 +1,6 @@
+       {
+           "name": "@auth0/myorganization-js",
+      -    "version": "1.1.0",
+      +    "version": "1.1.1",
+           "private": false,
+           "repository": {
+               "type": "git",
+      diff --git a/src/version.ts b/src/version.ts
+      index 22eda09..b5aacc0 100644
+      --- a/src/version.ts
+      +++ b/src/version.ts
+      @@ -1 +1 @@
+      -export const SDK_VERSION = "1.1.0";
+      +export const SDK_VERSION = "1.1.1";
+    theirs_snapshot:
+      package.json: |
+        {
+            "name": "@auth0/myorganization-js",
+            "version": "1.1.1",
+            "private": false,
+            "repository": {
+                "type": "git",
+                "url": "git+https://github.com/auth0/myorganization-js.git"
+            },
+            "license": "Apache-2.0",
+            "type": "commonjs",
+            "main": "./dist/cjs/index.js",
+            "module": "./dist/esm/index.mjs",
+            "types": "./dist/cjs/index.d.ts",
+            "exports": {
+                ".": {
+                    "import": {
+                        "types": "./dist/esm/index.d.mts",
+                        "default": "./dist/esm/index.mjs"
+                    },
+                    "require": {
+                        "types": "./dist/cjs/index.d.ts",
+                        "default": "./dist/cjs/index.js"
+                    },
+                    "default": "./dist/cjs/index.js"
+                },
+                "./package.json": "./package.json",
+                "./server": {
+                    "types": "./dist/cjs/server.d.ts",
+                    "import": {
+                        "types": "./dist/esm/server.d.mts",
+                        "default": "./dist/esm/server.mjs"
+                    },
+                    "require": {
+                        "types": "./dist/cjs/server.d.ts",
+                        "default": "./dist/cjs/server.js"
+                    },
+                    "default": "./dist/cjs/server.js"
+                }
+            },
+            "files": [
+                "NOTICE",
+                "dist",
+                "reference.md",
+                "README.md",
+                "LICENSE"
+            ],
+            "scripts": {
+                "format": "prettier . --write --ignore-unknown",
+                "format:check": "prettier . --check --ignore-unknown",
+                "lint": "eslint .",
+                "lint:fix": "eslint . --fix",
+                "check": "pnpm format:check",
+                "check:fix": "pnpm format",
+                "build": "pnpm build:cjs && pnpm build:esm",
+                "build:cjs": "tsc --project ./tsconfig.cjs.json",
+                "build:esm": "tsc --project ./tsconfig.esm.json && node scripts/rename-to-esm-files.js dist/esm",
+                "test": "vitest",
+                "test:unit": "vitest --project unit",
+                "test:wire": "vitest --project wire",
+                "docs": "typedoc",
+                "docs:watch": "typedoc --watch",
+                "lint:package": "publint --pack pnpm",
+                "prepare": "husky"
+            },
+            "dependencies": {
+                "@auth0/auth0-auth-js": "^1.1.0"
+            },
+            "devDependencies": {
+                "webpack": "^5.105.4",
+                "ts-loader": "^9.5.4",
+                "vitest": "^4.1.1",
+                "msw": "2.11.2",
+                "@types/node": "^22.0.0",
+                "typescript": "~5.9.3",
+                "prettier": "3.8.1",
+                "typedoc": "^0.28.13",
+                "typedoc-plugin-missing-exports": "^4.1.0",
+                "husky": "^9.1.7",
+                "lint-staged": "^16.2.4",
+                "@eslint/js": "^9.37.0",
+                "eslint": "^9.37.0",
+                "typescript-eslint": "^8.46.1",
+                "publint": "^0.3.15"
+            },
+            "browser": {
+                "fs": false,
+                "os": false,
+                "path": false,
+                "stream": false,
+                "crypto": false
+            },
+            "packageManager": "pnpm@10.33.0",
+            "engines": {
+                "node": ">=20.0.0"
+            },
+            "sideEffects": false,
+            "description": "Auth0 SDK for JavaScript/TypeScript to manage organizations, members, roles, and identity providers",
+            "author": "Auth0",
+            "keywords": [
+                "auth0",
+                "authentication",
+                "authorization",
+                "organizations",
+                "identity",
+                "auth",
+                "sdk",
+                "typescript",
+                "javascript"
+            ],
+            "homepage": "https://github.com/auth0/myorganization-js#readme",
+            "bugs": {
+                "url": "https://github.com/auth0/myorganization-js/issues"
+            },
+            "publishConfig": {
+                "access": "public"
+            },
+            "lint-staged": {
+                "*.{js,jsx,ts,tsx}": [
+                    "eslint --fix",
+                    "prettier --write"
+                ],
+                "*.{json,css,md}": [
+                    "prettier --write"
+                ]
+            }
+        }
+      src/version.ts: |
+        export const SDK_VERSION = "1.1.1";
+    status: unresolved

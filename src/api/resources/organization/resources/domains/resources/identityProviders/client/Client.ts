@@ -38,16 +38,16 @@ export class IdentityProvidersClient {
      * @throws {@link MyOrganization.TooManyRequestsError}
      *
      * @example
-     *     await client.organization.domains.identityProviders.get("domain_id")
+     *     await client.organization.domains.identityProviders.list("domain_id")
      */
-    public get(
+    public list(
         domain_id: MyOrganization.OrgDomainId,
         requestOptions?: IdentityProvidersClient.RequestOptions,
     ): core.HttpResponsePromise<MyOrganization.ListDomainIdentityProvidersResponseContent> {
-        return core.HttpResponsePromise.fromPromise(this.__get(domain_id, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__list(domain_id, requestOptions));
     }
 
-    private async __get(
+    private async __list(
         domain_id: MyOrganization.OrgDomainId,
         requestOptions?: IdentityProvidersClient.RequestOptions,
     ): Promise<core.WithRawResponse<MyOrganization.ListDomainIdentityProvidersResponseContent>> {

@@ -2,4 +2,6 @@
 
 import * as MyOrganization from "../index.js";
 
-export type IdentityProviderConfigOidc = MyOrganization.IdentityProvidersConfigStrategyBase;
+export interface IdentityProviderConfigOidc extends MyOrganization.IdentityProvidersConfigStrategyBase {
+    cross_app_access_resource_app?: MyOrganization.CrossAppAccessResourceAppConfig | undefined;
+}

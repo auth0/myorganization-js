@@ -19,14 +19,14 @@ describe("MembersClient", () => {
                     given_name: "given_name",
                     family_name: "family_name",
                     user_id: "auth0|123234235",
-                    roles: [
-                        { id: "rol_BKI0BKI0BKI0BKI0", name: "role1" },
-                        { id: "rol_BKW1BKIfBKd0BaI0", name: "role2" },
-                    ],
                     created_at: "2024-01-15T09:30:00Z",
                     updated_at: "2024-01-15T09:30:00Z",
                     last_login: "2024-01-15T09:30:00Z",
                     phone_number: "phone_number",
+                    roles: [
+                        { id: "rol_BKI0BKI0BKI0BKI0", name: "role1" },
+                        { id: "rol_BKW1BKIfBKd0BaI0", name: "role2" },
+                    ],
                 },
             ],
         };
@@ -129,10 +129,6 @@ describe("MembersClient", () => {
             given_name: "Road",
             family_name: "Runner",
             user_id: "auth0|123234235",
-            roles: [
-                { id: "rol_BKI0BKI0BKI0BKI0", name: "role1", description: "description" },
-                { id: "rol_BKW1BKIfBKd0BaI0", name: "role2", description: "description" },
-            ],
             created_at: "2025-05-01T12:00:00Z",
             updated_at: "2025-05-02T12:00:00Z",
             last_login: "2025-05-03T12:00:00Z",

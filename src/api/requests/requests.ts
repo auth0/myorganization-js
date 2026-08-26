@@ -29,6 +29,19 @@ export interface CreateOrganizationDomainRequestContent {
 /**
  * @example
  *     {
+ *         member_access_level: ["none"]
+ *     }
+ */
+export interface ListOrganizationIdentityProvidersRequestParameters {
+    /** When present, only connections whose Organization Member Access Level matches one of the provided values are returned. Accepted values are full, limited, readonly and none. */
+    member_access_level?:
+        | (MyOrganization.OrganizationAccessLevelEnum | null)
+        | (MyOrganization.OrganizationAccessLevelEnum | null)[];
+}
+
+/**
+ * @example
+ *     {
  *         fields: "fields",
  *         include_fields: true,
  *         from: "from",
@@ -111,10 +124,20 @@ export interface CreateMemberInvitationRequestContent {
     "auth0-custom-domain"?: string;
     invitees: MyOrganization.CreateMemberInvitationInvitee[];
     inviter?: MyOrganization.MemberInvitationInviter;
-    /** Identity provider identifier. */
+    /** Identity provider identifier. At least one of identity_provider_id or user_store_id must be provided. */
     identity_provider_id?: string;
     /** Number of seconds for which the invitation is valid before expiration. If unspecified or set to 0, this value defaults to 604800 seconds (7 days). Max value: 2592000 seconds (30 days). */
     ttl_sec?: number;
+}
+
+/**
+ * @example
+ *     {
+ *         invitations: ["uinv_0000000000000001", "uinv_0000000000000002", "uinv_0000000000000003"]
+ *     }
+ */
+export interface DeleteMemberInvitationsRequestContent {
+    invitations: MyOrganization.InvitationId[];
 }
 
 /**

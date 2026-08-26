@@ -35,25 +35,31 @@ export class IdentityProvidersClient {
     }
 
     /**
-     * Retrieve a list of all Identity Providers for this Organization.
+     * Retrieve the comprehensive list of identity providers and their respective configurations associated with an Auth0 Organization.
      *
+     * @param {MyOrganization.ListOrganizationIdentityProvidersRequestParameters} request
      * @param {IdentityProvidersClient.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link MyOrganization.BadRequestError}
      * @throws {@link MyOrganization.UnauthorizedError}
      * @throws {@link MyOrganization.ForbiddenError}
      * @throws {@link MyOrganization.NotFoundError}
      * @throws {@link MyOrganization.TooManyRequestsError}
      *
      * @example
-     *     await client.organization.identityProviders.list()
+     *     await client.organization.identityProviders.list({
+     *         member_access_level: ["none"]
+     *     })
      */
     public list(
+        request: MyOrganization.ListOrganizationIdentityProvidersRequestParameters = {},
         requestOptions?: IdentityProvidersClient.RequestOptions,
     ): core.HttpResponsePromise<MyOrganization.ListIdentityProvidersResponseContent> {
-        return core.HttpResponsePromise.fromPromise(this.__list(requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__list(request, requestOptions));
     }
 
     private async __list(
+        request: MyOrganization.ListOrganizationIdentityProvidersRequestParameters = {},
         requestOptions?: IdentityProvidersClient.RequestOptions,
     ): Promise<core.WithRawResponse<MyOrganization.ListIdentityProvidersResponseContent>> {
         const _metadata: core.EndpointMetadata = {
@@ -61,6 +67,14 @@ export class IdentityProvidersClient {
                 { OAuth2ClientCredentials: ["read:my_org:identity_providers"] },
                 { OAuth2AuthCode: ["read:my_org:identity_providers"] },
             ],
+        };
+        const { member_access_level: memberAccessLevel } = request;
+        const _queryParams: Record<string, unknown> = {
+            member_access_level: Array.isArray(memberAccessLevel)
+                ? memberAccessLevel.map((item) => item)
+                : memberAccessLevel !== undefined
+                  ? memberAccessLevel
+                  : undefined,
         };
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest({
             endpointMetadata: _metadata,
@@ -79,7 +93,11 @@ export class IdentityProvidersClient {
             ),
             method: "GET",
             headers: _headers,
-            queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
+            queryString: core.url
+                .queryBuilder()
+                .addMany(_queryParams)
+                .mergeAdditional(requestOptions?.queryParams)
+                .build(),
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -96,6 +114,8 @@ export class IdentityProvidersClient {
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
+                case 400:
+                    throw new MyOrganization.BadRequestError(_response.error.body as unknown, _response.rawResponse);
                 case 401:
                     throw new MyOrganization.UnauthorizedError(
                         _response.error.body as MyOrganization.ErrorResponseContent,
@@ -129,7 +149,7 @@ export class IdentityProvidersClient {
     }
 
     /**
-     * Create a new Identity Provider for this Organization.
+     * Create a new enterprise Identity Provider utilizing the specified configuration settings and details for this Auth0 Organization.
      *
      * @param {MyOrganization.CreateIdentityProviderRequestContent} request
      * @param {IdentityProvidersClient.RequestOptions} requestOptions - Request-specific configuration.

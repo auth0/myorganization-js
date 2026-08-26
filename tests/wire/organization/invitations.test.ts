@@ -341,6 +341,137 @@ describe("InvitationsClient", () => {
         }).rejects.toThrow(MyOrganization.TooManyRequestsError);
     });
 
+    test("delete (1)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
+        const rawRequestBody = {
+            invitations: ["uinv_0000000000000001", "uinv_0000000000000002", "uinv_0000000000000003"],
+        };
+
+        server
+            .mockEndpoint()
+            .post("/delete-member-invitations")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .build();
+
+        const response = await client.organization.invitations.delete({
+            invitations: ["uinv_0000000000000001", "uinv_0000000000000002", "uinv_0000000000000003"],
+        });
+        expect(response).toEqual(undefined);
+    });
+
+    test("delete (2)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
+        const rawRequestBody = { invitations: ["invitations", "invitations"] };
+        const rawResponseBody = { key: "value" };
+
+        server
+            .mockEndpoint()
+            .post("/delete-member-invitations")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(400)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.organization.invitations.delete({
+                invitations: ["invitations", "invitations"],
+            });
+        }).rejects.toThrow(MyOrganization.BadRequestError);
+    });
+
+    test("delete (3)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
+        const rawRequestBody = { invitations: ["invitations", "invitations"] };
+        const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
+        server
+            .mockEndpoint()
+            .post("/delete-member-invitations")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.organization.invitations.delete({
+                invitations: ["invitations", "invitations"],
+            });
+        }).rejects.toThrow(MyOrganization.UnauthorizedError);
+    });
+
+    test("delete (4)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
+        const rawRequestBody = { invitations: ["invitations", "invitations"] };
+        const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
+        server
+            .mockEndpoint()
+            .post("/delete-member-invitations")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(403)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.organization.invitations.delete({
+                invitations: ["invitations", "invitations"],
+            });
+        }).rejects.toThrow(MyOrganization.ForbiddenError);
+    });
+
+    test("delete (5)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
+        const rawRequestBody = { invitations: ["invitations", "invitations"] };
+        const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
+        server
+            .mockEndpoint()
+            .post("/delete-member-invitations")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(404)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.organization.invitations.delete({
+                invitations: ["invitations", "invitations"],
+            });
+        }).rejects.toThrow(MyOrganization.NotFoundError);
+    });
+
+    test("delete (6)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
+        const rawRequestBody = { invitations: ["invitations", "invitations"] };
+        const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
+        server
+            .mockEndpoint()
+            .post("/delete-member-invitations")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(429)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.organization.invitations.delete({
+                invitations: ["invitations", "invitations"],
+            });
+        }).rejects.toThrow(MyOrganization.TooManyRequestsError);
+    });
+
     test("get (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
@@ -469,17 +600,17 @@ describe("InvitationsClient", () => {
         }).rejects.toThrow(MyOrganization.TooManyRequestsError);
     });
 
-    test("delete (1)", async () => {
+    test("deleteLegacy (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         server.mockEndpoint().delete("/member-invitations/invitation_id").respondWith().statusCode(200).build();
 
-        const response = await client.organization.invitations.delete("invitation_id");
+        const response = await client.organization.invitations.deleteLegacy("invitation_id");
         expect(response).toEqual(undefined);
     });
 
-    test("delete (2)", async () => {
+    test("deleteLegacy (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
@@ -494,11 +625,11 @@ describe("InvitationsClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.organization.invitations.delete("invitation_id");
+            return await client.organization.invitations.deleteLegacy("invitation_id");
         }).rejects.toThrow(MyOrganization.BadRequestError);
     });
 
-    test("delete (3)", async () => {
+    test("deleteLegacy (3)", async () => {
         const server = mockServerPool.createServer();
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
@@ -513,11 +644,11 @@ describe("InvitationsClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.organization.invitations.delete("invitation_id");
+            return await client.organization.invitations.deleteLegacy("invitation_id");
         }).rejects.toThrow(MyOrganization.UnauthorizedError);
     });
 
-    test("delete (4)", async () => {
+    test("deleteLegacy (4)", async () => {
         const server = mockServerPool.createServer();
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
@@ -532,11 +663,11 @@ describe("InvitationsClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.organization.invitations.delete("invitation_id");
+            return await client.organization.invitations.deleteLegacy("invitation_id");
         }).rejects.toThrow(MyOrganization.ForbiddenError);
     });
 
-    test("delete (5)", async () => {
+    test("deleteLegacy (5)", async () => {
         const server = mockServerPool.createServer();
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
@@ -551,11 +682,11 @@ describe("InvitationsClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.organization.invitations.delete("invitation_id");
+            return await client.organization.invitations.deleteLegacy("invitation_id");
         }).rejects.toThrow(MyOrganization.NotFoundError);
     });
 
-    test("delete (6)", async () => {
+    test("deleteLegacy (6)", async () => {
         const server = mockServerPool.createServer();
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
@@ -570,7 +701,7 @@ describe("InvitationsClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.organization.invitations.delete("invitation_id");
+            return await client.organization.invitations.deleteLegacy("invitation_id");
         }).rejects.toThrow(MyOrganization.TooManyRequestsError);
     });
 });

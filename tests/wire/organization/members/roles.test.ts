@@ -261,7 +261,7 @@ describe("RolesClient", () => {
         }).rejects.toThrow(MyOrganization.TooManyRequestsError);
     });
 
-    test("unassign (1)", async () => {
+    test("unassignLegacy (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
         const rawRequestBody = { role_ids: ["rol_SO2j0sFo9NFa3F9w"] };
@@ -269,6 +269,135 @@ describe("RolesClient", () => {
         server
             .mockEndpoint()
             .delete("/members/user_id/roles")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .build();
+
+        const response = await client.organization.members.roles.unassignLegacy("user_id", {
+            role_ids: ["rol_SO2j0sFo9NFa3F9w"],
+        });
+        expect(response).toEqual(undefined);
+    });
+
+    test("unassignLegacy (2)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
+        const rawRequestBody = { role_ids: ["role_ids", "role_ids"] };
+        const rawResponseBody = { key: "value" };
+
+        server
+            .mockEndpoint()
+            .delete("/members/user_id/roles")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(400)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.organization.members.roles.unassignLegacy("user_id", {
+                role_ids: ["role_ids", "role_ids"],
+            });
+        }).rejects.toThrow(MyOrganization.BadRequestError);
+    });
+
+    test("unassignLegacy (3)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
+        const rawRequestBody = { role_ids: ["role_ids", "role_ids"] };
+        const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
+        server
+            .mockEndpoint()
+            .delete("/members/user_id/roles")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.organization.members.roles.unassignLegacy("user_id", {
+                role_ids: ["role_ids", "role_ids"],
+            });
+        }).rejects.toThrow(MyOrganization.UnauthorizedError);
+    });
+
+    test("unassignLegacy (4)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
+        const rawRequestBody = { role_ids: ["role_ids", "role_ids"] };
+        const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
+        server
+            .mockEndpoint()
+            .delete("/members/user_id/roles")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(403)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.organization.members.roles.unassignLegacy("user_id", {
+                role_ids: ["role_ids", "role_ids"],
+            });
+        }).rejects.toThrow(MyOrganization.ForbiddenError);
+    });
+
+    test("unassignLegacy (5)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
+        const rawRequestBody = { role_ids: ["role_ids", "role_ids"] };
+        const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
+        server
+            .mockEndpoint()
+            .delete("/members/user_id/roles")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(404)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.organization.members.roles.unassignLegacy("user_id", {
+                role_ids: ["role_ids", "role_ids"],
+            });
+        }).rejects.toThrow(MyOrganization.NotFoundError);
+    });
+
+    test("unassignLegacy (6)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
+        const rawRequestBody = { role_ids: ["role_ids", "role_ids"] };
+        const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
+        server
+            .mockEndpoint()
+            .delete("/members/user_id/roles")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(429)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.organization.members.roles.unassignLegacy("user_id", {
+                role_ids: ["role_ids", "role_ids"],
+            });
+        }).rejects.toThrow(MyOrganization.TooManyRequestsError);
+    });
+
+    test("unassign (1)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
+        const rawRequestBody = { role_ids: ["rol_SO2j0sFo9NFa3F9w"] };
+
+        server
+            .mockEndpoint()
+            .post("/members/user_id/unassign-roles")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(200)
@@ -288,7 +417,7 @@ describe("RolesClient", () => {
 
         server
             .mockEndpoint()
-            .delete("/members/user_id/roles")
+            .post("/members/user_id/unassign-roles")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(400)
@@ -310,7 +439,7 @@ describe("RolesClient", () => {
 
         server
             .mockEndpoint()
-            .delete("/members/user_id/roles")
+            .post("/members/user_id/unassign-roles")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(401)
@@ -332,7 +461,7 @@ describe("RolesClient", () => {
 
         server
             .mockEndpoint()
-            .delete("/members/user_id/roles")
+            .post("/members/user_id/unassign-roles")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(403)
@@ -354,7 +483,7 @@ describe("RolesClient", () => {
 
         server
             .mockEndpoint()
-            .delete("/members/user_id/roles")
+            .post("/members/user_id/unassign-roles")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(404)
@@ -376,7 +505,7 @@ describe("RolesClient", () => {
 
         server
             .mockEndpoint()
-            .delete("/members/user_id/roles")
+            .post("/members/user_id/unassign-roles")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(429)

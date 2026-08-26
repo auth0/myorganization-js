@@ -2,4 +2,6 @@
 
 import * as MyOrganization from "../index.js";
 
-export type IdentityProviderConfigSamlp = MyOrganization.IdentityProvidersConfigStrategyBase;
+export interface IdentityProviderConfigSamlp extends MyOrganization.IdentityProvidersConfigStrategyBase {
+    cross_app_access_resource_app?: MyOrganization.CrossAppAccessResourceAppConfig | undefined;
+}
