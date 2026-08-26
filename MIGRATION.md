@@ -119,6 +119,46 @@ if (idp.options) {
 }
 ```
 
+### 6. SAML and ADFS identity provider request fields changed
+
+The SAML and ADFS identity provider request types were corrected to match the API contract.
+
+On `IdpSamlpOptionsRequest`, the certificate field is renamed from `cert` to `signingCert` on both request variants. In addition, several fields that were previously optional are now required:
+
+- Metadata variant: `metadataUrl` and `signSAMLRequest` are now required.
+- Manual variant: `signInEndpoint`, `signingCert`, and `signSAMLRequest` are now required.
+
+On `IdpAdfsOptionsRequest`, the `fedMetadataXml` variant now requires `fedMetadataXml`.
+
+Before:
+
+```typescript
+await client.organization.identityProviders.create({
+    name: "samlIdp",
+    strategy: "samlp",
+    domains: ["mydomain.com"],
+    options: {
+        signInEndpoint: "https://idp.example.com/sso",
+        cert: "-----BEGIN CERTIFICATE-----...",
+    },
+});
+```
+
+After:
+
+```typescript
+await client.organization.identityProviders.create({
+    name: "samlIdp",
+    strategy: "samlp",
+    domains: ["mydomain.com"],
+    options: {
+        signInEndpoint: "https://idp.example.com/sso",
+        signingCert: "-----BEGIN CERTIFICATE-----...",
+        signSAMLRequest: false,
+    },
+});
+```
+
 ## Deprecated endpoints
 
 These remain available in v2 so you can migrate incrementally, but they are being decommissioned. Once member management is enabled for a tenant, the legacy endpoints are switched off server side, so calls that work today can begin to fail.
