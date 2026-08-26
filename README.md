@@ -29,15 +29,9 @@ npm install @auth0/myorganization-js
 ```
 
 > [!NOTE]
-> **Beta (preview) channel**
+> **Release channels.** Endpoints move through three maturity tiers: Generally Available, Early Access, and Beta. This package is published on two channels. The stable channel (`npm install @auth0/myorganization-js`) includes the Generally Available and Early Access endpoints. The beta channel (`npm install @auth0/myorganization-js@beta`) is a superset that includes all three tiers, including member management.
 >
-> A beta line publishes ahead of stable and is a superset that includes preview endpoints still under active development, such as batch member-invitation deletion, member role unassignment, and member-invitation roles. Install it with:
->
-> ```bash
-> npm install @auth0/myorganization-js@beta
-> ```
->
-> Beta prereleases can introduce breaking changes between versions, so pin an exact version if you need reproducible installs. See the [migration guide](./MIGRATION.md) for moving off the deprecated endpoints.
+> Beta prereleases can introduce breaking changes between versions, so pin an exact version if you need reproducible installs. See the [migration guide](./MIGRATION.md) for details.
 
 ### Configure the SDK
 
