@@ -5,6 +5,55 @@ import { MyOrganizationClient } from "../../src/Client";
 import { mockServerPool } from "../mock-server/MockServerPool";
 
 describe("OrganizationDetailsClient", () => {
+    test("delete (1)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
+
+        server.mockEndpoint().delete("/").respondWith().statusCode(200).build();
+
+        const response = await client.organizationDetails.delete();
+        expect(response).toEqual(undefined);
+    });
+
+    test("delete (2)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
+        server.mockEndpoint().delete("").respondWith().statusCode(401).jsonBody(rawResponseBody).build();
+
+        await expect(async () => {
+            return await client.organizationDetails.delete();
+        }).rejects.toThrow(MyOrganization.UnauthorizedError);
+    });
+
+    test("delete (3)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
+        server.mockEndpoint().delete("").respondWith().statusCode(403).jsonBody(rawResponseBody).build();
+
+        await expect(async () => {
+            return await client.organizationDetails.delete();
+        }).rejects.toThrow(MyOrganization.ForbiddenError);
+    });
+
+    test("delete (4)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
+        server.mockEndpoint().delete("").respondWith().statusCode(429).jsonBody(rawResponseBody).build();
+
+        await expect(async () => {
+            return await client.organizationDetails.delete();
+        }).rejects.toThrow(MyOrganization.TooManyRequestsError);
+    });
+
     test("get (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
@@ -17,6 +66,7 @@ describe("OrganizationDetailsClient", () => {
                 logo_url: "https://example.com/logo.png",
                 colors: { primary: "#000000", page_background: "#FFFFFF" },
             },
+            third_party_client_access: "allow",
         };
 
         server.mockEndpoint().get("/details").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
@@ -96,6 +146,7 @@ describe("OrganizationDetailsClient", () => {
                 logo_url: "https://example.com/logo.png",
                 colors: { primary: "#000000", page_background: "#FFFFFF" },
             },
+            third_party_client_access: "allow",
         };
 
         server

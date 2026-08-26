@@ -13,6 +13,7 @@ export type IdpSamlpOptionsRequest =
           cert?: string | undefined;
           idpInitiated?: MyOrganization.IdpOptionsIdpInitiated | undefined;
           icon_url?: string | undefined;
+          discovery_url?: string | undefined;
       }
     | {
           signInEndpoint?: string | undefined;
@@ -24,4 +25,5 @@ export type IdpSamlpOptionsRequest =
           bindingMethod?: string | undefined;
           idpInitiated?: MyOrganization.IdpOptionsIdpInitiated | undefined;
           icon_url?: string | undefined;
+          discovery_url?: string | undefined;
       };

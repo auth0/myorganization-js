@@ -2,15 +2,7 @@
 
 import * as MyOrganization from "../index.js";
 
-export interface OrgMember extends MyOrganization.UserAttributes {
-    user_id?: MyOrganization.OrgMemberIdReadOnly | undefined;
+export interface OrgMember extends MyOrganization.OrgMemberBase {
+    /** The member's roles. Only the first 10 roles are returned here; use GET /my-org/v1/members/{user_id}/roles to retrieve the full list. Only included when the token carries the read:my_org:member_roles scope and 'roles' is requested in the fields array. */
     roles?: MyOrganization.Role[] | undefined;
-    /** Date and time when this user was created (ISO_8601 format). */
-    created_at?: string | undefined;
-    /** Date and time when this user was last updated (ISO_8601 format). */
-    updated_at?: string | undefined;
-    /** Last date and time this user logged in (ISO_8601 format). */
-    last_login?: string | undefined;
-    /** Phone number associated with the user. */
-    phone_number?: string | undefined;
 }

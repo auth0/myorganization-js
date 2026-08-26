@@ -8,4 +8,5 @@ export interface OrgDetails {
     /** Friendly name of this organization. */
     display_name?: string | undefined;
     branding?: MyOrganization.OrgBranding | undefined;
+    third_party_client_access?: MyOrganization.OrgThirdPartyClientAccessEnum | undefined;
 }
