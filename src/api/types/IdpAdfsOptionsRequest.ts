@@ -5,5 +5,5 @@ export type IdpAdfsOptionsRequest =
           adfs_server: string;
       }
     | {
-          fedMetadataXml?: string | undefined;
+          fedMetadataXml: string;
       };
