@@ -4,27 +4,27 @@ import * as MyOrganization from "../../../../src/api/index";
 import { MyOrganizationClient } from "../../../../src/Client";
 import { mockServerPool } from "../../../mock-server/MockServerPool";
 
-describe("IdentityProvidersClient", () => {
+describe("RolesClient", () => {
     test("list (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = {
-            identity_providers: [
-                { id: "con_2CZPv6IY0gWzDaQJ", name: "acme-engineering", display_name: "Acme Engineering" },
-                { id: "con_2CZPv6IY0gWzDaQG", name: "acme-engineering-2", display_name: "Acme Engineering 2" },
+            roles: [
+                { id: "rol_BKW1BKIfBKd0BaI0", name: "admin", description: "Organization administrator" },
+                { id: "rol_0000000000000001", name: "member", description: "description" },
             ],
         };
 
         server
             .mockEndpoint()
-            .get("/domains/domain_id/identity-providers")
+            .get("/member-invitations/invitation_id/roles")
             .respondWith()
             .statusCode(200)
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.organization.domains.identityProviders.list("domain_id");
+        const response = await client.organization.invitations.roles.list("invitation_id");
         expect(response).toEqual(rawResponseBody);
     });
 
@@ -36,14 +36,14 @@ describe("IdentityProvidersClient", () => {
 
         server
             .mockEndpoint()
-            .get("/domains/domain_id/identity-providers")
+            .get("/member-invitations/invitation_id/roles")
             .respondWith()
             .statusCode(400)
             .jsonBody(rawResponseBody)
             .build();
 
         await expect(async () => {
-            return await client.organization.domains.identityProviders.list("domain_id");
+            return await client.organization.invitations.roles.list("invitation_id");
         }).rejects.toThrow(MyOrganization.BadRequestError);
     });
 
@@ -55,14 +55,14 @@ describe("IdentityProvidersClient", () => {
 
         server
             .mockEndpoint()
-            .get("/domains/domain_id/identity-providers")
+            .get("/member-invitations/invitation_id/roles")
             .respondWith()
             .statusCode(401)
             .jsonBody(rawResponseBody)
             .build();
 
         await expect(async () => {
-            return await client.organization.domains.identityProviders.list("domain_id");
+            return await client.organization.invitations.roles.list("invitation_id");
         }).rejects.toThrow(MyOrganization.UnauthorizedError);
     });
 
@@ -74,14 +74,14 @@ describe("IdentityProvidersClient", () => {
 
         server
             .mockEndpoint()
-            .get("/domains/domain_id/identity-providers")
+            .get("/member-invitations/invitation_id/roles")
             .respondWith()
             .statusCode(403)
             .jsonBody(rawResponseBody)
             .build();
 
         await expect(async () => {
-            return await client.organization.domains.identityProviders.list("domain_id");
+            return await client.organization.invitations.roles.list("invitation_id");
         }).rejects.toThrow(MyOrganization.ForbiddenError);
     });
 
@@ -93,14 +93,14 @@ describe("IdentityProvidersClient", () => {
 
         server
             .mockEndpoint()
-            .get("/domains/domain_id/identity-providers")
+            .get("/member-invitations/invitation_id/roles")
             .respondWith()
             .statusCode(404)
             .jsonBody(rawResponseBody)
             .build();
 
         await expect(async () => {
-            return await client.organization.domains.identityProviders.list("domain_id");
+            return await client.organization.invitations.roles.list("invitation_id");
         }).rejects.toThrow(MyOrganization.NotFoundError);
     });
 
@@ -112,14 +112,14 @@ describe("IdentityProvidersClient", () => {
 
         server
             .mockEndpoint()
-            .get("/domains/domain_id/identity-providers")
+            .get("/member-invitations/invitation_id/roles")
             .respondWith()
             .statusCode(429)
             .jsonBody(rawResponseBody)
             .build();
 
         await expect(async () => {
-            return await client.organization.domains.identityProviders.list("domain_id");
+            return await client.organization.invitations.roles.list("invitation_id");
         }).rejects.toThrow(MyOrganization.TooManyRequestsError);
     });
 });

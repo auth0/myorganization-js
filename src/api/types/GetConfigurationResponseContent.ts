@@ -6,4 +6,5 @@ export interface GetConfigurationResponseContent {
     /** Array of supported strategies */
     allowed_strategies?: MyOrganization.IdpStrategyEnum[] | undefined;
     connection_deletion_behavior?: MyOrganization.IdpConnectionDeletionBehaviorEnum | undefined;
+    third_party_client_access?: MyOrganization.OrgThirdPartyClientAccessConfig | undefined;
 }

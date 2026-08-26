@@ -9,7 +9,11 @@ describe("ConfigurationClient", () => {
         const server = mockServerPool.createServer();
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
-        const rawResponseBody = { allowed_strategies: ["adfs", "pingfederate"], connection_deletion_behavior: "allow" };
+        const rawResponseBody = {
+            allowed_strategies: ["adfs", "pingfederate"],
+            connection_deletion_behavior: "allow",
+            third_party_client_access: { default_value: "allow", allowed_values: ["allow"] },
+        };
 
         server.mockEndpoint().get("/config").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
 

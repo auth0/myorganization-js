@@ -12,24 +12,24 @@ import { handleNonStatusCodeError } from "../../../../../../../../errors/handleN
 import * as errors from "../../../../../../../../errors/index.js";
 import * as MyOrganization from "../../../../../../../index.js";
 
-export declare namespace IdentityProvidersClient {
+export declare namespace RolesClient {
     export type Options = BaseClientOptions;
 
     export interface RequestOptions extends BaseRequestOptions {}
 }
 
-export class IdentityProvidersClient {
-    protected readonly _options: NormalizedClientOptionsWithAuth<IdentityProvidersClient.Options>;
+export class RolesClient {
+    protected readonly _options: NormalizedClientOptionsWithAuth<RolesClient.Options>;
 
-    constructor(options: IdentityProvidersClient.Options) {
+    constructor(options: RolesClient.Options) {
         this._options = normalizeClientOptionsWithAuth(options);
     }
 
     /**
-     * Retrieve the list of Identity Providers associated with a domain specified by ID for this Organization.
+     * Retrieve the roles assigned to a member invitation specified by ID for this Organization.
      *
-     * @param {MyOrganization.OrgDomainId} domain_id
-     * @param {IdentityProvidersClient.RequestOptions} requestOptions - Request-specific configuration.
+     * @param {MyOrganization.InvitationId} invitation_id
+     * @param {RolesClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link MyOrganization.BadRequestError}
      * @throws {@link MyOrganization.UnauthorizedError}
@@ -38,23 +38,23 @@ export class IdentityProvidersClient {
      * @throws {@link MyOrganization.TooManyRequestsError}
      *
      * @example
-     *     await client.organization.domains.identityProviders.list("domain_id")
+     *     await client.organization.invitations.roles.list("invitation_id")
      */
     public list(
-        domain_id: MyOrganization.OrgDomainId,
-        requestOptions?: IdentityProvidersClient.RequestOptions,
-    ): core.HttpResponsePromise<MyOrganization.ListDomainIdentityProvidersResponseContent> {
-        return core.HttpResponsePromise.fromPromise(this.__list(domain_id, requestOptions));
+        invitation_id: MyOrganization.InvitationId,
+        requestOptions?: RolesClient.RequestOptions,
+    ): core.HttpResponsePromise<MyOrganization.GetMemberInvitationRolesResponseContent> {
+        return core.HttpResponsePromise.fromPromise(this.__list(invitation_id, requestOptions));
     }
 
     private async __list(
-        domain_id: MyOrganization.OrgDomainId,
-        requestOptions?: IdentityProvidersClient.RequestOptions,
-    ): Promise<core.WithRawResponse<MyOrganization.ListDomainIdentityProvidersResponseContent>> {
+        invitation_id: MyOrganization.InvitationId,
+        requestOptions?: RolesClient.RequestOptions,
+    ): Promise<core.WithRawResponse<MyOrganization.GetMemberInvitationRolesResponseContent>> {
         const _metadata: core.EndpointMetadata = {
             security: [
-                { OAuth2ClientCredentials: ["read:my_org:domains", "read:my_org:identity_providers"] },
-                { OAuth2AuthCode: ["read:my_org:domains", "read:my_org:identity_providers"] },
+                { OAuth2ClientCredentials: ["read:my_org:member_roles"] },
+                { OAuth2AuthCode: ["read:my_org:member_roles"] },
             ],
         };
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest({
@@ -70,7 +70,7 @@ export class IdentityProvidersClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.MyOrganizationEnvironment.Default,
-                `domains/${core.url.encodePathParam(domain_id)}/identity-providers`,
+                `member-invitations/${core.url.encodePathParam(invitation_id)}/roles`,
             ),
             method: "GET",
             headers: _headers,
@@ -84,7 +84,7 @@ export class IdentityProvidersClient {
         });
         if (_response.ok) {
             return {
-                data: _response.body as MyOrganization.ListDomainIdentityProvidersResponseContent,
+                data: _response.body as MyOrganization.GetMemberInvitationRolesResponseContent,
                 rawResponse: _response.rawResponse,
             };
         }
@@ -126,7 +126,7 @@ export class IdentityProvidersClient {
             _response.error,
             _response.rawResponse,
             "GET",
-            "/domains/{domain_id}/identity-providers",
+            "/member-invitations/{invitation_id}/roles",
         );
     }
 }

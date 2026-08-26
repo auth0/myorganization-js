@@ -2,6 +2,61 @@
 
 ## OrganizationDetails
 
+<details><summary><code>client.organizationDetails.<a href="/src/api/resources/organizationDetails/client/Client.ts">delete</a>() -> void</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Permanently delete this Organization.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.organizationDetails.delete();
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**requestOptions:** `OrganizationDetailsClient.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.organizationDetails.<a href="/src/api/resources/organizationDetails/client/Client.ts">get</a>() -> MyOrganization.GetOrganizationDetailsResponseContent</code></summary>
 <dl>
 <dd>
@@ -282,7 +337,7 @@ const response = page.response;
 <dl>
 <dd>
 
-Create a new domain for this Organization.
+Create a domain for an Auth0 Organization and optionally enable Organization Discovery for members during the user login flow
 
 </dd>
 </dl>
@@ -347,7 +402,7 @@ await client.organization.domains.create({
 <dl>
 <dd>
 
-Retrieve details of a domain specified by ID for this Organization.
+Retrieve the details of an Auth0 Organization domain using its unique domain ID, including the domain name and its current verification status.
 
 </dd>
 </dl>
@@ -410,7 +465,7 @@ await client.organization.domains.get("domain_id");
 <dl>
 <dd>
 
-Remove a domain specified by ID from this Organization.
+Delete an Auth0 Organization domain using its unique domain ID, including all associated details and verification status.
 
 </dd>
 </dl>
@@ -463,7 +518,7 @@ await client.organization.domains.delete("domain_id");
 
 ## Organization IdentityProviders
 
-<details><summary><code>client.organization.identityProviders.<a href="/src/api/resources/organization/resources/identityProviders/client/Client.ts">list</a>() -> MyOrganization.ListIdentityProvidersResponseContent</code></summary>
+<details><summary><code>client.organization.identityProviders.<a href="/src/api/resources/organization/resources/identityProviders/client/Client.ts">list</a>({ ...params }) -> MyOrganization.ListIdentityProvidersResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -475,7 +530,7 @@ await client.organization.domains.delete("domain_id");
 <dl>
 <dd>
 
-Retrieve a list of all Identity Providers for this Organization.
+Retrieve the comprehensive list of identity providers and their respective configurations associated with an Auth0 Organization.
 
 </dd>
 </dl>
@@ -491,7 +546,9 @@ Retrieve a list of all Identity Providers for this Organization.
 <dd>
 
 ```typescript
-await client.organization.identityProviders.list();
+await client.organization.identityProviders.list({
+    member_access_level: ["none"],
+});
 ```
 
 </dd>
@@ -503,6 +560,14 @@ await client.organization.identityProviders.list();
 
 <dl>
 <dd>
+
+<dl>
+<dd>
+
+**request:** `MyOrganization.ListOrganizationIdentityProvidersRequestParameters`
+
+</dd>
+</dl>
 
 <dl>
 <dd>
@@ -530,7 +595,7 @@ await client.organization.identityProviders.list();
 <dl>
 <dd>
 
-Create a new Identity Provider for this Organization.
+Create a new enterprise Identity Provider utilizing the specified configuration settings and details for this Auth0 Organization.
 
 </dd>
 </dl>
@@ -1331,6 +1396,71 @@ await client.organization.invitations.create({
 </dl>
 </details>
 
+<details><summary><code>client.organization.invitations.<a href="/src/api/resources/organization/resources/invitations/client/Client.ts">delete</a>({ ...params }) -> void</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Revoke a set of member invitations specified by IDs for this Organization.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.organization.invitations.delete({
+    invitations: ["uinv_0000000000000001", "uinv_0000000000000002", "uinv_0000000000000003"],
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `MyOrganization.DeleteMemberInvitationsRequestContent`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `InvitationsClient.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.organization.invitations.<a href="/src/api/resources/organization/resources/invitations/client/Client.ts">get</a>(invitation_id, { ...params }) -> MyOrganization.GetMemberInvitationResponseContent</code></summary>
 <dl>
 <dd>
@@ -1405,7 +1535,7 @@ await client.organization.invitations.get("invitation_id", {
 </dl>
 </details>
 
-<details><summary><code>client.organization.invitations.<a href="/src/api/resources/organization/resources/invitations/client/Client.ts">delete</a>(invitation_id) -> void</code></summary>
+<details><summary><code>client.organization.invitations.<a href="/src/api/resources/organization/resources/invitations/client/Client.ts">deleteLegacy</a>(invitation_id) -> void</code></summary>
 <dl>
 <dd>
 
@@ -1433,7 +1563,7 @@ Revoke a member invitation specified by ID for this Organization.
 <dd>
 
 ```typescript
-await client.organization.invitations.delete("invitation_id");
+await client.organization.invitations.deleteLegacy("invitation_id");
 ```
 
 </dd>
@@ -1677,7 +1807,7 @@ await client.organization.domains.verify.create("domain_id");
 
 ## Organization Domains IdentityProviders
 
-<details><summary><code>client.organization.domains.identityProviders.<a href="/src/api/resources/organization/resources/domains/resources/identityProviders/client/Client.ts">get</a>(domain_id) -> MyOrganization.ListDomainIdentityProvidersResponseContent</code></summary>
+<details><summary><code>client.organization.domains.identityProviders.<a href="/src/api/resources/organization/resources/domains/resources/identityProviders/client/Client.ts">list</a>(domain_id) -> MyOrganization.ListDomainIdentityProvidersResponseContent</code></summary>
 <dl>
 <dd>
 
@@ -1705,7 +1835,7 @@ Retrieve the list of Identity Providers associated with a domain specified by ID
 <dd>
 
 ```typescript
-await client.organization.domains.identityProviders.get("domain_id");
+await client.organization.domains.identityProviders.list("domain_id");
 ```
 
 </dd>
@@ -2359,6 +2489,71 @@ await client.organization.identityProviders.provisioning.scimTokens.delete("idp_
 </dl>
 </details>
 
+## Organization Invitations Roles
+
+<details><summary><code>client.organization.invitations.roles.<a href="/src/api/resources/organization/resources/invitations/resources/roles/client/Client.ts">list</a>(invitation_id) -> MyOrganization.GetMemberInvitationRolesResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve the roles assigned to a member invitation specified by ID for this Organization.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.organization.invitations.roles.list("invitation_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**invitation_id:** `MyOrganization.InvitationId`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `RolesClient.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
 ## Organization Members Roles
 
 <details><summary><code>client.organization.members.roles.<a href="/src/api/resources/organization/resources/members/resources/roles/client/Client.ts">list</a>(user_id, { ...params }) -> core.Page&lt;MyOrganization.Role, MyOrganization.GetOrganizationMemberRolesResponseContent&gt;</code></summary>
@@ -2479,6 +2674,79 @@ Assign roles to a member specified by ID for this Organization.
 
 ```typescript
 await client.organization.members.roles.assign("user_id", {
+    role_ids: ["rol_SO2j0sFo9NFa3F9w"],
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**user_id:** `MyOrganization.OrgMemberId`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `MyOrganization.OrganizationMemberRolesChangeRequestContent`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `RolesClient.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.organization.members.roles.<a href="/src/api/resources/organization/resources/members/resources/roles/client/Client.ts">unassignLegacy</a>(user_id, { ...params }) -> void</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Remove roles from a member specified by ID for this Organization.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.organization.members.roles.unassignLegacy("user_id", {
     role_ids: ["rol_SO2j0sFo9NFa3F9w"],
 });
 ```

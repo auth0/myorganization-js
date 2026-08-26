@@ -14,10 +14,22 @@ describe("IdentityProvidersClient", () => {
             strategies: {
                 adfs: { enabled_features: ["provisioning"], provisioning_methods: ["scim"] },
                 googleapps: { enabled_features: ["provisioning"], provisioning_methods: ["scim"] },
-                oidc: { enabled_features: ["provisioning"], provisioning_methods: ["scim"] },
-                okta: { enabled_features: ["provisioning", "universal_logout"], provisioning_methods: ["scim"] },
+                oidc: {
+                    enabled_features: ["provisioning"],
+                    provisioning_methods: ["scim"],
+                    cross_app_access_resource_app: { status: { default_value: "enabled" } },
+                },
+                okta: {
+                    enabled_features: ["provisioning", "universal_logout"],
+                    provisioning_methods: ["scim"],
+                    cross_app_access_resource_app: { status: { default_value: "enabled" } },
+                },
                 pingfederate: { enabled_features: ["provisioning"], provisioning_methods: ["scim"] },
-                samlp: { enabled_features: ["provisioning", "universal_logout"], provisioning_methods: ["scim"] },
+                samlp: {
+                    enabled_features: ["provisioning", "universal_logout"],
+                    provisioning_methods: ["scim"],
+                    cross_app_access_resource_app: { status: { default_value: "enabled" } },
+                },
                 waad: { enabled_features: ["provisioning"], provisioning_methods: ["scim"] },
             },
         };

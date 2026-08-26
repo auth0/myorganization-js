@@ -2,4 +2,6 @@
 
 import * as MyOrganization from "../index.js";
 
-export type GetOrganizationMemberResponseContent = MyOrganization.OrgMemberBase;
+export interface GetMemberInvitationRolesResponseContent {
+    roles: MyOrganization.Role[];
+}

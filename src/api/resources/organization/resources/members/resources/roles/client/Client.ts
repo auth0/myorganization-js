@@ -263,11 +263,6 @@ export class RolesClient {
     /**
      * Remove roles from a member specified by ID for this Organization.
      *
-     * @deprecated The underlying endpoint `DELETE /members/{user_id}/roles` is being decommissioned and will be
-     * replaced by `POST /members/{user_id}/unassign-roles`. Once member management is enabled for a tenant, the
-     * legacy endpoint is switched off server side, so working calls can begin to fail. The replacement operation is
-     * available on the beta release (`@auth0/myorganization-js@beta`). See the migration guide for details.
-     *
      * @param {MyOrganization.OrgMemberId} user_id
      * @param {MyOrganization.OrganizationMemberRolesChangeRequestContent} request
      * @param {RolesClient.RequestOptions} requestOptions - Request-specific configuration.
@@ -279,19 +274,19 @@ export class RolesClient {
      * @throws {@link MyOrganization.TooManyRequestsError}
      *
      * @example
-     *     await client.organization.members.roles.unassign("user_id", {
+     *     await client.organization.members.roles.unassignLegacy("user_id", {
      *         role_ids: ["rol_SO2j0sFo9NFa3F9w"]
      *     })
      */
-    public unassign(
+    public unassignLegacy(
         user_id: MyOrganization.OrgMemberId,
         request: MyOrganization.OrganizationMemberRolesChangeRequestContent,
         requestOptions?: RolesClient.RequestOptions,
     ): core.HttpResponsePromise<void> {
-        return core.HttpResponsePromise.fromPromise(this.__unassign(user_id, request, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__unassignLegacy(user_id, request, requestOptions));
     }
 
-    private async __unassign(
+    private async __unassignLegacy(
         user_id: MyOrganization.OrgMemberId,
         request: MyOrganization.OrganizationMemberRolesChangeRequestContent,
         requestOptions?: RolesClient.RequestOptions,
@@ -368,5 +363,115 @@ export class RolesClient {
         }
 
         return handleNonStatusCodeError(_response.error, _response.rawResponse, "DELETE", "/members/{user_id}/roles");
+    }
+
+    /**
+     * Remove roles from a member specified by ID for this Organization.
+     *
+     * @param {MyOrganization.OrgMemberId} user_id
+     * @param {MyOrganization.OrganizationMemberRolesChangeRequestContent} request
+     * @param {RolesClient.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link MyOrganization.BadRequestError}
+     * @throws {@link MyOrganization.UnauthorizedError}
+     * @throws {@link MyOrganization.ForbiddenError}
+     * @throws {@link MyOrganization.NotFoundError}
+     * @throws {@link MyOrganization.TooManyRequestsError}
+     *
+     * @example
+     *     await client.organization.members.roles.unassign("user_id", {
+     *         role_ids: ["rol_SO2j0sFo9NFa3F9w"]
+     *     })
+     */
+    public unassign(
+        user_id: MyOrganization.OrgMemberId,
+        request: MyOrganization.OrganizationMemberRolesChangeRequestContent,
+        requestOptions?: RolesClient.RequestOptions,
+    ): core.HttpResponsePromise<void> {
+        return core.HttpResponsePromise.fromPromise(this.__unassign(user_id, request, requestOptions));
+    }
+
+    private async __unassign(
+        user_id: MyOrganization.OrgMemberId,
+        request: MyOrganization.OrganizationMemberRolesChangeRequestContent,
+        requestOptions?: RolesClient.RequestOptions,
+    ): Promise<core.WithRawResponse<void>> {
+        const _metadata: core.EndpointMetadata = {
+            security: [
+                { OAuth2ClientCredentials: ["delete:my_org:member_roles"] },
+                { OAuth2AuthCode: ["delete:my_org:member_roles"] },
+            ],
+        };
+        const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest({
+            endpointMetadata: _metadata,
+        });
+        let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+            _authRequest.headers,
+            this._options?.headers,
+            requestOptions?.headers,
+        );
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: core.url.join(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.MyOrganizationEnvironment.Default,
+                `members/${core.url.encodePathParam(user_id)}/unassign-roles`,
+            ),
+            method: "POST",
+            headers: _headers,
+            contentType: "application/json",
+            queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
+            requestType: "json",
+            body: request,
+            timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
+            maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+            endpointMetadata: _metadata,
+            fetchFn: this._options?.fetch,
+            logging: this._options.logging,
+        });
+        if (_response.ok) {
+            return { data: undefined, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new MyOrganization.BadRequestError(_response.error.body as unknown, _response.rawResponse);
+                case 401:
+                    throw new MyOrganization.UnauthorizedError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
+                        _response.rawResponse,
+                    );
+                case 403:
+                    throw new MyOrganization.ForbiddenError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
+                        _response.rawResponse,
+                    );
+                case 404:
+                    throw new MyOrganization.NotFoundError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
+                        _response.rawResponse,
+                    );
+                case 429:
+                    throw new MyOrganization.TooManyRequestsError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.MyOrganizationError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        return handleNonStatusCodeError(
+            _response.error,
+            _response.rawResponse,
+            "POST",
+            "/members/{user_id}/unassign-roles",
+        );
     }
 }
