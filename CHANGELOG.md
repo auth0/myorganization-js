@@ -1,5 +1,27 @@
 # Change Log
 
+## [v2.0.0-beta.0](https://github.com/auth0/myorganization-js/tree/v2.0.0-beta.0) (2026-08-26)
+
+**Beta**
+**Breaking**
+- `organization.invitations.delete` now calls the batch endpoint `POST /delete-member-invitations` and accepts `{ invitations: [...] }` instead of a single `invitation_id`. The old single-item delete is preserved as `organization.invitations.deleteLegacy(invitation_id)`.
+- `organization.members.roles.unassign` now calls `POST /members/{user_id}/unassign-roles`. The previous `DELETE /members/{user_id}/roles` behavior is preserved as `organization.members.roles.unassignLegacy(user_id, { role_ids })`.
+- `organization.domains.identityProviders.get(domain_id)` renamed to `organization.domains.identityProviders.list(domain_id)`, now returning `ListDomainIdentityProvidersResponseContent`.
+- `GetOrganizationMemberResponseContent` narrowed from `OrgMember` to `OrgMemberBase`; the get-member response no longer includes `roles`. Use `organization.members.roles.list(user_id)`.
+- Identity provider response `options` and `attributes` are now optional on the affected `Idp*Response` types.
+- SAML/ADFS request types corrected. On `IdpSamlpOptionsRequest` the certificate field is renamed from `cert` to `signingCert` on both variants, and `metadataUrl` + `signSAMLRequest` (metadata variant) and `signInEndpoint` + `signingCert` + `signSAMLRequest` (manual variant) are now required. On `IdpAdfsOptionsRequest` the `fedMetadataXml` variant now requires `fedMetadataXml`.
+**Added**
+- `organization.invitations.roles.list(invitation_id)` (`GET /member-invitations/{invitation_id}/roles`), returning `GetMemberInvitationRolesResponseContent`.
+- `organization.identityProviders.list()` accepts an optional request object for filtering; existing no-argument calls still work.
+- New OAuth scopes `read:my_org:user_stores` and `delete:my_org:organizations`.
+- Cross-app access and third-party client access support: `use_for_third_party_client_access`, `cross_app_access_resource_app`, and new types `CrossAppAccessResourceApp`, `CrossAppAccessResourceAppConfig`, `OrgThirdPartyClientAccessConfig`, `OrgThirdPartyClientAccessEnum`, `OrgMemberBase`.
+**Deprecated**
+- `organization.invitations.deleteLegacy` (`DELETE /member-invitations/{invitation_id}`); use `organization.invitations.delete({ invitations: [...] })`.
+- `organization.members.roles.unassignLegacy` (`DELETE /members/{user_id}/roles`); use `organization.members.roles.unassign(user_id, { role_ids })`.
+
+**Stable (from main)**
+- No stable changes in this release.
+
 ## [v1.1.1](https://github.com/auth0/myorganization-js/tree/v1.1.1) (2026-08-27)
 
 [Full Changelog](https://github.com/auth0/myorganization-js/compare/v1.1.0...v1.1.1)
