@@ -503,12 +503,6 @@ export class InvitationsClient {
     /**
      * Revoke a member invitation specified by ID for this Organization.
      *
-     * @deprecated The underlying endpoint `DELETE /member-invitations/{invitation_id}` is being decommissioned and
-     * will be replaced by `POST /delete-member-invitations`, which accepts an `{ invitations: [...] }` request body
-     * instead of a path parameter. Once member management is enabled for a tenant, the legacy endpoint is switched
-     * off server side. The replacement operation is available on the beta release
-     * (`@auth0/myorganization-js@beta`). See the migration guide for details.
-     *
      * @param {MyOrganization.InvitationId} invitation_id
      * @param {InvitationsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
