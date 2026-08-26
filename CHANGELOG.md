@@ -1,5 +1,14 @@
 # Change Log
 
+## [v1.1.1](https://github.com/auth0/myorganization-js/tree/v1.1.1) (2026-08-27)
+
+[Full Changelog](https://github.com/auth0/myorganization-js/compare/v1.1.0...v1.1.1)
+
+**Deprecated**
+
+- Deprecated `organization.invitations.delete`; the underlying `DELETE /member-invitations/{invitation_id}` endpoint is being decommissioned and will be replaced by `POST /delete-member-invitations` [\#55](https://github.com/auth0/myorganization-js/pull/55)
+- Deprecated `organization.members.roles.unassign`; the underlying `DELETE /members/{user_id}/roles` endpoint is being decommissioned and will be replaced by `POST /members/{user_id}/unassign-roles` [\#55](https://github.com/auth0/myorganization-js/pull/55)
+
 ## [v1.1.0](https://github.com/auth0/myorganization-js/tree/v1.1.0) (2026-06-16)
 
 [Full Changelog](https://github.com/auth0/myorganization-js/compare/v1.0.1...v1.1.0)
