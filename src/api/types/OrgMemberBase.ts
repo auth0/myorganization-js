@@ -10,6 +10,8 @@ export interface OrgMemberBase extends MyOrganization.UserAttributes {
     updated_at?: string | undefined;
     /** Last date and time this user logged in (ISO_8601 format). */
     last_login?: string | undefined;
+    /** The member's effective access level for this organization. */
+    access_level?: MyOrganization.OrganizationMemberAccessLevelEnum | undefined;
     /** Phone number associated with the user. */
     phone_number?: string | undefined;
 }

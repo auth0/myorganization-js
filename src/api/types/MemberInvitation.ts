@@ -8,6 +8,7 @@ export interface MemberInvitation {
     inviter?: MyOrganization.MemberInvitationInviter | undefined;
     invitee?: MyOrganization.MemberInvitationInvitee | undefined;
     identity_provider_id?: MyOrganization.IdpId | undefined;
+    user_store_id?: MyOrganization.UserStoreId | undefined;
     /** The ISO 8601 formatted timestamp representing the creation time of the invitation. */
     created_at?: string | undefined;
     /** The ISO 8601 formatted timestamp representing the expiration time of the invitation. */

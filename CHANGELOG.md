@@ -1,5 +1,24 @@
 # Change Log
 
+## [v2.0.0](https://github.com/auth0/myorganization-js/tree/v2.0.0) (2026-08-26)
+
+[Full Changelog](https://github.com/auth0/myorganization-js/compare/v1.1.1...v2.0.0)
+
+**Breaking**
+
+- Member management moved to the beta channel (`@auth0/myorganization-js@beta`) and is removed from the stable package: `organization.members` (`list`, `get`), `organization.members.roles` (`list`, `assign`, `unassign`), `organization.invitations` (`list`, `create`, `get`, `delete`), `organization.memberships` (`deleteMemberships`), and `organization.roles` (`list`), along with their types [\#58](https://github.com/auth0/myorganization-js/pull/58)
+- Renamed `organization.domains.identityProviders.get(domain_id)` to `organization.domains.identityProviders.list(domain_id)`, now returning `ListDomainIdentityProvidersResponseContent` [\#58](https://github.com/auth0/myorganization-js/pull/58)
+- Identity provider response `options` and `attributes` are now optional on the affected `Idp*Response` types, so they may be `undefined` [\#58](https://github.com/auth0/myorganization-js/pull/58)
+- Corrected the SAML and ADFS identity provider request types: on `IdpSamlpOptionsRequest` the certificate field is renamed from `cert` to `signingCert` on both variants, and `metadataUrl` + `signSAMLRequest` (metadata variant) and `signInEndpoint` + `signingCert` + `signSAMLRequest` (manual variant) are now required; on `IdpAdfsOptionsRequest` the `fedMetadataXml` variant now requires `fedMetadataXml` [\#58](https://github.com/auth0/myorganization-js/pull/58)
+
+**Added**
+
+- `organization.identityProviders.list()` now accepts an optional request object for filtering; existing no-argument calls continue to work [\#58](https://github.com/auth0/myorganization-js/pull/58)
+- New OAuth scopes `read:my_org:user_stores` and `delete:my_org:organizations` [\#58](https://github.com/auth0/myorganization-js/pull/58)
+- Cross-app access and third-party client access support on identity providers, including the `use_for_third_party_client_access` and `cross_app_access_resource_app` fields [\#58](https://github.com/auth0/myorganization-js/pull/58)
+
+See the [migration guide](https://github.com/auth0/myorganization-js/blob/main/MIGRATION.md) for upgrade steps.
+
 ## [v1.1.1](https://github.com/auth0/myorganization-js/tree/v1.1.1) (2026-08-27)
 
 [Full Changelog](https://github.com/auth0/myorganization-js/compare/v1.1.0...v1.1.1)

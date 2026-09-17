@@ -5,6 +5,22 @@ import * as MyOrganization from "../index.js";
 /**
  * @example
  *     {
+ *         member_access_level: ["none"],
+ *         is_enabled: true
+ *     }
+ */
+export interface ListOrganizationUserStoresRequestParameters {
+    /** When present, only connections whose Organization Member Access Level matches one of the provided values are returned. Accepted values are full, limited, readonly and none. */
+    member_access_level?:
+        | (MyOrganization.OrganizationAccessLevelEnum | null)
+        | (MyOrganization.OrganizationAccessLevelEnum | null)[];
+    /** Filter the returned list by enabled status. When `true`, only enabled items are returned; when `false`, only disabled items; when omitted, all items are returned. */
+    is_enabled?: boolean | null;
+}
+
+/**
+ * @example
+ *     {
  *         from: "from",
  *         take: 1
  *     }
@@ -29,7 +45,8 @@ export interface CreateOrganizationDomainRequestContent {
 /**
  * @example
  *     {
- *         member_access_level: ["none"]
+ *         member_access_level: ["none"],
+ *         is_enabled: true
  *     }
  */
 export interface ListOrganizationIdentityProvidersRequestParameters {
@@ -37,6 +54,148 @@ export interface ListOrganizationIdentityProvidersRequestParameters {
     member_access_level?:
         | (MyOrganization.OrganizationAccessLevelEnum | null)
         | (MyOrganization.OrganizationAccessLevelEnum | null)[];
+    /** Filter the returned list by enabled status. When `true`, only enabled items are returned; when `false`, only disabled items; when omitted, all items are returned. */
+    is_enabled?: boolean | null;
+}
+
+/**
+ * @example
+ *     {
+ *         fields: "fields",
+ *         include_fields: true,
+ *         from: "from",
+ *         take: 1,
+ *         include_totals: true
+ *     }
+ */
+export interface ListOrganizationMembersRequestParameters {
+    /** Comma-separated list of fields to include or exclude (based on value provided for include_fields) in the result. Leave empty to retrieve all fields. */
+    fields?: string | null;
+    /** Whether specified fields are to be included (true) or excluded (false). Defaults to true */
+    include_fields?: boolean | null;
+    /** An optional cursor from which to start the selection (exclusive). */
+    from?: string | null;
+    /** Number of results per page. Defaults to 50. */
+    take?: number | null;
+    /** When true, the response includes a 'total' count of items in the result set (reflecting any active filters), along with a 'total_is_capped' flag. The count is best-effort and capped at 1000; when the true size may be larger, 'total_is_capped' is true and 'total' is a lower bound. Omitted when not requested. */
+    include_totals?: boolean | null;
+}
+
+/**
+ * @example
+ *     {
+ *         fields: "fields",
+ *         include_fields: true
+ *     }
+ */
+export interface GetOrganizationMemberRequestParameters {
+    /** Comma-separated list of fields to include or exclude (based on value provided for include_fields) in the result. Leave empty to retrieve all fields. */
+    fields?: string | null;
+    /** Whether specified fields are to be included (true) or excluded (false). Defaults to true */
+    include_fields?: boolean | null;
+}
+
+/**
+ * @example
+ *     {
+ *         members: ["auth0|1234567890"]
+ *     }
+ */
+export interface DeleteOrganizationMembershipsRequestParameters {
+    members: MyOrganization.OrgMemberId[];
+}
+
+/**
+ * @example
+ *     {
+ *         fields: "fields",
+ *         include_fields: true,
+ *         from: "from",
+ *         take: 1,
+ *         sort: "sort",
+ *         include_totals: true
+ *     }
+ */
+export interface ListMemberInvitationsRequestParameters {
+    /** Comma-separated list of fields to include or exclude (based on value provided for include_fields) in the result. Leave empty to retrieve all fields. Note: you cannot filter on ticket_id and this value will only be returned when fields are not filtered. */
+    fields?: string | null;
+    /** Whether specified fields are to be included (true) or excluded (false). Defaults to true */
+    include_fields?: boolean | null;
+    /** An optional cursor from which to start the selection (exclusive). */
+    from?: string | null;
+    /** Number of results per page. Defaults to 50. */
+    take?: number | null;
+    /** Field to sort by. Use field:order where order is 1 for ascending and -1 for descending. Defaults to created_at:-1 */
+    sort?: string | null;
+    /** When true, the response includes a 'total' count of items in the result set (reflecting any active filters), along with a 'total_is_capped' flag. The count is best-effort and capped at 1000; when the true size may be larger, 'total_is_capped' is true and 'total' is a lower bound. Omitted when not requested. */
+    include_totals?: boolean | null;
+}
+
+/**
+ * @example
+ *     {
+ *         invitees: [{
+ *                 email: "user@example.com",
+ *                 roles: ["rol_0000000000000001"]
+ *             }],
+ *         inviter: {
+ *             name: "Allison the Admin"
+ *         },
+ *         identity_provider_id: "con_2CZPv6IY0gWzDaQJ",
+ *         ttl_sec: 3600
+ *     }
+ */
+export interface CreateMemberInvitationRequestContent {
+    "auth0-custom-domain"?: string;
+    invitees: MyOrganization.CreateMemberInvitationInvitee[];
+    inviter?: MyOrganization.MemberInvitationInviter;
+    /** Identity provider identifier. At least one of identity_provider_id or user_store_id must be provided. */
+    identity_provider_id?: string;
+    /** The user store to route the invitation through. At least one of identity_provider_id or user_store_id must be provided. */
+    user_store_id?: string;
+    /** Number of seconds for which the invitation is valid before expiration. If unspecified or set to 0, this value defaults to 604800 seconds (7 days). Max value: 2592000 seconds (30 days). */
+    ttl_sec?: number;
+}
+
+/**
+ * @example
+ *     {
+ *         invitations: ["uinv_0000000000000001", "uinv_0000000000000002", "uinv_0000000000000003"]
+ *     }
+ */
+export interface DeleteMemberInvitationsRequestContent {
+    invitations: MyOrganization.InvitationId[];
+}
+
+/**
+ * @example
+ *     {
+ *         fields: "fields",
+ *         include_fields: true
+ *     }
+ */
+export interface GetMemberInvitationRequestParameters {
+    /** Comma-separated list of fields to include or exclude (based on value provided for include_fields) in the result. Leave empty to retrieve all fields. Note: you cannot filter on ticket_id and this value will only be returned when fields are not filtered. */
+    fields?: string | null;
+    /** Whether specified fields are to be included (true) or excluded (false). Defaults to true */
+    include_fields?: boolean | null;
+}
+
+/**
+ * @example
+ *     {
+ *         from: "from",
+ *         take: 1,
+ *         name: "name"
+ *     }
+ */
+export interface ListRolesRequestParameters {
+    /** An optional cursor from which to start the selection (exclusive). */
+    from?: string | null;
+    /** Number of results per page. Defaults to 50. */
+    take?: number | null;
+    /** An optional filter on the name (case-insensitive). */
+    name?: string | null;
 }
 
 /**
@@ -58,4 +217,18 @@ export interface CreateIdpDomainRequestContent {
 export interface CreateIdpProvisioningScimTokenRequestContent {
     /** Lifetime of the token in seconds. Do not set for non-expiring tokens. */
     token_lifetime?: number;
+}
+
+/**
+ * @example
+ *     {
+ *         from: "from",
+ *         take: 1
+ *     }
+ */
+export interface ListOrgMemberRolesRequestParameters {
+    /** An optional cursor from which to start the selection (exclusive). */
+    from?: string | null;
+    /** Number of results per page. Defaults to 50. */
+    take?: number | null;
 }
