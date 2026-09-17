@@ -7,6 +7,11 @@ import * as environments from "../../../../environments.js";
 import { ConfigurationClient } from "../resources/configuration/client/Client.js";
 import { DomainsClient } from "../resources/domains/client/Client.js";
 import { IdentityProvidersClient } from "../resources/identityProviders/client/Client.js";
+import { InvitationsClient } from "../resources/invitations/client/Client.js";
+import { MembersClient } from "../resources/members/client/Client.js";
+import { MembershipsClient } from "../resources/memberships/client/Client.js";
+import { RolesClient } from "../resources/roles/client/Client.js";
+import { UserStoresClient } from "../resources/userStores/client/Client.js";
 
 export declare namespace OrganizationClient {
     export type Options = BaseClientOptions;
@@ -15,8 +20,13 @@ export declare namespace OrganizationClient {
 export class OrganizationClient {
     protected readonly _options: NormalizedClientOptionsWithAuth<OrganizationClient.Options>;
     protected _configuration: ConfigurationClient | undefined;
+    protected _userStores: UserStoresClient | undefined;
     protected _domains: DomainsClient | undefined;
     protected _identityProviders: IdentityProvidersClient | undefined;
+    protected _members: MembersClient | undefined;
+    protected _memberships: MembershipsClient | undefined;
+    protected _invitations: InvitationsClient | undefined;
+    protected _roles: RolesClient | undefined;
 
     constructor(options: OrganizationClient.Options) {
         this._options = normalizeClientOptionsWithAuth(options);
@@ -26,11 +36,31 @@ export class OrganizationClient {
         return (this._configuration ??= new ConfigurationClient(this._options));
     }
 
+    public get userStores(): UserStoresClient {
+        return (this._userStores ??= new UserStoresClient(this._options));
+    }
+
     public get domains(): DomainsClient {
         return (this._domains ??= new DomainsClient(this._options));
     }
 
     public get identityProviders(): IdentityProvidersClient {
         return (this._identityProviders ??= new IdentityProvidersClient(this._options));
+    }
+
+    public get members(): MembersClient {
+        return (this._members ??= new MembersClient(this._options));
+    }
+
+    public get memberships(): MembershipsClient {
+        return (this._memberships ??= new MembershipsClient(this._options));
+    }
+
+    public get invitations(): InvitationsClient {
+        return (this._invitations ??= new InvitationsClient(this._options));
+    }
+
+    public get roles(): RolesClient {
+        return (this._roles ??= new RolesClient(this._options));
     }
 }

@@ -21,6 +21,7 @@ describe("IdentityProvidersClient", () => {
                     assign_membership_on_login: false,
                     is_enabled: true,
                     access_level: "full",
+                    member_access_level: "none",
                     use_for_third_party_client_access: true,
                     cross_app_access_resource_app: { status: "enabled" },
                     options: {
@@ -57,6 +58,7 @@ describe("IdentityProvidersClient", () => {
                     assign_membership_on_login: false,
                     is_enabled: true,
                     access_level: "limited",
+                    member_access_level: "none",
                     use_for_third_party_client_access: true,
                     cross_app_access_resource_app: { status: "enabled" },
                     options: {
@@ -106,6 +108,7 @@ describe("IdentityProvidersClient", () => {
 
         const response = await client.organization.identityProviders.list({
             member_access_level: ["none"],
+            is_enabled: true,
         });
         expect(response).toEqual(rawResponseBody);
     });
@@ -233,6 +236,7 @@ describe("IdentityProvidersClient", () => {
             assign_membership_on_login: false,
             is_enabled: true,
             access_level: "full",
+            member_access_level: "none",
             use_for_third_party_client_access: true,
             cross_app_access_resource_app: { status: "enabled" },
             options: {
@@ -459,6 +463,7 @@ describe("IdentityProvidersClient", () => {
             assign_membership_on_login: false,
             is_enabled: true,
             access_level: "readonly",
+            member_access_level: "none",
             use_for_third_party_client_access: true,
             cross_app_access_resource_app: { status: "enabled" },
             options: {
@@ -725,6 +730,7 @@ describe("IdentityProvidersClient", () => {
             assign_membership_on_login: false,
             is_enabled: true,
             access_level: "full",
+            member_access_level: "none",
             use_for_third_party_client_access: true,
             cross_app_access_resource_app: { status: "enabled" },
             options: {
@@ -892,6 +898,7 @@ describe("IdentityProvidersClient", () => {
             assign_membership_on_login: false,
             is_enabled: true,
             access_level: "readonly",
+            member_access_level: "none",
             use_for_third_party_client_access: true,
             cross_app_access_resource_app: { status: "enabled" },
             options: {

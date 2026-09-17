@@ -48,7 +48,8 @@ export class IdentityProvidersClient {
      *
      * @example
      *     await client.organization.identityProviders.list({
-     *         member_access_level: ["none"]
+     *         member_access_level: ["none"],
+     *         is_enabled: true
      *     })
      */
     public list(
@@ -68,13 +69,14 @@ export class IdentityProvidersClient {
                 { OAuth2AuthCode: ["read:my_org:identity_providers"] },
             ],
         };
-        const { member_access_level: memberAccessLevel } = request;
+        const { member_access_level: memberAccessLevel, is_enabled: isEnabled } = request;
         const _queryParams: Record<string, unknown> = {
             member_access_level: Array.isArray(memberAccessLevel)
                 ? memberAccessLevel.map((item) => item)
                 : memberAccessLevel !== undefined
                   ? memberAccessLevel
                   : undefined,
+            is_enabled: isEnabled,
         };
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest({
             endpointMetadata: _metadata,
