@@ -242,6 +242,74 @@ await client.organization.configuration.get();
 </dl>
 </details>
 
+## Organization UserStores
+
+<details><summary><code>client.organization.userStores.<a href="/src/api/resources/organization/resources/userStores/client/Client.ts">list</a>({ ...params }) -> MyOrganization.ListUserStoresResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve the user stores for the associated Organization.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.organization.userStores.list({
+    member_access_level: ["none"],
+    is_enabled: true,
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `MyOrganization.ListOrganizationUserStoresRequestParameters`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `UserStoresClient.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
 ## Organization Domains
 
 <details><summary><code>client.organization.domains.<a href="/src/api/resources/organization/resources/domains/client/Client.ts">list</a>({ ...params }) -> core.Page&lt;MyOrganization.OrgDomain, MyOrganization.ListOrganizationDomainsResponseContent&gt;</code></summary>
@@ -548,6 +616,7 @@ Retrieve the comprehensive list of identity providers and their respective confi
 ```typescript
 await client.organization.identityProviders.list({
     member_access_level: ["none"],
+    is_enabled: true,
 });
 ```
 
@@ -994,6 +1063,626 @@ await client.organization.identityProviders.detach("idp_id");
 <dd>
 
 **requestOptions:** `IdentityProvidersClient.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## Organization Members
+
+<details><summary><code>client.organization.members.<a href="/src/api/resources/organization/resources/members/client/Client.ts">list</a>({ ...params }) -> core.Page&lt;MyOrganization.OrgMember, MyOrganization.ListOrganizationMembersResponseContent&gt;</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve a list of all members for this Organization. The `roles` field is only included for each member when the token also carries the `read:my_org:member_roles` scope; without that scope the `roles` field is omitted from the response.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+const pageableResponse = await client.organization.members.list({
+    fields: "fields",
+    include_fields: true,
+    from: "from",
+    take: 1,
+    include_totals: true,
+});
+for await (const item of pageableResponse) {
+    console.log(item);
+}
+
+// Or you can manually iterate page-by-page
+let page = await client.organization.members.list({
+    fields: "fields",
+    include_fields: true,
+    from: "from",
+    take: 1,
+    include_totals: true,
+});
+while (page.hasNextPage()) {
+    page = page.getNextPage();
+}
+
+// You can also access the underlying response
+const response = page.response;
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `MyOrganization.ListOrganizationMembersRequestParameters`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `MembersClient.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.organization.members.<a href="/src/api/resources/organization/resources/members/client/Client.ts">get</a>(user_id, { ...params }) -> MyOrganization.GetOrganizationMemberResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve details of a member specified by user ID for this Organization.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.organization.members.get("user_id", {
+    fields: "fields",
+    include_fields: true,
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**user_id:** `MyOrganization.OrgMemberId`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `MyOrganization.GetOrganizationMemberRequestParameters`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `MembersClient.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## Organization Memberships
+
+<details><summary><code>client.organization.memberships.<a href="/src/api/resources/organization/resources/memberships/client/Client.ts">deleteMemberships</a>({ ...params }) -> void</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Remove one member from this Organization. The underlying user account is not deleted.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.organization.memberships.deleteMemberships({
+    members: ["auth0|1234567890"],
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `MyOrganization.DeleteOrganizationMembershipsRequestParameters`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `MembershipsClient.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## Organization Invitations
+
+<details><summary><code>client.organization.invitations.<a href="/src/api/resources/organization/resources/invitations/client/Client.ts">list</a>({ ...params }) -> core.Page&lt;MyOrganization.MemberInvitation, MyOrganization.ListMembersInvitationsResponseContent&gt;</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve a list of all member invitations for this Organization.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+const pageableResponse = await client.organization.invitations.list({
+    fields: "fields",
+    include_fields: true,
+    from: "from",
+    take: 1,
+    sort: "sort",
+    include_totals: true,
+});
+for await (const item of pageableResponse) {
+    console.log(item);
+}
+
+// Or you can manually iterate page-by-page
+let page = await client.organization.invitations.list({
+    fields: "fields",
+    include_fields: true,
+    from: "from",
+    take: 1,
+    sort: "sort",
+    include_totals: true,
+});
+while (page.hasNextPage()) {
+    page = page.getNextPage();
+}
+
+// You can also access the underlying response
+const response = page.response;
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `MyOrganization.ListMemberInvitationsRequestParameters`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `InvitationsClient.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.organization.invitations.<a href="/src/api/resources/organization/resources/invitations/client/Client.ts">create</a>({ ...params }) -> MyOrganization.CreateMemberInvitationResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Create one or more member invitations for this Organization. If an active invitation already exists for a user, generating a new invitation will automatically revoke any outstanding invitations for that user. Roles specified in the payload will be granted to the user upon acceptance of the invitation.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.organization.invitations.create({
+    invitees: [
+        {
+            email: "user@example.com",
+            roles: ["rol_0000000000000001"],
+        },
+    ],
+    inviter: {
+        name: "Allison the Admin",
+    },
+    identity_provider_id: "con_2CZPv6IY0gWzDaQJ",
+    ttl_sec: 3600,
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `MyOrganization.CreateMemberInvitationRequestContent`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `InvitationsClient.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.organization.invitations.<a href="/src/api/resources/organization/resources/invitations/client/Client.ts">delete</a>({ ...params }) -> void</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Revoke a set of member invitations specified by IDs for this Organization.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.organization.invitations.delete({
+    invitations: ["uinv_0000000000000001", "uinv_0000000000000002", "uinv_0000000000000003"],
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `MyOrganization.DeleteMemberInvitationsRequestContent`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `InvitationsClient.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.organization.invitations.<a href="/src/api/resources/organization/resources/invitations/client/Client.ts">get</a>(invitation_id, { ...params }) -> MyOrganization.GetMemberInvitationResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve details of a member invitation specified by ID for this Organization.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.organization.invitations.get("invitation_id", {
+    fields: "fields",
+    include_fields: true,
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**invitation_id:** `MyOrganization.InvitationId`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `MyOrganization.GetMemberInvitationRequestParameters`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `InvitationsClient.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## Organization Roles
+
+<details><summary><code>client.organization.roles.<a href="/src/api/resources/organization/resources/roles/client/Client.ts">list</a>({ ...params }) -> core.Page&lt;MyOrganization.Role, MyOrganization.ListRolesResponseContent&gt;</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve the list of roles available for binding to members and invitations for this Organization. Only roles made visible to this Organization by the Tenant Admin are returned.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+const pageableResponse = await client.organization.roles.list({
+    from: "from",
+    take: 1,
+    name: "name",
+});
+for await (const item of pageableResponse) {
+    console.log(item);
+}
+
+// Or you can manually iterate page-by-page
+let page = await client.organization.roles.list({
+    from: "from",
+    take: 1,
+    name: "name",
+});
+while (page.hasNextPage()) {
+    page = page.getNextPage();
+}
+
+// You can also access the underlying response
+const response = page.response;
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `MyOrganization.ListRolesRequestParameters`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `RolesClient.RequestOptions`
 
 </dd>
 </dl>
@@ -1800,6 +2489,308 @@ await client.organization.identityProviders.provisioning.scimTokens.delete("idp_
 <dd>
 
 **requestOptions:** `ScimTokensClient.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## Organization Invitations Roles
+
+<details><summary><code>client.organization.invitations.roles.<a href="/src/api/resources/organization/resources/invitations/resources/roles/client/Client.ts">list</a>(invitation_id) -> MyOrganization.GetMemberInvitationRolesResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve the roles assigned to a member invitation specified by ID for this Organization.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.organization.invitations.roles.list("invitation_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**invitation_id:** `MyOrganization.InvitationId`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `RolesClient.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## Organization Members Roles
+
+<details><summary><code>client.organization.members.roles.<a href="/src/api/resources/organization/resources/members/resources/roles/client/Client.ts">list</a>(user_id, { ...params }) -> core.Page&lt;MyOrganization.Role, MyOrganization.GetOrganizationMemberRolesResponseContent&gt;</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve a list of roles assigned to a member specified by ID for this Organization.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+const pageableResponse = await client.organization.members.roles.list("user_id", {
+    from: "from",
+    take: 1,
+});
+for await (const item of pageableResponse) {
+    console.log(item);
+}
+
+// Or you can manually iterate page-by-page
+let page = await client.organization.members.roles.list("user_id", {
+    from: "from",
+    take: 1,
+});
+while (page.hasNextPage()) {
+    page = page.getNextPage();
+}
+
+// You can also access the underlying response
+const response = page.response;
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**user_id:** `MyOrganization.OrgMemberId`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `MyOrganization.ListOrgMemberRolesRequestParameters`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `RolesClient.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.organization.members.roles.<a href="/src/api/resources/organization/resources/members/resources/roles/client/Client.ts">assign</a>(user_id, { ...params }) -> void</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Assign roles to a member specified by ID for this Organization.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.organization.members.roles.assign("user_id", {
+    role_ids: ["rol_SO2j0sFo9NFa3F9w"],
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**user_id:** `MyOrganization.OrgMemberId`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `MyOrganization.OrganizationMemberRolesChangeRequestContent`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `RolesClient.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.organization.members.roles.<a href="/src/api/resources/organization/resources/members/resources/roles/client/Client.ts">unassign</a>(user_id, { ...params }) -> void</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Remove roles from a member specified by ID for this Organization.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.organization.members.roles.unassign("user_id", {
+    role_ids: ["rol_SO2j0sFo9NFa3F9w"],
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**user_id:** `MyOrganization.OrgMemberId`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `MyOrganization.OrganizationMemberRolesChangeRequestContent`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `RolesClient.RequestOptions`
 
 </dd>
 </dl>

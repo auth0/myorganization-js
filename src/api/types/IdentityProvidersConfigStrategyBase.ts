@@ -9,4 +9,5 @@ export interface IdentityProvidersConfigStrategyBase {
     /** Enabled features for a connections profile strategy override. */
     enabled_features: MyOrganization.IdentityProvidersConfigEnabledFeaturesEnum[];
     provisioning_methods: MyOrganization.IdentityProvidersConfigProvisioningMethodsEnum[];
+    provisioning?: (MyOrganization.IdentityProvidersConfigProvisioningConfiguration | null) | undefined;
 }

@@ -18,7 +18,13 @@ generations:
     cli_version: unknown
     generator_versions:
       fernapi/fern-typescript-sdk: 3.70.5
-current_generation: d3a1af5c3a0f70dfc20aee7d53648ce705f10a19
+  - commit_sha: 4655652b2eb38926b073c7bf4571f7a67893971d
+    tree_hash: ce2d60f9505091c0543110dabeea51bc58a80742
+    timestamp: 2026-09-17T08:24:29.263Z
+    cli_version: unknown
+    generator_versions:
+      fernapi/fern-typescript-sdk: 3.70.5
+current_generation: 4655652b2eb38926b073c7bf4571f7a67893971d
 patches:
   - id: patch-dde04d2d
     content_hash: sha256:94f4832455841b84de00d0f433978f9fe672c87dd5de2e8dfe5d2f3e7a23e4de
@@ -339,4 +345,164 @@ patches:
         }
       src/version.ts: |
         export const SDK_VERSION = "1.1.1";
+    status: unresolved
+  - id: patch-5cdc0753
+    content_hash: sha256:04290508b6b1f6a0c836d2393db01e1f09fa16e17a02068b6ee6a95c87dbc4c0
+    original_commit: 5cdc0753d249bcec65e123789c06cca4e55e0fe7
+    original_message: Release v2.0.0 (#66)
+    original_author: Kunal Dawar <35455566+developerkunal@users.noreply.github.com>
+    base_generation: a4f44d8141e1209241ef9c0c7782446e7d92fe10
+    files:
+      - package.json
+      - src/version.ts
+    patch_content: |
+      diff --git a/package.json b/package.json
+      index 608f3c7..0d177e8 100644
+      --- a/package.json
+      +++ b/package.json
+      @@ -1,6 +1,6 @@
+       {
+           "name": "@auth0/myorganization-js",
+      -    "version": "1.1.1",
+      +    "version": "2.0.0",
+           "private": false,
+           "repository": {
+               "type": "git",
+      diff --git a/src/version.ts b/src/version.ts
+      index b5aacc0..478f50d 100644
+      --- a/src/version.ts
+      +++ b/src/version.ts
+      @@ -1 +1 @@
+      -export const SDK_VERSION = "1.1.1";
+      +export const SDK_VERSION = "2.0.0";
+    theirs_snapshot:
+      package.json: |
+        {
+            "name": "@auth0/myorganization-js",
+            "version": "2.0.0",
+            "private": false,
+            "repository": {
+                "type": "git",
+                "url": "git+https://github.com/auth0/myorganization-js.git"
+            },
+            "license": "Apache-2.0",
+            "type": "commonjs",
+            "main": "./dist/cjs/index.js",
+            "module": "./dist/esm/index.mjs",
+            "types": "./dist/cjs/index.d.ts",
+            "exports": {
+                ".": {
+                    "import": {
+                        "types": "./dist/esm/index.d.mts",
+                        "default": "./dist/esm/index.mjs"
+                    },
+                    "require": {
+                        "types": "./dist/cjs/index.d.ts",
+                        "default": "./dist/cjs/index.js"
+                    },
+                    "default": "./dist/cjs/index.js"
+                },
+                "./package.json": "./package.json",
+                "./server": {
+                    "types": "./dist/cjs/server.d.ts",
+                    "import": {
+                        "types": "./dist/esm/server.d.mts",
+                        "default": "./dist/esm/server.mjs"
+                    },
+                    "require": {
+                        "types": "./dist/cjs/server.d.ts",
+                        "default": "./dist/cjs/server.js"
+                    },
+                    "default": "./dist/cjs/server.js"
+                }
+            },
+            "files": [
+                "NOTICE",
+                "dist",
+                "reference.md",
+                "README.md",
+                "LICENSE"
+            ],
+            "scripts": {
+                "format": "prettier . --write --ignore-unknown",
+                "format:check": "prettier . --check --ignore-unknown",
+                "lint": "eslint .",
+                "lint:fix": "eslint . --fix",
+                "check": "pnpm format:check",
+                "check:fix": "pnpm format",
+                "build": "pnpm build:cjs && pnpm build:esm",
+                "build:cjs": "tsc --project ./tsconfig.cjs.json",
+                "build:esm": "tsc --project ./tsconfig.esm.json && node scripts/rename-to-esm-files.js dist/esm",
+                "test": "vitest",
+                "test:unit": "vitest --project unit",
+                "test:wire": "vitest --project wire",
+                "docs": "typedoc",
+                "docs:watch": "typedoc --watch",
+                "lint:package": "publint --pack pnpm",
+                "prepare": "husky"
+            },
+            "dependencies": {
+                "@auth0/auth0-auth-js": "^1.1.0"
+            },
+            "devDependencies": {
+                "webpack": "^5.105.4",
+                "ts-loader": "^9.5.4",
+                "vitest": "^4.1.1",
+                "msw": "2.11.2",
+                "@types/node": "^22.0.0",
+                "typescript": "~5.9.3",
+                "prettier": "3.8.1",
+                "typedoc": "^0.28.13",
+                "typedoc-plugin-missing-exports": "^4.1.0",
+                "husky": "^9.1.7",
+                "lint-staged": "^16.2.4",
+                "@eslint/js": "^9.37.0",
+                "eslint": "^9.37.0",
+                "typescript-eslint": "^8.46.1",
+                "publint": "^0.3.15"
+            },
+            "browser": {
+                "fs": false,
+                "os": false,
+                "path": false,
+                "stream": false,
+                "crypto": false
+            },
+            "packageManager": "pnpm@10.33.0",
+            "engines": {
+                "node": ">=20.0.0"
+            },
+            "sideEffects": false,
+            "description": "Auth0 SDK for JavaScript/TypeScript to manage organizations, members, roles, and identity providers",
+            "author": "Auth0",
+            "keywords": [
+                "auth0",
+                "authentication",
+                "authorization",
+                "organizations",
+                "identity",
+                "auth",
+                "sdk",
+                "typescript",
+                "javascript"
+            ],
+            "homepage": "https://github.com/auth0/myorganization-js#readme",
+            "bugs": {
+                "url": "https://github.com/auth0/myorganization-js/issues"
+            },
+            "publishConfig": {
+                "access": "public"
+            },
+            "lint-staged": {
+                "*.{js,jsx,ts,tsx}": [
+                    "eslint --fix",
+                    "prettier --write"
+                ],
+                "*.{json,css,md}": [
+                    "prettier --write"
+                ]
+            }
+        }
+      src/version.ts: |
+        export const SDK_VERSION = "2.0.0";
     status: unresolved

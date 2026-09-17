@@ -6,6 +6,6 @@ import * as MyOrganization from "../index.js";
  * Cross-app access resource application configuration.
  */
 export interface CrossAppAccessResourceApp {
-    /** The status of the cross-app access resource application. */
+    /** The status of the cross-app access resource application role. To enable the cross-app access resource application role, OIDC issuer domain must be a verified domain for the organization. */
     status: MyOrganization.CrossAppAccessResourceAppStatusEnum;
 }
