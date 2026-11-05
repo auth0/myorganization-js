@@ -8,6 +8,9 @@ import * as environments from "../../../../../../environments.js";
 import { handleNonStatusCodeError } from "../../../../../../errors/handleNonStatusCodeError.js";
 import * as errors from "../../../../../../errors/index.js";
 import * as MyOrganization from "../../../../../index.js";
+import { ApisClient } from "../resources/apis/client/Client.js";
+import { IdentityProviderInstructionsClient } from "../resources/identityProviderInstructions/client/Client.js";
+import { IdentityProviderProvisioningInstructionsClient } from "../resources/identityProviderProvisioningInstructions/client/Client.js";
 import { IdentityProvidersClient } from "../resources/identityProviders/client/Client.js";
 
 export declare namespace ConfigurationClient {
@@ -18,18 +21,35 @@ export declare namespace ConfigurationClient {
 
 export class ConfigurationClient {
     protected readonly _options: NormalizedClientOptionsWithAuth<ConfigurationClient.Options>;
+    protected _apis: ApisClient | undefined;
     protected _identityProviders: IdentityProvidersClient | undefined;
+    protected _identityProviderInstructions: IdentityProviderInstructionsClient | undefined;
+    protected _identityProviderProvisioningInstructions: IdentityProviderProvisioningInstructionsClient | undefined;
 
     constructor(options: ConfigurationClient.Options) {
         this._options = normalizeClientOptionsWithAuth(options);
+    }
+
+    public get apis(): ApisClient {
+        return (this._apis ??= new ApisClient(this._options));
     }
 
     public get identityProviders(): IdentityProvidersClient {
         return (this._identityProviders ??= new IdentityProvidersClient(this._options));
     }
 
+    public get identityProviderInstructions(): IdentityProviderInstructionsClient {
+        return (this._identityProviderInstructions ??= new IdentityProviderInstructionsClient(this._options));
+    }
+
+    public get identityProviderProvisioningInstructions(): IdentityProviderProvisioningInstructionsClient {
+        return (this._identityProviderProvisioningInstructions ??= new IdentityProviderProvisioningInstructionsClient(
+            this._options,
+        ));
+    }
+
     /**
-     * Retrieve the My Organization API configuration. Returns only the `connection_deletion_behavior` and `allowed_strategies`. Identifier attributes such as `user_attribute_profile_id` and `connection_profile_id` are not included. Cache this information, as it does not change frequently.
+     * Retrieve the My Organization API configuration. Returns the `allowed_strategies`, `connection_deletion_behavior`, `organization_deletion_behavior`, and (when enabled) `third_party_client_access` settings. Identifier attributes such as `user_attribute_profile_id` and `connection_profile_id` are not included. Cache this information, as it does not change frequently.
      *
      * @param {ConfigurationClient.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -37,6 +57,8 @@ export class ConfigurationClient {
      * @throws {@link MyOrganization.ForbiddenError}
      * @throws {@link MyOrganization.NotFoundError}
      * @throws {@link MyOrganization.TooManyRequestsError}
+     * @throws {@link errors.MyOrganizationError}
+     * @throws {@link errors.MyOrganizationTimeoutError}
      *
      * @example
      *     await client.organization.configuration.get()

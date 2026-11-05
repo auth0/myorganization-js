@@ -1,5 +1,8 @@
+export * as clientGrants from "./clientGrants/index.js";
+export * as clients from "./clients/index.js";
 export * as configuration from "./configuration/index.js";
 export * as domains from "./domains/index.js";
+export * as groups from "./groups/index.js";
 export * as identityProviders from "./identityProviders/index.js";
 export * as invitations from "./invitations/index.js";
 export * as members from "./members/index.js";

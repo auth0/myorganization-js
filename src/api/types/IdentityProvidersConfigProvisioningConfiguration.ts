@@ -8,4 +8,7 @@ import * as MyOrganization from "../index.js";
 export interface IdentityProvidersConfigProvisioningConfiguration {
     on_login?: MyOrganization.IdentityProvidersConfigProvisioningConfigurationOnLogin | undefined;
     scim?: (MyOrganization.IdentityProvidersConfigProvisioningConfigurationScim | null) | undefined;
+    google_workspace?:
+        | (MyOrganization.IdentityProvidersConfigProvisioningConfigurationGoogleWorkspace | null)
+        | undefined;
 }

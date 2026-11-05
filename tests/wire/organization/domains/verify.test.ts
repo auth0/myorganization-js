@@ -16,6 +16,7 @@ describe("VerifyClient", () => {
             status: "pending",
             verification_txt: "dove_text=asdfpiujnlewp-23849jdkfjzxcfpiawer",
             verification_host: "_ss-verification.org_zW1UHutvkVWSWdCC.acme.com",
+            use_for_organization_discovery: true,
         };
 
         server

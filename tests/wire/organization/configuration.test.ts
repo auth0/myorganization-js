@@ -12,7 +12,9 @@ describe("ConfigurationClient", () => {
         const rawResponseBody = {
             allowed_strategies: ["adfs", "pingfederate"],
             connection_deletion_behavior: "allow",
+            organization_deletion_behavior: "allow_if_empty",
             third_party_client_access: { default_value: "allow", allowed_values: ["allow"] },
+            use_for_organization_discovery: { default_value: true, allowed_values: [true] },
         };
 
         server.mockEndpoint().get("/config").respondWith().statusCode(200).jsonBody(rawResponseBody).build();

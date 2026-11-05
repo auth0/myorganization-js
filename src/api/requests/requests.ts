@@ -40,6 +40,18 @@ export interface ListOrganizationDomainsRequestParameters {
  */
 export interface CreateOrganizationDomainRequestContent {
     domain: MyOrganization.OrgDomainName;
+    use_for_organization_discovery?: MyOrganization.OrgDomainUseForOrganizationDiscovery;
+}
+
+/**
+ * @example
+ *     {
+ *         use_for_organization_discovery: true
+ *     }
+ */
+export interface UpdateOrganizationDomainRequestContent {
+    /** Whether the domain is used for organization discovery. Must be one of the `allowed_values` configured in the Organization Template. */
+    use_for_organization_discovery: boolean;
 }
 
 /**
@@ -184,6 +196,39 @@ export interface GetMemberInvitationRequestParameters {
 /**
  * @example
  *     {
+ *         client_id: "client_id",
+ *         audience: "audience",
+ *         scope: ["scope"]
+ *     }
+ */
+export interface CreateClientGrantRequestContent {
+    /** ID of the client. */
+    client_id: string;
+    /** The audience (API identifier) of this client grant. */
+    audience: string;
+    /** Scopes allowed for this client grant. */
+    scope: string[];
+    subject_type?: MyOrganization.SubjectTypeEnum;
+}
+
+/**
+ * @example
+ *     {
+ *         name: "name"
+ *     }
+ */
+export interface CreateClientRequestContent {
+    name: MyOrganization.ClientName;
+    description?: MyOrganization.ClientDescription;
+    app_type?: MyOrganization.ClientAppTypeEnum;
+    token_endpoint_auth_method?: MyOrganization.ClientTokenEndpointAuthMethodEnum;
+    grant_types?: MyOrganization.ClientGrantTypes;
+    jwt_configuration?: MyOrganization.ClientJwtConfiguration;
+}
+
+/**
+ * @example
+ *     {
  *         from: "from",
  *         take: 1,
  *         name: "name"
@@ -201,6 +246,56 @@ export interface ListRolesRequestParameters {
 /**
  * @example
  *     {
+ *         from: "from",
+ *         take: 1
+ *     }
+ */
+export interface ListGroupsRequestParameters {
+    /** An optional cursor from which to start the selection (exclusive). */
+    from?: string | null;
+    /** Number of results per page. Defaults to 50. */
+    take?: number | null;
+}
+
+/**
+ * @example
+ *     {
+ *         locale: "en"
+ *     }
+ */
+export interface GetIdentityProviderInstructionsRequestParameters {
+    /** The language the instructions should be returned in. Defaults to `en`. If instructions have not yet been translated into the requested locale, `en` is returned. */
+    locale?: MyOrganization.IdpInstructionsLocaleEnum | null;
+}
+
+/**
+ * @example
+ *     {
+ *         locale: "en"
+ *     }
+ */
+export interface GetIdentityProviderProvisioningInstructionsRequestParameters {
+    /** The language the instructions should be returned in. Defaults to `en`. If instructions have not yet been translated into the requested locale, `en` is returned. */
+    locale?: MyOrganization.IdpInstructionsLocaleEnum | null;
+}
+
+/**
+ * @example
+ *     {
+ *         from: "from",
+ *         take: 1
+ *     }
+ */
+export interface ListGroupRolesRequestParameters {
+    /** An optional cursor from which to start the selection (exclusive). */
+    from?: string | null;
+    /** Number of results per page. Defaults to 50. */
+    take?: number | null;
+}
+
+/**
+ * @example
+ *     {
  *         domain: "my-domain.com"
  *     }
  */
@@ -211,12 +306,25 @@ export interface CreateIdpDomainRequestContent {
 /**
  * @example
  *     {
+ *         synchronize_automatically: true
+ *     }
+ */
+export interface UpdateDirectoryProvisioningRequestContent {
+    /** Enable or disable periodic automatic synchronization. */
+    synchronize_automatically?: boolean;
+}
+
+/**
+ * @example
+ *     {
  *         token_lifetime: 86400
  *     }
  */
 export interface CreateIdpProvisioningScimTokenRequestContent {
-    /** Lifetime of the token in seconds. Do not set for non-expiring tokens. */
-    token_lifetime?: number;
+    /** Lifetime of the token in seconds. If omitted, the connection profile's default expiry applies, or its maximum allowed expiry if no default is set; if neither is set, the token does not expire. Set to null for a non-expiring token; this is rejected if the connection profile sets a maximum allowed expiry. */
+    token_lifetime?: number | null;
+    /** The scopes of the token. Must be a subset of the scopes allowed by the connection profile. Defaults to all the scopes allowed by the connection profile. */
+    scopes?: MyOrganization.IdentityProvidersConfigProvisioningConfigurationScimTokensScopesEnum[];
 }
 
 /**
