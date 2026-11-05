@@ -36,6 +36,8 @@ export class RolesClient {
      * @throws {@link MyOrganization.ForbiddenError}
      * @throws {@link MyOrganization.NotFoundError}
      * @throws {@link MyOrganization.TooManyRequestsError}
+     * @throws {@link errors.MyOrganizationError}
+     * @throws {@link errors.MyOrganizationTimeoutError}
      *
      * @example
      *     await client.organization.invitations.roles.list("invitation_id")
@@ -70,7 +72,7 @@ export class RolesClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.MyOrganizationEnvironment.Default,
-                `member-invitations/${core.url.encodePathParam(invitation_id)}/roles`,
+                `member-invitations/${core.url.encodePathParam(invitation_id, errors.MyOrganizationError)}/roles`,
             ),
             method: "GET",
             headers: _headers,

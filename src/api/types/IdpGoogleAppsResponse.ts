@@ -6,7 +6,7 @@ import * as MyOrganization from "../index.js";
  * Identity provider specific options.
  */
 export interface IdpGoogleAppsResponse {
-    strategy: IdpGoogleAppsResponse.Strategy;
+    strategy: "google-apps";
     /** Identity provider specific options. */
     options?: MyOrganization.IdpGoogleAppsOptionsResponse | undefined;
     id?: MyOrganization.IdpId | undefined;
@@ -29,11 +29,4 @@ export interface IdpGoogleAppsResponse {
     use_for_third_party_client_access?: boolean | undefined;
     /** Cross-app access resource application configuration. Only present when the cross-app access resource application feature is enabled for your organization. */
     cross_app_access_resource_app?: MyOrganization.CrossAppAccessResourceApp | undefined;
-}
-
-export namespace IdpGoogleAppsResponse {
-    export const Strategy = {
-        GoogleApps: "google-apps",
-    } as const;
-    export type Strategy = (typeof Strategy)[keyof typeof Strategy];
 }

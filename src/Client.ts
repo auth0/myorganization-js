@@ -15,19 +15,19 @@ export declare namespace MyOrganizationClient {
 
 export class MyOrganizationClient {
     protected readonly _options: NormalizedClientOptionsWithAuth<MyOrganizationClient.Options>;
-    protected _organizationDetails: OrganizationDetailsClient | undefined;
     protected _organization: OrganizationClient | undefined;
+    protected _organizationDetails: OrganizationDetailsClient | undefined;
 
     constructor(options: MyOrganizationClient.Options) {
         this._options = normalizeClientOptionsWithAuth(options);
     }
 
-    public get organizationDetails(): OrganizationDetailsClient {
-        return (this._organizationDetails ??= new OrganizationDetailsClient(this._options));
-    }
-
     public get organization(): OrganizationClient {
         return (this._organization ??= new OrganizationClient(this._options));
+    }
+
+    public get organizationDetails(): OrganizationDetailsClient {
+        return (this._organizationDetails ??= new OrganizationDetailsClient(this._options));
     }
 
     /**

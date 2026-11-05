@@ -6,7 +6,7 @@ import * as MyOrganization from "../index.js";
  * Identity provider specific options.
  */
 export interface IdpWaadResponse {
-    strategy: IdpWaadResponse.Strategy;
+    strategy: "waad";
     /** Identity provider specific options. */
     options?: MyOrganization.IdpWaadOptionsResponse | undefined;
     id?: MyOrganization.IdpId | undefined;
@@ -29,11 +29,4 @@ export interface IdpWaadResponse {
     use_for_third_party_client_access?: boolean | undefined;
     /** Cross-app access resource application configuration. Only present when the cross-app access resource application feature is enabled for your organization. */
     cross_app_access_resource_app?: MyOrganization.CrossAppAccessResourceApp | undefined;
-}
-
-export namespace IdpWaadResponse {
-    export const Strategy = {
-        Waad: "waad",
-    } as const;
-    export type Strategy = (typeof Strategy)[keyof typeof Strategy];
 }

@@ -7,6 +7,7 @@ import {
 } from "../../../../../../../../../../BaseClient.js";
 import * as core from "../../../../../../../../../../core/index.js";
 import { mergeHeaders } from "../../../../../../../../../../core/headers.js";
+import { mergeAdditionalBodyParameters } from "../../../../../../../../../../core/requestBody.js";
 import * as environments from "../../../../../../../../../../environments.js";
 import { handleNonStatusCodeError } from "../../../../../../../../../../errors/handleNonStatusCodeError.js";
 import * as errors from "../../../../../../../../../../errors/index.js";
@@ -36,6 +37,8 @@ export class ScimTokensClient {
      * @throws {@link MyOrganization.ForbiddenError}
      * @throws {@link MyOrganization.NotFoundError}
      * @throws {@link MyOrganization.TooManyRequestsError}
+     * @throws {@link errors.MyOrganizationError}
+     * @throws {@link errors.MyOrganizationTimeoutError}
      *
      * @example
      *     await client.organization.identityProviders.provisioning.scimTokens.list("idp_id")
@@ -70,7 +73,7 @@ export class ScimTokensClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.MyOrganizationEnvironment.Default,
-                `identity-providers/${core.url.encodePathParam(idp_id)}/provisioning/scim-tokens`,
+                `identity-providers/${core.url.encodePathParam(idp_id, errors.MyOrganizationError)}/provisioning/scim-tokens`,
             ),
             method: "GET",
             headers: _headers,
@@ -142,6 +145,8 @@ export class ScimTokensClient {
      * @throws {@link MyOrganization.ForbiddenError}
      * @throws {@link MyOrganization.NotFoundError}
      * @throws {@link MyOrganization.TooManyRequestsError}
+     * @throws {@link errors.MyOrganizationError}
+     * @throws {@link errors.MyOrganizationTimeoutError}
      *
      * @example
      *     await client.organization.identityProviders.provisioning.scimTokens.create("idp_id", {
@@ -180,14 +185,14 @@ export class ScimTokensClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.MyOrganizationEnvironment.Default,
-                `identity-providers/${core.url.encodePathParam(idp_id)}/provisioning/scim-tokens`,
+                `identity-providers/${core.url.encodePathParam(idp_id, errors.MyOrganizationError)}/provisioning/scim-tokens`,
             ),
             method: "POST",
             headers: _headers,
             contentType: "application/json",
             queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
             requestType: "json",
-            body: request,
+            body: mergeAdditionalBodyParameters(request, requestOptions?.additionalBodyParameters),
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -255,6 +260,8 @@ export class ScimTokensClient {
      * @throws {@link MyOrganization.ForbiddenError}
      * @throws {@link MyOrganization.NotFoundError}
      * @throws {@link MyOrganization.TooManyRequestsError}
+     * @throws {@link errors.MyOrganizationError}
+     * @throws {@link errors.MyOrganizationTimeoutError}
      *
      * @example
      *     await client.organization.identityProviders.provisioning.scimTokens.delete("idp_id", "idp_scim_token_id")
@@ -291,7 +298,7 @@ export class ScimTokensClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.MyOrganizationEnvironment.Default,
-                `identity-providers/${core.url.encodePathParam(idp_id)}/provisioning/scim-tokens/${core.url.encodePathParam(idp_scim_token_id)}`,
+                `identity-providers/${core.url.encodePathParam(idp_id, errors.MyOrganizationError)}/provisioning/scim-tokens/${core.url.encodePathParam(idp_scim_token_id, errors.MyOrganizationError)}`,
             ),
             method: "DELETE",
             headers: _headers,

@@ -19,6 +19,7 @@ describe("DomainsClient", () => {
                     status: "pending",
                     verification_txt: "dove_text=asdfpiujnlewp-23849jdkfjzxcfpiawer",
                     verification_host: "_ss-verification.org_zW1UHutvkVWSWdCC.acme.com",
+                    use_for_organization_discovery: true,
                 },
                 {
                     id: "ord_zW1UHetvkBWSWdCDe8DWq7",
@@ -27,6 +28,7 @@ describe("DomainsClient", () => {
                     status: "failed",
                     verification_txt: "dove_text=bcxzpiujnlewp-23849jdkfjzxcfpiawer",
                     verification_host: "_ss-verification.org_nW1UHutvkVWSWdCG.acme.com",
+                    use_for_organization_discovery: true,
                 },
             ],
         };
@@ -127,6 +129,7 @@ describe("DomainsClient", () => {
             status: "pending",
             verification_txt: "dove_text=asdfpiujnlewp-23849jdkfjzxcfpiawer",
             verification_host: "_ss-verification.org_zW1UHutvkVWSWdCC.acme.com",
+            use_for_organization_discovery: true,
         };
 
         server
@@ -287,6 +290,7 @@ describe("DomainsClient", () => {
             status: "pending",
             verification_txt: "dove_text=asdfpiujnlewp-23849jdkfjzxcfpiawer",
             verification_host: "_ss-verification.org_zW1UHutvkVWSWdCC.acme.com",
+            use_for_organization_discovery: true,
         };
 
         server.mockEndpoint().get("/domains/domain_id").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
@@ -462,6 +466,145 @@ describe("DomainsClient", () => {
 
         await expect(async () => {
             return await client.organization.domains.delete("domain_id");
+        }).rejects.toThrow(MyOrganization.TooManyRequestsError);
+    });
+
+    test("update (1)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
+        const rawRequestBody = { use_for_organization_discovery: true };
+        const rawResponseBody = {
+            id: "ord_aW1UHetvkBWSWdCCe8DWq7",
+            org_id: "org_zW1UHutvkVWSWdCC",
+            domain: "acme.com",
+            status: "verified",
+            verification_txt: "dove_text=asdfpiujnlewp-23849jdkfjzxcfpiawer",
+            verification_host: "_ss-verification.org_zW1UHutvkVWSWdCC.acme.com",
+            use_for_organization_discovery: true,
+        };
+
+        server
+            .mockEndpoint()
+            .patch("/domains/domain_id")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.organization.domains.update("domain_id", {
+            use_for_organization_discovery: true,
+        });
+        expect(response).toEqual(rawResponseBody);
+    });
+
+    test("update (2)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
+        const rawRequestBody = { use_for_organization_discovery: true };
+        const rawResponseBody = { key: "value" };
+
+        server
+            .mockEndpoint()
+            .patch("/domains/domain_id")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(400)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.organization.domains.update("domain_id", {
+                use_for_organization_discovery: true,
+            });
+        }).rejects.toThrow(MyOrganization.BadRequestError);
+    });
+
+    test("update (3)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
+        const rawRequestBody = { use_for_organization_discovery: true };
+        const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
+        server
+            .mockEndpoint()
+            .patch("/domains/domain_id")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.organization.domains.update("domain_id", {
+                use_for_organization_discovery: true,
+            });
+        }).rejects.toThrow(MyOrganization.UnauthorizedError);
+    });
+
+    test("update (4)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
+        const rawRequestBody = { use_for_organization_discovery: true };
+        const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
+        server
+            .mockEndpoint()
+            .patch("/domains/domain_id")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(403)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.organization.domains.update("domain_id", {
+                use_for_organization_discovery: true,
+            });
+        }).rejects.toThrow(MyOrganization.ForbiddenError);
+    });
+
+    test("update (5)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
+        const rawRequestBody = { use_for_organization_discovery: true };
+        const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
+        server
+            .mockEndpoint()
+            .patch("/domains/domain_id")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(404)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.organization.domains.update("domain_id", {
+                use_for_organization_discovery: true,
+            });
+        }).rejects.toThrow(MyOrganization.NotFoundError);
+    });
+
+    test("update (6)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
+        const rawRequestBody = { use_for_organization_discovery: true };
+        const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
+        server
+            .mockEndpoint()
+            .patch("/domains/domain_id")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(429)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.organization.domains.update("domain_id", {
+                use_for_organization_discovery: true,
+            });
         }).rejects.toThrow(MyOrganization.TooManyRequestsError);
     });
 });

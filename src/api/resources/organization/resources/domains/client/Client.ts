@@ -4,6 +4,7 @@ import type { BaseClientOptions, BaseRequestOptions } from "../../../../../../Ba
 import { normalizeClientOptionsWithAuth, type NormalizedClientOptionsWithAuth } from "../../../../../../BaseClient.js";
 import * as core from "../../../../../../core/index.js";
 import { mergeHeaders } from "../../../../../../core/headers.js";
+import { mergeAdditionalBodyParameters } from "../../../../../../core/requestBody.js";
 import * as environments from "../../../../../../environments.js";
 import { handleNonStatusCodeError } from "../../../../../../errors/handleNonStatusCodeError.js";
 import * as errors from "../../../../../../errors/index.js";
@@ -45,6 +46,8 @@ export class DomainsClient {
      * @throws {@link MyOrganization.ForbiddenError}
      * @throws {@link MyOrganization.NotFoundError}
      * @throws {@link MyOrganization.TooManyRequestsError}
+     * @throws {@link errors.MyOrganizationError}
+     * @throws {@link errors.MyOrganizationTimeoutError}
      *
      * @example
      *     await client.organization.domains.list({
@@ -169,6 +172,8 @@ export class DomainsClient {
      * @throws {@link MyOrganization.NotFoundError}
      * @throws {@link MyOrganization.ConflictError}
      * @throws {@link MyOrganization.TooManyRequestsError}
+     * @throws {@link errors.MyOrganizationError}
+     * @throws {@link errors.MyOrganizationTimeoutError}
      *
      * @example
      *     await client.organization.domains.create({
@@ -212,7 +217,7 @@ export class DomainsClient {
             contentType: "application/json",
             queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
             requestType: "json",
-            body: request,
+            body: mergeAdditionalBodyParameters(request, requestOptions?.additionalBodyParameters),
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -279,6 +284,8 @@ export class DomainsClient {
      * @throws {@link MyOrganization.ForbiddenError}
      * @throws {@link MyOrganization.NotFoundError}
      * @throws {@link MyOrganization.TooManyRequestsError}
+     * @throws {@link errors.MyOrganizationError}
+     * @throws {@link errors.MyOrganizationTimeoutError}
      *
      * @example
      *     await client.organization.domains.get("domain_id")
@@ -313,7 +320,7 @@ export class DomainsClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.MyOrganizationEnvironment.Default,
-                `domains/${core.url.encodePathParam(domain_id)}`,
+                `domains/${core.url.encodePathParam(domain_id, errors.MyOrganizationError)}`,
             ),
             method: "GET",
             headers: _headers,
@@ -379,6 +386,8 @@ export class DomainsClient {
      * @throws {@link MyOrganization.ForbiddenError}
      * @throws {@link MyOrganization.NotFoundError}
      * @throws {@link MyOrganization.TooManyRequestsError}
+     * @throws {@link errors.MyOrganizationError}
+     * @throws {@link errors.MyOrganizationTimeoutError}
      *
      * @example
      *     await client.organization.domains.delete("domain_id")
@@ -413,7 +422,7 @@ export class DomainsClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.MyOrganizationEnvironment.Default,
-                `domains/${core.url.encodePathParam(domain_id)}`,
+                `domains/${core.url.encodePathParam(domain_id, errors.MyOrganizationError)}`,
             ),
             method: "DELETE",
             headers: _headers,
@@ -463,5 +472,115 @@ export class DomainsClient {
         }
 
         return handleNonStatusCodeError(_response.error, _response.rawResponse, "DELETE", "/domains/{domain_id}");
+    }
+
+    /**
+     * Update an Auth0 Organization domain. Currently only `use_for_organization_discovery` can be updated. The value must be one of the `allowed_values` configured in the Organization Template.
+     *
+     * @param {MyOrganization.OrgDomainId} domain_id
+     * @param {MyOrganization.UpdateOrganizationDomainRequestContent} request
+     * @param {DomainsClient.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link MyOrganization.BadRequestError}
+     * @throws {@link MyOrganization.UnauthorizedError}
+     * @throws {@link MyOrganization.ForbiddenError}
+     * @throws {@link MyOrganization.NotFoundError}
+     * @throws {@link MyOrganization.TooManyRequestsError}
+     * @throws {@link errors.MyOrganizationError}
+     * @throws {@link errors.MyOrganizationTimeoutError}
+     *
+     * @example
+     *     await client.organization.domains.update("domain_id", {
+     *         use_for_organization_discovery: true
+     *     })
+     */
+    public update(
+        domain_id: MyOrganization.OrgDomainId,
+        request: MyOrganization.UpdateOrganizationDomainRequestContent,
+        requestOptions?: DomainsClient.RequestOptions,
+    ): core.HttpResponsePromise<MyOrganization.UpdateOrganizationDomainResponseContent> {
+        return core.HttpResponsePromise.fromPromise(this.__update(domain_id, request, requestOptions));
+    }
+
+    private async __update(
+        domain_id: MyOrganization.OrgDomainId,
+        request: MyOrganization.UpdateOrganizationDomainRequestContent,
+        requestOptions?: DomainsClient.RequestOptions,
+    ): Promise<core.WithRawResponse<MyOrganization.UpdateOrganizationDomainResponseContent>> {
+        const _metadata: core.EndpointMetadata = {
+            security: [
+                { OAuth2ClientCredentials: ["update:my_org:domains"] },
+                { OAuth2AuthCode: ["update:my_org:domains"] },
+            ],
+        };
+        const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest({
+            endpointMetadata: _metadata,
+        });
+        let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+            _authRequest.headers,
+            this._options?.headers,
+            requestOptions?.headers,
+        );
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: core.url.join(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.MyOrganizationEnvironment.Default,
+                `domains/${core.url.encodePathParam(domain_id, errors.MyOrganizationError)}`,
+            ),
+            method: "PATCH",
+            headers: _headers,
+            contentType: "application/json",
+            queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
+            requestType: "json",
+            body: mergeAdditionalBodyParameters(request, requestOptions?.additionalBodyParameters),
+            timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
+            maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+            endpointMetadata: _metadata,
+            fetchFn: this._options?.fetch,
+            logging: this._options.logging,
+        });
+        if (_response.ok) {
+            return {
+                data: _response.body as MyOrganization.UpdateOrganizationDomainResponseContent,
+                rawResponse: _response.rawResponse,
+            };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new MyOrganization.BadRequestError(_response.error.body as unknown, _response.rawResponse);
+                case 401:
+                    throw new MyOrganization.UnauthorizedError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
+                        _response.rawResponse,
+                    );
+                case 403:
+                    throw new MyOrganization.ForbiddenError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
+                        _response.rawResponse,
+                    );
+                case 404:
+                    throw new MyOrganization.NotFoundError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
+                        _response.rawResponse,
+                    );
+                case 429:
+                    throw new MyOrganization.TooManyRequestsError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.MyOrganizationError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        return handleNonStatusCodeError(_response.error, _response.rawResponse, "PATCH", "/domains/{domain_id}");
     }
 }

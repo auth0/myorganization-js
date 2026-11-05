@@ -4,6 +4,8 @@ import * as MyOrganization from "../index.js";
 
 export interface OrgMemberBase extends MyOrganization.UserAttributes {
     user_id?: MyOrganization.OrgMemberIdReadOnly | undefined;
+    /** URL to the member's profile picture. */
+    picture?: string | undefined;
     /** Date and time when this user was created (ISO_8601 format). */
     created_at?: string | undefined;
     /** Date and time when this user was last updated (ISO_8601 format). */
