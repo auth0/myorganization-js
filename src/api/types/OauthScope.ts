@@ -56,6 +56,12 @@ export const OauthScope = {
      * Delete provisioning configuration for identity provider */
     DeleteMyOrgIdentityProvidersProvisioning: "delete:my_org:identity_providers_provisioning",
     /**
+     * Start identity provider tests for organization */
+    CreateMyOrgIdentityProvidersTests: "create:my_org:identity_providers_tests",
+    /**
+     * Read identity provider tests for organization */
+    ReadMyOrgIdentityProvidersTests: "read:my_org:identity_providers_tests",
+    /**
      * Create a provisioning SCIM token for this identity provider */
     CreateMyOrgIdentityProvidersScimTokens: "create:my_org:identity_providers_scim_tokens",
     /**
@@ -106,5 +112,17 @@ export const OauthScope = {
     /**
      * Delete this organization */
     DeleteMyOrgOrganizations: "delete:my_org:organizations",
+    /**
+     * List connection groups for organization */
+    ReadMyOrgGroups: "read:my_org:groups",
+    /**
+     * List roles for a group in organization */
+    ReadMyOrgGroupRoles: "read:my_org:group_roles",
+    /**
+     * Assign roles to a group in organization */
+    CreateMyOrgGroupRoles: "create:my_org:group_roles",
+    /**
+     * Remove roles from a group in organization */
+    DeleteMyOrgGroupRoles: "delete:my_org:group_roles",
 } as const;
 export type OauthScope = (typeof OauthScope)[keyof typeof OauthScope];

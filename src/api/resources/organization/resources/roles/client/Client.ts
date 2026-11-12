@@ -32,6 +32,8 @@ export class RolesClient {
      * @throws {@link MyOrganization.UnauthorizedError}
      * @throws {@link MyOrganization.ForbiddenError}
      * @throws {@link MyOrganization.TooManyRequestsError}
+     * @throws {@link errors.MyOrganizationError}
+     * @throws {@link errors.MyOrganizationTimeoutError}
      *
      * @example
      *     await client.organization.roles.list({

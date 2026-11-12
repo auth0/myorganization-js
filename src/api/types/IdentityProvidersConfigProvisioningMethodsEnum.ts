@@ -3,6 +3,7 @@
 /** The provisioning method for the identity provider */
 export const IdentityProvidersConfigProvisioningMethodsEnum = {
     Scim: "scim",
+    GoogleWorkspace: "google_workspace",
 } as const;
 export type IdentityProvidersConfigProvisioningMethodsEnum =
     (typeof IdentityProvidersConfigProvisioningMethodsEnum)[keyof typeof IdentityProvidersConfigProvisioningMethodsEnum];

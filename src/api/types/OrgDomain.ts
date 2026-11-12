@@ -11,4 +11,5 @@ export interface OrgDomain {
     verification_txt: string;
     /** Stores the full domain where the TXT record should be added. */
     verification_host: string;
+    identity_provider_association?: MyOrganization.OrgDomainIdentityProviderAssociationEnum | undefined;
 }
