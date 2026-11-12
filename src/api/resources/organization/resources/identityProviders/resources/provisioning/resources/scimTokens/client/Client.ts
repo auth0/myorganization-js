@@ -7,6 +7,7 @@ import {
 } from "../../../../../../../../../../BaseClient.js";
 import * as core from "../../../../../../../../../../core/index.js";
 import { mergeHeaders } from "../../../../../../../../../../core/headers.js";
+import { mergeAdditionalBodyParameters } from "../../../../../../../../../../core/requestBody.js";
 import * as environments from "../../../../../../../../../../environments.js";
 import { handleNonStatusCodeError } from "../../../../../../../../../../errors/handleNonStatusCodeError.js";
 import * as errors from "../../../../../../../../../../errors/index.js";
@@ -36,6 +37,8 @@ export class ScimTokensClient {
      * @throws {@link MyOrganization.ForbiddenError}
      * @throws {@link MyOrganization.NotFoundError}
      * @throws {@link MyOrganization.TooManyRequestsError}
+     * @throws {@link errors.MyOrganizationError}
+     * @throws {@link errors.MyOrganizationTimeoutError}
      *
      * @example
      *     await client.organization.identityProviders.provisioning.scimTokens.list("idp_id")
@@ -70,7 +73,7 @@ export class ScimTokensClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.MyOrganizationEnvironment.Default,
-                `identity-providers/${core.url.encodePathParam(idp_id)}/provisioning/scim-tokens`,
+                `identity-providers/${core.url.encodePathParam(idp_id, errors.MyOrganizationError)}/provisioning/scim-tokens`,
             ),
             method: "GET",
             headers: _headers,
@@ -142,6 +145,8 @@ export class ScimTokensClient {
      * @throws {@link MyOrganization.ForbiddenError}
      * @throws {@link MyOrganization.NotFoundError}
      * @throws {@link MyOrganization.TooManyRequestsError}
+     * @throws {@link errors.MyOrganizationError}
+     * @throws {@link errors.MyOrganizationTimeoutError}
      *
      * @example
      *     await client.organization.identityProviders.provisioning.scimTokens.create("idp_id", {
@@ -180,14 +185,14 @@ export class ScimTokensClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.MyOrganizationEnvironment.Default,
-                `identity-providers/${core.url.encodePathParam(idp_id)}/provisioning/scim-tokens`,
+                `identity-providers/${core.url.encodePathParam(idp_id, errors.MyOrganizationError)}/provisioning/scim-tokens`,
             ),
             method: "POST",
             headers: _headers,
             contentType: "application/json",
             queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
             requestType: "json",
-            body: request,
+            body: mergeAdditionalBodyParameters(request, requestOptions?.additionalBodyParameters),
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -244,6 +249,116 @@ export class ScimTokensClient {
     }
 
     /**
+     * Retrieve the metadata of a SCIM token specified by token ID for the Provisioning Configuration of an Identity Provider specified by ID for this Organization. The token value is never returned.
+     *
+     * @param {MyOrganization.IdpId} idp_id
+     * @param {MyOrganization.IdpProvisioningScimTokenId} idp_scim_token_id
+     * @param {ScimTokensClient.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link MyOrganization.BadRequestError}
+     * @throws {@link MyOrganization.UnauthorizedError}
+     * @throws {@link MyOrganization.ForbiddenError}
+     * @throws {@link MyOrganization.NotFoundError}
+     * @throws {@link MyOrganization.TooManyRequestsError}
+     * @throws {@link errors.MyOrganizationError}
+     * @throws {@link errors.MyOrganizationTimeoutError}
+     *
+     * @example
+     *     await client.organization.identityProviders.provisioning.scimTokens.get("idp_id", "idp_scim_token_id")
+     */
+    public get(
+        idp_id: MyOrganization.IdpId,
+        idp_scim_token_id: MyOrganization.IdpProvisioningScimTokenId,
+        requestOptions?: ScimTokensClient.RequestOptions,
+    ): core.HttpResponsePromise<MyOrganization.GetIdpProvisioningScimTokenResponseContent> {
+        return core.HttpResponsePromise.fromPromise(this.__get(idp_id, idp_scim_token_id, requestOptions));
+    }
+
+    private async __get(
+        idp_id: MyOrganization.IdpId,
+        idp_scim_token_id: MyOrganization.IdpProvisioningScimTokenId,
+        requestOptions?: ScimTokensClient.RequestOptions,
+    ): Promise<core.WithRawResponse<MyOrganization.GetIdpProvisioningScimTokenResponseContent>> {
+        const _metadata: core.EndpointMetadata = {
+            security: [
+                { OAuth2ClientCredentials: ["read:my_org:identity_providers_scim_tokens"] },
+                { OAuth2AuthCode: ["read:my_org:identity_providers_scim_tokens"] },
+            ],
+        };
+        const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest({
+            endpointMetadata: _metadata,
+        });
+        let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+            _authRequest.headers,
+            this._options?.headers,
+            requestOptions?.headers,
+        );
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: core.url.join(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.MyOrganizationEnvironment.Default,
+                `identity-providers/${core.url.encodePathParam(idp_id, errors.MyOrganizationError)}/provisioning/scim-tokens/${core.url.encodePathParam(idp_scim_token_id, errors.MyOrganizationError)}`,
+            ),
+            method: "GET",
+            headers: _headers,
+            queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
+            timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
+            maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+            endpointMetadata: _metadata,
+            fetchFn: this._options?.fetch,
+            logging: this._options.logging,
+        });
+        if (_response.ok) {
+            return {
+                data: _response.body as MyOrganization.GetIdpProvisioningScimTokenResponseContent,
+                rawResponse: _response.rawResponse,
+            };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new MyOrganization.BadRequestError(_response.error.body as unknown, _response.rawResponse);
+                case 401:
+                    throw new MyOrganization.UnauthorizedError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
+                        _response.rawResponse,
+                    );
+                case 403:
+                    throw new MyOrganization.ForbiddenError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
+                        _response.rawResponse,
+                    );
+                case 404:
+                    throw new MyOrganization.NotFoundError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
+                        _response.rawResponse,
+                    );
+                case 429:
+                    throw new MyOrganization.TooManyRequestsError(
+                        _response.error.body as MyOrganization.ErrorResponseContent,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.MyOrganizationError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        return handleNonStatusCodeError(
+            _response.error,
+            _response.rawResponse,
+            "GET",
+            "/identity-providers/{idp_id}/provisioning/scim-tokens/{idp_scim_token_id}",
+        );
+    }
+
+    /**
      * Revoke a SCIM token specified by token ID for the Provisioning Configuration of an Identity Provider specified by ID for this Organization.
      *
      * @param {MyOrganization.IdpId} idp_id
@@ -255,6 +370,8 @@ export class ScimTokensClient {
      * @throws {@link MyOrganization.ForbiddenError}
      * @throws {@link MyOrganization.NotFoundError}
      * @throws {@link MyOrganization.TooManyRequestsError}
+     * @throws {@link errors.MyOrganizationError}
+     * @throws {@link errors.MyOrganizationTimeoutError}
      *
      * @example
      *     await client.organization.identityProviders.provisioning.scimTokens.delete("idp_id", "idp_scim_token_id")
@@ -291,7 +408,7 @@ export class ScimTokensClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.MyOrganizationEnvironment.Default,
-                `identity-providers/${core.url.encodePathParam(idp_id)}/provisioning/scim-tokens/${core.url.encodePathParam(idp_scim_token_id)}`,
+                `identity-providers/${core.url.encodePathParam(idp_id, errors.MyOrganizationError)}/provisioning/scim-tokens/${core.url.encodePathParam(idp_scim_token_id, errors.MyOrganizationError)}`,
             ),
             method: "DELETE",
             headers: _headers,

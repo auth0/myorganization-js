@@ -1,5 +1,22 @@
 # Change Log
 
+## [v2.1.0](https://github.com/auth0/myorganization-js/tree/v2.1.0) (2026-09-17)
+
+[Full Changelog](https://github.com/auth0/myorganization-js/compare/v2.0.0...v2.1.0)
+
+**Added**
+
+- Added organization member management to the stable package on `client.organization` [\#68](https://github.com/auth0/myorganization-js/pull/68)
+    - `members.list()` (paginated) and `members.get(user_id)` for reading members
+    - `members.roles.list(user_id)` (paginated), `members.roles.assign(user_id, { role_ids })`, and `members.roles.unassign(user_id, { role_ids })` for member role management
+    - `invitations.list()` (paginated), `invitations.create()`, `invitations.get(invitation_id)`, `invitations.delete({ invitations })`, and `invitations.roles.list(invitation_id)` for member invitations
+    - `memberships.deleteMemberships({ members })` for removing members from the organization
+    - `roles.list()` (paginated) for listing organization roles
+    - `userStores.list()` for listing user stores, with `member_access_level` and `is_enabled` filters
+- Added SCIM provisioning configuration on identity providers via the optional `provisioning` field, including `on_login` behavior and `scim` token scopes (`get:users`, `post:users`, `patch:users`, `delete:users`, `put:users`) [\#68](https://github.com/auth0/myorganization-js/pull/68)
+- Added `OrganizationMemberAccessLevelEnum` along with the `access_level` field on organization members and the `member_access_level` field on user stores [\#68](https://github.com/auth0/myorganization-js/pull/68)
+- Added the `UserStore` type and member invitation types, including `MemberInvitation` and `CreateMemberInvitationInvitee`, plus the request and response content for creating, listing, and deleting invitations [\#68](https://github.com/auth0/myorganization-js/pull/68)
+
 ## [v2.0.0](https://github.com/auth0/myorganization-js/tree/v2.0.0) (2026-08-26)
 
 [Full Changelog](https://github.com/auth0/myorganization-js/compare/v1.1.1...v2.0.0)

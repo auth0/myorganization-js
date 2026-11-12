@@ -5,6 +5,8 @@ import * as errors from "../../errors/index.js";
 import * as MyOrganization from "../index.js";
 
 export class TooManyRequestsError extends errors.MyOrganizationError {
+    declare public readonly body: MyOrganization.ErrorResponseContent;
+
     constructor(body: MyOrganization.ErrorResponseContent, rawResponse?: core.RawResponse) {
         super({
             message: "TooManyRequestsError",
@@ -17,6 +19,6 @@ export class TooManyRequestsError extends errors.MyOrganizationError {
             Error.captureStackTrace(this, this.constructor);
         }
 
-        this.name = this.constructor.name;
+        this.name = "TooManyRequestsError";
     }
 }

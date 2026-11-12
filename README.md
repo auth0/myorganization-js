@@ -29,9 +29,9 @@ npm install @auth0/myorganization-js
 ```
 
 > [!NOTE]
-> **Release channels.** Endpoints move through three maturity tiers: Generally Available, Early Access, and Beta. This package is published on two channels. The stable channel (`npm install @auth0/myorganization-js`) includes the Generally Available and Early Access endpoints. The beta channel (`npm install @auth0/myorganization-js@beta`) is a superset that includes all three tiers, including member management.
+> **Release channels.** Endpoints move through three maturity tiers: Generally Available, Early Access, and Beta. This package is published on two channels. The stable channel (`npm install @auth0/myorganization-js`) includes the Generally Available and Early Access endpoints. The beta channel (`npm install @auth0/myorganization-js@beta`) is a superset that includes all three tiers.
 >
-> Starting with v2.0.0, member management (members, invitations, roles, and memberships) becomes a Beta-tier feature and is no longer part of the stable SDK. It lives on the beta channel going forward. If your application manages members, install the beta package. See the [migration guide](./MIGRATION.md) for details.
+> As of v2.1.0, member management (members, invitations, roles, memberships, and user stores) is available in the stable SDK on `client.organization`. See the [migration guide](./MIGRATION.md) for details.
 
 ### Configure the SDK
 
