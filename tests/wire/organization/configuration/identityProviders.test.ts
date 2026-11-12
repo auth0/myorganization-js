@@ -32,6 +32,7 @@ describe("IdentityProvidersClient", () => {
                 },
                 waad: { enabled_features: ["provisioning"], provisioning_methods: ["scim"] },
             },
+            domain_aliases_config: { domain_verification: "optional" },
         };
 
         server

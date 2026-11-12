@@ -36,6 +36,8 @@ export class IdentityProvidersClient {
      * @throws {@link MyOrganization.ForbiddenError}
      * @throws {@link MyOrganization.NotFoundError}
      * @throws {@link MyOrganization.TooManyRequestsError}
+     * @throws {@link errors.MyOrganizationError}
+     * @throws {@link errors.MyOrganizationTimeoutError}
      *
      * @example
      *     await client.organization.domains.identityProviders.list("domain_id")
@@ -70,7 +72,7 @@ export class IdentityProvidersClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.MyOrganizationEnvironment.Default,
-                `domains/${core.url.encodePathParam(domain_id)}/identity-providers`,
+                `domains/${core.url.encodePathParam(domain_id, errors.MyOrganizationError)}/identity-providers`,
             ),
             method: "GET",
             headers: _headers,
