@@ -42,6 +42,7 @@ export default [
             "@typescript-eslint/restrict-template-expressions": "off",
             "@typescript-eslint/no-misused-promises": "off",
             "@typescript-eslint/no-unnecessary-type-assertion": "warn",
+            "@typescript-eslint/prefer-promise-reject-errors": "off",
         },
     },
     // Relaxed rules for core/generated files
@@ -60,6 +61,8 @@ export default [
             "@typescript-eslint/no-base-to-string": "off",
             "@typescript-eslint/no-unused-vars": "off",
             "@typescript-eslint/no-unnecessary-type-assertion": "off",
+            "@typescript-eslint/only-throw-error": "off",
+            "@typescript-eslint/prefer-promise-reject-errors": "off",
             "no-case-declarations": "off",
             "no-empty": "warn",
             "prefer-const": "off",
