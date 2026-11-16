@@ -1,5 +1,28 @@
 # Change Log
 
+## [v2.2.0](https://github.com/auth0/myorganization-js/tree/v2.2.0) (2026-11-16)
+
+[Full Changelog](https://github.com/auth0/myorganization-js/compare/v2.1.0...v2.2.0)
+
+**Breaking**
+
+- Removed the under-development `client.organizationDetails.delete()` endpoint (`DELETE /`) from the SDK [\#72](https://github.com/auth0/myorganization-js/pull/72)
+
+**Added**
+
+- Added `client.organization.identityProviders.provisioning.scimTokens.get(idp_id, idp_scim_token_id)` to retrieve SCIM token metadata (`GET /identity-providers/{idp_id}/provisioning/scim-tokens/{idp_scim_token_id}`). The token value is never returned [\#72](https://github.com/auth0/myorganization-js/pull/72)
+- Added `scopes` on `CreateIdpProvisioningScimTokenRequestContent`, limited to scopes allowed by the connection profile. `token_lifetime` on SCIM token creation now also accepts `null` for a non-expiring token [\#72](https://github.com/auth0/myorganization-js/pull/72)
+- Added `identity_provider_association` on `OrgDomain` [\#72](https://github.com/auth0/myorganization-js/pull/72)
+- Added `domain_aliases_config` on the `IdentityProvidersConfig` response, typed as `IdentityProvidersConfigDomainAliases` and exposing `domain_verification` [\#72](https://github.com/auth0/myorganization-js/pull/72)
+- Added `organization_deletion_behavior` (`allow` or `allow_if_empty`) on the configuration response [\#72](https://github.com/auth0/myorganization-js/pull/72)
+- Added `google_workspace` (`sync_users`) to the identity provider provisioning configuration [\#72](https://github.com/auth0/myorganization-js/pull/72)
+- Added new OAuth scopes for identity provider tests and related resources, along with types for identity provider tests and the update-domain response [\#72](https://github.com/auth0/myorganization-js/pull/72)
+- Request options now accept `additionalBodyParameters`, and the base client options accept `tenantDomain` [\#72](https://github.com/auth0/myorganization-js/pull/72)
+
+**Fixed**
+
+- Removed `id` and `access_level` from the Adfs, GoogleApps, Oidc, Okta, PingFederate, Samlp and Waad identity provider request types [\#72](https://github.com/auth0/myorganization-js/pull/72)
+
 ## [v2.1.0](https://github.com/auth0/myorganization-js/tree/v2.1.0) (2026-09-17)
 
 [Full Changelog](https://github.com/auth0/myorganization-js/compare/v2.0.0...v2.1.0)
