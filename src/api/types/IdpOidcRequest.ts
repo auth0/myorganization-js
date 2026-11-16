@@ -9,7 +9,6 @@ export interface IdpOidcRequest {
     strategy: IdpOidcRequest.Strategy;
     /** Identity provider specific options. */
     options?: MyOrganization.IdpOidcOptionsRequest | undefined;
-    id?: MyOrganization.IdpId | undefined;
     /** The name of the identity provider */
     name: string;
     /** List of domains for Home Realm Discovery (HRD) */
@@ -22,7 +21,6 @@ export interface IdpOidcRequest {
     assign_membership_on_login?: boolean | undefined;
     /** True if the identity provider is enabled for the organization. */
     is_enabled?: boolean | undefined;
-    access_level?: MyOrganization.OrganizationAccessLevelEnum | undefined;
     /** True if third-party applications can use it. If false, only first-party applications with the connection enabled can use it. Defaults to false. */
     use_for_third_party_client_access?: boolean | undefined;
     /** Cross-app access resource application configuration. Only present when the cross-app access resource application feature is enabled for your organization. */

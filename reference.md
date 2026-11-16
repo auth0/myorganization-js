@@ -2,61 +2,6 @@
 
 ## OrganizationDetails
 
-<details><summary><code>client.organizationDetails.<a href="/src/api/resources/organizationDetails/client/Client.ts">delete</a>() -> void</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Permanently delete this Organization.
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.organizationDetails.delete();
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**requestOptions:** `OrganizationDetailsClient.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
 <details><summary><code>client.organizationDetails.<a href="/src/api/resources/organizationDetails/client/Client.ts">get</a>() -> MyOrganization.GetOrganizationDetailsResponseContent</code></summary>
 <dl>
 <dd>
@@ -199,7 +144,7 @@ await client.organizationDetails.update({
 <dl>
 <dd>
 
-Retrieve the My Organization API configuration. Returns only the `connection_deletion_behavior` and `allowed_strategies`. Identifier attributes such as `user_attribute_profile_id` and `connection_profile_id` are not included. Cache this information, as it does not change frequently.
+Retrieve the My Organization API configuration. Returns the `allowed_strategies`, `connection_deletion_behavior`, `organization_deletion_behavior`, and (when enabled) `third_party_client_access` settings. Identifier attributes such as `user_attribute_profile_id` and `connection_profile_id` are not included. Cache this information, as it does not change frequently.
 
 </dd>
 </dl>
@@ -354,7 +299,7 @@ let page = await client.organization.domains.list({
     take: 1,
 });
 while (page.hasNextPage()) {
-    page = page.getNextPage();
+    page = await page.getNextPage();
 }
 
 // You can also access the underlying response
@@ -1123,7 +1068,7 @@ let page = await client.organization.members.list({
     include_totals: true,
 });
 while (page.hasNextPage()) {
-    page = page.getNextPage();
+    page = await page.getNextPage();
 }
 
 // You can also access the underlying response
@@ -1355,7 +1300,7 @@ let page = await client.organization.invitations.list({
     include_totals: true,
 });
 while (page.hasNextPage()) {
-    page = page.getNextPage();
+    page = await page.getNextPage();
 }
 
 // You can also access the underlying response
@@ -1654,7 +1599,7 @@ let page = await client.organization.roles.list({
     name: "name",
 });
 while (page.hasNextPage()) {
-    page = page.getNextPage();
+    page = await page.getNextPage();
 }
 
 // You can also access the underlying response
@@ -2428,6 +2373,77 @@ await client.organization.identityProviders.provisioning.scimTokens.create("idp_
 </dl>
 </details>
 
+<details><summary><code>client.organization.identityProviders.provisioning.scimTokens.<a href="/src/api/resources/organization/resources/identityProviders/resources/provisioning/resources/scimTokens/client/Client.ts">get</a>(idp_id, idp_scim_token_id) -> MyOrganization.GetIdpProvisioningScimTokenResponseContent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve the metadata of a SCIM token specified by token ID for the Provisioning Configuration of an Identity Provider specified by ID for this Organization. The token value is never returned.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.organization.identityProviders.provisioning.scimTokens.get("idp_id", "idp_scim_token_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**idp_id:** `MyOrganization.IdpId`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**idp_scim_token_id:** `MyOrganization.IdpProvisioningScimTokenId`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `ScimTokensClient.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.organization.identityProviders.provisioning.scimTokens.<a href="/src/api/resources/organization/resources/identityProviders/resources/provisioning/resources/scimTokens/client/Client.ts">delete</a>(idp_id, idp_scim_token_id) -> void</code></summary>
 <dl>
 <dd>
@@ -2608,7 +2624,7 @@ let page = await client.organization.members.roles.list("user_id", {
     take: 1,
 });
 while (page.hasNextPage()) {
-    page = page.getNextPage();
+    page = await page.getNextPage();
 }
 
 // You can also access the underlying response

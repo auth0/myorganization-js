@@ -19,6 +19,7 @@ describe("DomainsClient", () => {
                     status: "pending",
                     verification_txt: "dove_text=asdfpiujnlewp-23849jdkfjzxcfpiawer",
                     verification_host: "_ss-verification.org_zW1UHutvkVWSWdCC.acme.com",
+                    identity_provider_association: "associated",
                 },
                 {
                     id: "ord_zW1UHetvkBWSWdCDe8DWq7",
@@ -27,6 +28,7 @@ describe("DomainsClient", () => {
                     status: "failed",
                     verification_txt: "dove_text=bcxzpiujnlewp-23849jdkfjzxcfpiawer",
                     verification_host: "_ss-verification.org_nW1UHutvkVWSWdCG.acme.com",
+                    identity_provider_association: "associated",
                 },
             ],
         };
@@ -127,6 +129,7 @@ describe("DomainsClient", () => {
             status: "pending",
             verification_txt: "dove_text=asdfpiujnlewp-23849jdkfjzxcfpiawer",
             verification_host: "_ss-verification.org_zW1UHutvkVWSWdCC.acme.com",
+            identity_provider_association: "associated",
         };
 
         server
@@ -287,6 +290,7 @@ describe("DomainsClient", () => {
             status: "pending",
             verification_txt: "dove_text=asdfpiujnlewp-23849jdkfjzxcfpiawer",
             verification_host: "_ss-verification.org_zW1UHutvkVWSWdCC.acme.com",
+            identity_provider_association: "associated",
         };
 
         server.mockEndpoint().get("/domains/domain_id").respondWith().statusCode(200).jsonBody(rawResponseBody).build();

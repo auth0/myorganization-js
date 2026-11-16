@@ -39,6 +39,8 @@ export class MembersClient {
      * @throws {@link MyOrganization.ForbiddenError}
      * @throws {@link MyOrganization.NotFoundError}
      * @throws {@link MyOrganization.TooManyRequestsError}
+     * @throws {@link errors.MyOrganizationError}
+     * @throws {@link errors.MyOrganizationTimeoutError}
      *
      * @example
      *     await client.organization.members.list({
@@ -177,6 +179,8 @@ export class MembersClient {
      * @throws {@link MyOrganization.ForbiddenError}
      * @throws {@link MyOrganization.NotFoundError}
      * @throws {@link MyOrganization.TooManyRequestsError}
+     * @throws {@link errors.MyOrganizationError}
+     * @throws {@link errors.MyOrganizationTimeoutError}
      *
      * @example
      *     await client.organization.members.get("user_id", {
@@ -221,7 +225,7 @@ export class MembersClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.MyOrganizationEnvironment.Default,
-                `members/${core.url.encodePathParam(user_id)}`,
+                `members/${core.url.encodePathParam(user_id, errors.MyOrganizationError)}`,
             ),
             method: "GET",
             headers: _headers,

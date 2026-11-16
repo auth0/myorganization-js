@@ -29,7 +29,7 @@ export class ConfigurationClient {
     }
 
     /**
-     * Retrieve the My Organization API configuration. Returns only the `connection_deletion_behavior` and `allowed_strategies`. Identifier attributes such as `user_attribute_profile_id` and `connection_profile_id` are not included. Cache this information, as it does not change frequently.
+     * Retrieve the My Organization API configuration. Returns the `allowed_strategies`, `connection_deletion_behavior`, `organization_deletion_behavior`, and (when enabled) `third_party_client_access` settings. Identifier attributes such as `user_attribute_profile_id` and `connection_profile_id` are not included. Cache this information, as it does not change frequently.
      *
      * @param {ConfigurationClient.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -37,6 +37,8 @@ export class ConfigurationClient {
      * @throws {@link MyOrganization.ForbiddenError}
      * @throws {@link MyOrganization.NotFoundError}
      * @throws {@link MyOrganization.TooManyRequestsError}
+     * @throws {@link errors.MyOrganizationError}
+     * @throws {@link errors.MyOrganizationTimeoutError}
      *
      * @example
      *     await client.organization.configuration.get()

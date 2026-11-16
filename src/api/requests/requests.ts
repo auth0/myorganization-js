@@ -215,8 +215,10 @@ export interface CreateIdpDomainRequestContent {
  *     }
  */
 export interface CreateIdpProvisioningScimTokenRequestContent {
-    /** Lifetime of the token in seconds. Do not set for non-expiring tokens. */
-    token_lifetime?: number;
+    /** Lifetime of the token in seconds. If omitted, the connection profile's default expiry applies, or its maximum allowed expiry if no default is set; if neither is set, the token does not expire. Set to null for a non-expiring token; this is rejected if the connection profile sets a maximum allowed expiry. */
+    token_lifetime?: number | null;
+    /** The scopes of the token. Must be a subset of the scopes allowed by the connection profile. Defaults to all the scopes allowed by the connection profile. */
+    scopes?: MyOrganization.IdentityProvidersConfigProvisioningConfigurationScimTokensScopesEnum[];
 }
 
 /**

@@ -260,6 +260,142 @@ describe("ScimTokensClient", () => {
         }).rejects.toThrow(MyOrganization.TooManyRequestsError);
     });
 
+    test("get (1)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {
+            token_id: "tok_tuz8H9hWQ8LaCkdh",
+            scopes: ["scopes"],
+            created_at: "2025-04-11T20:11:45Z",
+            valid_until: "2025-04-11T20:26:45Z",
+        };
+
+        server
+            .mockEndpoint()
+            .get("/identity-providers/idp_id/provisioning/scim-tokens/idp_scim_token_id")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.organization.identityProviders.provisioning.scimTokens.get(
+            "idp_id",
+            "idp_scim_token_id",
+        );
+        expect(response).toEqual(rawResponseBody);
+    });
+
+    test("get (2)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { key: "value" };
+
+        server
+            .mockEndpoint()
+            .get("/identity-providers/idp_id/provisioning/scim-tokens/idp_scim_token_id")
+            .respondWith()
+            .statusCode(400)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.organization.identityProviders.provisioning.scimTokens.get(
+                "idp_id",
+                "idp_scim_token_id",
+            );
+        }).rejects.toThrow(MyOrganization.BadRequestError);
+    });
+
+    test("get (3)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
+        server
+            .mockEndpoint()
+            .get("/identity-providers/idp_id/provisioning/scim-tokens/idp_scim_token_id")
+            .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.organization.identityProviders.provisioning.scimTokens.get(
+                "idp_id",
+                "idp_scim_token_id",
+            );
+        }).rejects.toThrow(MyOrganization.UnauthorizedError);
+    });
+
+    test("get (4)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
+        server
+            .mockEndpoint()
+            .get("/identity-providers/idp_id/provisioning/scim-tokens/idp_scim_token_id")
+            .respondWith()
+            .statusCode(403)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.organization.identityProviders.provisioning.scimTokens.get(
+                "idp_id",
+                "idp_scim_token_id",
+            );
+        }).rejects.toThrow(MyOrganization.ForbiddenError);
+    });
+
+    test("get (5)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
+        server
+            .mockEndpoint()
+            .get("/identity-providers/idp_id/provisioning/scim-tokens/idp_scim_token_id")
+            .respondWith()
+            .statusCode(404)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.organization.identityProviders.provisioning.scimTokens.get(
+                "idp_id",
+                "idp_scim_token_id",
+            );
+        }).rejects.toThrow(MyOrganization.NotFoundError);
+    });
+
+    test("get (6)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { type: "type", status: 1, title: "title", detail: "detail" };
+
+        server
+            .mockEndpoint()
+            .get("/identity-providers/idp_id/provisioning/scim-tokens/idp_scim_token_id")
+            .respondWith()
+            .statusCode(429)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.organization.identityProviders.provisioning.scimTokens.get(
+                "idp_id",
+                "idp_scim_token_id",
+            );
+        }).rejects.toThrow(MyOrganization.TooManyRequestsError);
+    });
+
     test("delete (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new MyOrganizationClient({ maxRetries: 0, token: "test", environment: server.baseUrl });

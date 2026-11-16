@@ -36,6 +36,8 @@ export class VerifyClient {
      * @throws {@link MyOrganization.ForbiddenError}
      * @throws {@link MyOrganization.NotFoundError}
      * @throws {@link MyOrganization.TooManyRequestsError}
+     * @throws {@link errors.MyOrganizationError}
+     * @throws {@link errors.MyOrganizationTimeoutError}
      *
      * @example
      *     await client.organization.domains.verify.create("domain_id")
@@ -70,7 +72,7 @@ export class VerifyClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.MyOrganizationEnvironment.Default,
-                `domains/${core.url.encodePathParam(domain_id)}/verify`,
+                `domains/${core.url.encodePathParam(domain_id, errors.MyOrganizationError)}/verify`,
             ),
             method: "POST",
             headers: _headers,

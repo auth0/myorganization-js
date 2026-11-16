@@ -12,6 +12,7 @@ describe("ConfigurationClient", () => {
         const rawResponseBody = {
             allowed_strategies: ["adfs", "pingfederate"],
             connection_deletion_behavior: "allow",
+            organization_deletion_behavior: "allow_if_empty",
             third_party_client_access: { default_value: "allow", allowed_values: ["allow"] },
         };
 
